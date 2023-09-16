@@ -1,0 +1,9 @@
+<div class="container bgBottompadding2">
+    <div class="scroll" scrollX="true">
+        <div *ngFor="let item of categorylist" class="itemStyle" 
+            (click)="lookForCategory(item.category)">
+           <img [src]="item.url" class="imageRegionalStyle"/>
+           <div class="itemName">{{item.name}}</div>
+        </div>
+    </div>
+</div> 

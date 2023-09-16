@@ -1,0 +1,39 @@
+div[scrollx=true] {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    &::-webkit-scrollbar {
+       display: none;
+    }
+     .itemStyle {
+       flex: 0 0 auto;       
+    }
+  }
+
+.mealStyle{
+    width: 140px;
+    margin: 0px 4px 0px 4px;
+    padding: 0px 2px;
+}
+.mealImageStyle{
+    width: 140px;
+    height: 140px;
+}
+.mealName{
+    position: relative;
+    top: 23px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    display: inline-block;
+    width: 100%;
+}
+
+// .specialStyle{
+//     width: 206px;
+//     margin: 7px 9px 4px 8px;
+//     img{
+//         height: 101px;
+//         border-radius: 20px;
+//     }
+// }

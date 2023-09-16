@@ -1,0 +1,25 @@
+// @import "~/src/styles.scss";
+
+div[scrollx=true] {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    &::-webkit-scrollbar {
+       display: none;
+    }
+     .itemStyle {
+       flex: 0 0 auto;
+       height: 160px;
+    }
+  }
+
+  .itemImageStyle{
+    width: 140px;
+    height: 140px;
+  }
+  
+  .itemName{
+    font-size: 13px;
+    line-height: 12px;
+    color: #364152;
+  }

@@ -1,0 +1,64 @@
+.container-fluid {
+    padding: 0;
+}
+
+.navbar {
+    .navbar-collapse {
+        margin-right: 150px;
+    }
+
+    li {
+        font-size: 17px;
+        font-weight: 500;
+        padding: 10px 25px;
+    }
+
+    .navbar-brand {
+        margin-left: 100px;
+    }
+
+    .location {
+        margin-top: 4px;
+        font-size: 14px;
+        cursor:pointer;
+    }
+}
+
+.kitchen-list,
+.near-kitchen-list {
+    margin: 30px 125px;
+
+    .card {
+        border: none;
+
+        .card-body {
+            padding: 5px;
+        }
+
+        .card-title {
+            margin: 0;
+        }
+    }
+
+    .card img {
+        height: 200px;
+        border-radius: 5%;
+    }
+
+    p {
+        text-align: left;
+        margin: 0;
+    }
+
+    h6 {
+        text-align: left;
+    }
+}
+
+.banner-section {
+    margin: 0px 100px;
+}
+
+.offcanvas{
+    width:35%;
+}
