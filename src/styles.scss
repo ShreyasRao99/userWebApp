@@ -1,0 +1,891 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+// @import "~@ionic/angular/css/core.css";
+
+// /* Basic CSS for apps built with Ionic */
+// @import "~@ionic/angular/css/normalize.css";
+// @import "~@ionic/angular/css/structure.css";
+// @import "~@ionic/angular/css/typography.css";
+// @import '~@ionic/angular/css/display.css';
+
+// /* Optional CSS utils that can be commented out */
+// @import "~@ionic/angular/css/padding.css";
+// @import "~@ionic/angular/css/float-elements.css";
+// @import "~@ionic/angular/css/text-alignment.css";
+// @import "~@ionic/angular/css/text-transformation.css";
+// @import "~@ionic/angular/css/flex-utils.css";
+
+// @import '~swiper/scss';
+// @import '~@ionic/angular/css/ionic-swiper';
+// @import '~swiper/scss/autoplay';
+// @import '~swiper/scss/keyboard';
+// @import '~swiper/scss/pagination';
+// @import '~swiper/scss/scrollbar';
+// @import '~swiper/scss/zoom';
+
+// html.ios {
+//     --ion-safe-area-top: 10px;
+// }
+
+// ion-content {
+//     --offset-top: 0px;
+//     --offset-bottom: 0px;
+//     --keyboard-offset: 0px !important;
+//     --ion-background-color: #ffffff;
+//     --background: #ffffff;
+//     --color: black;
+// }
+
+// .ion-page {
+//     height: 100%;
+//     width: 100%;
+// }
+
+$primary-color1: #e62841;
+$primary-color2: #b9041c;
+$primary-color3: #fe8e9c;
+$primary-offset-color1: #ffffff;
+$primary-offset-color2: #a4a4a4;
+$primary-offset-color3: #333333;
+$secondary-color1: #88e5db;
+$secondary-color2: #60c8bc;
+$secondary-color3: #15a292;
+$secondary-offset-color1: #ffd674;
+$secondary-offset-color2: #ffc947;
+$secondary-offset-color3: #ffb300;
+
+:root {
+    --ion-color-rose: #15a292;
+    --ion-color-rose-rgb: 69, 123, 117;
+    --ion-color-rose-contrast: #ffffff;
+    --ion-color-rose-contrast-rgb: 255, 255, 255;
+    --ion-color-rose-shade: #15a292;
+    --ion-color-rose-tint: #15a292;
+}
+
+.ion-color-rose {
+    --ion-color-base: var(--ion-color-rose);
+    --ion-color-base-rgb: var(--ion-color-rose-rgb);
+    --ion-color-contrast: var(--ion-color-rose-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-rose-contrast-rgb);
+    --ion-color-shade: var(--ion-color-rose-shade);
+    --ion-color-tint: var(--ion-color-rose-tint);
+}
+
+.customDates {
+    --background: #88e5db;
+    --background-rgb: 255, 241, 242;
+    border-radius: 16px;
+    box-shadow: rgba(var(--ion-color-rose-rgb), 0.3) 0px 10px 15px -3px;
+}
+
+html {
+    font-family: 'Lato', sans-serif !important;
+    --ion-font-family: 'Lato', sans-serif !important;
+    --ion-default-font: 'Lato', sans-serif !important;
+}
+
+ion-list {
+    --background: white;
+    background: white;
+
+    ion-item {
+        --background: white;
+        background: white;
+    }
+}
+
+.paddingAll-5 {
+    padding: 5px;
+}
+
+.padding-0 {
+    padding: 0px;
+}
+
+.padding-5 {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.padding-10 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.fullheight {
+    height: 100%;
+    width: 100%;
+}
+
+.fullwidth {
+    width: 100% !important;
+}
+
+.inputStyle1 {
+    border: 2px solid $secondary-offset-color1;
+    border-radius: 9px;
+    box-shadow: 3px 3px 3px #d250619c;
+    width: 230px;
+}
+
+.buttonstyle1 {
+    width: 130px;
+    --background: $primary-color2;
+    --border-radius: 9px;
+    background: $primary-color2;
+    border-radius: 9px;
+    box-shadow: 3px 3px 3px #695457c4;
+    --background-activated: none;
+    --background-focused: none;
+    --background-hover: none;
+}
+
+.buttonStyle {
+    height: 40px;
+    width: 180px;
+    border-radius: 10px;
+    box-shadow: 3px 3px 3px #695457c4;
+    background: $secondary-color3;
+}
+
+.buttonfonts {
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.inputFont1 {
+    font-size: 18px;
+    color: $primary-offset-color1;
+}
+
+.whiteBG {
+    background: white;
+}
+
+.white {
+    color: $primary-offset-color1;
+}
+
+.black {
+    color: black;
+}
+
+.grey {
+    color: $primary-offset-color2;
+}
+
+.primary1 {
+    color: $primary-color1 !important;
+}
+
+.primary2 {
+    color: $primary-color2 !important;
+}
+
+.secondary-color3 {
+    color: $secondary-color3 !important;
+}
+
+.secondary-offset-color3 {
+    color: $secondary-offset-color3
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.header1 {
+    font-size: 26px;
+    ;
+}
+
+.header2 {
+    font-size: 20px;
+}
+
+.header3 {
+    font-size: 16px;
+}
+
+.header4 {
+    font-size: 14px;
+}
+
+.header5 {
+    font-size: 12px;
+}
+
+.header6 {
+    font-size: 10px;
+    line-height: 15px;
+    display: flex;
+    align-items: center;
+    color: #BBC0D0;
+}
+
+.header7 {
+    font-size: 8px;
+}
+
+.sectionHeader {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 15.43px;
+    color: #101828;
+    padding: 3% 5% 1% 2%;
+}
+
+ion-slides {
+    height: 100%;
+    width: 100%;
+    --bullet-background: #b9041c;
+    --bullet-background-active: #ffd674;
+}
+
+.bgpadding {
+    padding: 10%;
+}
+
+.bgpadding5 {
+    padding: 5%;
+}
+
+.bgpadding4 {
+    padding: 4%;
+}
+
+.bgpadding3 {
+    padding: 3%;
+}
+
+.bgpadding2 {
+    padding: 2%;
+}
+
+.bgpadding1 {
+    padding: 1%;
+}
+
+.bgsidepadding5 {
+    padding: 0 5%;
+}
+
+.bgsidepadding4 {
+    padding: 0 4%;
+}
+
+.bgsidepadding3 {
+    padding: 0 3%;
+}
+
+.bgsidepadding2 {
+    padding: 0 2%;
+}
+
+.bgsidepadding1 {
+    padding: 0 1%;
+}
+
+.bgTopDownpadding5 {
+    padding: 5% 0;
+}
+
+.bgTopDownpadding4 {
+    padding: 4% 0;
+}
+
+.bgTopDownpadding3 {
+    padding: 3% 0;
+}
+
+.bgTopDownpadding2 {
+    padding: 2% 0;
+}
+
+.bgTopDownpadding1 {
+    padding: 1% 0;
+}
+
+.bgToppadding5 {
+    padding-top: 5%;
+}
+
+.bgToppadding4 {
+    padding-top: 4%;
+}
+
+.bgToppadding3 {
+    padding-top: 3%;
+}
+
+.bgToppadding2 {
+    padding-top: 2%;
+}
+
+.bgToppadding1 {
+    padding-top: 1%;
+}
+
+.bgBottompadding5 {
+    padding-bottom: 5%;
+}
+
+.bgBottompadding4 {
+    padding-bottom: 4%;
+}
+
+.bgBottompadding3 {
+    padding-bottom: 3%;
+}
+
+.bgBottompadding2 {
+    padding-bottom: 2%;
+}
+
+.bgBottompadding1 {
+    padding-bottom: 1%;
+}
+
+.pageBg {
+    background: linear-gradient($primary-color1, $primary-color3);
+}
+
+.center {
+    text-align: center;
+}
+
+.left {
+    text-align: left;
+}
+
+.alignRight {
+    text-align: right;
+}
+
+.right {
+    float: right;
+}
+
+.inline {
+    display: inline-block;
+}
+
+.inline-table {
+    display: table-cell;
+}
+
+.inline-flex {
+    display: flex;
+    flex-direction: row;
+}
+
+.typeIcon {
+    height: 12px;
+    width: 12px;
+    background-size: 6px !important;
+    background-repeat: no-repeat !important;
+    background-position: 2px 2px !important;
+    margin-right: 2px;
+}
+
+.vegIcon {
+    background: url('~/src/assets/icon/veg.png');
+    border: 1px solid #5BC085;
+}
+
+.nonvegIcon {
+    background: url('~/src/assets/icon/nonveg.svg');
+    border: 1px solid #e21c24;
+}
+
+.jainIcon {
+    background: url('~/src/assets/icon/jain.svg');
+    background-size: 10px !important;
+    width: 26px;
+    text-align: center;
+    font-size: 8px;
+    border: 1px solid #BBC0D0;
+    border-radius: 2px;
+    padding: 2px 0px;
+    vertical-align: top;
+}
+
+
+/****Account sub pages css********/
+
+.headerBG {
+    background: $primary-color1;
+    height: 85px;
+    box-shadow: 0px 3px 9px 0px #9e6c73;
+    margin-bottom: 7%;
+    color: white;
+    font-size: 17px;
+    padding-top: 45px;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+}
+
+.pageContent {
+    padding-top: 102px;
+}
+
+.backIcon {
+    font-size: 30px;
+    padding: 0px 15px 0px 10px;
+}
+
+.headerText {
+    vertical-align: middle;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+/************END***********/
+/*********Modal controller Css *********/
+
+.xtrashort-modal-design {
+    .modal-shadow {
+        background: #17151570 !important;
+    }
+
+    --backdrop-opacity: 0.6 !important;
+    --width: 70%;
+    --height: 35%;
+    --border-radius: 12px;
+    position: absolute;
+
+    .ion-page {
+        height: 100%;
+    }
+}
+
+.xshort-modal-design {
+    .modal-shadow {
+        background: #17151570 !important;
+    }
+
+    --backdrop-opacity: 0.6 !important;
+    --width: 86%;
+    --height: 326px;
+    --border-radius: 12px;
+    position: absolute;
+
+    .ion-page {
+        height: 100%;
+    }
+}
+
+.xtramiddle-bottom-modal-design {
+    --height: 530px;
+    --border-radius: 20px 20px 0px 0px;
+
+    .ion-page {
+        height: 100%;
+    }
+}
+
+.xtrashort-bottom-modal-design {
+    --height: 42%;
+    --border-radius: 12px 12px 0px 0px;
+
+    .ion-page {
+        height: 100%;
+    }
+}
+
+.xtrashort-filter-modal-design {
+    --height: 280px;
+    --border-radius: 20px 20px 0px 0px;
+
+    .ion-page {
+        height: 100%;
+    }
+}
+
+.xtrashort-location-modal-design {
+    --height: 278px;
+    --width: 86%;
+    --border-radius: 12px;
+    --backdrop-opacity: 0.6 !important;
+
+    .ion-page {
+        height: 100%;
+    }
+}
+
+.short-modal-design {
+    --width: 86%;
+    --height: 60%;
+    --border-radius: 12px;
+
+    .ion-page {
+        height: 100%;
+    }
+}
+
+.short-logout-modal-design {
+    --width: 78%;
+    --height: 280px;
+    --border-radius: 36px;
+
+    .ion-page {
+        height: 100%;
+    }
+}
+
+.medium-modal-design {
+    width: 95%;
+    --height: 80%;
+    --border-radius: 12px;
+
+    .ion-page {
+        height: 100%;
+    }
+}
+
+.modalCntrlheader {
+    background: $primary-color1;
+    height: 40px;
+    padding-top: 12px;
+    color: white;
+    letter-spacing: 0px;
+    word-spacing: 5px;
+    font-weight: bold;
+}
+
+.modalCntrlcrossIcon {
+    font-size: 30px;
+    position: absolute;
+    right: 10px;
+    top: 6px;
+    color: white;
+}
+
+.modalCntrlparentHeight {
+    height: inherit;
+}
+
+.modalCntrlmodalscrollbody {
+    overflow-y: scroll;
+}
+
+.photo-edit-modal-design {
+    --width: 95%;
+    --height: 80%;
+    --border-radius: 12px;
+
+    .ion-page {
+        height: 100%;
+    }
+}
+
+.sc-ion-modal-md-h:last-of-type {
+    --backdrop-opacity: var(--ion-backdrop-opacity, 0.32);
+}
+
+.sc-ion-modal-ios-h:last-of-type {
+    --backdrop-opacity: var(--ion-backdrop-opacity, 0.32);
+}
+
+.flash-modal-design {
+    --background: transparent
+}
+
+.image-modal-design {
+    --height: 100%;
+    position: absolute;
+    --background: #040404b5;
+}
+
+/************END***********/
+
+.checkbox {
+    background: url(~/src/assets/cart/checkunselected.svg);
+    background-size: 18px !important;
+    background-repeat: no-repeat !important;
+    background-position: 5px 0px !important;
+    background-position: 5px 8px !important;
+    display: inline-block;
+
+    &.selected {
+        background: url(~/src/assets/cart/checkselected.svg);
+    }
+}
+
+
+.pac-container {
+    background-color: white;
+    border-radius: 2px;
+    z-index: 9999 !important;
+
+    .pac-item {
+        color: $primary-color3;
+    }
+
+    .pac-icon {
+        background-repeat: no-repeat;
+        background-size: 10px;
+        background-position: 1px 1px;
+        background-image: url('~/src/assets/icon/location_red.svg');
+    }
+
+    .pac-item-query {
+        color: $primary-color3;
+    }
+}
+
+/*****alert model*****/
+.my-alert-class {
+    .alert-title {
+        color: $primary-color1
+    }
+
+    .alert-message {
+        color: $primary-offset-color2
+    }
+
+}
+
+.nobtn {
+    color: white !important;
+    background: $secondary-color3 !important;
+    border: 0px !important;
+}
+
+.yesbtn {
+    color: white !important;
+    background: $primary-color1 !important;
+    border: 0px !important;
+}
+
+.swiper-pagination {
+    bottom: 0px !important;
+}
+
+input[type='radio']:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: #d1d3d1;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+
+input[type='radio']:checked:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: #e62841;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+
+.disablebtn {
+    background: grey !important;
+}
+
+.wrapper {
+    .otp-input {
+        border: 2px solid #D0D5DD !important;
+        border-radius: 9px !important;
+        display: inline-block;
+        width: 40px !important;
+        height: 40px !important;
+        margin: 8px 6px 8px 0px !important;
+        text-align: center;
+        color: #D0D5DD !important;
+        font-size: 26px !important;
+        background: transparent;
+        padding: 0px !important;
+    }
+}
+
+.filterPresent {
+    background: #15a292;
+    padding: 3px 3px;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    position: relative;
+    z-index: 1;
+    top: -14px;
+    left: -20px;
+    color: white;
+
+    ion-icon {
+        font-size: 13px;
+        position: relative;
+        top: 3px;
+        left: 0px
+    }
+}
+
+.crossPrice {
+    text-decoration: line-through;
+}
+
+.listloader {
+    height: 34px;
+    width: 100%;
+}
+
+.my-popover-class {
+    --background: #222;
+    --min-width: 250px;
+}
+
+ion-refresher {
+    margin-top: 10px;
+}
+
+.refresher-ios .refresher-pulling-icon,
+.refresher-ios .refresher-pulling-text,
+.refresher-ios .refresher-refreshing-icon,
+.refresher-ios .refresher-refreshing-text {
+    --color: #e62841;
+    margin-top: 20px;
+}
+
+.on-selected,
+.startSelection,
+.between,
+.endSelection {
+    background-color: red !important;
+}
+
+
+/****ion date time*****/
+ion-datetime {
+    background: white;
+    border-radius: 10px;
+}
+
+.datetime {
+    --background: transparent;
+    padding-top: 25vh;
+    border-radius: 8px;
+    --width: 90%;
+}
+
+.datetimeModal {
+    --background: transparent;
+    padding-top: 25vh;
+    border-radius: 8px;
+    --width: 90%;
+    --backdrop-opacity: 0.6;
+}
+
+
+/******************/
+
+app-offers-coupon {
+    background: #eeeeee;
+}
+
+
+
+.discountStyleAllday {
+    .action-sheet-wrapper {
+        .action-sheet-container {
+            .action-sheet-group {
+                button {
+                    border-bottom: 1px solid rgba(8, 24, 40, 0.1);
+                    box-shadow: 0px 2px 15px -8px rgb(56 66 80 / 50%);
+                }
+
+                button:nth-child(n+3) {
+                    padding-top: 1px;
+                    background: url('~/src/assets/images/happy-hour.png') !important;
+                    background-repeat: no-repeat !important;
+                    background-size: 44px !important;
+                    background-position: 95% 6px !important;
+                }
+
+                button:nth-child(n+3)::before {
+                    content: "Happy Hour 5% discount";
+                    color: #F85266;
+                    font-size: 12px;
+                    font-weight: bolder;
+                    font-style: italic;
+                }
+
+                .action-sheet-cancel {
+                    background: none !important;
+                }
+            }
+
+            .action-sheet-selected::after {
+                background: none !important;
+            }
+        }
+    }
+}
+
+.discountStyleAdvday {
+    .action-sheet-wrapper {
+        .action-sheet-container {
+            .action-sheet-group {
+                button {
+                    border-bottom: 1px solid rgba(8, 24, 40, 0.1);
+                    box-shadow: 0px 2px 15px -8px rgb(56 66 80 / 50%);
+                }
+
+                button:nth-child(n+3) {
+                    padding-top: 1px;
+                    background: url('~/src/assets/images/happy-hour.png') !important;
+                    background-repeat: no-repeat !important;
+                    background-size: 44px !important;
+                    background-position: 95% 6px !important;
+                }
+
+                button:nth-child(n+3)::before {
+                    content: "Happy Hour 5% discount";
+                    color: #F85266;
+                    font-size: 12px;
+                    font-weight: bolder;
+                    font-style: italic;
+                }
+
+                .action-sheet-cancel {
+                    background: none !important;
+                }
+            }
+
+            .action-sheet-selected::after {
+                background: none !important;
+            }
+        }
+    }
+}
+
+textarea:focus,
+input[type="text"]:focus {
+    border-color: #e62841;
+    outline: 0 none;
+}

@@ -1,0 +1,97 @@
+<div class="container-fluid" *ngIf="serviceAvailable">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand">
+            <img src="assets/images/mealawe.jpeg" width="30" height="30" class="d-inline-block align-top" alt="">
+            Mealawe
+        </a>
+        <span role="button" data-bs-toggle="offcanvas" data-bs-target="#location" class="location"
+            (click)="callFindMyAddress()">Wakad Pimpri-Chinchwad, Maharashtra, India</span>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item active">
+                    <a class="nav-link">Search</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">Offers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">Help</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                        (click)="userProfile ? goToMyAccount():''">{{userProfile?.userName?userProfile?.userName:'Sign
+                        In'}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">Cart</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="banner-section">
+        <app-regional-items></app-regional-items>
+        <app-category-items></app-category-items>
+        <app-meal-time></app-meal-time>
+    </div>
+    <div class="kitchen-section" *ngIf="kitchenList.length>0">
+        <div class="near-kitchen-list">
+            <h4 class="left">Restaurants with online food delivery in Pune</h4>
+            <div class="row text-center mt-4">
+                <div class="col-3" *ngFor="let kitchen of nearKitchenList">
+                    <div class="card mb-5 bg-white rounded" style="width: 18rem;">
+                        <img class="card-img-top img-fluid" [src]="imageUrl + kitchen.imageUrl" alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class="card-title">{{kitchen.kitchenName}}</h6>
+                            <p class="card-text">{{kitchen.rating}}*</p>
+                            <p class="card-text">{{kitchen.mainSpeciality}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="kitchen-list">
+            <h4 class="left">Restaurants Nearby</h4>
+            <div class="row text-center mt-4">
+                <div class="col-3" *ngFor="let kitchen of kitchenList">
+                    <div class="card mb-5 bg-white rounded" style="width: 18rem;">
+                        <img class="card-img-top img-fluid" [src]="imageUrl + kitchen.imageUrl" alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class="card-title">{{kitchen.kitchenName}}</h6>
+                            <p class="card-text">{{kitchen.rating}}*</p>
+                            <p class="card-text">{{kitchen.mainSpeciality}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-no-service *ngIf="!serviceAvailable"></app-no-service>
+</div>
+<div class="delivery-location">
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="location" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-body">
+            <div class="container" *ngIf="!showMap">
+                <div class="row">
+                    <div class="col-8">
+                        <form class="search-form mt-5">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control shadow-none" [id]="mapId" placeholder="Search Your Location"
+                                    aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-light btn-sm">Locate Me</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="select-address" *ngIf="showMap">
+                <app-set-delivery-location></app-set-delivery-location>
+            </div>
+        </div>
+    </div>
+</div>

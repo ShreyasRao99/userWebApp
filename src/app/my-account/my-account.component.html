@@ -1,0 +1,38 @@
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand">
+            <img src="assets/images/mealawe.jpeg" width="30" height="30" class="d-inline-block align-top" alt="">
+            Mealawe
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item active">
+                    <a class="nav-link">Search</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">Offers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">Help</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/my-account">{{userProfile.userName}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">Cart</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<button class="btn btn-primary" [routerLink]="['orders']">Orders</button>
+<button class="btn btn-primary" [routerLink]="['favourites']">Favourites</button>
+<button class="btn btn-primary" [routerLink]="['payments']">payments</button>
+<button class="btn btn-primary" [routerLink]="['addresses']">addresses</button>
+<button class="btn btn-primary" [routerLink]="['settings']">settings</button>
+<button class="btn btn-primary" [routerLink]="['checkout']">checkout</button>
+<router-outlet></router-outlet>

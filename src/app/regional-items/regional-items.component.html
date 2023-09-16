@@ -1,0 +1,12 @@
+<div>
+    <div class="sectionHeader">Whats Cooking</div>    
+    <div class="container">
+        <div class="scroll" scrollX="true">
+            <div *ngFor="let item of regionalList" class="itemStyle" 
+                (click)="lookForRegional(item.name)">
+               <img [src]="item.url" class="itemImageStyle"/>
+               <div class="itemName center">{{item.name}}</div>
+            </div>
+        </div>
+    </div>   
+</div>

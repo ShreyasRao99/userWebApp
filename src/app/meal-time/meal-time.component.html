@@ -1,0 +1,9 @@
+<div>
+    <div class="sectionHeader">Order Type</div>
+    <div class="scroll" scrollX="true">
+        <div *ngFor="let meal of mealtimelist" class="itemStyle mealStyle"
+            (click)="lookForMealTime(meal.searchStr,meal.name,meal.type)">
+            <img class="mealImageStyle" [src]="meal.url" />
+        </div>
+    </div>
+</div>

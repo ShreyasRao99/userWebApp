@@ -1,0 +1,23 @@
+div[scrollx=true] {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    &::-webkit-scrollbar {
+       display: none;
+    }
+     .itemStyle {
+       flex: 0 0 auto;
+    }
+  }
+
+  .imageRegionalStyle{
+    width: 140px;
+    height: 140px;
+  }
+
+  .itemName{
+    font-size: 13px;
+    color: #364152;
+    text-align: center;
+  }
+  

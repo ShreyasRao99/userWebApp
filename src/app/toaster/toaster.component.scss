@@ -1,0 +1,42 @@
+.toasterPosition{
+    position: absolute;
+    z-index: 30001;
+    top: 0;
+    padding-top: 10%;
+    width: 100%;
+}
+.toasterCard{
+    margin: 2%;
+    padding: 14px 10px 14px 0px;
+    border-radius: 5px;
+    color: white;
+}
+.error{
+    background: #e62841;
+}
+.warning{
+    background: #ffb300;
+    color: black;
+}
+.success{
+    background: #15a292;
+}
+.info{
+    background: #cfcfcf;
+    color: black;
+}
+.banner{
+    background: #ffb300;
+}
+.textPostion{
+    width: 80%;
+    vertical-align: top;
+}
+
+.inline-toaster{
+    display: table-cell;
+}
+.toaster-icon{
+    padding: 0px 10px;
+    font-size: 40px;
+}
