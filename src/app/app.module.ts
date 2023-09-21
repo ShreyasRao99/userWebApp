@@ -6,7 +6,8 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MainloaderComponent } from './mainloader/mainloader.component';
-import { ToasterComponent } from './toaster/toaster.component'
+import { ToasterComponent } from './toaster/toaster.component';
+import { CustomPipeModule } from 'src/pipes/pipe.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ToasterComponent } from './toaster/toaster.component'
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CustomPipeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { GeolocationService } from './geolocation.service';
+import { UserSearchService } from './user-search.service';
 
-describe('GeolocationService', () => {
-  let service: GeolocationService;
+describe('UserSearchService', () => {
+  let service: UserSearchService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(GeolocationService);
+    service = TestBed.inject(UserSearchService);
   });
 
   it('should be created', () => {

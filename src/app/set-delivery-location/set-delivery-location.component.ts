@@ -3,6 +3,7 @@ import { GeolocationService } from 'src/service/geolocation.service';
 import { GoogleMapService } from 'src/service/google-map.service';
 import { LocalStorageService } from 'src/service/local-storage.service';
 import { GoogleStyle } from 'src/config/google.config';
+import { SendDataToComponent } from 'src/service/sendDataToComponent';
 
 @Component({
   selector: 'app-set-delivery-location',
@@ -10,8 +11,9 @@ import { GoogleStyle } from 'src/config/google.config';
   styleUrls: ['./set-delivery-location.component.scss']
 })
 export class SetDeliveryLocationComponent implements OnInit {
+  showMoreDetails: boolean = false;
 
-  constructor(private localStorageService:LocalStorageService, private chgDetRef: ChangeDetectorRef, private googleMapService:GoogleMapService, private geoLocationService:GeolocationService){
+  constructor(private localStorageService:LocalStorageService, private sendDataToComponent:SendDataToComponent, private chgDetRef: ChangeDetectorRef, private googleMapService:GoogleMapService, private geoLocationService:GeolocationService){
     this.mapid += Math.round(Math.random() * 1000); 
   }
 
@@ -29,7 +31,6 @@ export class SetDeliveryLocationComponent implements OnInit {
 
   loadCurrentSavedLocation(){
     const currentLocation =  this.localStorageService.getCacheData('CURRENT_LOCATION');
-    console.log(currentLocation)
     if(currentLocation){
       this.currentSavedLocation = currentLocation;
       this.loadSelectedLocation(currentLocation);
@@ -50,9 +51,7 @@ export class SetDeliveryLocationComponent implements OnInit {
         center = this.currentSavedLocation;
       }else{
         center = await this.geoLocationService.getCurrentCoordinate(true,false);  
-        console.log(center)
       }   
-      console.log(document.getElementById(this.mapid))
       const map = new this.google.maps.Map(document.getElementById(this.mapid), {
           center,
           zoom: 12,
@@ -61,7 +60,6 @@ export class SetDeliveryLocationComponent implements OnInit {
           mapTypeId: this.google.maps.MapTypeId.ROADMAP,
           styles: GoogleStyle
       });        
-      console.log(map)
       map.setCenter(center);
       this.fetchingCenter = false;
       const mapbounds = new this.google.maps.LatLngBounds();
@@ -127,6 +125,7 @@ export class SetDeliveryLocationComponent implements OnInit {
   }
 
   configureCurrentLocation(address:any){
+    console.log(address)
     if(address.lat && address.lng){
       address.latlng = {lat:address.lat,lng:address.lng}
     }      
@@ -138,6 +137,14 @@ export class SetDeliveryLocationComponent implements OnInit {
       landmark: address.landmark ? address.landmark : undefined,
       _id: address._id ? address._id : undefined
     };
+  }
+
+  sendCurrentLocation(){
+    this.sendDataToComponent.publish('ADDRESS_FROM_DELIVERY', this.selectedAddress)
+  }
+
+  toggleAdditionalDetails(){
+    this.showMoreDetails = true
   }
 
 }

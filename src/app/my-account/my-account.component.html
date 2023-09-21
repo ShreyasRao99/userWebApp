@@ -28,11 +28,20 @@
             </ul>
         </div>
     </nav>
+    <div class="options-container">
+        <div class="row">
+            <div class="col-2">
+                <div class="mt-5" routerLink="orders">Orders</div>
+                <div class="mt-5" routerLink="favourites">Favourites</div>
+                <div class="mt-5" routerLink="payments">payments</div>
+                <div class="mt-5" routerLink="addresses">addresses</div>
+                <div class="mt-5" routerLink="settings">settings</div>
+                <div class="mt-5" routerLink="checkout">checkout</div>
+            </div>
+            <div class="col-10 mt-5">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
 </div>
-<button class="btn btn-primary" [routerLink]="['orders']">Orders</button>
-<button class="btn btn-primary" [routerLink]="['favourites']">Favourites</button>
-<button class="btn btn-primary" [routerLink]="['payments']">payments</button>
-<button class="btn btn-primary" [routerLink]="['addresses']">addresses</button>
-<button class="btn btn-primary" [routerLink]="['settings']">settings</button>
-<button class="btn btn-primary" [routerLink]="['checkout']">checkout</button>
-<router-outlet></router-outlet>
+

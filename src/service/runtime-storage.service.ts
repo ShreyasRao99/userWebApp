@@ -47,6 +47,10 @@ resetAllCacheData(): void{
   this.cacheObj = {};
 }
 
+resetCacheData(key: string): void{
+  delete this.cacheObj[key];
+}
+
 }
 
 class CacheStorageModel{

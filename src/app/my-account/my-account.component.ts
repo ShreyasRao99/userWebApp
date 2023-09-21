@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { LocalStorageService } from 'src/service/local-storage.service';
 
 @Component({
@@ -9,11 +10,12 @@ import { LocalStorageService } from 'src/service/local-storage.service';
 export class MyAccountComponent implements OnInit {
   userProfile: any;
 
-  constructor(private localStorageService:LocalStorageService){}
+  constructor(private localStorageService:LocalStorageService, private router:Router){}
 
   ngOnInit(): void {
     console.log('my account on init loaded')
-    this.userProfile = this.localStorageService.getCacheData('USER_PROFILE', );
+    this.userProfile = this.localStorageService.getCacheData('USER_PROFILE');
+    this.router.navigate(['/my-account/orders'])
   }
 
 }

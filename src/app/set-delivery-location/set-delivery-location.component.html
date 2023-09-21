@@ -1,7 +1,44 @@
-<div class="center">
-    <div [id]="mapid" class="mapCurrentaddress">
-        <div class="mapLoader">
-              
+<div class="container">
+    <div class="absolute-div">
+        <h5 class="mb-4"><i class="bi bi-arrow-left"></i> Set delivery location</h5>
+        <div class="row">
+            <div class="col-12">
+                <div [id]="mapid" class="mapCurrentaddress">
+                    <div class="mapLoader">
+                    </div>
+                </div>
+                <div class="bottom-div">
+                    <div class="setAddressDiv">
+                        <div class="fullAddress">
+                            {{selectedAddress?.location}}
+                        </div>
+                    </div>
+                    <div class="buttons" *ngIf="!showMoreDetails">
+                        <button class="btn btn-primary" (click)="toggleAdditionalDetails()">ADD MORE DETAILS</button>
+                        <button class="btn btn-secondary" (click)="sendCurrentLocation()">SKIP & ADD LATER</button>
+                    </div>
+                    <form class="moreDetails" *ngIf="showMoreDetails">
+                        <div class="form-group">
+                            <input type="text" class="form-control shadow-none" placeholder="Door / Flat No">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control shadow-none" placeholder="Landmark">
+                        </div>
+                        <div class="btn-group" role="group">
+                            <input type="radio" class="btn-check" name="homebtn" id="homebtn" autocomplete="off">
+                            <label class="btn btn-outline-danger" for="homebtn">Home</label>
+
+                            <input type="radio" class="btn-check" name="workbtn" id="workbtn" autocomplete="off">
+                            <label class="btn btn-outline-danger" for="workbtn">Work</label>
+
+                            <input type="radio" class="btn-check" name="otherbtn" id="otherbtn" autocomplete="off">
+                            <label class="btn btn-outline-danger" for="otherbtn">Other</label>
+                        </div>
+                        <button type="button" class="btn btn-primary mt-3 p-3" (click)="sendCurrentLocation()">SAVE
+                            ADDRESS AND PROCEED</button>
+                    </form>
+                </div>
+            </div>
         </div>
-    </div> 
+    </div>
 </div>

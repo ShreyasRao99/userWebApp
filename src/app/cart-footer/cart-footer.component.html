@@ -1,0 +1,23 @@
+<div class="container footerdesign" (click)="goToMainCart()" *ngIf="cartObj && cartObj.itemList && cartObj.itemList.length > 0">
+    <div *ngIf="cartObj.orderType !== 'subscription' ">
+        <div class="row">        
+            <div class="col-7">
+                <span>{{cartObj.itemList.length + cartObj.addOns.length}} 
+                    {{(cartObj.itemList.length + cartObj.addOns.length) === 1 ? 'Item' : 'Items'}} | &#8377; {{getTotalPrice()}}</span>
+            </div>
+            <div class="col-5">
+                <div class="cartIcon cartIconstyle">View Cart</div>
+            </div>
+        </div >
+    </div>  
+    <div *ngIf="cartObj.orderType === 'subscription' ">
+        <div class="row">        
+            <div class="col-7">
+                <span class="header5">{{subscribeText}} | &#8377; {{getTotalSubscriptionPrice()}}</span>
+            </div>
+            <div class="col-5">
+                <div class="cartIcon cartIconstyle">View Cart</div>
+            </div>
+        </div>
+    </div> 
+</div>

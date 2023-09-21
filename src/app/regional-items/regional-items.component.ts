@@ -1,4 +1,5 @@
 import { regionList } from './../../config/favcuisinelist.config';
+import { categorylist } from './../../config/categorylist.config';
 import { Component, OnInit } from '@angular/core';
 import { environment } from './../../environments/environment';
 
@@ -10,6 +11,7 @@ import { environment } from './../../environments/environment';
 export class RegionalItemsComponent implements OnInit {
   regionalList = regionList;
   imageUrl = environment.imageUrl;
+  categorylist = categorylist;
   constructor() { }
 
   ngOnInit() {
@@ -18,5 +20,9 @@ export class RegionalItemsComponent implements OnInit {
   lookForRegional(region: string){
     // this.mixpanelservice.track('cuisine',{regional: region});
     // this.navCtrl.navigateForward(['/kitchenSearch'], { queryParams: {category: 'region', text: region} });
+  }
+  lookForCategory(category: string){
+    // this.mixpanelservice.track('food-category',{category: category})
+    // this.navCtrl.navigateForward(['/categorySearch'], { queryParams: {category} });
   }
 }

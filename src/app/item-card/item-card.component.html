@@ -1,0 +1,73 @@
+<div class="container noBottomPadding" [ngClass]="{'specialMenu': item.isSpecialMenu}">
+    <div class="row">        
+        <div class="col-7 itemLeftTopPadding">
+            <div>
+                <div *ngIf="item.itemType === 'Veg'" class="vegIcon typeIcon inlineMargin"></div>
+                <div *ngIf="item.itemType === 'NonVeg'" class="nonvegIcon typeIcon inlineMargin"></div>
+                <div *ngIf="item.itemType === 'Jain'" class="capsule inlineMargin">Jain</div>  
+                <div class="spicyLebel inlineMargin" *ngIf="item.itemFlavour === 'Sour' && item.spicyLevel > 0"
+                    [ngClass]="{'spicy1': item.spicyLevel === 1,'spicy2': item.spicyLevel === 2, 'spicy3': item.spicyLevel === 3}"
+                    ></div>    
+                <div class="capsule inlineMargin" *ngIf="item.itemServingType === 'perPerson'">Serves {{item.servesTo}}</div>
+                <div class="capsule inlineMargin" *ngIf="item.itemServingType === 'perUnit'">Per Unit</div>
+                <div class="capsule inlineMargin" *ngIf="item.itemServingType === 'perQuantity' ">{{item.servingQuantity}} {{item.servingQuantityUnit}}</div>     
+            </div>  
+            <div class="header3 bold bgTopDownpadding2">{{item.itemName}}</div>        
+            <div class="header5" *ngIf="(screenFrom ==='searchPage' || screenFrom === 'categoryPage')">{{item.kitchenName}}</div>
+            <div class="price">&#8377;{{item.mealawePrice}}</div> 
+            <div class="description" *ngIf="readmore">{{item.itemDescription}}</div>
+            <div class="description" *ngIf="!readmore">{{item.subDescription}}
+                <span class="readmorestyle" (click)="readmore = true">read more</span>
+            </div>
+            <div class="tasteOfRegion" *ngIf="item.tasteOfRegion">Taste of region: <span class="mainRegion grey">{{item.tasteOfRegion}}</span></div>
+            <div class="bgToppadding3">
+                <img class="discountImg" src="assets/moreimages/discountImg.png">
+            </div>
+            <!-- <div class="bgToppadding3">                          
+                <div class="capsule" *ngIf="item.quantityAvailable">Available Orders 
+                    {{item.quantityAvailable - item.quantityBooked - item.count > 0 ? 
+                        item.quantityAvailable - item.quantityBooked - item.count : 0}}                       
+                </div> 
+                <div class="capsule" *ngIf="item.isSpecialMenu">Available Orders 
+                    {{ item.specialQuantityAvailable }}                       
+                </div> 
+                <div *ngIf="item.isSpecialMenu">
+                    <img class="specialMenuIcon" src="assets/images/spceialicon.png">
+                </div>              
+                <span class="capsule" *ngIf="item.distance">{{item.distance}} {{item.distance > 1 ? 'Kms' :'Km'}}</span>
+            </div> -->
+        </div>
+        <div class="col-5 text-center pt-4">
+            <img [src]="imageUrl + item.imageUrl" class="itemImage" *ngIf="item.imageUrl"/>
+            <div class="addPosition" [ngClass]="{noImage:!item.imageUrl }" *ngIf="!(screenFrom ==='searchPage' || 
+                screenFrom === 'categoryPage'|| missed 
+                || comingnext 
+                || (orderType==='advance' && !item.itemAvailable) 
+                || (item.quantityAvailable - item.quantityBooked===0 && orderType==='daily'))">
+                <div *ngIf="!item.count && (!item.isSpecialMenu || (item.isSpecialMenu && orderType==='allDay'))" class="addButton white" (click)="addToCart()">ADD</div>
+                <!-- <div *ngIf="item.isSpecialMenu && !item.booked && orderType==='advance'" class="bookButton white" (click)="bookSpecialItem(item)">BOOK</div>
+                <div *ngIf="item.isSpecialMenu && item.booked && orderType==='advance'" class="bookedButton white">BOOKED</div> -->
+                <div *ngIf="item.count" class="white addeditemStyle">
+                    <button class="incbutton" (click)="decreaseCount(item)">
+                        <span class="indicator right leftdiv">-</span>
+                    </button>
+                    <div class="midsection">{{item.count}}</div>
+                    <button class="incbutton" (click)="increaseCount(item)">
+                        <span class="indicator rightdiv">+</span>
+                    </button>
+                </div>
+             </div>
+             <div class="missedOuter" *ngIf="missed || comingnext ||
+                (!item.itemAvailable && orderType==='advance')||
+                (item.quantityAvailable - item.quantityBooked===0 && orderType==='daily')">
+                <div *ngIf="missed" class="missed">JUST MISSED</div>   
+                <div *ngIf="comingnext" class="comingnext">COMING NEXT</div> 
+                <div *ngIf="(!item.itemAvailable && orderType === 'advance')|| 
+                (item.quantityAvailable - item.quantityBooked <= 0 && orderType === 'daily')"
+                class="notavailable">NOT AVAILABLE</div>  
+              </div>
+        </div>       
+        <div class="preparationTimemsg" *ngIf="item.preparationTime > 45">This item takes {{item.preparationTime}}mins to prepare</div>  
+    </div>   
+</div>
+<div class="partitionLine" *ngIf="showPartition" ></div>

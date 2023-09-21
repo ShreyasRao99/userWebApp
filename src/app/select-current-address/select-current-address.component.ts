@@ -29,7 +29,6 @@ export class SelectCurrentAddressComponent implements OnInit {
 
   loadCurrentSavedLocation(){
     const currentLocation =  this.localStorageService.getCacheData('CURRENT_LOCATION');
-    console.log(currentLocation)
     if(currentLocation){
       this.currentSavedLocation = currentLocation;
       this.loadSelectedLocation(currentLocation);
@@ -52,7 +51,6 @@ export class SelectCurrentAddressComponent implements OnInit {
         center = await this.geoLocationService.getCurrentCoordinate(true,false);  
         console.log(center)
       }   
-      console.log(document.getElementById(this.mapid))
       const map = new this.google.maps.Map(document.getElementById(this.mapid), {
           center,
           zoom: 12,

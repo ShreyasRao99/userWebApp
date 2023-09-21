@@ -111,7 +111,6 @@ private async loadGoogleMap() {
                 data.origin.push(kitchen.geolocation as never);
             });
             const finalDistanceList = await this.apiMainService.getKitchenGoogleDistance(data);
-            console.log('finalDistanceList ',finalDistanceList);
             if(finalDistanceList && finalDistanceList.length > 0){
                 finalDistanceList.forEach((distanceObj: { distance: { value: any; }; },index: any) => {
                     const distanceInMeters = distanceObj.distance.value;

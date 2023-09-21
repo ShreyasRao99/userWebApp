@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { ApiMainService } from 'src/service/apiService/api-main.service';
 import { GoogleMapService } from 'src/service/google-map.service';
 import { LocalStorageService } from 'src/service/local-storage.service';
+import { SendDataToComponent } from 'src/service/sendDataToComponent';
 
 @Component({
   selector: 'app-home',
@@ -11,8 +12,10 @@ import { LocalStorageService } from 'src/service/local-storage.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  @ViewChild('mapCanvas') mapCanvas!:ElementRef<HTMLElement>
+  @ViewChild('canvasAddress') canvasAddress!:ElementRef<HTMLElement>
   currentGeoLocation: any;
-  serviceAvailable: boolean = true;
+  serviceAvailable!: boolean;
   kitchenList: any[] = [];
   paginationOver!: boolean;
   pageNumber!: number;
@@ -24,15 +27,32 @@ export class HomeComponent implements OnInit {
   google: any;
   changeAddress: any;
   showMap: boolean = false;
+  currentAddress: any;
+  recentSearch: any[] = [];
 
-  constructor(private router: Router, private apiMainService: ApiMainService, private localStorageService: LocalStorageService, private googleMapService: GoogleMapService) {
+  constructor(private router: Router, private sendDataToComponent: SendDataToComponent, private apiMainService: ApiMainService, private localStorageService: LocalStorageService, private googleMapService: GoogleMapService) {
     this.mapId += Math.ceil(Math.random() * 1000)
   }
 
   ngOnInit(): void {
+    this.recentSearch = this.localStorageService.getCacheData('RECENT_LOCATION_SEARCH');
     this.userProfile = this.localStorageService.getCacheData('USER_PROFILE');
+    this.currentAddress = this.localStorageService.getCacheData('CURRENT_LOCATION');
+    this.sendDataToComponent.subscribe('ADDRESS_FROM_DELIVERY', (address) => {
+      if (address) {
+        console.log(address)
+        this.showMap = false;
+        let el: HTMLElement = this.mapCanvas.nativeElement;
+        el.click();
+        this.localStorageService.setCacheData('CURRENT_LOCATION', address.geolocation)
+        this.currentAddress = address
+        this.checkServicability()
+      }
+      console.log(address)
+    })
     this.checkServicability()
   }
+
 
   callFindMyAddress() {
     const input = document.querySelector(`#${this.mapId}`) as HTMLInputElement;
@@ -56,21 +76,31 @@ export class HomeComponent implements OnInit {
         return;
       }
       const address = this.formatAddress(place);
+      this.currentAddress = address
       this.localStorageService.insertNewDataInArray('RECENT_LOCATION_SEARCH', address, 5);
       this.localStorageService.setCacheData('CURRENT_LOCATION', address);
-      this.goToSetGeoLocationPage(address);
+      // if (this.userProfile) {
+      // this.goToSetGeoLocationPage(address);
+      this.goToSetGeoLocationPage(address)
+      console.log(address)
+      // }
       // this.checkServicability()
     });
   }
 
-  goToSetGeoLocationPage(address:any){
+  goToSetGeoLocationPage(address: any) {
+    this.localStorageService.setCacheData('CURRENT_LOCATION', address);
     this.showMap = true
-    // if(this.changeAddress){
-    //   this.showLocationOnMap({loadCoordinate: address,noChange:true});
-    // }else{
-    //   this.dismiss(address, false,false);
-    // }        
   }
+
+  // goToSetGeoLocationPage(address: any) {
+  //   this.showMap = true
+  //   if(this.changeAddress){
+  //     this.showLocationOnMap({loadCoordinate: address,noChange:true});
+  //   }else{
+  //     this.dismiss(address, false,false);
+  //   }        
+  // }
 
   formatAddress(place: { name: any; formatted_address: any; geometry: { location: { lat: () => any; lng: () => any; }; }; }) {
     return {
@@ -89,13 +119,13 @@ export class HomeComponent implements OnInit {
         this.serviceAvailable = true;
         // this.showLoadingPage = false;
         this.kitchenList = [];
-        this.kitchenList = [];
         this.paginationOver = false;
         this.pageNumber = 1;
         this.getKitchenList(clusterList, true);
         // this.loadKitchenDeepLink();       
       } else {
         this.serviceAvailable = false;
+        console.log(this.serviceAvailable)
         // this.showLoadingPage = false;
       }
     } catch (error) {
@@ -143,12 +173,25 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  getLocation() {
+    alert('')
+  }
+
   goToMyAccount() {
     this.router.navigate(['/my-account'])
   }
 
-  goToWelcome() {
-    this.router.navigate(['welcome'])
+  setAddress(address: any) {
+    this.goToSetGeoLocationPage(address.geolocation)
+  }
+
+  changeLocation(value:any){
+    let el = this.canvasAddress.nativeElement;
+    el.click();
+  }
+
+  hideMap() {
+    this.showMap = !this.showMap;
   }
 
 }

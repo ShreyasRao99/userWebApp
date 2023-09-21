@@ -1,0 +1,18 @@
+<div class="mt-4">
+    <div class="scroll" scrollX="true">
+        <div *ngFor="let coupon of couponList" class="coupondisplay">
+            <div class="couponIcon"></div>
+            <div class="couponDetails">
+                <div class="firstline">{{coupon.couponHeader}}</div>
+                <div class="secondline" *ngIf="coupon.type === 'kitchenCoupon'">{{coupon.subheader}}</div>
+            </div>
+        </div>
+        <div *ngFor="let coupon of filterDBList | sort : 'seqWeightage' : -1 " class="coupondisplay">
+            <div class="couponIcon"></div>
+            <div class="couponDetails">
+                <div class="firstline">{{coupon.couponHeader}}</div>
+                <div class="secondline" *ngIf="coupon.type !== 'kitchenCoupon'">use {{coupon.couponCode}} | Above {{coupon.minAmount}}</div>
+            </div>
+        </div>
+    </div> 
+</div>

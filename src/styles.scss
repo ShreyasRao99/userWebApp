@@ -32,6 +32,7 @@
 // @import '~swiper/scss/pagination';
 // @import '~swiper/scss/scrollbar';
 // @import '~swiper/scss/zoom';
+@import "~bootstrap-icons/font/bootstrap-icons.css";
 
 // html.ios {
 //     --ion-safe-area-top: 10px;
@@ -245,7 +246,7 @@ ion-list {
     font-size: 14px;
     line-height: 15.43px;
     color: #101828;
-    padding: 3% 5% 1% 2%;
+    padding: 2% 5% 1% 2%;
 }
 
 ion-slides {
@@ -777,6 +778,28 @@ ion-refresher {
 .between,
 .endSelection {
     background-color: red !important;
+}
+
+.vegIcon {
+    background: url('~/src/assets/icon/veg.png');
+    border: 1px solid #5BC085;
+}
+
+.nonvegIcon {
+    background: url('~/src/assets/icon/nonveg.svg');
+    border: 1px solid #e21c24;
+}
+
+.jainIcon {
+    // background: url('~/src/assets/icon/jain.svg'); 
+    // background-size: 10px !important; 
+    width: 26px;
+    text-align: center;
+    font-size: 8px;
+    border: 1px solid #BBC0D0;
+    border-radius: 2px;
+    padding: 2px 0px;
+    vertical-align: top;
 }
 
 
