@@ -10,6 +10,7 @@ import { SetDeliveryLocationModule } from '../set-delivery-location/set-delivery
 import { MainSliderModule } from '../main-slider/main-slider.module';
 import { KitchenCardModule } from '../kitchen-card/kitchen-card.module';
 import { KitchenNearModule } from '../kitchen-near/kitchen-near.module';
+import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { KitchenNearModule } from '../kitchen-near/kitchen-near.module';
     SetDeliveryLocationModule,
     MainSliderModule,
     KitchenCardModule,
-    KitchenNearModule
+    KitchenNearModule,
+    NgbPopoverModule
   ]
 })
 export class HomeModule { }

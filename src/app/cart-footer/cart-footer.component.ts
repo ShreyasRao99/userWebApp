@@ -2,6 +2,7 @@ import { SendDataToComponent } from 'src/service/sendDataToComponent';
 import { Component, OnDestroy, EventEmitter, Output, Input, ChangeDetectorRef } from '@angular/core';
 // import { NavController } from '@ionic/angular';
 import { CartManagementService } from 'src/service/cart-management.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-cart-footer',
@@ -15,16 +16,15 @@ import { CartManagementService } from 'src/service/cart-management.service';
     subscribeText = '';    
     constructor(private sendDataToComponent: SendDataToComponent, 
                 private chgDetRef: ChangeDetectorRef,
+                private router:Router,
                 private cartManagementService: CartManagementService){
         this.cartObj = this.cartManagementService.getCart();
-        console.log(this.cartObj)
         this.subscribeEvents();
     }
 
     subscribeEvents(){
         this.sendDataToComponent.subscribe('UPDATE_CART_FOOTER', (cartObj) => {
             if(cartObj){
-                console.log(cartObj)
                 this.updateCart(cartObj);
             }            
         });
@@ -124,6 +124,11 @@ import { CartManagementService } from 'src/service/cart-management.service';
             // this.navCntrl.navigateForward('/tabs/tabCart');
         }        
     }
+
+    routeToCart(){
+        this.router.navigate(['/cart'])
+    }
+
     ngOnDestroy(){
         this.sendDataToComponent.unsubscribe('UPDATE_CART_FOOTER');
     }

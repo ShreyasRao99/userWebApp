@@ -88,7 +88,6 @@ export class CartManagementService {
         }
     }
     updateCart(){
-        console.log(this.cartObj)
         this.localStorageService.setCacheData('USER_CART', this.cartObj);
         this.sendDataToComponent.publish('UPDATE_CART', this.cartObj);
         this.sendDataToComponent.publish('UPDATE_CART_FOOTER', this.cartObj);

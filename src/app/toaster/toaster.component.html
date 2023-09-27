@@ -1,1 +1,9 @@
-<p>toaster works!</p>
+<div *ngIf="showToster" class="toasterPosition" (click)="hideMsg()">    
+    <div class="toasterCard" [ngClass]="type"> 
+        <!-- <ion-icon name="close-outline" class="right"></ion-icon> -->
+        <div class="inline-toaster"> 
+            <!-- <ion-icon name="warning-outline" class="inline-toaster toaster-icon"></ion-icon>       -->
+        </div>
+        <div class="inline-toaster textPostion">{{msg}}</div>
+    </div>   
+</div>

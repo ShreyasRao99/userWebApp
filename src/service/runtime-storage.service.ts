@@ -51,6 +51,14 @@ resetCacheData(key: string): void{
   delete this.cacheObj[key];
 }
 
+resetMatchingKeysCacheDate(key:string): void{
+  for(let prop in this.cacheObj){
+      if(prop.indexOf(key) > -1){
+          delete this.cacheObj[prop];
+      }
+  }
+}
+
 }
 
 class CacheStorageModel{

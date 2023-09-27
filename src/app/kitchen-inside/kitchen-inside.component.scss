@@ -74,13 +74,13 @@ button.accordion-button:focus{
 .floatingMenu{
     text-align: center;
     position: sticky;
-    bottom: 60px;
-    left: 40%;
+    bottom: 5%;
+    left: 45%;
     width: 70px;
     button{
-        width: 70px;
-        height: 70px;
-        border-radius: 50%;
+        width: 145px;
+        height: 40px;
+        border-radius: 11%/50%;
         background: black;
         color: white;
         font-weight: bold;
@@ -108,7 +108,10 @@ button.accordion-button:focus{
 }
 
 .positionBottom{
-    position: sticky;
+    z-index:3;
+    left:392px;
+    position: fixed;
     bottom: 0;
-    width: 100%;
+    width: 735px;
 }
+

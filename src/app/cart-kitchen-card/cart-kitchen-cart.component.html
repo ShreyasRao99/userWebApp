@@ -1,0 +1,25 @@
+<div class="card bg-white" style="width: 18rem;" (click)="goInsideKitchen()">
+  <div class="card-body">
+    <img class="card-img-top img-fluid" [src]="imageUrl + kitchen.imageUrl" alt="Card image cap">
+    <span class="kitchenName bold">{{kitchen.kitchenName}}</span>
+    <!-- <div>
+        <span *ngFor="let speciality of specialityList" class="speacial">
+            <span [ngClass]="{speciality: speciality === kitchen.mainSpeciality}"> {{speciality}}</span>
+        </span>
+      </div>        -->
+    <!-- <div>
+        <span *ngFor="let type of kitchen.mealType">
+            <div *ngIf="type==='Veg'" class="vegIcon typeIcon inline"></div>
+            <div *ngIf="type==='NonVeg'" class="nonvegIcon typeIcon inline"></div>
+            <div *ngIf="type==='Jain'" class="jainIcon inline">Jain</div>
+        </span>           
+        <div class="deliveryTime inline">
+            <span>{{kitchen.deliveryTime}} mins</span> 
+            <span>{{kitchen.distance}} {{kitchen.distance > 1 ? 'Kms' :'Km'}}</span> 
+        </div>
+        <div class="ratingStar inline">
+            <span>{{kitchen.rating}}</span>
+        </div>
+      </div>  -->
+  </div>
+</div>

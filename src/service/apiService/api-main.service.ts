@@ -126,4 +126,57 @@ export class ApiMainService {
     }    
   }
 
+  getVariables(variableNames:any,from:any){
+    return new Promise(async (resolve,reject)=>{
+      try{
+          const urlObj = this.apiConfigService.apiEndPointObj.getVariables;
+          const dbList:any = await this.runTimeCacheInterceptor('CONFIG_VARIABLE'+from,
+                {url: urlObj.url, method: urlObj.method},{variableNames},null,true);  
+          const formattedObj:any = {};
+          dbList.forEach((varibleObj:any) => {
+            formattedObj[varibleObj.configName] = varibleObj.configData
+          });
+          resolve(formattedObj);
+        }catch(error){
+          reject(error);
+        }
+    });
+  }
+
+  validateCouponForUser(couponCode:any,userId:any){
+    const urlObj = this.apiConfigService.apiEndPointObj.validateCouponForUser;
+    return this.apiHttpService
+    .REQUEST({url: urlObj.url + `/${couponCode}/${userId}/${this.getTodayStartDate()}`, method: urlObj.method});
+  }
+
+  getWalletBalance(id:any){
+    const urlObj = this.apiConfigService.apiEndPointObj.getWalletBalance;
+    return this.runTimeCacheInterceptor('MONEY_WALLET_BALANCE',
+    // return this.apiHttpService.REQUEST(
+    {url: urlObj.url + `/${id}`, method: urlObj.method},null,null,true);
+  }
+
+  getCashbackBalance(id:any){
+    this.runTimeCacheInterceptor('CASHBACK_BALANCE',this.apiConfigService.apiEndPointObj.getBannerList,null, null, true);
+    const urlObj = this.apiConfigService.apiEndPointObj.getCashbackBalance;
+    return this.runTimeCacheInterceptor('CASHBACK_BALANCE',
+    // return this.apiHttpService.REQUEST(
+      {url: urlObj.url + `/${id}`, method: urlObj.method},null,null,true);
+  }
+
+  validateVoucherCode(voucherCode:any,id:any){
+    const urlObj = this.apiConfigService.apiEndPointObj.validateVoucherCode;
+    return this.apiHttpService.REQUEST({url: urlObj.url + `/${voucherCode}/${id}`, method: urlObj.method});
+  }
+
+  getdeliveryAmount(data:any){
+    return this.apiHttpService.REQUEST(this.apiConfigService.apiEndPointObj.getdeliveryAmount, data);
+  }
+
+  updateUserProfile(id:any, data:any){
+    const urlObj = this.apiConfigService.apiEndPointObj.updateCustomerProfile;
+    return this.apiHttpService
+    .REQUEST({url: urlObj.url + `/${id}`, method: urlObj.method}, data);
+  }
+
 }

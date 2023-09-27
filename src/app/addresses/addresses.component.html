@@ -1,16 +1,14 @@
 <div class="container-fluid">
     <h3>Manage Addresses</h3>
     <div class="row">
-        <div class="col-6" *ngFor="let address of userProfile.addressList">
+        <div class="col-6" *ngFor="let address of userProfile.addressList; let i = index">
             <div class="mt-4 d-flex flex-row savedAddresses">
                 <span><i class="bi bi-house"></i></span>
                 <div class="address-div">
                     <div><b>{{address.tagLocation}}</b></div>
-                    <div>{{address.location}}
-                        <div>
-                            EDIT DELETE
-                        </div>
-                    </div>
+                    <div>{{address.location}}</div>
+                    <button class="btn btn-primary">Edit</button>
+                    <button class="btn btn-danger" (click)="deleteAddress(i)">Delete</button>
                 </div>
             </div>
         </div>

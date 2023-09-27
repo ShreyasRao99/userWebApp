@@ -6,13 +6,13 @@
           <img class="img-fluid" src="assets/images/mealawe.jpeg"><b> Mealawe</b>
         </div>
         <div class="col-6 center">
-          <ng-container *ngIf="!loggedIn">
+          <ng-container *ngIf="!loggedIn && !userLoggedIn">
             <button type="button" class="btn btn-light bgsidemargin2" data-bs-toggle="offcanvas"
               data-bs-target="#login">Login</button>
             <button type="button" class="btn btn-dark" data-bs-toggle="offcanvas" data-bs-target="#sign-up">Sign
               up</button>
           </ng-container>
-          <button type="button" class="btn btn-outline-dark ms-5" *ngIf="loggedIn">{{userProfile.userName}}</button>
+          <button type="button" class="btn btn-outline-dark ms-5" *ngIf="loggedIn || userLoggedIn">{{loggedIn? userProfile.userName : userLoggedIn.userName}}</button>
         </div>
       </div>
       <div class="row search-section">

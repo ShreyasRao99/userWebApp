@@ -159,6 +159,24 @@ private async loadGoogleMap() {
         return dist;
     }
   }
+
+  getDeliveryQuote(kitchenDistance:any){
+    const quaotObj = {estimated_price:0,distance:0}
+    try{
+        const distance = Math.ceil(kitchenDistance);
+        quaotObj.distance = distance
+        if(distance <= 3){
+            quaotObj.estimated_price = 39;
+        }else{
+            const remainingDistance = Math.ceil(distance - 3);
+            quaotObj.estimated_price = remainingDistance * 11 + 39 ;
+        }
+        return quaotObj;
+    }catch(e){
+        return quaotObj;
+    }
+    
+  }
 }
 
 

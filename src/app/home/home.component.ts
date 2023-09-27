@@ -5,6 +5,7 @@ import { ApiMainService } from 'src/service/apiService/api-main.service';
 import { GoogleMapService } from 'src/service/google-map.service';
 import { LocalStorageService } from 'src/service/local-storage.service';
 import { SendDataToComponent } from 'src/service/sendDataToComponent';
+import { UtilityService } from 'src/service/utility.service';
 
 @Component({
   selector: 'app-home',
@@ -12,8 +13,7 @@ import { SendDataToComponent } from 'src/service/sendDataToComponent';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  @ViewChild('mapCanvas') mapCanvas!:ElementRef<HTMLElement>
-  @ViewChild('canvasAddress') canvasAddress!:ElementRef<HTMLElement>
+  @ViewChild('canvasAddress') canvasAddress!: ElementRef<HTMLElement>
   currentGeoLocation: any;
   serviceAvailable!: boolean;
   kitchenList: any[] = [];
@@ -29,26 +29,26 @@ export class HomeComponent implements OnInit {
   showMap: boolean = false;
   currentAddress: any;
   recentSearch: any[] = [];
+  showCurrentLocation: boolean = false;
 
-  constructor(private router: Router, private sendDataToComponent: SendDataToComponent, private apiMainService: ApiMainService, private localStorageService: LocalStorageService, private googleMapService: GoogleMapService) {
+  constructor(private router: Router, private sendDataToComponent: SendDataToComponent, private utilityService: UtilityService, private apiMainService: ApiMainService, private localStorageService: LocalStorageService, private googleMapService: GoogleMapService) {
     this.mapId += Math.ceil(Math.random() * 1000)
   }
 
   ngOnInit(): void {
     this.recentSearch = this.localStorageService.getCacheData('RECENT_LOCATION_SEARCH');
     this.userProfile = this.localStorageService.getCacheData('USER_PROFILE');
+    console.log(this.userProfile)
     this.currentAddress = this.localStorageService.getCacheData('CURRENT_LOCATION');
     this.sendDataToComponent.subscribe('ADDRESS_FROM_DELIVERY', (address) => {
       if (address) {
-        console.log(address)
+        (address)
         this.showMap = false;
-        let el: HTMLElement = this.mapCanvas.nativeElement;
-        el.click();
-        this.localStorageService.setCacheData('CURRENT_LOCATION', address.geolocation)
+        this.toggleCanvas()
+        this.utilityService.configureCurrentLocation(address)
         this.currentAddress = address
         this.checkServicability()
       }
-      console.log(address)
     })
     this.checkServicability()
   }
@@ -78,18 +78,18 @@ export class HomeComponent implements OnInit {
       const address = this.formatAddress(place);
       this.currentAddress = address
       this.localStorageService.insertNewDataInArray('RECENT_LOCATION_SEARCH', address, 5);
-      this.localStorageService.setCacheData('CURRENT_LOCATION', address);
+      // this.localStorageService.setCacheData('CURRENT_LOCATION', address);
       // if (this.userProfile) {
       // this.goToSetGeoLocationPage(address);
       this.goToSetGeoLocationPage(address)
-      console.log(address)
       // }
       // this.checkServicability()
     });
   }
 
   goToSetGeoLocationPage(address: any) {
-    this.localStorageService.setCacheData('CURRENT_LOCATION', address);
+    (address)
+    this.utilityService.configureCurrentLocation(address);
     this.showMap = true
   }
 
@@ -114,7 +114,7 @@ export class HomeComponent implements OnInit {
   async checkServicability() {
     try {
       this.currentGeoLocation = this.localStorageService.getCacheData('CURRENT_LOCATION')
-      const clusterList: any = await this.googleMapService.getClusterName(this.currentGeoLocation);
+      const clusterList: any = await this.googleMapService.getClusterName(this.currentGeoLocation.geolocation);
       if (clusterList && clusterList.length > 0) {
         this.serviceAvailable = true;
         // this.showLoadingPage = false;
@@ -125,7 +125,6 @@ export class HomeComponent implements OnInit {
         // this.loadKitchenDeepLink();       
       } else {
         this.serviceAvailable = false;
-        console.log(this.serviceAvailable)
         // this.showLoadingPage = false;
       }
     } catch (error) {
@@ -136,13 +135,13 @@ export class HomeComponent implements OnInit {
   async getKitchenList(clusterList: any, doRefresh?: boolean) {
     try {
       this.clusterList = clusterList;
-      let kitchenList: any = await this.apiMainService.getNearestKitchen({ clusterList }, this.pageNumber, this.currentGeoLocation);
+      let kitchenList: any = await this.apiMainService.getNearestKitchen({ clusterList }, this.pageNumber, this.currentGeoLocation.geolocation);
       if (kitchenList && kitchenList.length > 0) {
         // const promiseList = [];
         // kitchenList.forEach(ele => {
         //   promiseList.push(this.googleMapService.getKitchenDistance(ele,this.currentGeoLocation,false));
         // });  
-        kitchenList = await this.googleMapService.getKitchenGoogleDistance(kitchenList, this.currentGeoLocation);
+        kitchenList = await this.googleMapService.getKitchenGoogleDistance(kitchenList, this.currentGeoLocation.geolocation);
         kitchenList.sort((a: { distance: number; }, b: { distance: number; }): number => {
           if (a.distance > b.distance) {
             return 1;
@@ -182,16 +181,32 @@ export class HomeComponent implements OnInit {
   }
 
   setAddress(address: any) {
-    this.goToSetGeoLocationPage(address.geolocation)
+    console.log(address)
+    // this.goToSetGeoLocationPage(address)
+    this.currentAddress = address
+    this.utilityService.configureCurrentLocation(address)
+    this.checkServicability()
+    this.toggleCanvas();
   }
 
-  changeLocation(value:any){
+  changeLocation(value: any) {
+    this.toggleCanvas()
+  }
+
+  toggleCanvas() {
     let el = this.canvasAddress.nativeElement;
     el.click();
   }
 
-  hideMap() {
-    this.showMap = !this.showMap;
+  toggleMap() {
+    setTimeout(() => {
+      this.showMap = !this.showMap;
+    }, 100);
+  }
+
+  getCurrentLocation() {
+    this.showCurrentLocation = true
+    this.toggleMap()
   }
 
 }

@@ -5,7 +5,8 @@
             Mealawe
         </a>
         <span role="button" #canvasAddress data-bs-toggle="offcanvas" data-bs-target="#location" class="location"
-            (click)="callFindMyAddress()">{{currentAddress.address ? currentAddress.address : currentAddress.location}}</span>
+            (click)="callFindMyAddress()">{{currentAddress.location ? currentAddress.location :
+            currentAddress.address}}</span>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -22,14 +23,14 @@
                     <a class="nav-link" routerLink="/help">Help</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link"
-                        (click)="userProfile ? goToMyAccount():''">{{userProfile?.userName?userProfile?.userName:'Sign
+                    <a class="nav-link" (click)="userProfile ? goToMyAccount():''">{{userProfile?.userName?userProfile?.userName:'Sign
                         In'}}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" routerLink="/cart">Cart</a>
                 </li>
             </ul>
+            <!-- (click)="userProfile ? goToMyAccount():''" -->
         </div>
     </nav>
     <!-- <app-kitchen-card [kitchen]="kitchen"></app-kitchen-card> -->
@@ -39,7 +40,7 @@
             <div class="banner-section">
                 <app-regional-items></app-regional-items>
                 <app-category-items></app-category-items>
-                <app-meal-time></app-meal-time>
+                <!-- <app-meal-time></app-meal-time> -->
             </div>
             <div class="kitchen-section mt-4" *ngIf="kitchenList.length>0">
                 <div class="near-kitchen-list">
@@ -80,7 +81,7 @@
                                     <div class="getLocation">
                                         <div class="d-flex flex-row">
                                             <i class="bi bi-crosshair"></i>
-                                            <div class="flex-content">
+                                            <div class="flex-content" (click)="getCurrentLocation()">
                                                 <div>Get current location</div>
                                                 <div class="location-canvas-info">Using GPS</div>
                                             </div>
@@ -115,8 +116,9 @@
                     </div>
                 </div>
                 <div class="select-address" *ngIf="showMap">
-                    <button type="button" style="display:none;" class="btn-close text-reset" #mapCanvas data-bs-dismiss="offcanvas"></button>
-                    <app-set-delivery-location></app-set-delivery-location>
+                    <button type="button" style="display:none;" class="btn-close text-reset" #mapCanvas
+                        data-bs-dismiss="offcanvas"></button>
+                    <app-set-delivery-location [getCurrentLocation]="showCurrentLocation"></app-set-delivery-location>
                 </div>
             </div>
         </div>

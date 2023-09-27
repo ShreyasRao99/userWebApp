@@ -8,12 +8,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { MainloaderComponent } from './mainloader/mainloader.component';
 import { ToasterComponent } from './toaster/toaster.component';
 import { CustomPipeModule } from 'src/pipes/pipe.module';
+import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainloaderComponent,
     ToasterComponent,
+    ConfirmationModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -21,7 +23,7 @@ import { CustomPipeModule } from 'src/pipes/pipe.module';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    CustomPipeModule
+    CustomPipeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

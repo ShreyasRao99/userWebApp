@@ -5,6 +5,7 @@ import { ApiMainService } from 'src/service/apiService/api-main.service';
 import { FavouriteManagementService } from 'src/service/favourite-management.service';
 import { GoogleMapService } from 'src/service/google-map.service';
 import { LocalStorageService } from 'src/service/local-storage.service';
+import { UtilityService } from 'src/service/utility.service';
 
 @Component({
   selector: 'app-welcome',
@@ -26,8 +27,9 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
   OTPprovided: any;
   userProfile: any;
   loggedIn!: boolean;
+  userLoggedIn: any;
 
-  constructor(private router: Router, private apiMainService: ApiMainService, private favouriteManagementService: FavouriteManagementService, private googleMapService: GoogleMapService, private localStorageService: LocalStorageService, private fb: FormBuilder) {
+  constructor(private router: Router, private apiMainService: ApiMainService, private utilityService:UtilityService, private favouriteManagementService: FavouriteManagementService, private googleMapService: GoogleMapService, private localStorageService: LocalStorageService, private fb: FormBuilder) {
     this.mapId += Math.ceil(Math.random() * 1000)
   }
   ngOnDestroy(): void {
@@ -43,7 +45,9 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.createLoginForm()
+    this.userLoggedIn = this.localStorageService.getCacheData('USER_PROFILE')
+    console.log(this.userLoggedIn)
+    this.createLoginForm();
   }
 
   createLoginForm() {
@@ -67,7 +71,7 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
       }
       const address = this.formatAddress(place);
       this.localStorageService.insertNewDataInArray('RECENT_LOCATION_SEARCH', address, 5);
-      this.localStorageService.setCacheData('CURRENT_LOCATION', address);
+      this.utilityService.configureCurrentLocation(address);
       this.router.navigate(['home'])
       // this.goToSetGeoLocationPage(address);
       // this.checkServicability()
@@ -89,7 +93,6 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
       if (this.phoneNo && Math.ceil(Math.log10(this.phoneNo)) === 10) {
         try {
           const otpres = await this.apiMainService.registerPhoneNo({ phoneNo: this.phoneNo });
-          console.log(otpres)
           this.localStorageService.setCacheData('USER_MOBILE', this.phoneNo);
           this.showOTPscreen = true;
           this.startTimer()

@@ -210,7 +210,6 @@ ion-list {
 
 .header1 {
     font-size: 26px;
-    ;
 }
 
 .header2 {
@@ -583,7 +582,7 @@ ion-slides {
 }
 
 .modalCntrlmodalscrollbody {
-    overflow-y: scroll;
+    overflow-y: none;
 }
 
 .photo-edit-modal-design {
@@ -911,4 +910,8 @@ textarea:focus,
 input[type="text"]:focus {
     border-color: #e62841;
     outline: 0 none;
+}
+
+.popover-body{
+    // color:green !important;
 }

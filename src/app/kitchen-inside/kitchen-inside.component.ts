@@ -66,7 +66,6 @@ export class KitchenInsideComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.orderType = params.get('orderType');
-      console.log(this.orderType)
       const kitchenId = params.get('kitchenId');
       if (kitchenId) {
         this.loadKitchenInfo(kitchenId)
@@ -380,6 +379,7 @@ export class KitchenInsideComponent implements OnInit {
           if (comboList && comboList.length > 0) {
             this.comboList.push({
               groupName: group.groupName,
+              groupID:Math.floor((Math.random() * 1000) + 1),
               count: comboList.length,
               itemList: comboList
             });
