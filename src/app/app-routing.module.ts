@@ -24,6 +24,9 @@ const routes: Routes = [
     path: 'help', loadChildren: () => import('./help-section/help-section.module').then(m => m.HelpSectionModule)
   },
   {
+    path: 'subscription', loadChildren: () => import('./subscription/subscription.module').then(m => m.SubscriptionModule)
+  },
+  {
     path: 'kitchenInside/:orderType/:kitchenId', loadChildren: () => import('./kitchen-inside/kitchen-inside.module').then(m => m.KitchenInsideModule)
   }
 ];

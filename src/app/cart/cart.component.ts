@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { CartManagementService } from 'src/service/cart-management.service';
 import { orderStatusMapper } from 'src/config/order-status.config';
@@ -12,6 +12,8 @@ import { GoogleMapService } from 'src/service/google-map.service';
 import { LocalStorageService } from 'src/service/local-storage.service';
 import { UserProfileService } from 'src/service/user-profile.service';
 import { SendDataToComponent } from 'src/service/sendDataToComponent';
+import { AlertModalService } from '../alert-modal/alert-modal.service';
+import { ToasterService } from '../toaster/toaster.service';
 
 @Component({
   selector: 'app-cart',
@@ -22,6 +24,7 @@ export class CartComponent implements OnInit {
   @ViewChild('canvasAddress') canvasAddress!: ElementRef<HTMLElement>
   @ViewChild('voucherCanvas') voucherCanvas!: ElementRef<HTMLElement>
   @ViewChild("voucherContent") voucherContent: any;
+  @ViewChild("lottieModal") lottieModal:any;
   imageUrl = environment.imageUrl;
   orderStatusMapper = orderStatusMapper;
   cartObj: any;
@@ -89,7 +92,7 @@ export class CartComponent implements OnInit {
   subscribeFooterText = '';
   oneTimeDeliveryCharge = 0;
   subscriptionStartDate: any;
-  subscriptionObj = {
+  subscriptionObj:any = {
     subscriptionDays: 1,
     multiDateAllowed: false,
     lunchSubscription: true,
@@ -150,8 +153,13 @@ export class CartComponent implements OnInit {
   mapId = 'mapid';
   showSkipButton: boolean = true
   showMap: boolean = false;
+  headerMsg: string = '';
+  mainMessage: string = '';
+  subMessage: string = '';
+  serviceNotAvailable: boolean = false;
+  selectedAddressIndex: any;
 
-  constructor(private cartManagementService: CartManagementService, private sendDataToComponent: SendDataToComponent, private userProfileService: UserProfileService, private localStorageService: LocalStorageService, private googleMapService: GoogleMapService, private confirmationModalService: ConfirmationModalService, private apiMainService: ApiMainService, private paymentGatewayService: PaymentGatewayService, private runtimeStorageService: RuntimeStorageService, private utilityService: UtilityService, private router: Router) {
+  constructor(private cartManagementService: CartManagementService, private toasterService:ToasterService, private alertModalService:AlertModalService, private chgDetRef: ChangeDetectorRef, private sendDataToComponent: SendDataToComponent, private userProfileService: UserProfileService, private localStorageService: LocalStorageService, private googleMapService: GoogleMapService, private confirmationModalService: ConfirmationModalService, private apiMainService: ApiMainService, private paymentGatewayService: PaymentGatewayService, private runtimeStorageService: RuntimeStorageService, private utilityService: UtilityService, private router: Router) {
     const currentDate = new Date();
     const after1Day = new Date((new Date()).setDate(currentDate.getDate() + 1));
     const after2Day = new Date((new Date()).setDate(currentDate.getDate() + 2));
@@ -182,8 +190,18 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
     this.userProfile = this.localStorageService.getCacheData('USER_PROFILE');
     const cartObj = this.cartManagementService.getCart();
+    this.checkUserLoginProfile();
+    this.getDBTimeSlots();
+    this.validateDailyTimings();    
     this.updateCart(cartObj);
-    this.setCurrentLocation();
+    this.setCurrentLocation(); 
+    if(this.userProfile){
+      this.getMoneyWalletBalance(true); 
+      this.getMealaweWalletBalance(true);
+    }  
+    if(this.userSelectedDates.length === 0){
+      this.userSelectedDates.push(this.allowedMinDate);   
+    }
     console.log(this.userProfile)
     this.sendDataToComponent.subscribe('ADDRESS_FROM_DELIVERY', (address) => {
       if (address) {
@@ -194,6 +212,43 @@ export class CartComponent implements OnInit {
       }
     })
     // this.getCouponList()
+  }
+
+  validateDailyTimings(){
+    if(this.cartObj && this.cartObj.orderType === 'daily'){
+      this.cartObj.kitchen.mealTiming.forEach((element:any) => {        
+        if (element.mealType === this.cartObj.mealType){          
+          const acceptOrderFrom = new Date(element.acceptOrderFrom);          
+          const fromHour = acceptOrderFrom.getHours(); 
+          const fromMins = acceptOrderFrom.getMinutes();
+          let startTimeDate = new Date();
+          startTimeDate.setHours(fromHour);
+          startTimeDate.setMinutes(fromMins);
+
+          const acceptOrderTill = new Date(element.acceptOrderTill);
+          const tillHour = acceptOrderTill.getHours(); 
+          const tillMins = acceptOrderTill.getMinutes();  
+          let endTimeDate = new Date();
+          endTimeDate.setHours(tillHour);
+          endTimeDate.setMinutes(tillMins);  
+          const currentTime = new Date();
+          if(currentTime.getTime() < startTimeDate.getTime() || currentTime.getTime() > endTimeDate.getTime()){
+            this.notInTimeSlotDaily = true;
+          }else{
+            this.notInTimeSlotDaily = false;
+          }     
+          this.dailyOrderReadyTime = new Date(endTimeDate.getTime() + ((this.cartObj.kitchen.preparationTime ) * 60 *1000)); 
+          const deliveryETA = this.cartObj.kitchen.deliveryTime ? this.cartObj.kitchen.deliveryTime : 40;
+          this.dailyOrderDeliveryTime = new Date(endTimeDate.getTime() + ((this.cartObj.kitchen.preparationTime + deliveryETA) * 60 *1000));             
+        } 
+      });
+      const orderingTimeValid = !this.notInTimeSlotDaily;
+      return orderingTimeValid;
+    }
+  }
+
+  checkUserLoginProfile(){
+    this.userProfile = this.localStorageService.getCacheData('USER_PROFILE'); 
   }
 
   async setCurrentLocation() {
@@ -210,7 +265,7 @@ export class CartComponent implements OnInit {
         this.saveCurrentLocation = true;
       }
       const landmark = formatedAddess.landmark ? `, Landmark: ${formatedAddess.landmark}, ` : '';
-      this.currentLocation = `${address}${formatedAddess.location}${landmark}`;
+      this.currentLocation = formatedAddess.location? `${address}${formatedAddess.location}${landmark}`: `${address}${landmark}`;
       this.tagLocation = formatedAddess.tagLocation;
       if (this.cartObj && this.cartObj.kitchen && this.cartObj.kitchen.geolocation) {
         // this.cartObj.kitchen = await this.googleMapService.getKitchenDistance(this.cartObj.kitchen, formatedAddess.geolocation, true);
@@ -446,7 +501,7 @@ export class CartComponent implements OnInit {
     this.setCurrentLocation();
     const checkServicability = await this.checkServicability(this.customerLocation.geolocation);
     if (!checkServicability) {
-      // this.toasterService.error(200)
+      this.toasterService.error(200)
     }
   }
 
@@ -475,6 +530,460 @@ export class CartComponent implements OnInit {
     });
   }
 
+  selectDays(days:any){
+    this.subscriptionObj.subscriptionDays = days;   
+    this.cartManagementService.updateSubscribeOrder(this.subscriptionObj);
+    this.validateAndApplyCoupon(this.selectedCoupon,false);
+  } 
+
+  async mealaweWalletApplied(){
+    if(this.voucherCode || this.couponCode){
+      try{
+        this.confirmationModalService.modal(`Your previously applied coupon will be removed, do you want to continue?`,
+          () => this.walletAppliedConfirm(), this);
+        // const alert = await this.alertController.create({
+        //   cssClass: 'my-alert-class',
+        //   header: 'Confirmation',
+        //   backdropDismiss: false,
+        //   message: 'Your previously applied coupon will be removed, do you want to continue?',
+        //   buttons: [
+        //       {
+        //         text: 'No',
+        //         role: 'cancel',
+        //         cssClass: 'primary1 bold',
+        //         handler: (blah) => {
+        //           console.log('Confirm Cancel: blah');
+        //         }
+        //       },
+        //       {
+        //         text: 'Yes',
+        //         cssClass: 'secondary-color3 bold',
+        //         handler: () => {
+                  // this.removeCoupon();
+                  // this.removeVoucher();   
+                  // this.disableMealaweWallet = false;
+                  // this.applyMealaweWalletPoints = true; 
+                  // this.manageMealaweDiscount();
+                  // this.getPayAmt();      
+        //         }
+        //       }
+        //     ]
+        // });  
+        // await alert.present();
+        }
+        catch(error){
+          console.log('error while showing alert ',error);
+        }
+    }else{
+      this.applyMealaweWalletPoints = !this.applyMealaweWalletPoints;
+      if(this.applyMealaweWalletPoints){        
+        this.removeCoupon();
+        this.removeVoucher();     
+        this.manageMealaweDiscount(); 
+      }else{
+        this.mealaweDeliveryDiscount = 0;
+        this.mealaweItemDiscount = 0;
+      }    
+      this.getPayAmt();
+    }    
+  }
+
+  walletAppliedConfirm(){
+    this.removeCoupon();
+    this.removeVoucher();   
+    this.disableMealaweWallet = false;
+    this.applyMealaweWalletPoints = true; 
+    this.manageMealaweDiscount();
+    this.getPayAmt();
+  }
+
+  manageMealaweDiscount(){
+    let couponDiscount = this.maxMealaweWalletPointsAllowed;
+    if(couponDiscount > this.deliveryCharges){
+      this.mealaweDeliveryDiscount = this.deliveryCharges;
+    }else{
+      this.mealaweDeliveryDiscount = couponDiscount ;
+    }
+    couponDiscount -= this.mealaweDeliveryDiscount;
+    if(couponDiscount > 0){
+      this.mealaweItemDiscount = couponDiscount;
+      couponDiscount -= this.mealaweItemDiscount;
+    }
+    this.showCashBackFlashOffer();
+  }
+
+  async showCashBackFlashOffer(){
+    // this.commonPopupService.showFlashOffer({
+    //   headerMsg: `Cashback applied`,
+    //   mainMessage: `You are saving ₹${this.maxMealaweWalletPointsAllowed} with cashback`,
+    //   subMessage: `Keep using cashback and save more with each order`
+    // });
+  }
+
+  applyExtraDiscount(slotList:any, index:any){
+    try{
+      this.allDaySlotIndex = index+1;
+      // const selectedIndex = index -1;
+      const selectedIndex = index;
+      if(selectedIndex >= 0){
+        const slotObj = slotList[selectedIndex];
+        if(slotObj && slotObj.allowExtraDiscount){
+          const amtBeforeDiscount = this.mealaweTotalAmt - this.mealaweKitchenDiscount;
+          this.extraDiscount = Math.floor((amtBeforeDiscount * this.extraDiscountPercentage)/100);
+          this.getPayAmt();
+        }else{
+          this.removeExtraDiscount();
+        }
+      }else{
+        this.allDaySlotIndex = 0;
+        this.removeExtraDiscount();
+      }      
+    }catch(error){
+      this.removeExtraDiscount();
+    }
+        
+  }
+
+  removeExtraDiscount(){
+    this.extraDiscount = 0;
+    this.getPayAmt();
+  }
+
+  checkPaymentTiming(){
+    let timeOutofSlot = true;
+    let msg:any;
+    if(this.cartObj && this.cartObj.orderType === 'daily'){
+      const orderingTimeValid = this.validateDailyTimings();
+      if(orderingTimeValid){
+        this.notInTimeSlotDaily = false;
+        timeOutofSlot = this.notInTimeSlotDaily; 
+      }else{
+        this.notInTimeSlotDaily = true;
+        timeOutofSlot = this.notInTimeSlotDaily;      
+        msg = `You have missed ${this.cartObj.mealType} ordering time of ${this.cartObj.kitchenName}`;
+      }
+    }else if(this.cartObj && this.cartObj.orderType === 'advance'){
+      const orderingTimeValid = this.utilityService.checkOrderingTiming(this.advOrderStartTime,this.advOrderEndTime);
+      if(orderingTimeValid){
+        this.notInTimeSlot = false;
+        timeOutofSlot = this.notInTimeSlot; 
+      }else{
+        this.notInTimeSlot = true;
+        timeOutofSlot = this.notInTimeSlot;      
+        msg = `You can place advance order between ${this.minAdvOrderTime} to ${this.maxAdvOrderTime} only`;
+      }      
+    }else if(this.cartObj && (this.cartObj.orderType === 'allDay' || this.cartObj.orderType === 'subscription')){
+      const orderingTimeValid = this.utilityService.checkOrderingTiming(this.allDayOrderStartTime,this.allDayOrderEndTime);
+      if(orderingTimeValid){
+        this.notInTimeSlotAllDay = false; 
+        timeOutofSlot = this.notInTimeSlotAllDay; 
+      }else{
+        this.notInTimeSlotAllDay = true;
+        timeOutofSlot = this.notInTimeSlotAllDay; 
+        msg = `You can place order between ${this.minAllDayOrderTime} to ${this.maxAlldayOrderTime} only`;        
+      }           
+    }
+    if(timeOutofSlot){
+      this.toasterService.error(msg);
+    }
+    return timeOutofSlot;
+  }
+
+  async checkUserProfile(){
+    if(this.userProfile && this.userProfile.userName && this.userProfile.email){
+      if(this.checkPaymentTiming()){
+        return;
+      }else if(this.cartObj.orderType === 'allDay' && this.deliveryServiceError){
+        this.toasterService.error(115);
+        return;  
+      }else if((this.cartObj.orderType === 'allDay'&& this.allDaySlotIndex === 0) || 
+               (this.cartObj.orderType === 'advance' && this.advSlotIndex === 0)){
+        this.toasterService.error(116);
+        return;
+      }else if(this.cartObj.orderType === 'subscription'){
+        this.makePaymentSubscirption();
+      }else if(this.deliveryCharges && this.deliveryCharges > 0){
+        this.makePayment();
+      }else{
+        this.toasterService.warning(111);
+      }    
+    }
+    // else{
+    //   try{
+    //     const alert = await this.alertController.create({
+    //       cssClass: 'my-alert-class',
+    //       header: 'Set Your Profile',
+    //       backdropDismiss: false,
+    //       message: 'You have not set your profile yet, kindly set your profile. ',
+    //       buttons: [
+    //           {
+    //             text: 'Ok',
+    //             cssClass: 'secondary-color3 bold',
+    //             handler: () => {
+    //               this.openProfileModel()           
+    //             }
+    //           }
+    //         ]
+    //     });  
+    //     await alert.present();
+    //     }catch(error){
+    //       console.log('error while showing alert ',error);
+    //     }
+    // }
+  }
+  
+
+  async openProfileModel(){
+    // try{
+    //   const modal = await this.modalController.create({
+    //     component: ChooseFavCuisineComponent,
+    //     componentProps: {openedInModal:true}
+    //   });
+    //   modal.onDidDismiss().then((event: any) => {
+    //     const data = event.data;
+    //     if (data && data.back){
+    //       this.toasterService.success(110);
+    //       this.userProfile = this.localStorageService.getCacheData('USER_PROFILE'); 
+    //     }
+    //   });
+    //   return await modal.present();
+    // }catch(error){
+    //   console.log('error while fetching couponlist ',error);
+    // }
+  }
+
+  async makePayment(){    
+    const checkServicability = await this.checkServicability(this.customerLocation.geolocation);
+    if(checkServicability){
+      const userProfile = this.userProfile;
+      const foodOrderObj:any = {
+        customerId: userProfile._id,
+        customerName: userProfile.userName,
+        customerLocation: this.customerLocation,
+        customerEmail: userProfile.email,
+        customerPhoneNo: userProfile.phoneNo,
+        kitchenId: this.cartObj.kitchenId,
+        kitchenName: this.cartObj.kitchenName,
+        kitchenPhoneNo: this.cartObj.kitchen.phoneNo,
+        kitchenAddress: this.cartObj.kitchen.address,
+        kitchenGeolocation: this.cartObj.kitchen.geolocation,
+        orderType: this.cartObj.orderType,
+        mealType: this.cartObj.mealType,
+        amount: this.payAmt ,
+        itemAmount: this.totalAmt,
+        kitchenDiscount: this.kitchenDiscount,
+        deliveryCharges: this.deliveryCharges,
+        discount:this.discount,
+        taxes: this.taxes,
+        couponCode: this.couponCode,
+        itemList: this.cartObj.itemList,
+        addOns: this.cartObj.addOns ? this.cartObj.addOns : [],
+        specialRequest: this.specialRequest,
+        nonContactDelivery: this.nonContactDelivery,
+        orderDbId: this.orderDbId,
+        offer: this.offerId,
+        orderDate: new Date(),
+        moneyWalletPointsUsed: this.moneyWalletPointsUsed,
+        mealaweWalletPointsUsed: this.mealaweWalletPointsUsed,
+        extraDiscount: this.extraDiscount,
+        mealaweDeliveryDiscount: this.mealaweDeliveryDiscount,
+        mealaweItemDiscount: this.mealaweItemDiscount,
+        mealaweTotalAmt: this.mealaweTotalAmt,
+        mealaweKitchenDiscount: this.mealaweKitchenDiscount,
+        voucherCode: this.voucherCode,
+        voucherDiscount: this.voucherDiscount,
+        orderCreatedBy: 'User',
+        deliveryVendor: this.deliveryVendor
+      }
+      if(this.cartObj.kitchen && this.cartObj.kitchen.distance>=0){
+        foodOrderObj.distance = this.cartObj.kitchen.distance;
+      }
+      if(this.cartObj.orderType === 'advance'){
+        if(this.orderComplitionDate  && this.advSlotIndex > 0){
+          const seletedSlot = this.advSlotArray[this.advSlotIndex-1];
+          foodOrderObj.slotStartTime = seletedSlot.start;
+          foodOrderObj.slotEndTime = seletedSlot.end;
+          foodOrderObj.orderComplitionDate = this.orderComplitionDate;
+          foodOrderObj.orderComplitionTime = seletedSlot.start;          
+        }else{
+          this.toasterService.error(201);
+          return false;
+        }
+      }
+      if(this.cartObj.orderType === 'daily'){
+        foodOrderObj.orderComplitionTime = this.dailyOrderReadyTime;  
+        foodOrderObj.dailyOrderDeliveryTime = this.dailyOrderDeliveryTime;
+      }
+      if(this.cartObj.orderType === 'allDay'){
+        const seletedSlot = this.allDaySlotArray[this.allDaySlotIndex-1];
+        foodOrderObj.slotStartTime = seletedSlot.start;
+        foodOrderObj.slotEndTime = seletedSlot.end;          
+      }
+      try{
+        this.openCheckoutPage(foodOrderObj);
+      }catch(error){
+        if(error){
+          this.toasterService.error(300);
+        }        
+      }
+    }else{
+      this.toasterService.error(200);
+    }
+}
+
+  async makePaymentSubscirption(){
+    if(this.subscriptionObj.multiDateAllowed){
+      if(this.userSelectedDates.length !== this.cartObj.subscriptionObj.subscriptionDays){  
+        this.toasterService.error(`You must select ${this.cartObj.subscriptionObj.subscriptionDays} Delivery Dates.`);
+        return; 
+      }
+    }else if(!this.subscriptionStartDate){
+      this.toasterService.error(204);
+      return;
+    }
+    const checkServicability = await this.checkServicability(this.customerLocation.geolocation);
+    if(checkServicability){
+      const userProfile = this.userProfile;
+      const foodOrderObj:any = {
+        customerId: userProfile._id,
+        customerName: userProfile.userName,
+        customerLocation: this.customerLocation,
+        customerEmail: userProfile.email,
+        customerPhoneNo: userProfile.phoneNo,
+        orderType: 'subscriptionPackage',
+        amount: this.payAmt ,
+        mealaweTotalAmt: this.payAmt,
+        mealPackage: this.cartObj.itemList[0],
+        discount: this.discount,
+        specialRequest: this.specialRequest,
+        orderDate: new Date(),
+        moneyWalletPointsUsed: this.moneyWalletPointsUsed,
+        subscriptionStartDate : this.subscriptionStartDate,
+        subscriptionDays : this.cartObj.subscriptionObj.subscriptionDays,
+        orderCreatedBy: 'User',
+        deliveryVendor: this.deliveryVendor,
+        userSelectedDates: this.userSelectedDates,
+        multiDateAllowed: this.subscriptionObj.multiDateAllowed,
+        voucherCode: this.voucherCode,
+        voucherDiscount: this.voucherDiscount,
+        taxes: this.taxes
+      }
+      if(this.cartObj.subscriptionObj.lunchSubscription){
+        foodOrderObj.mealTimeLunch = true;
+      }
+      if(this.cartObj.subscriptionObj.dinnerSubscription){
+        foodOrderObj.mealTimeDinner = true;
+      }      
+      try{
+        this.openCheckoutPage(foodOrderObj);
+      }catch(error){
+        if(error){
+          this.toasterService.error(300);
+        }        
+      }
+    }else{
+      this.toasterService.error(200)
+    }
+  }
+
+  async openCheckoutPage(foodOrderObj:any){
+    try{
+      const success:any = await this.pay(foodOrderObj);
+      const orderType = foodOrderObj.orderType;
+      if(success){              
+        this.cartManagementService.resetCart();              
+        this.cartObj = this.cartManagementService.getCart();
+        this.toasterService.success(101);
+        this.orderDbId = undefined; 
+        // this.checkoutDetails = undefined;       
+        this.removeCoupon();
+        this.resetCartProps();
+        this.openOrderPlaced(orderType,true);
+        this.sendDataToComponent.publish('UPDATE_OPEN_ORDERS',true);
+      }else{
+        this.openOrderPlaced(orderType,false);
+      }
+    }catch(error){
+      console.log('error while fetching couponlist ',error);
+    }
+  }
+
+  async pay(orderInfo:any){
+    return new Promise(async (resolve, reject)=>{
+        try{
+            let order,orderType;
+            if(orderInfo){
+                order = orderInfo;
+                orderType = orderInfo.orderType;
+            }
+            if(order && order.amount >= 0){
+              if(this.useRazorpay){  
+                const checkoutDetails = await this.paymentGatewayService.startPaymentProcess(order);                
+                if(checkoutDetails.amount>0){
+                  order = checkoutDetails;
+                  const res = await this.paymentGatewayService.payWithRazorpay(checkoutDetails,order);             
+                  resolve(res);
+                }else{
+                    resolve(true);
+                }
+              }else{
+                const checkoutDetails = await this.paymentGatewayService.startPaytmPaymentProcess(order);             
+                if(checkoutDetails.amount>0){
+                  order = checkoutDetails;
+                  const res = await this.paymentGatewayService.payPaytmGateway(checkoutDetails,order);                  
+                  resolve(res);
+                }else{
+                  resolve(true);
+                }
+              }                
+            }                
+        }catch(error){
+          reject(error);
+        }
+    })
+  }
+
+  async selectMealTime(mealType:any){
+    // try{
+    //   const alert = await this.alertController.create({
+    //     cssClass: 'my-alert-class',
+    //     header: 'Attention!',
+    //     backdropDismiss: false,
+    //     message: `You are changing subscription meal time to ${mealType}`,
+    //     buttons: [
+    //         {
+    //           text: 'Ok',
+    //           cssClass: 'secondary-color3 bold',
+    //           handler: () => {
+    //             this.mealTimeSelected(mealType)           
+    //           }
+    //         }
+    //       ]
+    //   });  
+    //   await alert.present();
+    //   }catch(error){
+    //     console.log('error while showing alert ',error);
+    //   }    
+  }
+
+  async selectSavedLocation(){
+    // const modal = await this.modalController.create({
+    //   component: SearchLocationManualComponent,
+    //   componentProps: {showBackIcon: true,showOnlySaved:true},
+    //   backdropDismiss: false
+    // });
+    // modal.onDidDismiss().then(async (event: any) => {
+    //   const data = event.data;
+    //     if (data && !data.back){ 
+    //       if(data.address){
+    //         this.utilityService.configureCurrentLocation(data.address); 
+    //         this.updateLocationChange();  
+    //       }  
+    //     }
+    // });
+    // return await modal.present();  
+  }
+
   async changeLocation() {
     // const modal = await this.modalController.create({
     //   component: SelectCurrentAddressComponent,
@@ -484,6 +993,25 @@ export class CartComponent implements OnInit {
     //   const data = event.data;
     //   if (data && data.back){
     //     this.updateLocationChange();  
+    //   }
+    // });
+    // return await modal.present();
+  }
+
+  async openOrderPlaced(orderType:any,success:any){
+    this.runtimeStorageService.resetCacheData('OPEN_ORDERS');
+    // const modal = await this.modalController.create({
+    //   component: OrderPlacedComponent,
+    //   componentProps: {paymentSucess: success},
+    // });
+    // modal.onDidDismiss().then((event: any) => {
+    //   const data = event.data;
+    //   if (data && data.back){
+    //     if(orderType === 'subscriptionParent' || orderType === 'subscriptionPackage'){
+    //       this.navCtrl.navigateForward(['/myOrders/subscriptionOrder']);
+    //     }else{
+    //       this.navCtrl.navigateForward(['/myOrders/pastOrder']);
+    //     }        
     //   }
     // });
     // return await modal.present();
@@ -886,7 +1414,7 @@ export class CartComponent implements OnInit {
         }
       } else {
         if (this.couponCode && this.router.url === '/tabs/tabCart') {
-          // this.toasterService.warning(109); 
+          this.toasterService.warning(109); 
         }
         this.removeCoupon();
       }
@@ -967,12 +1495,18 @@ export class CartComponent implements OnInit {
   }
 
   async showFlashOffer(couponCode: any, savingAmount: any) {
+    let data = {couponCode, savingAmount, type:'lottie'}
+    this.alertModalService.modal(data,
+          () =>this.removeMealaweWallet() , this);
+    this.headerMsg = `'${couponCode}' applied`,
+     this.mainMessage = `You are saving ₹${savingAmount} with this coupon`,
+      this.subMessage = `Keep using ${couponCode} and save more with each order`
     // this.commonPopupService.showFlashOffer({
     //   headerMsg: `'${couponCode}' applied`,
     //   mainMessage: `You are saving ₹${savingAmount} with this coupon`,
     //   subMessage: `Keep using ${couponCode} and save more with each order`
     // });
-    this.removeMealaweWallet();
+    
   }
 
   async getMoneyWalletBalance(checkPayAmt: any) {
@@ -1037,7 +1571,7 @@ export class CartComponent implements OnInit {
 
   increaseAddOnCount(addon: any) {
     if (this.cartManagementService.validateTotalItemCount()) {
-      // this.toasterService.error(114);
+      this.toasterService.error(114);
       return;
     }
     addon.count++;
@@ -1057,20 +1591,20 @@ export class CartComponent implements OnInit {
     if (this.cartObj && this.cartObj.orderType === 'daily') {
       const quantityBooked = item.quantityBooked ? item.quantityBooked : 0;
       if ((item.quantityAvailable - quantityBooked) <= item.count) {
-        // this.toasterService.error(108)
+        this.toasterService.error(108)
         return;
       }
     }
     if (item.isSpecialMenu && item.specialQuantityAvailable === item.count) {
-      // this.toasterService.error(108)
+      this.toasterService.error(108)
       return;
     }
     if (this.cartManagementService.validateComboCount(item)) {
-      // this.toasterService.error(113);
+      this.toasterService.error(113);
       return;
     }
     if (this.cartManagementService.validateTotalItemCount()) {
-      // this.toasterService.error(114);
+      this.toasterService.error(114);
       return;
     }
     item.count++;
@@ -1223,6 +1757,74 @@ export class CartComponent implements OnInit {
 
   showAlert() {
     alert('kitchen more than 5kms away')
+  }
+
+  isWeekday = (dateString: string) => {
+    const date = new Date(dateString);
+    const utcDay = date.getUTCDay();
+    if(this.cartObj && this.cartObj.itemList && this.cartObj.itemList.length > 0){
+      if(this.cartObj.itemList[0] && this.cartObj.itemList[0].deliveryOnWeekends === false){
+        return utcDay !== 0 && utcDay !== 6;
+      }else{
+        return true;
+      }
+    }    
+  };
+
+  async toggleAddressSelected(address: any, index?:any) {
+    if (address) {
+      const checkServicability = await this.checkServicability(address.geolocation);
+      if(checkServicability){
+        this.addressSelected = address
+        this.customerLocation = address
+        this.toggleSelected = !this.toggleSelected;
+        this.serviceNotAvailable = false;
+        this.getDeliveryChargeQuote()
+        console.log(this.addressSelected)
+      }
+      else{
+        this.serviceNotAvailable = true
+        this.selectedAddressIndex = index
+      }
+    }
+    else{
+      this.toggleSelected = !this.toggleSelected;
+    }
+  }
+
+  toggleMap() {
+    this.showMap = true
+  }
+
+  toggleCanvas() {
+    let el = this.canvasAddress.nativeElement;
+    el.click();
+  }
+
+  mealTimeSelected(prop:any){
+    this.subscriptionObj[prop] = !this.subscriptionObj[prop];
+    if(!this.subscriptionObj.dinnerSubscription && !this.subscriptionObj.lunchSubscription){
+      this.subscriptionObj.lunchSubscription = true;
+    }
+    this.cartManagementService.updateSubscribeOrder(this.subscriptionObj);  
+  }
+  advOrderDateChanged(value:any){
+    this.orderComplitionDate = new Date(value);
+  }
+  advOrderTimeChanged(value:any){
+    this.orderComplitionTime = new Date(value);
+  }
+  subOrderDateChanged(value:any){
+    this.subscriptionStartDate = new Date(value);
+  }
+  multiSubOrderDateChanged(value:any,subscriptionDays:any){
+    if(value){
+      if(value.length > subscriptionDays){
+        this.toasterService.error(`You must select ${subscriptionDays} Delivery Dates.`);
+      }
+      this.userSelectedDates = value;   
+      this.chgDetRef.detectChanges();
+    }
   }
 
 
@@ -1378,23 +1980,8 @@ export class CartComponent implements OnInit {
     el.click();
   }
 
-  toggleAddressSelected(address: any) {
+  goBack(){
     this.toggleSelected = !this.toggleSelected;
-    if (address) {
-      this.addressSelected = address
-      this.customerLocation = address
-      this.getDeliveryChargeQuote()
-      console.log(this.addressSelected)
-    }
-  }
-
-  toggleMap() {
-    this.showMap = true
-  }
-
-  toggleCanvas() {
-    let el = this.canvasAddress.nativeElement;
-    el.click();
   }
 
 }

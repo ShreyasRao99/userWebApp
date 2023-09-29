@@ -11,6 +11,7 @@ import { MainSliderModule } from '../main-slider/main-slider.module';
 import { KitchenCardModule } from '../kitchen-card/kitchen-card.module';
 import { KitchenNearModule } from '../kitchen-near/kitchen-near.module';
 import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
+import { HeaderModule } from '../header/header.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
     MainSliderModule,
     KitchenCardModule,
     KitchenNearModule,
-    NgbPopoverModule
+    NgbPopoverModule,
+    HeaderModule
   ]
 })
 export class HomeModule { }

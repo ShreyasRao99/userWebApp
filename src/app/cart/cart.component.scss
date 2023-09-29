@@ -1,5 +1,5 @@
 .cart-wrapper {
-    margin-top: 100px;
+    margin-top: 50px;
     padding: 0 150px;
 }
 
@@ -95,14 +95,14 @@
         color: #21A392;
         font-size: 24px;
         position: relative;
-        top: -7px;
+        top: -8px;
     }
 
     .dec {
         color: #21A392;
         font-size: 28px;
         position: relative;
-        top: -11px;
+        top: -12px;
     }
 }
 
@@ -336,12 +336,12 @@
 }
 
 .quantity {
-    height: 26px;
+    height: 22px;
     background: #FFFFFF;
     border: 0.5px solid #21A392;
-    border-radius: 5px;
+    border-radius: 0px;
     position: relative;
-    top: -2px;
+    top: 0px;
 }
 
 .quantity2 {
@@ -357,7 +357,7 @@
 
 .count {
     position: relative;
-    bottom: -3px;
+    bottom: -1px;
 }
 
 .moreDistance {
@@ -1152,4 +1152,14 @@
     button{
         width:100%;
     }
+}
+
+.slotDropdown{
+    .btn{
+        width:356px;
+    }
+}
+
+.bi-arrow-left{
+    font-size:20px;
 }

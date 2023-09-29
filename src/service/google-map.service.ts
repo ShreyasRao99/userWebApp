@@ -54,7 +54,6 @@ private async loadGoogleMap() {
       const loader = new Loader(this.apiKey, this.options);
       return await loader.load();
   }catch (e){
-      return e
       console.log('error while fetching google plugin ', e);
   }
   }

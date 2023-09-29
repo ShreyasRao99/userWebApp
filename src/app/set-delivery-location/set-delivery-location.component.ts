@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { GeolocationService } from 'src/service/geolocation.service';
 import { GoogleMapService } from 'src/service/google-map.service';
 import { LocalStorageService } from 'src/service/local-storage.service';
@@ -13,7 +13,8 @@ import { ApiMainService } from 'src/service/apiService/api-main.service';
 })
 export class SetDeliveryLocationComponent implements OnInit {
   @Input() showSkipButton: boolean = false;
-  @Input() getCurrentLocation: boolean = false
+  @Input() getCurrentLocation: boolean = false;
+  @Output() closeOffCanvas = new EventEmitter<any>();
   serviceAvailable: boolean = true;
 
   constructor(private localStorageService: LocalStorageService, private apiMainService: ApiMainService, private sendDataToComponent: SendDataToComponent, private chgDetRef: ChangeDetectorRef, private googleMapService: GoogleMapService, private geoLocationService: GeolocationService) {
@@ -153,6 +154,7 @@ export class SetDeliveryLocationComponent implements OnInit {
   sendCurrentLocation() {
     if (this.serviceAvailable) {
       this.addAddress()
+      this.closeOffCanvas.emit(true)
       this.sendDataToComponent.publish('ADDRESS_FROM_DELIVERY', this.selectedAddress)
     }
     else {
@@ -169,19 +171,21 @@ export class SetDeliveryLocationComponent implements OnInit {
   }
 
   addAddress() {
-    const userProfile = this.localStorageService.getCacheData('USER_PROFILE');
-    if (userProfile) {
-      userProfile.addressList = userProfile.addressList ? userProfile.addressList : [];
-      const currentLocation = {
-        tagLocation: this.tagLocation,
-        geolocation: this.selectedAddress.geolocation,
-        address: this.address,
-        location: this.selectedAddress.location,
-        landmark: this.landmark
-      };
-      this.selectedAddress=currentLocation;
-      userProfile.addressList.push(currentLocation);
-      this.updateUserProfile(userProfile, currentLocation);
+    if (this.serviceAvailable) {
+      const userProfile = this.localStorageService.getCacheData('USER_PROFILE');
+      if (userProfile) {
+        userProfile.addressList = userProfile.addressList ? userProfile.addressList : [];
+        const currentLocation = {
+          tagLocation: this.tagLocation,
+          geolocation: this.selectedAddress.geolocation,
+          address: this.address,
+          location: this.selectedAddress.location,
+          landmark: this.landmark
+        };
+        this.selectedAddress = currentLocation;
+        userProfile.addressList.push(currentLocation);
+        this.updateUserProfile(userProfile, currentLocation);
+      }
     }
   }
 

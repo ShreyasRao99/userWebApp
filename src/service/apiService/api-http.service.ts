@@ -4,13 +4,14 @@ import { Injectable } from '@angular/core';
 import { LocalStorageService } from '../local-storage.service';
 import { RuntimeStorageService } from '../runtime-storage.service';
 import { LoaderstatusService } from 'src/app/mainloader/loaderstatus.service';
+import { ToasterService } from 'src/app/toaster/toaster.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiHttpService {
   private withCredentials: boolean = environment.withCredentials ? environment.withCredentials : false;
-  constructor(private httpClient:HttpClient, private loaderstatusService:LoaderstatusService, private localStorageService:LocalStorageService, private runtimeStorageService:RuntimeStorageService) { }
+  constructor(private httpClient:HttpClient, private toasterService:ToasterService, private loaderstatusService:LoaderstatusService, private localStorageService:LocalStorageService, private runtimeStorageService:RuntimeStorageService) { }
 
   callFinalApi(requestObj: HttpRequest<any>, hideLoader?:any): Promise<any> {
     const p = new Promise((resolve, reject) => {
@@ -39,7 +40,7 @@ export class ApiHttpService {
       if(error && error.status === 401){
         this.afterLogout()
       }else if(error && error.error && error.error.msg){
-        // this.toasterService.error(error.error.msg);
+        this.toasterService.error(error.error.msg);
         reject(error);
       }else{
         this.loaderstatusService.hide();

@@ -1,4 +1,5 @@
-import { Component, Output, EventEmitter } from "@angular/core";
+import { Component } from "@angular/core";
+import { SendDataToComponent } from "src/service/sendDataToComponent";
 
 @Component({
     selector: 'app-no-service',
@@ -6,14 +7,14 @@ import { Component, Output, EventEmitter } from "@angular/core";
     styleUrls: ['./no-service.component.scss'],
   })
   export class NoServiceComponent{
-    @Output() changeMyLocation = new EventEmitter();
-    constructor(){}
+    
+    constructor(private sendDataToComponent:SendDataToComponent){}
 
     editLocation(){
       // this.navCtrl.navigateForward(['/myAddress']);
     }
 
-    changeLocation(){
-      this.changeMyLocation.emit(true);
+    changeLocation() {
+      this.sendDataToComponent.publish('TOGGLE_MAP_OFFCANVAS', true);
     }
   }

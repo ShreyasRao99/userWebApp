@@ -1,42 +1,9 @@
 <div class="container-fluid">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand">
-            <img src="assets/images/mealawe.jpeg" width="30" height="30" class="d-inline-block align-top" alt="">
-            Mealawe
-        </a>
-        <span role="button" #canvasAddress data-bs-toggle="offcanvas" data-bs-target="#location" class="location"
-            (click)="callFindMyAddress()">{{currentAddress.location ? currentAddress.location :
-            currentAddress.address}}</span>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" routerLink="/search">Search</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/cart">Offers</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/help">Help</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" (click)="userProfile ? goToMyAccount():''">{{userProfile?.userName?userProfile?.userName:'Sign
-                        In'}}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/cart">Cart</a>
-                </li>
-            </ul>
-            <!-- (click)="userProfile ? goToMyAccount():''" -->
-        </div>
-    </nav>
+    <app-header></app-header>
     <!-- <app-kitchen-card [kitchen]="kitchen"></app-kitchen-card> -->
     <ng-container *ngIf="serviceAvailable">
         <div class="below-navbar">
-            <app-main-slider></app-main-slider>
+            <app-main-slider [bannerList]="mainBannerList"></app-main-slider>
             <div class="banner-section">
                 <app-regional-items></app-regional-items>
                 <app-category-items></app-category-items>
@@ -61,67 +28,4 @@
         </div>
     </ng-container>
 </div>
-
-<div class="delivery-location">
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="location" aria-labelledby="offcanvasExampleLabel">
-        <div class="offcanvas-div">
-            <div class="offcanvas-body">
-                <div class="container" *ngIf="!showMap">
-                    <button type="button" class="btn-close text-reset" #mapCanvas data-bs-dismiss="offcanvas"
-                        aria-label="Close"></button>
-                    <div class="row mt-4">
-                        <div class="col-12">
-                            <div>
-                                <form class="search-form">
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control shadow-sm" [id]="mapId"
-                                            placeholder="Search Your Location" aria-label="Recipient's username"
-                                            aria-describedby="basic-addon2">
-                                    </div>
-                                    <div class="getLocation">
-                                        <div class="d-flex flex-row">
-                                            <i class="bi bi-crosshair"></i>
-                                            <div class="flex-content" (click)="getCurrentLocation()">
-                                                <div>Get current location</div>
-                                                <div class="location-canvas-info">Using GPS</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="savedAddresses" *ngIf="userProfile">
-                                        <h6>SAVED ADDRESSES</h6>
-                                        <div class="mt-3 d-flex flex-row"
-                                            *ngFor="let address of userProfile.addressList">
-                                            <i class="bi bi-house"></i>
-                                            <div class="flex-content" (click)="setAddress(address)">
-                                                <div><b>{{address.tagLocation}}</b></div>
-                                                <div class="location-canvas-info">{{address.location}}</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="recentSearches" *ngIf="recentSearch.length>0">
-                                        <h6>RECENT SEARCHES</h6>
-                                        <div class="mt-3 d-flex flex-row"
-                                            *ngFor="let recent of recentSearch | slice:0:1">
-                                            <i class="bi bi-clock-history"></i>
-                                            <div class="flex-content">
-                                                <div><b>{{recent.name}}</b></div>
-                                                <div class="location-canvas-info">{{recent.address}}</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- </div> -->
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="select-address" *ngIf="showMap">
-                    <button type="button" style="display:none;" class="btn-close text-reset" #mapCanvas
-                        data-bs-dismiss="offcanvas"></button>
-                    <app-set-delivery-location [getCurrentLocation]="showCurrentLocation"></app-set-delivery-location>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<app-no-service *ngIf="serviceAvailable === false" (changeMyLocation)="changeLocation($event)"></app-no-service>
+<app-no-service *ngIf="serviceAvailable === false"></app-no-service>

@@ -179,4 +179,32 @@ export class ApiMainService {
     .REQUEST({url: urlObj.url + `/${id}`, method: urlObj.method}, data);
   }
 
+  startPaymentProcess(data:any){
+    return this.apiHttpService.REQUEST(this.apiConfigService.apiEndPointObj.startPaymentProcess, data);
+  }
+
+  consoleLog(data:any){
+    try {
+      this.apiHttpService.REQUEST(this.apiConfigService.apiEndPointObj.consoleLog,{data},null,true);
+    } catch (error) {
+       console.log('error while calling error api ',error) 
+    }    
+  }
+
+  validatePaymentTransaction(data:any){
+    return this.apiHttpService.REQUEST(this.apiConfigService.apiEndPointObj.validatePaymentTransaction, data);
+  }
+
+  startPaytmPaymentProcess(data:any){
+    return this.apiHttpService.REQUEST(this.apiConfigService.apiEndPointObj.startPaytmPaymentProcess, data);
+  }
+
+  validatePaytmPaymentTransaction(data:any){
+    return this.apiHttpService.REQUEST(this.apiConfigService.apiEndPointObj.validatePaytmPaymentTransaction, data);
+  }
+
+  getMealPackageListCluster(data:any){
+    return this.apiHttpService.REQUEST(this.apiConfigService.apiEndPointObj.getMealPackageListCluster,data);
+  }
+
 }
