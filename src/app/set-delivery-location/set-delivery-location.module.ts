@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SetDeliveryLocationComponent } from './set-delivery-location.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -9,10 +10,11 @@ import { SetDeliveryLocationComponent } from './set-delivery-location.component'
     SetDeliveryLocationComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   exports: [
-    SetDeliveryLocationComponent
+    SetDeliveryLocationComponent,
   ]
 })
 export class SetDeliveryLocationModule { }

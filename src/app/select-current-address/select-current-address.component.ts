@@ -3,6 +3,7 @@ import { GeolocationService } from 'src/service/geolocation.service';
 import { GoogleMapService } from 'src/service/google-map.service';
 import { LocalStorageService } from 'src/service/local-storage.service';
 import { GoogleStyle } from 'src/config/google.config';
+import { UtilityService } from 'src/service/utility.service';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class SelectCurrentAddressComponent implements OnInit {
   selectedAddress: any;
   mapid = 'map1234'
 
-  constructor(private localStorageService:LocalStorageService, private chgDetRef: ChangeDetectorRef, private googleMapService:GoogleMapService, private geoLocationService:GeolocationService){
+  constructor(private localStorageService:LocalStorageService, private utilityService:UtilityService, private chgDetRef: ChangeDetectorRef, private googleMapService:GoogleMapService, private geoLocationService:GeolocationService){
     this.mapid += Math.round(Math.random() * 1000); 
   }
 
@@ -29,7 +30,6 @@ export class SelectCurrentAddressComponent implements OnInit {
 
   loadCurrentSavedLocation(){
     const currentLocation =  this.localStorageService.getCacheData('CURRENT_LOCATION');
-    console.log(currentLocation)
     if(currentLocation){
       this.currentSavedLocation = currentLocation;
       this.loadSelectedLocation(currentLocation);
@@ -52,7 +52,6 @@ export class SelectCurrentAddressComponent implements OnInit {
         center = await this.geoLocationService.getCurrentCoordinate(true,false);  
         console.log(center)
       }   
-      console.log(document.getElementById(this.mapid))
       const map = new this.google.maps.Map(document.getElementById(this.mapid), {
           center,
           zoom: 12,
@@ -113,7 +112,7 @@ export class SelectCurrentAddressComponent implements OnInit {
       if (status === 'OK') {
         if (results[0]) {
          const location = results[0].formatted_address.replace("Unnamed Road, ","");
-         this.configureCurrentLocation({location, latlng})
+         this.utilityService.configureCurrentLocation({location, latlng})
          this.chgDetRef.detectChanges();
         }
       }else if(status === 'OVER_QUERY_LIMIT'){
@@ -124,20 +123,6 @@ export class SelectCurrentAddressComponent implements OnInit {
       }
 
     });
-  }
-
-  configureCurrentLocation(address:any){
-    if(address.lat && address.lng){
-      address.latlng = {lat:address.lat,lng:address.lng}
-    }      
-    this.selectedAddress = {
-      tagLocation: address.tagLocation ? address.tagLocation : undefined,
-      geolocation: address.geolocation ? address.geolocation : address.latlng,
-      address: address.address ? address.address : undefined,
-      location: address.location,
-      landmark: address.landmark ? address.landmark : undefined,
-      _id: address._id ? address._id : undefined
-    };
   }
 
 }

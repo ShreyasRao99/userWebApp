@@ -1,5 +1,67 @@
 .mapCurrentaddress {
-    height: 40%;
-    width:40%;
-    position: absolute !important;
+    height: 200px;
+    width: 100%;
+}
+
+.setAddressDiv {
+    padding: 4px 11px 4px 11px;
+    color: black;
+    width: 100%;
+    border: 1px solid grey
+}
+
+.buttons {
+    margin-top:3%;
+    .btn{
+        width:100%;
+        padding:15px;
+        border-radius:0;
+        font-weight:500;
+    }
+    .btn-primary{
+        background-color: white;
+        border-color:#e62841;
+        color:#e62841;
+    }
+    .btn-secondary{
+        margin-top:15px;
+        background-color: #e62841;
+        border-color:white;
+        color:white;
+    }
+}
+
+.moreDetails{
+    margin:4% 0;
+    width:100%;
+    .btn-primary{
+        width:100%;
+        background-color: #e62841 !important;
+        border-radius:0;
+        border-color:#e62841;
+        color:white;
+        font-weight:500; 
+    }
+}
+
+.absolute-div{
+    top:0;
+    left:0;
+    position:absolute;
+    padding:10%;
+}
+
+.moreDetails{
+    .form-control{
+        height:60px;
+        border-radius:0;
+    }
+}
+
+.btn-group{
+    width:100%;
+    .btn{
+        border-radius: 0;
+        padding:10px 0;
+    }
 }

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { NoServiceModule } from '../no-service/no-service.module';
@@ -8,6 +7,11 @@ import { RegionalItemsModule } from '../regional-items/regional-items.module';
 import { CategoryItemsModule } from '../category-items/category-items.module';
 import { MealTimeModule } from '../meal-time/meal-time.module';
 import { SetDeliveryLocationModule } from '../set-delivery-location/set-delivery-location.module';
+import { MainSliderModule } from '../main-slider/main-slider.module';
+import { KitchenCardModule } from '../kitchen-card/kitchen-card.module';
+import { KitchenNearModule } from '../kitchen-near/kitchen-near.module';
+import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
+import { HeaderModule } from '../header/header.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +24,12 @@ import { SetDeliveryLocationModule } from '../set-delivery-location/set-delivery
     RegionalItemsModule,
     CategoryItemsModule,
     MealTimeModule,
-    SetDeliveryLocationModule
+    SetDeliveryLocationModule,
+    MainSliderModule,
+    KitchenCardModule,
+    KitchenNearModule,
+    NgbPopoverModule,
+    HeaderModule
   ]
 })
 export class HomeModule { }

@@ -1,0 +1,117 @@
+.restaurant-info {
+    .speciality-list {
+        color: #5a5a5a;
+        font-size: 13px;
+    }
+}
+
+.selectedOrder {
+    background: #F85266;
+    color: white !important;
+    border: 1px solid #F85266 !important;
+}
+
+.orderCapsule {
+    display: inline-block;
+    border-radius: 17px;
+    color: #808080;
+    margin: 0px 6px 5px 0px;
+    text-align: center;
+    border: 1px solid #808080;
+    font-size: 12px;
+    padding: 8px 12px;
+}
+
+.togglediv{
+    font-size: 12px;
+    padding: 10px 5%;
+    .itemFilterdiv{
+        display: inline-block;
+        border: 1px solid grey;
+        padding: 2px 7px;
+        margin-right: 8px;
+        border-radius: 10px;
+        color: grey;
+        .filterIcon{
+            display: inline-block;
+            position: relative;
+            top: 1px;
+            margin-right: 7px;
+            height: 11px;
+            width: 11px;
+            background-position: center !important;
+            background-size: 5px !important;
+            background-repeat: no-repeat !important;
+        }
+        &.selected{
+            background: #ff000033;
+            border: 1px solid #ff000033;
+            color: black;
+        }
+        .crossIcon{
+            display: none;
+            &.selectedIcon{
+                display: inline-block;
+                padding-left: 8px;
+            }
+        }
+    }
+}
+.accordion-button:focus {
+    box-shadow: none;
+    border-color: rgba(0,0,0,.125);
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: transparent !important;
+    color: inherit;
+  }
+
+button.accordion-button:focus{
+    box-shadow: inherit;
+}
+
+.floatingMenu{
+    text-align: center;
+    position: sticky;
+    bottom: 5%;
+    left: 45%;
+    width: 70px;
+    button{
+        width: 145px;
+        height: 40px;
+        border-radius: 11%/50%;
+        background: black;
+        color: white;
+        font-weight: bold;
+        letter-spacing: 1px;
+        box-shadow: 1px 1px 10px 2px #4a4545c2;
+    }
+    // position: fixed;
+    // z-index: 11;
+    // top: 80%;
+    // right: 40%;
+    // width: 70px;
+    // height: 70px;
+    // border-radius: 50%;
+    // background: black;
+    // color: white;
+    // text-align: center;   
+    // padding-top: 8px;
+    .menuIcon{
+        font-size: 32px;
+    }
+    .menuText{
+        color: white;
+        font-size: 12px;
+    }
+}
+
+.positionBottom{
+    z-index:3;
+    left:392px;
+    position: fixed;
+    bottom: 0;
+    width: 735px;
+}
+

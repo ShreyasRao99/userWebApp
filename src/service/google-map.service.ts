@@ -54,7 +54,6 @@ private async loadGoogleMap() {
       const loader = new Loader(this.apiKey, this.options);
       return await loader.load();
   }catch (e){
-      return e
       console.log('error while fetching google plugin ', e);
   }
   }
@@ -111,7 +110,6 @@ private async loadGoogleMap() {
                 data.origin.push(kitchen.geolocation as never);
             });
             const finalDistanceList = await this.apiMainService.getKitchenGoogleDistance(data);
-            console.log('finalDistanceList ',finalDistanceList);
             if(finalDistanceList && finalDistanceList.length > 0){
                 finalDistanceList.forEach((distanceObj: { distance: { value: any; }; },index: any) => {
                     const distanceInMeters = distanceObj.distance.value;
@@ -159,6 +157,24 @@ private async loadGoogleMap() {
         if (unit=="N") { dist = dist * 0.8684 }
         return dist;
     }
+  }
+
+  getDeliveryQuote(kitchenDistance:any){
+    const quaotObj = {estimated_price:0,distance:0}
+    try{
+        const distance = Math.ceil(kitchenDistance);
+        quaotObj.distance = distance
+        if(distance <= 3){
+            quaotObj.estimated_price = 39;
+        }else{
+            const remainingDistance = Math.ceil(distance - 3);
+            quaotObj.estimated_price = remainingDistance * 11 + 39 ;
+        }
+        return quaotObj;
+    }catch(e){
+        return quaotObj;
+    }
+    
   }
 }
 

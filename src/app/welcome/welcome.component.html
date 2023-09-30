@@ -1,81 +1,94 @@
 <div class="container-fluid">
-    <div class="row h-80">
-        <div class="col-6 top-section">
-            <div>
-                <div class="row">
-                    <div class="col-6 logo">
-                        <img class="img-fluid" src="assets/images/mealawe.jpeg"><b> Mealawe</b>
-                    </div>
-                    <div class="col-6 center">
-                      <ng-container *ngIf="!loggedIn">
-                        <button type="button" class="btn btn-light bgsidemargin2" data-bs-toggle="offcanvas" data-bs-target="#login">Login</button>
-                        <button type="button" class="btn btn-dark" data-bs-toggle="offcanvas" data-bs-target="#sign-up">Sign up</button>
-                      </ng-container>
-                        <button type="button" class="btn btn-outline-dark ms-5" *ngIf="loggedIn">{{userProfile.userName}}</button>
-                    </div>
-                </div>
-            </div>
-            <div class="search-section">
-                <p class="first-line">Cooking gone wrong?</p>
-                <p class="second-line">Order food from favourite restaurants near you.</p>
-            </div>
-            <form class="search-form mt-5">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control shadow-none" [id]="mapId" placeholder="Search Your Location" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary yesbtn" type="button">FIND FOOD</button>
-                    </div>
-                </div>
-                <button type="button" class="btn btn-light btn-sm">Locate Me</button>
-            </form>
-            <p class="mt-4">POPULAR CITIES IN INDIA</p>
-            <span class="bold">Ahmedabad Bangalore Chennai Kolkata Mumbai Pune & more.</span>
-        </div>
-        <div class="col-6 top-section-img">
-            <img class="img-fluid" src="assets/images/image_1.jpeg">
-        </div> 
-    </div>
-    <div class="row text-center mid-section">
-      <div class="col-4">
-        Placeholder 1
-      </div>
-      <div class="col-4">
-        Placeholder 2
-      </div>
-      <div class="col-4">
-        Placeholder 3
-      </div>
-    </div>
-</div>
-<div class="offcanvas offcanvas-end login" tabindex="-1" id="login" aria-labelledby="offcanvasExampleLabel">
-    <div class="offcanvas-header">
-      <h5 class="offcanvas-title header1" id="offcanvasExampleLabel">Login</h5>
-    </div>
-    <div class="bgsidepadding3">or <span style="color:#e62841;">create an account</span></div>
-    <div class="offcanvas-body">
+  <div class="row h-80">
+    <div class="col-6 top-section">
       <div class="row">
-        <div class="col-8">
-            <form [formGroup]="LoginForm" *ngIf="!showOTPscreen">
-                <div class="form-group">
-                  <input type="number" class="form-control shadow-none" formControlName="phoneNo" id="formGroupExampleInput" placeholder="Phone Number">
-                  <div *ngIf="LoginForm.controls.phoneNo.invalid && LoginForm.controls.phoneNo.dirty">
-                    Please enter a valid phone number
-                  </div>
-                  <button class="btn btn-primary fullwidth my-4 py-3 yesbtn" type="button" [disabled]="LoginForm.invalid" (click)="registerMobileNumer()">CONFIRM</button>
-                </div>
-              </form>
-              <div *ngIf="showOTPscreen">
-                <h2 class="mt-3">Verify the OTP</h2>
-                <h3 class="mt-3">Sent to</h3>
-                <p class="mt-3">+91 {{phoneNo}}</p>
-                <div class="mt-3">
-                  <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{length:6,allowNumbersOnly:true}"></ng-otp-input>
-                  <button class="btn btn-primary yesbtn mt-2" (click)="verifyOTP()" [disabled]="!enableVerfiy">Verify</button>
-                </div>
+        <div class="col-6 logo">
+          <img class="img-fluid" src="assets/images/mealawe.jpeg"><b> Mealawe</b>
+        </div>
+        <div class="col-6 topBtns">
+          <ng-container *ngIf="!loggedIn && !userLoggedIn">
+            <button type="button" class="btn btn-light bgsidemargin2" data-bs-toggle="offcanvas"
+              data-bs-target="#login">Login</button>
+            <button type="button" class="btn btn-dark" data-bs-toggle="offcanvas" data-bs-target="#sign-up">Sign
+              up</button>
+          </ng-container>
+          <button type="button" class="btn btn-outline-dark ms-5" *ngIf="loggedIn || userLoggedIn">{{loggedIn? userProfile.userName : userLoggedIn.userName}}</button>
+        </div>
+      </div>
+      <div class="row search-section">
+        <div class="col-12">
+          <p class="first-line">Cooking gone wrong?</p>
+          <p class="second-line">Order food from favourite restaurants near you.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <form class="search-form mt-3">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control shadow-none" [id]="mapId" placeholder="Search Your Location"
+                aria-label="Recipient's username" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-primary yesbtn" type="button">FIND FOOD</button>
               </div>
+            </div>
+            <button type="button" class="btn btn-danger btn-sm">Locate Me</button>
+          </form>
+          <p class="mt-4">POPULAR CITIES IN INDIA</p>
+          <span class="bold">Ahmedabad Bangalore Chennai Kolkata Mumbai Pune & more.</span>
         </div>
       </div>
     </div>
+
+    <div class="col-6 top-section-img">
+      <img class="img-fluid" src="assets/images/image_1.jpeg">
+    </div>
+  </div>
+
+  <div class="row text-center mid-section">
+    <div class="col-4">
+      Placeholder 1
+    </div>
+    <div class="col-4">
+      Placeholder 2
+    </div>
+    <div class="col-4">
+      Placeholder 3
+    </div>
+  </div>
+</div>
+
+<div class="offcanvas offcanvas-end login" tabindex="-1" id="login" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-body">
+    <button type="button" #loginCanvas class="btn-close text-reset" data-bs-dismiss="offcanvas"
+      aria-label="Close"></button>
+    <h5 class="offcanvas-title header1 mt-3" id="offcanvasExampleLabel">Login</h5>
+    <div>or <span style="color:#e62841;">create an account</span></div>
+    <div class="row mt-5">
+      <div class="col-8">
+        <form [formGroup]="LoginForm" *ngIf="!showOTPscreen">
+          <div class="form-group">
+            <input type="number" class="form-control shadow-none" formControlName="phoneNo" id="formGroupExampleInput"
+              placeholder="Phone Number">
+            <div *ngIf="LoginForm.controls.phoneNo.invalid && LoginForm.controls.phoneNo.dirty">
+              Please enter a valid phone number
+            </div>
+            <button class="btn btn-primary fullwidth my-4 py-3 yesbtn" type="button" [disabled]="LoginForm.invalid"
+              (click)="registerMobileNumer()">CONFIRM</button>
+          </div>
+        </form>
+        <div *ngIf="showOTPscreen">
+          <h2 class="mt-3">Verify the OTP</h2>
+          <h3 class="mt-3">Sent to</h3>
+          <p class="mt-3">+91 {{phoneNo}}</p>
+          <div class="mt-3">
+            <ng-otp-input (onInputChange)="onOtpChange($event)"
+              [config]="{length:6,allowNumbersOnly:true}"></ng-otp-input>
+            <button class="btn btn-primary yesbtn mt-2" (click)="verifyOTP()" [disabled]="!enableVerfiy">Verify</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="offcanvas offcanvas-end sign-up" tabindex="-1" id="sign-up" aria-labelledby="offcanvasExampleLabel">
   <div class="offcanvas-header">
@@ -85,18 +98,19 @@
   <div class="offcanvas-body">
     <div class="row">
       <div class="col-8">
-          <form>
-              <div class="form-group">
-                <input type="text" class="form-control shadow-none" id="login" placeholder="Phone Number">
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control shadow-none" id="name" placeholder="Phone Number">
-              </div>
-              <div class="form-group">
-                <input type="email" class="form-control shadow-none" id="email" aria-describedby="emailHelp" placeholder="Email">
-              </div>
-              <button class="btn btn-primary fullwidth my-4 py-3 yesbtn">CONTINUE</button>
-            </form>
+        <form>
+          <div class="form-group">
+            <input type="text" class="form-control shadow-none" id="login" placeholder="Phone Number">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control shadow-none" id="name" placeholder="Phone Number">
+          </div>
+          <div class="form-group">
+            <input type="email" class="form-control shadow-none" id="email" aria-describedby="emailHelp"
+              placeholder="Email">
+          </div>
+          <button class="btn btn-primary fullwidth my-4 py-3 yesbtn">CONTINUE</button>
+        </form>
       </div>
     </div>
   </div>

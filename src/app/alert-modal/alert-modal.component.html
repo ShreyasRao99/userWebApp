@@ -1,0 +1,39 @@
+<div *ngIf="showDialog" class="dialog-wrapper">
+    <div class="dialog-content" *ngIf="modalObj.type !== 'lottie'">
+        <div>
+            <div class="dialogHeader">Confirmation</div>
+            <div class="dialogbody">
+                <p>{{modalObj.msg}}</p>
+            </div>
+            <div class="dialogfooter">
+                <button class="btn btn-danger" (click)="cancel()">No</button>
+                <button class="btn btn-primary" (click)="confirm()">Yes</button>
+            </div>
+        </div>
+    </div>
+    <div class="dialog-content" *ngIf="modalObj.type === 'lottie'" (click)="cancel()">
+        <div class="lottie-player">
+            <lottie-player src="\assets/lottie/hurray.json" background="transparent" speed="1" loop
+                autoplay></lottie-player>
+            <div class="flashbody">
+                <div class="header">{{modalObj.couponCode}} applied</div>
+                <div class="midsection">
+                    <div class="label1">You are saving ₹{{modalObj.savingAmount}} with this coupon</div>
+                    <div class="label2">Keep using {{modalObj.couponCode}} and save more with each order</div>
+                </div>
+                <div class="bold footer" (click)="confirm()">YAY!</div>
+            </div>
+        </div>
+
+        <!-- <div>
+            <div class="dialogHeader">Lottie</div>
+            <div class="dialogbody">
+                <p>{{modalObj|json}}</p>
+            </div>
+            <div class="dialogfooter">
+                <button class="btn btn-danger" (click)="cancel()">No</button>
+                <button class="btn btn-primary" (click)="confirm()">Yes</button>
+            </div>
+        </div> -->
+    </div>
+</div>

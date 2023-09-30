@@ -1,0 +1,218 @@
+.noBottomPadding{
+    padding-bottom: 10px;
+    min-height: 162px;
+}
+.itemImage{
+    border-radius: 15px;
+    height: 135px;
+    width: 130px !important;
+}
+.partitionLine{
+    border-bottom: 1px solid #a4a4a442;
+    margin: 0 5%;
+    height: 1px;
+}
+
+.capsule{
+    font-size: 8px;
+    border: 1px solid #BBC0D0;
+    border-radius: 2px;
+    vertical-align: top;
+    padding: 2px 6px;
+}
+
+.addPosition{
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    bottom: 19px;
+    left: 100px;
+    &.noImage{
+        top: 42px !important;  
+    }
+}
+.addButton{
+    background: white;
+    width: 62px;
+    text-align: center;
+    border-radius: 8px;
+    padding: 4px 13px;
+    color: #15a292;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 20px;
+    box-shadow: 1px 3px 6px rgb(16 24 40 / 55%);
+}
+.bookButton{
+    background: #28ad9e;
+    width: 77px;
+    text-align: center;
+    border-radius: 8px;
+    padding: 4px 13px;
+    color: white;
+    font-size: 14px;
+    margin-left: -7px;
+}
+.bookedButton{
+    background: #af8c8c;
+    width: 89px;
+    text-align: center;
+    border-radius: 8px;
+    padding: 4px 13px;
+    color: white;
+    font-size: 14px;
+    margin-left: -13px;
+}
+
+.addeditemStyle{
+    height: 24px;
+    width: 100%;
+    font-size: 14px;
+    margin: 0;
+    display: flex;
+    flex-flow: row;
+    position: relative;
+    left: -17px;
+}
+.incbutton{
+    width: 40px;
+    text-align: center;
+    background: transparent;
+    border:0px;
+    color: white;
+    height: 100%;
+    padding: 0;
+    margin: 0px;
+    .indicator{
+        background: #15a292;
+        display: block;
+        width: 27px;
+        height: 100%;
+        font-size: 18px;
+    }
+    .leftdiv{
+        border-radius: 8px 0px 0px 8px;
+        padding-top: 0px;
+    }
+    .rightdiv{
+        border-radius: 0px 8px 8px 0px;
+        padding-top: 0px;
+    }
+}
+.midsection{
+    width: 20px;
+    text-align: center;
+    background: #15a292;
+    padding-top: 3px;
+}
+.spicyLebel{
+    background-repeat: no-repeat !important;
+    border: 1px solid rgb(185 4 28);
+    border-radius: 3px;
+    display: inline-block;
+    height: 14px;
+}
+.spicy1{
+    background: url('~/src/assets/icon/chili1.svg');
+    background-size: 11px;
+    background-position: 3px 1px !important;
+    width: 20px;
+}  
+.spicy2{
+    background: url('~/src/assets/icon/chili2.svg');
+    background-size: 15px;
+    background-position: 2px 1px !important;
+    width: 25px;
+}
+.spicy3{
+    background: url('~/src/assets/icon/chili3.svg');
+    background-size: 22px;
+    background-position: 1px 1px !important;
+    width: 28px;
+}
+.capsuledislplay{
+    display: table-cell;
+}
+.missedOuter{
+    width: 133px;
+    position: absolute;
+    top: 2px;
+    left: 1px;
+    height: 141px;
+    border-radius: 15px;
+    background: #0404044f;
+    div{
+        background: #b9041c;
+        border-radius: 0px 0px 15px 15px;
+        height: 20px;
+        text-align: center;
+        padding: 6px 0px;
+        color: white;
+        font-size: 8px;
+        letter-spacing: 1px;
+        word-spacing: 2px;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        left: 0px;    
+    }
+    .missed{
+        background: black;
+    }
+    .comingnext{
+        background: #15a292;
+    }
+    .notavailable{
+        background: #fe8e9c;
+    }
+}
+
+.specialMenu{
+    background: linear-gradient(45deg, #FECF21, transparent);
+    border-radius: 11px;
+}
+.specialMenuIcon{
+    height: 48px;
+    position: relative;
+    left: -25px;
+    top: 21px;
+}
+.inlineMargin{
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.price{
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 20px;
+    letter-spacing: -0.0043em;
+    color: #676F81;
+}
+.description{
+    font-weight: 300;
+    font-size: 12px;
+    letter-spacing: 0.0006em;
+    color: #676F81;
+}
+.itemLeftTopPadding{
+    padding-top: 10px;
+}
+.tasteOfRegion{    
+    font-size: 12px;
+    padding-top: 4px;
+
+}
+.discountImg{
+    height: 25px;
+}
+.readmorestyle{
+    color: #15a292;
+}
+
+.preparationTimemsg{
+    font-size: 11px;
+    padding-left: 10px;
+    font-style: italic;
+}
+

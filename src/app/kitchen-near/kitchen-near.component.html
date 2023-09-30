@@ -1,0 +1,31 @@
+<div class="col-3" *ngFor="let kitchen of kitchenList">
+    <div class="card mb-5 shadow bg-white rounded" style="width: 18rem;">
+        <img class="card-img-top img-fluid" [src]="imageUrl + kitchen.imageUrl"
+            alt="Card image cap">
+            <div class="card-body">
+                <div class="lowerpart">
+                    <div class="kitchenName">{{kitchen.kitchenName}}</div>
+                    <div class="specialdiv">
+                        <span class="speacial"><span class="speciality">{{kitchen.mainSpeciality}}</span>, </span>
+                        <span class="speacial">{{kitchen.specialityList}}</span>
+                    </div> 
+                    <div>   
+                        <div class="inline">
+                            <span *ngFor="let type of kitchen.mealType">
+                                <div *ngIf="type==='Veg'" class="vegIcon typeIcon inline"></div>
+                                <div *ngIf="type==='NonVeg'" class="nonvegIcon typeIcon inline"></div>
+                                <div *ngIf="type==='Jain'" class="jainIcon inline">Jain</div>
+                            </span>
+                        </div>        
+                        <div class="deliveryTime inline">
+                            <!-- <span>{{kitchen.deliveryTime}} mins</span>  -->
+                            <span>{{kitchen.distance}} {{kitchen.distance > 1 ? 'Kms' :'Km'}}</span>
+                        </div>
+                        <div class="ratingStar inline">
+                            <span>{{kitchen.rating}}</span>
+                        </div>
+                      </div>  
+                </div> 
+            </div>
+    </div>
+</div>
