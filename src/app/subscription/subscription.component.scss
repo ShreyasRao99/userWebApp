@@ -8,6 +8,7 @@ div[scrollx=true] {
     display: flex;
     flex-wrap: nowrap;
     overflow-x: scroll;
+    // justify-content: center;
 
     &::-webkit-scrollbar {
         display: none;
@@ -456,7 +457,7 @@ div[scrollx=true] {
 
 .custaccordionGrp {
     background: #f4f5f8;
-    border-radius: 20px;
+    border-radius: 0px;
 }
 
 .custaccodianHeader {

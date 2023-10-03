@@ -2,101 +2,105 @@
 <div class="container-fluid">
     <div class="paddingBelow">
         <app-main-slider *ngIf="showSlider" [bannerList]="subBannerList"></app-main-slider>
-        <div class="mealCapsuleDiv">
-            <div class="scroll" scrollX="true">
-                <div *ngFor="let category of packageCategoryList" class="orderCapsule"
-                    [ngClass]="{'selectedOrder': packageCategory === category}"
-                    (click)="selectPackageCategory(category)">
-                    <div class="itemName">{{category}}</div>
-                </div>
-            </div>
-        </div>
-        <div *ngFor="let group of filteredSubCategoryGroupList" [id]="group.groupName" class="accordiondiv">
-            <div class="custaccordionGrp">
-                <div class="custaccodianHeader" (click)="group.closediv = !group.closediv">
-                    <i class="bi bi-arrow-up" class="right header2" *ngIf="group.closediv"></i>
-                    <i class="bi bi-arrow-down" class="right header2" *ngIf="!group.closediv"></i>
-                    <div>{{group.subCategory}}</div>
-                </div>
-                <div *ngIf="!group.closediv">
-                    <div *ngFor="let package of group.mealList; index as i " class="cardbackground">
-                        <div class="insideCardBackground">
-                            <div class="row">
-                                <div class="col-6" (click)="selectedPackage = package._id">
-                                    <div class="radiogrp">
-                                        <input class="form-check-input" [(ngModel)]="selectedPackage" class="radiobtn"
-                                            type="radio" [value]="package._id">
-                                    </div>
-                                    <!-- <ion-radio-group [(ngModel)]="selectedPackage" class="radiogrp">
-                                        <ion-radio [value]="package._id" mode="md" class="radiobtn"></ion-radio>
-                                    </ion-radio-group> -->
-                                    <div>
-                                        <div *ngIf="package.packageType === 'Veg'"
-                                            class="vegIcon typeIcon inlineMargin"></div>
-                                        <div *ngIf="package.packageType === 'NonVeg'"
-                                            class="nonvegIcon typeIcon inlineMargin"></div>
-                                        <span class="header3 bold bgTopDownpadding2">{{package.packageName}}</span>
-                                    </div>
-                                    <div class="price">&#8377;
-                                        <span *ngIf="package.discount" class="lineThrough">{{package.packagePrice
-                                            }}</span>
-                                        <span>{{package.packagePrice - package.discount}}</span>
-                                    </div>
-                                    <div class="description">{{package.packageInfo}}</div>
-                                </div>
-                                <div class="col-6">
-                                    <div *ngIf="package.offerText" class="offerTextDiv"
-                                        [ngClass]="{offerRedbg: package.offerColor === 'red', offerYellowbg: package.offerColor === 'yellow',offerGreenbg: package.offerColor === 'green'}">
-                                        {{package.offerText}}</div>
-                                    <img [src]="imageUrl + package.imageUrl" class="itemImage"
-                                        *ngIf="package.imageUrl" />
-                                    <div class="addPosition" [ngClass]="{noImage:!package.imageUrl }">
-                                        <div *ngIf="!package.count && selectedPackage === package._id"
-                                            class="addButton white" (click)="addToCart(package)">ADD</div>
-                                        <div *ngIf="package.count" class="white addeditemStyle">
-                                            <button class="incbutton" (click)="decreaseCount(package)">
-                                                <span class="indicator right leftdiv">-</span>
-                                            </button>
-                                            <div class="midsection">{{package.count}}</div>
-                                            <button class="incbutton" (click)="increaseCount(package)">
-                                                <span class="indicator rightdiv">+</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="offtextdiv">
-                                <div class="discountImg1"></div>
-                            </div>
-                            <div *ngIf="selectedPackage === package._id">
-                                <div class="scroll" scrollX="true">
-                                    <div *ngFor="let menu of package.menuList" class="mealPlanDisplay">
-                                        <div class="mealPlanCard">
-                                            <div class="firstline">{{menu.dayText}}</div>
-                                            <div class="secondline">{{menu.description}}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+        <div class="row">
+            <div class="col-8 offset-2">
+                <div class="mealCapsuleDiv">
+                    <div class="scroll" scrollX="true">
+                        <div *ngFor="let category of packageCategoryList" class="orderCapsule"
+                            [ngClass]="{'selectedOrder': packageCategory === category}"
+                            (click)="selectPackageCategory(category)">
+                            <div class="itemName">{{category}}</div>
                         </div>
-                        <div class="partitionLine" *ngIf="i < group.mealList.length - 1 "></div>
                     </div>
                 </div>
+                <div *ngFor="let group of filteredSubCategoryGroupList" [id]="group.groupName" class="accordiondiv">
+                    <div class="custaccordionGrp">
+                        <div class="custaccodianHeader" (click)="group.closediv = !group.closediv">
+                            <i class="bi bi-chevron-down right header2" *ngIf="group.closediv"></i>
+                            <i class="bi bi-chevron-up right header2" *ngIf="!group.closediv"></i>
+                            <div>{{group.subCategory}}</div>
+                        </div>
+                        <div *ngIf="!group.closediv">
+                            <div *ngFor="let package of group.mealList; index as i " class="cardbackground">
+                                <div class="insideCardBackground">
+                                    <div class="row justify-content-between">
+                                        <div class="col-6" (click)="selectedPackage = package._id">
+                                            <div class="radiogrp">
+                                                <input class="form-check-input" [(ngModel)]="selectedPackage" class="radiobtn"
+                                                    type="radio" [value]="package._id">
+                                            </div>
+                                            <!-- <ion-radio-group [(ngModel)]="selectedPackage" class="radiogrp">
+                                                <ion-radio [value]="package._id" mode="md" class="radiobtn"></ion-radio>
+                                            </ion-radio-group> -->
+                                            <div>
+                                                <div *ngIf="package.packageType === 'Veg'"
+                                                    class="vegIcon typeIcon inlineMargin"></div>
+                                                <div *ngIf="package.packageType === 'NonVeg'"
+                                                    class="nonvegIcon typeIcon inlineMargin"></div>
+                                                <span class="header3 bold bgTopDownpadding2">{{package.packageName}}</span>
+                                            </div>
+                                            <div class="price">&#8377;
+                                                <span *ngIf="package.discount" class="lineThrough">{{package.packagePrice
+                                                    }}</span>
+                                                <span>{{package.packagePrice - package.discount}}</span>
+                                            </div>
+                                            <div class="description">{{package.packageInfo}}</div>
+                                        </div>
+                                        <div class="col-6 right">
+                                            <div *ngIf="package.offerText" class="offerTextDiv"
+                                                [ngClass]="{offerRedbg: package.offerColor === 'red', offerYellowbg: package.offerColor === 'yellow',offerGreenbg: package.offerColor === 'green'}">
+                                                {{package.offerText}}</div>
+                                            <img [src]="imageUrl + package.imageUrl" class="itemImage"
+                                                *ngIf="package.imageUrl" />
+                                            <div class="addPosition" [ngClass]="{noImage:!package.imageUrl }">
+                                                <div *ngIf="!package.count && selectedPackage === package._id"
+                                                    class="addButton white" (click)="addToCart(package)">ADD</div>
+                                                <div *ngIf="package.count" class="white addeditemStyle">
+                                                    <button class="incbutton" (click)="decreaseCount(package)">
+                                                        <span class="indicator right leftdiv">-</span>
+                                                    </button>
+                                                    <div class="midsection">{{package.count}}</div>
+                                                    <button class="incbutton" (click)="increaseCount(package)">
+                                                        <span class="indicator rightdiv">+</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="offtextdiv">
+                                        <div class="discountImg1"></div>
+                                    </div>
+                                    <div *ngIf="selectedPackage === package._id">
+                                        <div class="scroll" scrollX="true">
+                                            <div *ngFor="let menu of package.menuList" class="mealPlanDisplay">
+                                                <div class="mealPlanCard">
+                                                    <div class="firstline">{{menu.dayText}}</div>
+                                                    <div class="secondline">{{menu.description}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="partitionLine" *ngIf="i < group.mealList.length - 1 "></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="packageCategoryList && packageCategoryList.length === 0">
+                    <div class="noMealPlan header3 bold grey center">No Meal Plan found in your selected location</div>
+                </div>
             </div>
-        </div>
-        <div *ngIf="packageCategoryList && packageCategoryList.length === 0">
-            <div class="noMealPlan header3 bold grey center">No Meal Plan found in your selected location</div>
         </div>
     </div>
     <div class="positionBottom">
         <div class="container footerdesign" (click)="goToMainCart()" *ngIf="cartObj && cartObj.itemList && cartObj.itemList.length > 0">  
             <div>
                 <div class="row">        
-                    <div class="col-7">
+                    <div class="col-6">
                         <span>{{cartObj.itemList.length + cartObj.addOns.length}} 
                             {{(cartObj.itemList.length + cartObj.addOns.length) === 1 ? 'Item' : 'Items'}} | &#8377; {{getTotalPrice()}}</span>
                     </div>
-                    <div class="col-5">
+                    <div class="col-6">
                         <div class="cartIcon cartIconstyle" (click)="goToMainCart()">View Cart</div>
                     </div>
                 </div>

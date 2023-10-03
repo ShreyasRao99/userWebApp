@@ -10,6 +10,7 @@ import { ToasterComponent } from './toaster/toaster.component';
 import { CustomPipeModule } from 'src/pipes/pipe.module';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
 import { AlertModalComponent } from './alert-modal/alert-modal.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { AlertModalComponent } from './alert-modal/alert-modal.component';
     HttpClientModule,
     ReactiveFormsModule,
     CustomPipeModule,
+    BrowserAnimationsModule,
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
   providers: [],

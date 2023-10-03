@@ -418,6 +418,36 @@ export class KitchenInsideComponent implements OnInit {
     }
   }
 
+  async showFilters(){
+    // try{
+    //     const modal = await this.modalController.create({
+    //       component: KitchenFiltersComponent,
+    //       cssClass: 'xtramiddle-bottom-modal-design',
+    //       componentProps: {data: this.filterObj, type:3},
+    //       backdropDismiss: true,
+    //       breakpoints: [0,1],
+    //       initialBreakpoint: 1,
+    //       handle: false
+    //     });
+    //     modal.onDidDismiss().then((event: any) => {
+    //       const data = event.data;
+    //       if (data && data.back){
+    //         this.filterObj = data.filterObj
+    //         const values = Object.values(this.filterObj);
+    //         if(values.indexOf(true)>-1){
+    //           this.filterApplied = true;
+    //         }else{
+    //           this.filterApplied = false;
+    //         }
+    //         this.filterAllList();
+    //       }
+    //     });
+    //     return await modal.present();
+    // }catch(error){
+    //   console.log('error while launching modelcontroller ',error);
+    // }
+}
+
   async addAddons(){
     const enabledAddOnsList = [...this.addOnsList].filter(e=>e.addOnAvailable)
     // if(enabledAddOnsList.length > 0){

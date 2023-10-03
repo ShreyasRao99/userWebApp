@@ -33,6 +33,7 @@
 // @import '~swiper/scss/scrollbar';
 // @import '~swiper/scss/zoom';
 @import "~bootstrap-icons/font/bootstrap-icons.css";
+@import 'ngx-multiple-dates/prebuilt-themes/indigo-pink.css';
 
 // html.ios {
 //     --ion-safe-area-top: 10px;
@@ -620,7 +621,7 @@ ion-slides {
     background-size: 18px !important;
     background-repeat: no-repeat !important;
     background-position: 5px 0px !important;
-    background-position: 5px 8px !important;
+    background-position: 11px 4px !important;
     display: inline-block;
 
     &.selected {
@@ -925,3 +926,5 @@ input[type="text"]:focus {
         
 //     }
 // }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
