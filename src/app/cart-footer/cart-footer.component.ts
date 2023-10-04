@@ -121,12 +121,8 @@ import { Router } from '@angular/router';
         if(this.insideKitchenId === this.cartObj.kitchenId && this.cartObj.orderType !== 'subscription'){
             this.viewCart.emit();
         }else{
-            // this.navCntrl.navigateForward('/tabs/tabCart');
+            this.router.navigate(['/cart'])
         }        
-    }
-
-    routeToCart(){
-        this.router.navigate(['/cart'])
     }
 
     ngOnDestroy(){

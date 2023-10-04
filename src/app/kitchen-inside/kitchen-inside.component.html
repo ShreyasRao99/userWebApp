@@ -1,124 +1,172 @@
-<div class="container-fluid mt-5">
-    <div class="row">
+<div class="container-fluid">
+    <app-header></app-header>
+    <div class="row mt-5">
         <div class="col-6 offset-md-3">
-            <div class="restaurant-info">
-                <div class="row">
-                    <div class="col-8">
-                        <h5>{{kitchen.kitchenName}}</h5>
-                        <div class="speciality-list">
-                            <span *ngFor="let speciality of specialityList">
-                                <span [ngClass]="{speciality: speciality === kitchen.mainSpeciality}">
-                                    {{speciality}}</span>
-                            </span>
-                            <div class="d-flex justify-content-row">
-                                <div class="location-div">
-                                    Location
-                                    <div>{{kitchen.distance}} {{kitchen.distance > 1 ? 'Kms' :'Km'}}</div>
-                                </div>
-                                <div class="ms-2 order-div">
-                                    Order Between
-                                    <div>{{ALLDAY_ORDER_START_TIME | date : 'shortTime'}} - {{ALLDAY_ORDER_END_TIME |
-                                        date : 'shortTime'}}</div>
+            <div *ngIf="!kitchenNotFound">
+                <div class="restaurant-info">
+                    <div class="row flex-row">
+                        <div class="col-6">
+                            <div class="kitchen-name"><b>{{kitchen.kitchenName}}</b></div>
+                            <div class="speciality-list">
+                                <span *ngFor="let speciality of specialityList">
+                                    <span [ngClass]="{speciality: speciality === kitchen.mainSpeciality}">
+                                        {{speciality}}</span>
+                                </span>
+                                <div class="d-flex justify-content-row">
+                                    <div class="location-div">
+                                        Location
+                                        <div>{{kitchen.distance}} {{kitchen.distance > 1 ? 'Kms' :'Km'}}</div>
+                                    </div>
+                                    <div class="ms-2 order-div">
+                                        Order Between
+                                        <div>{{ALLDAY_ORDER_START_TIME | date : 'shortTime'}} - {{ALLDAY_ORDER_END_TIME
+                                            |
+                                            date : 'shortTime'}}</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-4">
-                        Rating: {{kitchen.rating}}*
+                        <div class="col-6 center">
+                            Rating: {{kitchen.rating}}*
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <app-coupon-display [kitchenCoupon]="subscriptionOfferText" [orderType]="orderType"
-                    [offerText]="offerText"></app-coupon-display>
-                <div class="col-12 mt-4">
-                    <div class="orderCapsule twoCapsule" (click)="selectOrderType('allDay')" *ngIf="!noAlldayMenu"
-                        [ngClass]="{'selectedOrder': orderType === 'allDay'}">All Day</div>
-                    <div class="orderCapsule" (click)="selectOrderType('advance')"
-                        [ngClass]="{'selectedOrder twoCapsule': orderType === 'advance'}">Advance Order</div>
-                    <span class="col-6 mt-3 togglediv">
-                        <div class="itemFilterdiv" (click)="changeItemFilter('Veg')"
-                            [ngClass]="{selected: itemTypeFilter.Veg}">
-                            <div class="vegIcon filterIcon"></div>Veg<span class="crossIcon"
-                                [ngClass]="{selectedIcon: itemTypeFilter.Veg}">x</span>
-                        </div>
-                        <div class="itemFilterdiv" (click)="changeItemFilter('NonVeg')"
-                            [ngClass]="{selected: itemTypeFilter.NonVeg}">
-                            <div class="nonvegIcon filterIcon"></div>Non-Veg<span class="crossIcon"
-                                [ngClass]="{selectedIcon: itemTypeFilter.NonVeg}">x</span>
-                        </div>
-                        <div class="itemFilterdiv" (click)="changeItemFilter('Jain')"
-                            [ngClass]="{selected: itemTypeFilter.Jain}">
-                            Jain<span class="crossIcon" [ngClass]="{selectedIcon: itemTypeFilter.Jain}">x</span></div>
-                    </span>
-                </div>
-            </div>
-            <div class="col-12" *ngIf="kitchen.kitchenOpened">
-                <div class="bgsidepadding5">
-                    <div class="orderCapsule filterpopupdiv" (click)="showFilters()">
-                        <span *ngIf="filterApplied" class="filterPresent">
-                            <i class="bi bi-check"></i>
+                <div class="row">
+                    <app-coupon-display [kitchenCoupon]="subscriptionOfferText" [orderType]="orderType"
+                        [offerText]="offerText"></app-coupon-display>
+                    <div class="col-12 mt-4">
+                        <div class="orderCapsule twoCapsule" (click)="selectOrderType('allDay')" *ngIf="!noAlldayMenu"
+                            [ngClass]="{'selectedOrder': orderType === 'allDay'}">All Day</div>
+                        <div class="orderCapsule" (click)="selectOrderType('advance')"
+                            [ngClass]="{'selectedOrder twoCapsule': orderType === 'advance'}">Advance Order</div>
+                        <span class="col-6 mt-3 togglediv">
+                            <div class="itemFilterdiv" (click)="changeItemFilter('Veg')"
+                                [ngClass]="{selected: itemTypeFilter.Veg}">
+                                <div class="vegIcon filterIcon"></div>Veg<span class="crossIcon"
+                                    [ngClass]="{selectedIcon: itemTypeFilter.Veg}">x</span>
+                            </div>
+                            <div class="itemFilterdiv" (click)="changeItemFilter('NonVeg')"
+                                [ngClass]="{selected: itemTypeFilter.NonVeg}">
+                                <div class="nonvegIcon filterIcon"></div>Non-Veg<span class="crossIcon"
+                                    [ngClass]="{selectedIcon: itemTypeFilter.NonVeg}">x</span>
+                            </div>
+                            <div class="itemFilterdiv" (click)="changeItemFilter('Jain')"
+                                [ngClass]="{selected: itemTypeFilter.Jain}">
+                                Jain<span class="crossIcon" [ngClass]="{selectedIcon: itemTypeFilter.Jain}">x</span>
+                            </div>
                         </span>
                     </div>
-                    <!-- <div class="orderCapsule twoCapsule" (click)="selectOrderType('allDay')" *ngIf="!noAlldayMenu"
-                        [ngClass]="{'selectedOrder': orderType === 'allDay'}">All Day</div>
-                    <div class="orderCapsule" (click)="selectOrderType('advance')"
-                        [ngClass]="{'selectedOrder twoCapsule': orderType === 'advance'}">Advance Order</div> -->
-                    <!-- <div class="orderCapsule" (click)="selectOrderType('subscription')" *ngIf="kitchen.subscriptionAllowed"
-                [ngClass]="{'selectedOrder': orderType === 'subscription',threeCapsule: noAlldayMenu}" >Subscription</div>                -->
-                    <!-- <div class="orderCapsule" (click)="selectOrderType('daily')"
-                [ngClass]="{'selectedOrder': orderType === 'daily',threeCapsule: (!kitchen.subscriptionAllowed && !noAlldayMenu) || (kitchen.subscriptionAllowed && noAlldayMenu), twoCapsule : !kitchen.subscriptionAllowed && noAlldayMenu}">Daily Order</div> -->
                 </div>
-                <!-- <div class="togglediv">
-                    <div class="itemFilterdiv" (click)="changeItemFilter('Veg')"
-                        [ngClass]="{selected: itemTypeFilter.Veg}">
-                        <div class="vegIcon filterIcon"></div>Veg<span class="crossIcon"
-                            [ngClass]="{selectedIcon: itemTypeFilter.Veg}">x</span>
-                    </div>
-                    <div class="itemFilterdiv" (click)="changeItemFilter('NonVeg')"
-                        [ngClass]="{selected: itemTypeFilter.NonVeg}">
-                        <div class="nonvegIcon filterIcon"></div>Non-Veg<span class="crossIcon"
-                            [ngClass]="{selectedIcon: itemTypeFilter.NonVeg}">x</span>
-                    </div>
-                    <div class="itemFilterdiv" (click)="changeItemFilter('Jain')"
-                        [ngClass]="{selected: itemTypeFilter.Jain}">
-                        Jain<span class="crossIcon" [ngClass]="{selectedIcon: itemTypeFilter.Jain}">x</span></div>
-                </div> -->
-                <div class="bgsidepadding5" *ngIf="orderType === 'subscription'">
-                    <div class="mealrow">
-                        <div>
-                            <div class="meallebal">Meal Duration</div>
-                            <!-- <ion-select interface="action-sheet" [(ngModel)]="subscriptionObj.subscriptionDays"
-                                (ionChange)="selectDays(subscriptionObj.subscriptionDays)" placeholder="Select Duration"
-                                class="dropdown mealselect">
-                                <ion-select-option [value]="30">30 Days</ion-select-option>
-                                <ion-select-option [value]="20">20 Days</ion-select-option>
-                                <ion-select-option [value]="10">10 Days</ion-select-option>
-                                <ion-select-option [value]="1"
-                                    *ngIf="subscriptionObj.subscriptionTime !== 'Breakfast' ">Trial</ion-select-option>
-                            </ion-select> -->
-                        </div>
-                        <div>
-                            <div class="meallebal">Meal Type</div>
-                            <!-- <ion-select interface="action-sheet" [(ngModel)]="subscriptionObj.subscriptionTime"
-                                (ionChange)="mealTimeSelected(subscriptionObj.subscriptionTime)"
-                                placeholder="Select Duration" class="dropdown mealselect">
-                                <ion-select-option value="Lunch">Lunch</ion-select-option>
-                                <ion-select-option value="Dinner">Dinner</ion-select-option>
-                                <ion-select-option value="Breakfast">Breakfast</ion-select-option>
-                            </ion-select> -->
+                <div class="col-12" *ngIf="kitchen.kitchenOpened">
+                    <div class="bgsidepadding5">
+                        <div class="orderCapsule filterpopupdiv" (click)="showFilters()">
+                            <span *ngIf="filterApplied" class="filterPresent">
+                                <i class="bi bi-check"></i>
+                            </span>
                         </div>
                     </div>
-                </div>
-                <app-coupon-display [kitchenCoupon]="subscriptionOfferText" [orderType]="orderType"
-                    [offerText]="offerText"></app-coupon-display>
-                <div>
-                    <div *ngIf="orderType === 'allDay'">
-                        <div *ngIf="allDayMenuArr && allDayMenuArr.length > 0">
-                            <div class='header5 grey bgToppadding2' *ngIf="!allDayMissed">Delivery as per selected time
-                                slot
+                    <div class="bgsidepadding5" *ngIf="orderType === 'subscription'">
+                        <div class="mealrow">
+                            <div>
+                                <div class="meallebal">Meal Duration</div>
+                                <!-- <ion-select interface="action-sheet" [(ngModel)]="subscriptionObj.subscriptionDays"
+                                    (ionChange)="selectDays(subscriptionObj.subscriptionDays)" placeholder="Select Duration"
+                                    class="dropdown mealselect">
+                                    <ion-select-option [value]="30">30 Days</ion-select-option>
+                                    <ion-select-option [value]="20">20 Days</ion-select-option>
+                                    <ion-select-option [value]="10">10 Days</ion-select-option>
+                                    <ion-select-option [value]="1"
+                                        *ngIf="subscriptionObj.subscriptionTime !== 'Breakfast' ">Trial</ion-select-option>
+                                </ion-select> -->
                             </div>
-                            <div *ngFor="let group of filteredAllDayMenuList" [id]="group.groupName"
+                            <div>
+                                <div class="meallebal">Meal Type</div>
+                                <!-- <ion-select interface="action-sheet" [(ngModel)]="subscriptionObj.subscriptionTime"
+                                    (ionChange)="mealTimeSelected(subscriptionObj.subscriptionTime)"
+                                    placeholder="Select Duration" class="dropdown mealselect">
+                                    <ion-select-option value="Lunch">Lunch</ion-select-option>
+                                    <ion-select-option value="Dinner">Dinner</ion-select-option>
+                                    <ion-select-option value="Breakfast">Breakfast</ion-select-option>
+                                </ion-select> -->
+                            </div>
+                        </div>
+                    </div>
+                    <app-coupon-display [kitchenCoupon]="subscriptionOfferText" [orderType]="orderType"
+                        [offerText]="offerText"></app-coupon-display>
+                    <div>
+                        <div *ngIf="orderType === 'allDay'">
+                            <div *ngIf="allDayMenuArr && allDayMenuArr.length > 0">
+                                <div class='header5 grey bgToppadding2' *ngIf="!allDayMissed">Delivery as per selected
+                                    time
+                                    slot
+                                </div>
+                                <div *ngFor="let group of filteredAllDayMenuList" [id]="group.groupName"
+                                    class="accordiondiv">
+                                    <!-- <ion-accordion-group  [value]="group.groupName">
+                                    <ion-accordion [value]="group.groupName" class="accordionGrp">
+                                        <ion-item slot="header" class="accodianHeader">
+                                            <ion-label>{{group.groupName}} ({{group.count}})</ion-label>
+                                        </ion-item>
+                                        <div slot="content"> -->
+                                    <div class="custaccordionGrp">
+                                        <div class="custaccodianHeader" (click)="group.closediv = !group.closediv">
+                                            <i class="right header2 bi bi-chevron-up" *ngIf="group.closediv"></i>
+                                            <i class="right header2 bi bi-chevron-down" *ngIf="!group.closediv"></i>
+                                            <div>{{group.groupName}} ({{group.count}})</div>
+                                        </div>
+                                        <div *ngIf="!group.closediv">
+                                            <div *ngFor="let item of group.itemList">
+                                                <app-item-card [item]="item" [kitchenName]="kitchen.kitchenName"
+                                                    [kitchenId]="kitchen._id" [orderType]="'allDay'"
+                                                    [missed]="allDayMissed" [comingnext]="allDayUpcoming"
+                                                    [screenFrom]="'kitchenPage'" [kitchen]="kitchen"></app-item-card>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- </div>
+                                    </ion-accordion>
+                                </ion-accordion-group> -->
+                                </div>
+
+                                <div *ngIf="allDayMenuArr.length > 0 && filteredAllDayMenuList.length === 0">
+                                    <div class="bgToppadding5 header3 bold grey center">No result found based on your
+                                        filter
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="allDayMenuArr.length === 0" class="header3 bold grey center">No all day menu
+                                found
+                                for
+                                {{kitchen.kitchenName}}, kindly use advance order</div>
+                        </div>
+
+                        <div *ngIf="orderType === 'daily'">
+                            <span *ngFor="let menu of dailyMenuArr">
+                                <div *ngIf="menu.itemList && menu.itemList.length > 0">
+                                    <div class='header2 bold'>{{menu.mealName}}<span class="lineStyle"
+                                            [ngStyle]="{'background': 'linear-gradient(45deg,'+ menu.lineColor +', transparent)'}"></span>
+                                    </div>
+                                    <div class='header5 grey' *ngIf="menu.deliveryEta">Estimated delivery around
+                                        {{menu.deliveryEta | date : 'shortTime'}}</div>
+                                    <div *ngFor="let item of menu.itemList">
+                                        <app-item-card [item]="item" [kitchenName]="kitchen.kitchenName"
+                                            [kitchenId]="kitchen._id" [orderType]="'daily'" [screenFrom]="'kitchenPage'"
+                                            [kitchen]="kitchen" [missed]="menu.missed"
+                                            [comingnext]="menu.comingnext"></app-item-card>
+                                    </div>
+                                </div>
+                            </span>
+                            <div *ngIf="!noTodaysMenu" class="header3 bold grey center bgToppadding5">No daily menu
+                                found
+                                for
+                                {{kitchen.kitchenName}}, kindly use advance order</div>
+                        </div>
+
+                        <div *ngIf="orderType === 'advance'">
+                            <div *ngIf="advanceMenuList.length > 0" class='header5 grey bgToppadding2'>Accepting order
+                                for
+                                tomorrow and day after</div>
+                            <div *ngFor="let group of filteredAdvanceMenuList" [id]="group.groupName"
                                 class="accordiondiv">
                                 <!-- <ion-accordion-group  [value]="group.groupName">
                                 <ion-accordion [value]="group.groupName" class="accordionGrp">
@@ -135,9 +183,8 @@
                                     <div *ngIf="!group.closediv">
                                         <div *ngFor="let item of group.itemList">
                                             <app-item-card [item]="item" [kitchenName]="kitchen.kitchenName"
-                                                [kitchenId]="kitchen._id" [orderType]="'allDay'" [missed]="allDayMissed"
-                                                [comingnext]="allDayUpcoming" [screenFrom]="'kitchenPage'"
-                                                [kitchen]="kitchen"></app-item-card>
+                                                [kitchenId]="kitchen._id" [orderType]="'advance'"
+                                                [screenFrom]="'kitchenPage'" [kitchen]="kitchen"></app-item-card>
                                         </div>
                                     </div>
                                 </div>
@@ -145,170 +192,101 @@
                                 </ion-accordion>
                             </ion-accordion-group> -->
                             </div>
-
-                            <div *ngIf="allDayMenuArr.length > 0 && filteredAllDayMenuList.length === 0">
+                            <div *ngIf="advanceMenuList.length > 0 && filteredAdvanceMenuList.length === 0">
                                 <div class="bgToppadding5 header3 bold grey center">No result found based on your filter
                                 </div>
                             </div>
                         </div>
-                        <div *ngIf="allDayMenuArr.length === 0" class="header3 bold grey center">No all day menu found
-                            for
-                            {{kitchen.kitchenName}}, kindly use advance order</div>
-                    </div>
 
-                    <div *ngIf="orderType === 'daily'">
-                        <span *ngFor="let menu of dailyMenuArr">
-                            <div *ngIf="menu.itemList && menu.itemList.length > 0">
-                                <div class='header2 bold'>{{menu.mealName}}<span class="lineStyle"
-                                        [ngStyle]="{'background': 'linear-gradient(45deg,'+ menu.lineColor +', transparent)'}"></span>
-                                </div>
-                                <div class='header5 grey' *ngIf="menu.deliveryEta">Estimated delivery around
-                                    {{menu.deliveryEta | date : 'shortTime'}}</div>
-                                <div *ngFor="let item of menu.itemList">
-                                    <app-item-card [item]="item" [kitchenName]="kitchen.kitchenName"
-                                        [kitchenId]="kitchen._id" [orderType]="'daily'" [screenFrom]="'kitchenPage'"
-                                        [kitchen]="kitchen" [missed]="menu.missed"
-                                        [comingnext]="menu.comingnext"></app-item-card>
-                                </div>
-                            </div>
-                        </span>
-                        <div *ngIf="!noTodaysMenu" class="header3 bold grey center bgToppadding5">No daily menu found
-                            for
-                            {{kitchen.kitchenName}}, kindly use advance order</div>
-                    </div>
-
-                    <div *ngIf="orderType === 'advance'">
-                        <div *ngIf="advanceMenuList.length > 0" class='header5 grey bgToppadding2'>Accepting order for
-                            tomorrow and day after</div>
-                        <div *ngFor="let group of filteredAdvanceMenuList" [id]="group.groupName" class="accordiondiv">
-                            <!-- <ion-accordion-group  [value]="group.groupName">
-                            <ion-accordion [value]="group.groupName" class="accordionGrp">
-                                <ion-item slot="header" class="accodianHeader">
-                                    <ion-label>{{group.groupName}} ({{group.count}})</ion-label>
-                                </ion-item>
-                                <div slot="content"> -->
-                            <div class="custaccordionGrp">
-                                <div class="custaccodianHeader" (click)="group.closediv = !group.closediv">
-                                    <i class="right header2 bi bi-chevron-up" *ngIf="group.closediv"></i>
-                                    <i class="right header2 bi bi-chevron-down" *ngIf="!group.closediv"></i>
-                                    <div>{{group.groupName}} ({{group.count}})</div>
-                                </div>
-                                <div *ngIf="!group.closediv">
-                                    <div *ngFor="let item of group.itemList">
-                                        <app-item-card [item]="item" [kitchenName]="kitchen.kitchenName"
-                                            [kitchenId]="kitchen._id" [orderType]="'advance'"
-                                            [screenFrom]="'kitchenPage'" [kitchen]="kitchen"></app-item-card>
+                        <div *ngIf="orderType === 'subscription'">
+                            <div class="paddingBottom">
+                                <div class="sublebal">
+                                    <div class='header5 grey' *ngIf="subscriptionObj.subscriptionDays !==1">Delivery
+                                        will
+                                        between
+                                        <span
+                                            *ngIf="subscriptionObj.subscriptionTime === 'Breakfast'">{{breakfastSlot}}</span>
+                                        <span *ngIf="subscriptionObj.subscriptionTime === 'Lunch'">{{lunchSlot}}</span>
+                                        <span
+                                            *ngIf="subscriptionObj.subscriptionTime === 'Dinner'">{{dinnerSlot}}</span>
                                     </div>
+                                    <div class='header5 grey' *ngIf="subscriptionObj.subscriptionDays===1">Delivery as
+                                        per
+                                        selected time slot</div>
                                 </div>
-                            </div>
-                            <!-- </div>
-                            </ion-accordion>
-                        </ion-accordion-group> -->
-                        </div>
-                        <div *ngIf="advanceMenuList.length > 0 && filteredAdvanceMenuList.length === 0">
-                            <div class="bgToppadding5 header3 bold grey center">No result found based on your filter
-                            </div>
-                        </div>
-                    </div>
-
-                    <div *ngIf="orderType === 'subscription'">
-                        <div class="paddingBottom">
-                            <div class="sublebal">
-                                <div class='header5 grey' *ngIf="subscriptionObj.subscriptionDays !==1">Delivery will
-                                    between
-                                    <span
-                                        *ngIf="subscriptionObj.subscriptionTime === 'Breakfast'">{{breakfastSlot}}</span>
-                                    <span *ngIf="subscriptionObj.subscriptionTime === 'Lunch'">{{lunchSlot}}</span>
-                                    <span *ngIf="subscriptionObj.subscriptionTime === 'Dinner'">{{dinnerSlot}}</span>
-                                </div>
-                                <div class='header5 grey' *ngIf="subscriptionObj.subscriptionDays===1">Delivery as per
-                                    selected time slot</div>
-                            </div>
-                            <div *ngIf="comboList.length > 0">
-                                <div *ngFor="let group of filterComboList" [id]="group.groupName" class="accordiondiv">
-                                    <!-- <ion-accordion-group [value]="group.groupName">
-                                    <ion-accordion [value]="group.groupName" class="accordionGrp">
-                                        <ion-item slot="header" class="accodianHeader">
-                                            <ion-label>{{group.groupName}} ({{group.count}})</ion-label>
-                                        </ion-item>
-                                        <div slot="content"> -->
-                                    <div class="custaccordionGrp">
-                                        <div class="custaccodianHeader" (click)="group.closediv = !group.closediv">
-                                            <i class="right header2 bi bi-chevron-up" *ngIf="group.closediv"></i>
-                                            <i class="right header2 bi bi-chevron-down" *ngIf="!group.closediv"></i>
-                                            <div>{{group.groupName}} ({{group.count}})</div>
-                                        </div>
-                                        <div *ngIf="!group.closediv">
-                                            <div *ngFor="let item of group.itemList">
-                                                <app-item-card [item]="item" [kitchenName]="kitchen.kitchenName"
-                                                    [kitchenId]="kitchen._id" [orderType]="'subscription'"
-                                                    [missed]="allDayMissed" [comingnext]="allDayUpcoming"
-                                                    [screenFrom]="'kitchenPage'" [kitchen]="kitchen"></app-item-card>
+                                <div *ngIf="comboList.length > 0">
+                                    <div *ngFor="let group of filterComboList" class="accordiondiv">
+                                        <!-- <ion-accordion-group [value]="group.groupName">
+                                        <ion-accordion [value]="group.groupName" class="accordionGrp">
+                                            <ion-item slot="header" class="accodianHeader">
+                                                <ion-label>{{group.groupName}} ({{group.count}})</ion-label>
+                                            </ion-item>
+                                            <div slot="content"> -->
+                                        <div class="custaccordionGrp">
+                                            <div class="custaccodianHeader" [id]="group.groupName"
+                                                (click)="group.closediv = !group.closediv">
+                                                <i class="right header2 bi bi-chevron-up" *ngIf="group.closediv"></i>
+                                                <i class="right header2 bi bi-chevron-down" *ngIf="!group.closediv"></i>
+                                                <div>{{group.groupName}} ({{group.count}})</div>
+                                            </div>
+                                            <div *ngIf="!group.closediv">
+                                                <div *ngFor="let item of group.itemList">
+                                                    <app-item-card [item]="item" [kitchenName]="kitchen.kitchenName"
+                                                        [kitchenId]="kitchen._id" [orderType]="'subscription'"
+                                                        [missed]="allDayMissed" [comingnext]="allDayUpcoming"
+                                                        [screenFrom]="'kitchenPage'"
+                                                        [kitchen]="kitchen"></app-item-card>
+                                                </div>
                                             </div>
                                         </div>
+                                        <!-- </div>
+                                        </ion-accordion>
+                                    </ion-accordion-group>    -->
                                     </div>
-                                    <!-- </div>
-                                    </ion-accordion>
-                                </ion-accordion-group>    -->
-                                </div>
-                                <div *ngIf="comboList.length > 0 && filterComboList.length === 0">
-                                    <div class="bgToppadding5 header3 bold grey center">No result found based on your
-                                        filter
+                                    <div *ngIf="comboList.length > 0 && filterComboList.length === 0">
+                                        <div class="bgToppadding5 header3 bold grey center">No result found based on
+                                            your
+                                            filter
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div *ngIf="comboList.length === 0" class="header3 bold grey center">No combo found for
-                            subscription
+                            <div *ngIf="comboList.length === 0" class="header3 bold grey center">No combo found for
+                                subscription
+                            </div>
                         </div>
                     </div>
-
+                    <div class="floatingMenu bgTopDownpadding2">
+                        <button (click)="showkitchenMenu()">
+                            <i class="menuIcon bi bi-book"></i>
+                            <div class="menuText">MENU</div>
+                        </button>
+                    </div>
                 </div>
-
-                <div class="floatingMenu bgTopDownpadding2">
-                    <button (click)="showkitchenMenu()">
-                        <i class="menuIcon bi bi-book"></i>
-                        <!-- <ion-icon name="book-outline" class="menuIcon"></ion-icon> -->
-                        <div class="menuText">MENU</div>
-                    </button>
+            </div>
+            <div *ngIf="kitchenNotFound">
+                <div class="kitchenInfo">
+                    <div class="gobackDiv" (click)="goback()">
+                        <img src="assets/regional/arrow-redpink.svg" class="backarrow">
+                    </div>
                 </div>
-
+                <div class="noresult bgpadding5">
+                    <div class="center header1 primary2 bold">Oops!</div>
+                    <div class="center header3 grey">No Kitchen Found</div>
+                </div>
             </div>
             <app-cart-footer class="positionBottom" (viewCart)="addAddons()"
                 [insideKitchenId]="kitchen._id"></app-cart-footer>
         </div>
     </div>
-    <!-- <div class="floatingMenu bgTopDownpadding2">
-        <button (click)="showkitchenMenu()">
-            <ion-icon name="book-outline" class="menuIcon"></ion-icon>
-            <div class="menuText">MENU</div>
-        </button>
-    </div> -->
 </div>
-<!-- <ng-template #menuModal let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Select from List</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('cancel')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <ul class="list-group">
-          <li class="list-group-item" *ngFor="let menu of KitchenItemAddonList" >
-            <div class="row" >      
-              <div class="col-sm-12 col-md-3 col-lg-1" >
-                 <input  type="checkbox" [(ngModel)]="menu.selected">
-              </div>
-              <div class="col-sm-12 col-md-3 col-lg-3">{{menu.name}}</div>
-              <div class="col-sm-12 col-md-3 col-lg-3" *ngIf="menu.itemServingType === 'perQuantity' ">{{menu.servingQuantity}}{{menu.servingQuantityUnit}}</div>
-              <div class="col-sm-12 col-md-3 col-lg-3">{{menu.type}}</div>
-            </div>
-           </li>
-       </ul>
-    </div>
-    <div class="modal-footer">
-      <div class="inline bgpadding1">
-        <button type="button" class="btn btn-primary" (click)="modal.close('add')">Add</button>
-    </div>
-    </div>
-  </ng-template> -->
+<ng-template #menuModal let-modal>
+    <app-kitchen-menu-popup [groupList]="componentProps"
+        (selectedGroup)="scrollToPoint($event.groupName)"></app-kitchen-menu-popup>
+</ng-template>
+<ng-template #addonsModal let-modal>
+    <app-addon-popup [addOns]="addonComponentProps" (closeModal)="closeModals()"></app-addon-popup>
+</ng-template>
+<ng-template #filterModal let-modal>
+    <app-kitchen-filters [props]="filterProps" (filters)="checkFilters($event)"></app-kitchen-filters>
+</ng-template>

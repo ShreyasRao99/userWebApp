@@ -578,13 +578,13 @@ ion-slides {
     color: white;
 }
 
-.modalCntrlparentHeight {
-    height: inherit;
-}
+// .modalCntrlparentHeight {
+//     height: inherit;
+// }
 
-.modalCntrlmodalscrollbody {
-    overflow-y: none;
-}
+// .modalCntrlmodalscrollbody {
+//     overflow-y: none;
+// }
 
 .photo-edit-modal-design {
     --width: 95%;
@@ -621,7 +621,7 @@ ion-slides {
     background-size: 18px !important;
     background-repeat: no-repeat !important;
     background-position: 5px 0px !important;
-    background-position: 11px 4px !important;
+    background-position: 6px 4px !important;
     display: inline-block;
 
     &.selected {
@@ -913,6 +913,28 @@ input[type="text"]:focus {
     outline: 0 none;
 }
 
+.menuModel {
+    .modal-dialog {
+        position: absolute;
+        top: 60%;
+        left:33%;
+        width:50%;
+    }
+    .modal-content{
+        padding:5%;
+    }
+}
+
+.addonsModel{
+    .modal-dialog{
+        position:absolute;
+        top:10%;
+        left:33%;
+        width:65%;
+    }
+}
+
+
 // .menuModel{
 //     .modal-dialog{
 //         height: 100%;
@@ -923,8 +945,15 @@ input[type="text"]:focus {
 //                 height: 100%;
 //             }
 //         }
-        
+
 //     }
 // }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}

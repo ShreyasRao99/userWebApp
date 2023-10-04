@@ -1,6 +1,6 @@
 <div class="container-fluid py-2" style="overflow: auto;">
     <div class="d-flex flex-row flex-nowrap">
-        <div class="m-2" style="min-width: 450px;" *ngFor="let banner of bannerList">
+        <div class="m-2" style="min-width: 450px;" *ngFor="let banner of bannerList" (click)="gotoSubscription(banner)">
             <img class="card-img-top" [src]="banner.imageUrl" alt="Card image cap">
         </div>
     </div>

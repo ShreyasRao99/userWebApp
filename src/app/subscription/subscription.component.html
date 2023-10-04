@@ -1,11 +1,12 @@
-<!-- <app-header></app-header> -->
 <div class="container-fluid">
+    <app-header></app-header>
     <div class="paddingBelow">
         <app-main-slider *ngIf="showSlider" [bannerList]="subBannerList"></app-main-slider>
         <div class="row">
             <div class="col-8 offset-2">
-                <div class="mealCapsuleDiv">
-                    <div class="scroll" scrollX="true">
+                <div class="mealCapsuleDiv center">
+                    <!-- <div class="scroll" scrollX="true"> -->
+                    <div>
                         <div *ngFor="let category of packageCategoryList" class="orderCapsule"
                             [ngClass]="{'selectedOrder': packageCategory === category}"
                             (click)="selectPackageCategory(category)">
@@ -26,8 +27,8 @@
                                     <div class="row justify-content-between">
                                         <div class="col-6" (click)="selectedPackage = package._id">
                                             <div class="radiogrp">
-                                                <input class="form-check-input" [(ngModel)]="selectedPackage" class="radiobtn"
-                                                    type="radio" [value]="package._id">
+                                                <input class="form-check-input" [(ngModel)]="selectedPackage"
+                                                    class="radiobtn" type="radio" [value]="package._id">
                                             </div>
                                             <!-- <ion-radio-group [(ngModel)]="selectedPackage" class="radiogrp">
                                                 <ion-radio [value]="package._id" mode="md" class="radiobtn"></ion-radio>
@@ -37,10 +38,12 @@
                                                     class="vegIcon typeIcon inlineMargin"></div>
                                                 <div *ngIf="package.packageType === 'NonVeg'"
                                                     class="nonvegIcon typeIcon inlineMargin"></div>
-                                                <span class="header3 bold bgTopDownpadding2">{{package.packageName}}</span>
+                                                <span
+                                                    class="header3 bold bgTopDownpadding2">{{package.packageName}}</span>
                                             </div>
                                             <div class="price">&#8377;
-                                                <span *ngIf="package.discount" class="lineThrough">{{package.packagePrice
+                                                <span *ngIf="package.discount"
+                                                    class="lineThrough">{{package.packagePrice
                                                     }}</span>
                                                 <span>{{package.packagePrice - package.discount}}</span>
                                             </div>
@@ -93,17 +96,19 @@
         </div>
     </div>
     <div class="positionBottom">
-        <div class="container footerdesign" (click)="goToMainCart()" *ngIf="cartObj && cartObj.itemList && cartObj.itemList.length > 0">  
+        <div class="container footerdesign" (click)="goToMainCart()"
+            *ngIf="cartObj && cartObj.itemList && cartObj.itemList.length > 0">
             <div>
-                <div class="row">        
-                    <div class="col-6">
-                        <span>{{cartObj.itemList.length + cartObj.addOns.length}} 
-                            {{(cartObj.itemList.length + cartObj.addOns.length) === 1 ? 'Item' : 'Items'}} | &#8377; {{getTotalPrice()}}</span>
+                <div class="cartParent">
+                    <div class="left-div">
+                        <span>{{cartObj.itemList.length + cartObj.addOns.length}}
+                            {{(cartObj.itemList.length + cartObj.addOns.length) === 1 ? 'Item' : 'Items'}} | &#8377;
+                            {{getTotalPrice()}}</span>
                     </div>
-                    <div class="col-6">
+                    <div class="right-div">
                         <div class="cartIcon cartIconstyle" (click)="goToMainCart()">View Cart</div>
                     </div>
                 </div>
-            </div> 
+            </div>
         </div>
     </div>

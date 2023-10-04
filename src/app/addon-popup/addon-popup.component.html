@@ -1,0 +1,36 @@
+<div class="modalCntrlmodalscrollbody">
+    <div class="header3 grey center bgTopDownpadding2">
+        <span>Would you like to add some Addons</span>
+        <i class="closePopup bi bi-x-circle" (click)="dismiss()"></i>
+        <!-- <ion-icon class="closePopup" name="close-circle-outline"></ion-icon> -->
+    </div>
+    <div class="listStyle mt-4 mb-4">
+        <div class="px-4">
+            <span class="" *ngFor="let addon of addOns.addOnList">
+                <div class="row" *ngIf="addon.addOnAvailable">
+                    <div class="col-3">
+                        <img *ngIf="addon.imageUrl" [src]="imageUrl+addon.imageUrl" class="addonImg">
+                    </div>
+                    <div class="col-7">
+                        <div class="header4">{{addon.addOnName}} | &#8377;
+                            <!-- <span class="crossPrice" 
+                            *ngIf="addon.addOnMaxPrice && addon.addOnMaxPrice > addon.addOnPrice">{{addon.addOnMaxPrice}}</span> -->
+                            {{addon.mealawePrice}}
+                        </div>
+                        <div class="header5 grey">{{addon.addOnDescription}}</div>
+                    </div>
+                    <div class="col-2">
+                        <div *ngIf="!addon.count" class="addAddonButton white" (click)="addToCart(addon)">ADD</div>
+                        <div *ngIf="addon.count" class="white addedAddonStyle">
+                            <div class="inline incAddonbutton" (click)="decreaseCount(addon)">-</div>
+                            <div class="inline incAddonbutton">{{addon.count}}</div>
+                            <div class="inline incAddonbutton" (click)="increaseCount(addon)">+</div>
+                        </div>
+                    </div>
+                </div>
+            </span>
+        </div>
+        
+    </div>
+    <div class="goToCart" (click)="goToCart()">Go To Cart</div>
+</div>

@@ -1,0 +1,15 @@
+<div class="modalCntrlmodalscrollbody">
+    <div class="header3 grey center">
+        <!-- <i class="bi bi-x-circle"></i> -->
+        <!-- <ion-icon class="closePopup"(click)="dismiss(false)" name="close-circle-outline"></ion-icon>  -->
+        <span>Select Menu</span>
+    </div>
+    <div class="listStyle">
+        <span *ngFor="let group of groupList.groupList">
+            <div (click)="selectGroup(group)" class="groupStyle">
+                <div class="left-div">{{group.groupName}}</div>
+                <div class="right-div">{{group.count}}</div>
+            </div>
+        </span>
+    </div>
+</div>

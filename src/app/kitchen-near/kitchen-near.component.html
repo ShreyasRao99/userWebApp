@@ -1,4 +1,4 @@
-<div class="col-3" *ngFor="let kitchen of kitchenList">
+<div class="col-3" *ngFor="let kitchen of kitchenList" (click)="goInsideKitchen(kitchen)">
     <div class="card mb-5 shadow bg-white rounded" style="width: 18rem;">
         <img class="card-img-top img-fluid" [src]="imageUrl + kitchen.imageUrl"
             alt="Card image cap">

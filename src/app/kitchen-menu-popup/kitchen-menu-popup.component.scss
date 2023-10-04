@@ -1,0 +1,28 @@
+@import "/src/styles.scss";
+
+.closePopup {
+    float: right;
+    font-size: 28px;
+    position: relative;
+    top: -6px;
+}
+
+.listStyle {
+    padding: 10px;
+}
+
+.groupStyle {
+    display: flex;
+    flex-direction: row;
+    font-size: 15px;
+    padding: 2px 0px;
+}
+
+.left-div{
+    width:50%;
+}
+
+.right-div{
+    width:50%;
+    text-align:right;
+}

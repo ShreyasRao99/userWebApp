@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiMainService } from 'src/service/apiService/api-main.service';
 import { CartManagementService } from 'src/service/cart-management.service';
 import { FavouriteManagementService } from 'src/service/favourite-management.service';
@@ -8,6 +8,7 @@ import { LocalStorageService } from 'src/service/local-storage.service';
 import { RuntimeStorageService } from 'src/service/runtime-storage.service';
 import { SendDataToComponent } from 'src/service/sendDataToComponent';
 import { UserSearchService } from 'src/service/user-search.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-kitchen-inside',
@@ -15,7 +16,9 @@ import { UserSearchService } from 'src/service/user-search.service';
   styleUrls: ['./kitchen-inside.component.scss']
 })
 export class KitchenInsideComponent implements OnInit {
-
+  @ViewChild("menuModal") menuModal: any;
+  @ViewChild("addonsModal") addonsModal: any;
+  @ViewChild("filterModal") filterModal: any;
   kitchen: any = {};
   favKitchen = false;
   noTodaysMenu = false;
@@ -33,7 +36,7 @@ export class KitchenInsideComponent implements OnInit {
   deliveryTime: any;
   offerText: any[] = [];
   filterObj: any = {};
-  itemTypeFilter:any = { Veg: false, NonVeg: false, Jain: false }
+  itemTypeFilter: any = { Veg: false, NonVeg: false, Jain: false }
   searchText = '';
   filterApplied = false;
   specialityList: any[] = [];
@@ -60,8 +63,13 @@ export class KitchenInsideComponent implements OnInit {
   noAlldayMenu = false;
   groupMenuList = [];
   textSearchCounter: any;
+  componentProps: any;
+  modalReference: any;
+  addonComponentProps: any;
+  filterProps:any= {};
+  // groupList: any[]=[];
 
-  constructor(private activatedRoute: ActivatedRoute, private userSearchService: UserSearchService, private favouriteManagementService: FavouriteManagementService, private cartManagementService: CartManagementService, private sendDataToComponent: SendDataToComponent, private localStorageService: LocalStorageService, private googleMapService: GoogleMapService, private apiMainService: ApiMainService, private runtimeStorageService: RuntimeStorageService) { }
+  constructor(private activatedRoute: ActivatedRoute, private router:Router, private modalService: NgbModal, private userSearchService: UserSearchService, private favouriteManagementService: FavouriteManagementService, private cartManagementService: CartManagementService, private sendDataToComponent: SendDataToComponent, private localStorageService: LocalStorageService, private googleMapService: GoogleMapService, private apiMainService: ApiMainService, private runtimeStorageService: RuntimeStorageService) { }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((params) => {
@@ -96,16 +104,16 @@ export class KitchenInsideComponent implements OnInit {
     }
   }
 
-  changeItemFilter(prop:string){
+  changeItemFilter(prop: string) {
     this.itemTypeFilter[prop] = !this.itemTypeFilter[prop];
-    this.filterObj = {...this.filterObj,...this.itemTypeFilter};
+    this.filterObj = { ...this.filterObj, ...this.itemTypeFilter };
     this.filterAllList();
   }
 
-  filterAllList(){
-    this.filteredAdvanceMenuList = this.userSearchService.filterSearchGroupResult(this.advanceMenuList, this.filterObj,this.searchText);
-    this.filteredAllDayMenuList = this.userSearchService.filterSearchGroupResult(this.allDayMenuArr, this.filterObj,this.searchText);   
-    this.filterComboList = this.userSearchService.filterSubscriptionGroupResult(this.comboList, this.filterObj,this.subscriptionObj.subscriptionTime,this.searchText);
+  filterAllList() {
+    this.filteredAdvanceMenuList = this.userSearchService.filterSearchGroupResult(this.advanceMenuList, this.filterObj, this.searchText);
+    this.filteredAllDayMenuList = this.userSearchService.filterSearchGroupResult(this.allDayMenuArr, this.filterObj, this.searchText);
+    this.filterComboList = this.userSearchService.filterSubscriptionGroupResult(this.comboList, this.filterObj, this.subscriptionObj.subscriptionTime, this.searchText);
   }
 
   selectOrderType(type: string) {
@@ -283,15 +291,21 @@ export class KitchenInsideComponent implements OnInit {
     }
   }
 
-  async showkitchenMenu(){
-    try{
-      let groupList:any = [];
-      if(this.orderType === 'allDay'){
+  async showkitchenMenu() {
+    try {
+      let groupList: any = [];
+      if (this.orderType === 'allDay') {
         groupList = this.filteredAllDayMenuList;
-      }else if(this.orderType === 'advance'){
+      } else if (this.orderType === 'advance') {
         groupList = this.filteredAdvanceMenuList;
-      }else if(this.orderType === 'subscription'){
+      } else if (this.orderType === 'subscription') {
         groupList = this.filterComboList;
+      }
+      this.modalReference = this.modalService.open(this.menuModal, { ariaLabelledBy: 'modal-basic-title', size: 'xs', windowClass: 'menuModel' });
+      this.componentProps = {
+        'groupList': [...groupList].map((group: any) => {
+          return { count: group.count, groupName: group.groupName }
+        })
       }
       // const modal = await this.modalController.create({
       //   component: KitchenMenuPopUpComponent,
@@ -309,11 +323,22 @@ export class KitchenInsideComponent implements OnInit {
       //   } 
       // });
       // return await modal.present();
-    }catch(error){
-      console.log('error while showing menu ',error);
+    } catch (error) {
+      console.log('error while showing menu ', error);
     }
   }
-  
+
+  scrollToPoint(groupName: any) {
+    this.modalReference.close();
+    console.log(groupName)
+    try {
+      const groupDiv = document.getElementById(groupName);
+      groupDiv!.scrollIntoView();
+    } catch (error) {
+      console.log('error while scrollToPoint', error);
+    }
+  }
+
   async fetchKitchenMenu(kitchen: any) {
     try {
       let kitchenMenuListObj: any = await this.apiMainService.getkitchenMenu(kitchen._id);
@@ -379,7 +404,7 @@ export class KitchenInsideComponent implements OnInit {
           if (comboList && comboList.length > 0) {
             this.comboList.push({
               groupName: group.groupName,
-              groupID:Math.floor((Math.random() * 1000) + 1),
+              groupID: Math.floor((Math.random() * 1000) + 1),
               count: comboList.length,
               itemList: comboList
             });
@@ -418,7 +443,10 @@ export class KitchenInsideComponent implements OnInit {
     }
   }
 
-  async showFilters(){
+  async showFilters() {
+    this.modalReference = this.modalService.open(this.filterModal, { ariaLabelledBy: 'modal-basic-title', size: 'md', windowClass: 'addonsModel' });
+    this.filterProps = {data: this.filterObj, type:3}
+    console.log(this.filterObj)
     // try{
     //     const modal = await this.modalController.create({
     //       component: KitchenFiltersComponent,
@@ -446,28 +474,48 @@ export class KitchenInsideComponent implements OnInit {
     // }catch(error){
     //   console.log('error while launching modelcontroller ',error);
     // }
-}
+  }
 
-  async addAddons(){
-    const enabledAddOnsList = [...this.addOnsList].filter(e=>e.addOnAvailable)
-    // if(enabledAddOnsList.length > 0){
-    //   const modal = await this.modalController.create({
-    //     component: AddOnPopupComponent,
-    //     cssClass: 'short-modal-design',
-    //     componentProps: {
-    //       'addOnList': [...this.addOnsList].map(e=>e)
-    //     }
-    //   });
-    //   modal.onDidDismiss().then((event: any) => {
-    //     const data = event.data;
-    //     if (data && data.back){
-    //       this.navCntrl.navigateForward('/tabs/tabCart');
-    //     } 
-    //   });
-    //   return await modal.present();
-    // }else{
-    //   this.navCntrl.navigateForward('/tabs/tabCart');
-    // }      
+  checkFilters(data:any){
+    this.modalReference.close()
+    this.filterObj = data.filterObj;
+    const values = Object.values(this.filterObj);
+    if(values.indexOf(true)>-1){
+      this.filterApplied = true;
+    }else{
+      this.filterApplied = false;
+    }
+    this.filterAllList();
+    console.log(data)
+  }
+
+  async addAddons() {
+    const enabledAddOnsList = [...this.addOnsList].filter(e => e.addOnAvailable)
+    if(enabledAddOnsList.length > 0){
+      this.addonComponentProps = {'addOnList': [...this.addOnsList].map(e=>e)}
+      this.modalReference = this.modalService.open(this.addonsModal, { ariaLabelledBy: 'modal-basic-title', size: 'md', windowClass: 'addonsModel' });
+      // const modal = await this.modalController.create({
+      //   component: AddOnPopupComponent,
+      //   cssClass: 'short-modal-design',
+      //   componentProps: {
+      //     'addOnList': [...this.addOnsList].map(e=>e)
+      //   }
+      // });
+      // modal.onDidDismiss().then((event: any) => {
+      //   const data = event.data;
+      //   if (data && data.back){
+      //     this.navCntrl.navigateForward('/tabs/tabCart');
+      //   } 
+      // });
+      // return await modal.present();
+    }
+    else{
+      this.router.navigate(['/cart'])
+    }      
+  }
+
+  closeModals(){
+    this.modalReference.close()
   }
 
   subscribeEvents() {
@@ -522,5 +570,9 @@ export class KitchenInsideComponent implements OnInit {
       this.subscriptionObj = { ...cartObj.subscriptionObj };
     }
     this.cartManagementService.updateSubscribeOrder(this.subscriptionObj);
+  }
+
+  goback() {
+    console.log('')
   }
 }
