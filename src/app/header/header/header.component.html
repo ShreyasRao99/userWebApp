@@ -30,7 +30,6 @@
                 <a class="nav-link" routerLink="/cart">Cart</a>
             </li>
         </ul>
-        <!-- (click)="userProfile ? goToMyAccount():''" -->
     </div>
 </nav>
 <div class="delivery-location">
@@ -49,10 +48,10 @@
                                             placeholder="Search Your Location" aria-label="Recipient's username"
                                             aria-describedby="basic-addon2">
                                     </div>
-                                    <div class="getLocation">
+                                    <div class="getLocation" (click)="getCurrentLocation()">
                                         <div class="d-flex flex-row">
                                             <i class="bi bi-crosshair"></i>
-                                            <div class="flex-content" (click)="getCurrentLocation()">
+                                            <div class="flex-content">
                                                 <div>Get current location</div>
                                                 <div class="location-canvas-info">Using GPS</div>
                                             </div>

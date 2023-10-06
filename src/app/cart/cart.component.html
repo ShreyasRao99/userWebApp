@@ -221,13 +221,13 @@
                 <div class="timeSlot">
                   <div class="cartGrayHead">Time Slot</div>
                   <div class="dateslottext">
-                    <div ngbDropdown class="d-inline-block">
-                      <button type="button" [disabled]="notInTimeSlot" class="btn btn-outline-danger" id="dropdownBasic1"
+                    <div ngbDropdown class="time-slot-dropdown d-inline-block">
+                      <button type="button" [disabled]="notInTimeSlot" class="time-slot-dropdown btn btn-outline-danger" id="dropdownBasic1"
                         ngbDropdownToggle>
-                        Delivery Slot
+                        {{advanceTimeSlotSelected ? advanceTimeSlotSelected : 'Delivery Slot'}}
                       </button>
                       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                        <button ngbDropdownItem [value]="i+1" (click)="applyExtraDiscount(advSlotArray,i)"
+                        <button ngbDropdownItem [value]="i+1" (click)="applyExtraDiscount(advSlotArray,i);showAdvanceTimeSlot(slot)"
                           *ngFor="let slot of advSlotArray; let i = index"><span class="happyHours" style="color:red"
                             *ngIf="i>=2">Extra 5%
                             Discount</span>
@@ -260,10 +260,10 @@
                 <div ngbDropdown class="d-inline-block">
                   <button type="button" [disabled]="notInTimeSlotAllDay" class="btn btn-outline-danger"
                     id="dropdownBasic1" ngbDropdownToggle>
-                    Delivery Slot
+                    {{allTimeSlotSelected ? allTimeSlotSelected : 'Delivery Slot'}}
                   </button>
                   <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                    <button ngbDropdownItem [value]="i+1" (click)="applyExtraDiscount(allDaySlotArray,i)"
+                    <button ngbDropdownItem [value]="i+1" (click)="applyExtraDiscount(allDaySlotArray,i);showAllDayTimeSlot(slot)"
                       *ngFor="let slot of allDaySlotArray; let i = index"><span class="happyHours" style="color:red"
                         *ngIf="i>=2">Extra 5%
                         Discount</span>

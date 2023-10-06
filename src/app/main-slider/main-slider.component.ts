@@ -15,6 +15,7 @@ export class MainSliderComponent implements OnInit {
 
   @Input() bannerList:any
   imageUrl = environment.imageUrl;
+  
   ngOnInit(): void {
     
   }
@@ -28,5 +29,4 @@ export class MainSliderComponent implements OnInit {
     }
        
   }
-
 }

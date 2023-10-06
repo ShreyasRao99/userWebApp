@@ -1,0 +1,32 @@
+<div>
+    <div class="headerBG">
+        <span (click)="goback()">
+            <!-- <div class="inline-table">
+                <ion-icon class="backIcon" name="arrow-back-outline"></ion-icon>
+            </div> -->
+            <div class="inline-table headerText">Bulk Orders</div>
+        </span>
+    </div>
+    <div class="pageContent">
+        <div class="listOrderStyle" *ngFor="let order of bulkOrderList">
+            <div class="row">
+                <div class="col-12">
+                    <div class="header5 grey right bgsidepadding2">{{order.orderDate | date: 'mediumDate'}}
+                    </div>
+                    <div class="header5 bold">Order No: {{order.orderNo}}</div>
+                    <div class="header5 grey">Customer Name: {{order.customerName}}</div>
+                    <div class="header5 grey">Phone No: {{order.customerPhoneNo}}</div>
+                    <div class="header5 grey">Email: {{order.customerEmail}}</div>
+                    <div class="header5 grey capitalize">Order Type: {{order.groupType}}</div>
+                    <div class="header5 grey">Occassion: {{order.occassion}}</div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="bulkOrderList.length === 0" class="header3 bold grey center bgpadding">
+            No Order Found
+        </div>
+        <div #bulkOrdersListEndDiv>
+            <img *ngIf="showloader" class="listloader" src="assets/gif/loader.gif">
+        </div>
+    </div>
+</div>

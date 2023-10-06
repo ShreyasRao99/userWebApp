@@ -1,0 +1,102 @@
+<div>
+    <div class="center">
+        <span (click)="goback()">
+            <!-- <div class="inline-table">
+                <ion-icon class="backIcon" name="arrow-back-outline"></ion-icon>
+            </div> -->
+            <!-- <div class="inline-table headerText">Meal Subscription Orders</div> -->
+        </span>
+    </div>
+    <div class="pageContent">
+        <div class="listStyle" *ngFor="let order of pastOrderList | sort : 'orderDate' : -1"
+            (click)="goToOrderPage(order)"  data-bs-toggle="offcanvas" data-bs-target="#orders">
+            <div *ngIf="order.orderType === 'subscriptionParent' ">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="header5 grey right bgsidepadding2">{{order.orderDate | date: 'mediumDate'}}
+                        </div>
+                        <div class="header5 grey">Order No: {{order.orderNo}}</div>
+                        <div class="header5 grey">Order Status: {{orderStatusMapper[order.orderstatus]}}</div>
+                        <div class="header5 grey">Subscription Days: {{order.subscriptionDays }}</div>
+                        <div class="header5 grey">Meal Time: {{order.mealTime}}</div>
+                    </div>
+                </div>
+                <div class="row greyBorderBottom">
+                    <!-- <ion-col size="8">
+                                <div class="header4 bold">{{order.firstKitchenName ? order.firstKitchenName : order.kitchenName}}</div>
+                            </ion-col>   -->
+                    <div class="col-4">
+                        <div class="grey header4 bgsidepadding2">&#8377;{{order.amount}}</div>
+                    </div>
+                </div>
+                <div class="row header5 grey">
+                    <div class="col-12">
+                        <span *ngFor="let item of order.itemList; index as i">
+                            {{item.itemName}} x {{item.count}}{{order.itemList.length > i+1 ? ',&nbsp;':''}}
+                        </span>
+                        <span *ngFor="let addon of order.addOns">, {{addon.addOnName}} x {{addon.count}}</span>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="order.orderType === 'subscriptionPackage' ">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="header5 grey right bgsidepadding2">{{order.orderDate | date: 'mediumDate'}}
+                        </div>
+                        <div class="header5 grey">Order No: {{order.orderNo}}</div>
+                        <div class="header5 grey">Order Status: {{orderStatusMapper[order.orderstatus]}}</div>
+                        <!-- <div class="header5 grey">Subscription Days: {{order.subscriptionDays }}</div> -->
+                        <div class="header5 grey">Meal Time:
+                            <span *ngIf="order.mealTimeLunch">Lunch</span>
+                            <span *ngIf="order.mealTimeLunch && order.mealTimeDinner"> & </span>
+                            <span *ngIf="order.mealTimeDinner">Dinner</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" class="greyBorderBottom">
+                    <!-- <ion-col size="8">
+                                <div class="header4 bold" *ngIf="order.kitchenId">{{order.kitchenName}}</div>
+                            </ion-col>   -->
+                    <div class="col-4">
+                        <div class="grey header4 bgsidepadding2">&#8377;{{order.amount}}</div>
+                    </div>
+                </div>
+                <div class="row header5 grey">
+                    <div class="col-12">
+                        <span>
+                            {{order.mealPackage.packageName}} x {{order.mealPackage.count}}
+                        </span>
+                    </div>
+                    <div class="col-12 header4 pointer primary1 center">
+                        View Details
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="pastOrderList.length === 0" class="header3 bold grey center bgpadding">
+            No Order Found
+        </div>
+        <div #subscriptionOrdersListEndDiv>
+            <img *ngIf="showloader" class="listloader" src="assets/gif/loader.gif">
+        </div>
+    </div>
+</div>
+<div class="show-orders">
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="orders" aria-labelledby="offcanvasExampleLabel">
+        <button type="button" style="display:none;" #canvasAddress class="btn-close text-reset mt-3"
+            data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <div class="offcanvas-div">
+            <div class="offcanvas-body">
+                <!-- <div class="container" *ngIf="!showMap"> -->
+                <!-- <div class="select-address" *ngIf="showMap"> -->
+                <div class="select-address">
+                    <button type="button" style="display:none;" class="btn-close text-reset" #mapCanvas
+                        data-bs-dismiss="offcanvas"></button>
+                    <app-order-details-subscription [order]="order"></app-order-details-subscription>
+                    <!-- <app-set-delivery-location *ngIf="showMap"
+                  [showSkipButton]="showSkipButton"></app-set-delivery-location> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

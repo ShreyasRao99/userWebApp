@@ -430,18 +430,20 @@ ion-slides {
 .headerBG {
     background: $primary-color1;
     height: 85px;
-    box-shadow: 0px 3px 9px 0px #9e6c73;
-    margin-bottom: 7%;
+    // box-shadow: 0px 3px 9px 0px #9e6c73;
+    margin-bottom: 1%;
     color: white;
     font-size: 17px;
-    padding-top: 45px;
-    position: fixed;
+    padding: 3% 1% 1% 1%;
+    // position: fixed;
     width: 100%;
-    z-index: 1;
+    // z-index: 1;
 }
 
 .pageContent {
-    padding-top: 102px;
+    margin-top:1%;
+    // padding:1%;
+    // padding-top: 102px;
 }
 
 .backIcon {
@@ -956,4 +958,8 @@ body {
 body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.pointer{
+    cursor:pointer;
 }

@@ -1,0 +1,422 @@
+<div class="modalCntrlmodalscrollbody">
+    <div class="bgpadding5">
+        <div class="orderDetails">
+            <div class="row orderBG">
+                <div class="col-12">
+                    <div class="header5 grey right ">{{order?.orderDate | date: 'MMM d, h:mm a'}}</div>
+                    <div class="header4 bold">ORDER NO {{order?.orderNo}}</div>
+                    <!-- <div class="header4 grey bgToppadding5" *ngIf="order.receipt">Receipt No : {{order.receipt}}</div> -->
+                    <div class="header5 capsule green" [ngClass]="{red: (order?.orderstatus==='cancelledByUser' || order?.orderstatus==='cancelledByKitchen' 
+                        || order?.orderstatus==='rejectedByKitchen')}">Order Status:
+                        {{orderStatusMapper[order?.orderstatus]}}</div>
+                    <div class="header5 capitalize capsule pink">Order Type:
+                        <span>{{orderStatusMapper[order?.orderType]}}</span>
+                    </div>
+                    <div class="header4 capitalize capsule green"
+                        *ngIf="order?.orderType === 'subscription' || order?.orderType === 'daily'">Meal Type :
+                        {{order?.mealType}}</div>
+                </div>
+            </div>
+            <div class="row greyBorderBottom">
+                <div class="col-12">
+                    <div class="header5 grey bold">SUMMARY</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="12" *ngIf="order?.orderType !== 'subscription'">
+                    <div class="header4 bold">{{order?.firstKitchenName ? order?.firstKitchenName : order?.kitchenName}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bgTopDownpadding2" *ngIf="order?.orderType !== 'subscription'">
+            <div>
+                <div class="cartGrayHead">Items:</div>
+                <div class="row cartItemRow flex-row" *ngFor="let item of order?.itemList; index as i">
+                    <div class="col-8">
+                        <div class="header5 grey itemNameStyle">{{item.itemName}}
+                            <div class="itemPrice">&#8377;
+                                {{item.mealawePrice * item.count}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-4 alignRight">
+                        <div class="inline header5 bgsidepadding2">
+                            <div *ngIf="item.count" class="white cartitemStyle">
+                                <div class="cartincbutton count">{{item.count}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row flex-row" *ngFor="let addon of order?.addOns" class="cartItemRow">
+                    <div class="col-8">
+                        <div class="header5 grey itemNameStyle">{{addon.addOnName}}
+                            <div class="itemPrice">&#8377;
+                                {{addon.mealawePrice * addon.count}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 alignRight">
+                        <div class="inline header5 bgsidepadding2">
+                            <div *ngIf="addon.count" class="white cartitemStyle">
+                                <div class="cartincbutton count">{{addon.count}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bgTopDownpadding2" *ngIf="order?.orderType !== 'subscription'">
+            <div class="bilingDiv">
+                <div class="row receiptText">
+                    <div class="col-12">Receipt:</div>
+                </div>
+                <div class="row header5 grey receipt3 flex-row">
+                    <div class="col-6">Sub Total</div>
+                    <div class="col-6 alignRight dark">&#8377;
+                        <span class="lineThrough" *ngIf="order?.mealaweItemDiscount">{{order?.mealaweTotalAmt}}</span>
+                        {{order?.mealaweTotalAmt - order?.mealaweItemDiscount}}
+                    </div>
+                </div>
+                <div class="row mt-3 header5 grey receipt6 flex-row">
+                    <div class="col-6">Delivery Charges</div>
+                    <div class="col-6 alignRight">
+                        <span>&#8377;
+                            <span class="lineThrough" *ngIf="order?.mealaweDeliveryDiscount">{{order?.deliveryCharges |
+                                number : '1.2-2'}}</span>
+                            {{(order?.deliveryCharges - order?.mealaweDeliveryDiscount) | number : '1.2-2'}}</span>
+                    </div>
+                </div>
+                <div class="row mt-1 flex-row header5 grey">
+                    <div class="col-6">Applicable Taxes</div>
+                    <div class="col-6 alignRight grey">&#8377; {{order?.taxes}}</div>
+                </div>
+                <div class="row mt-1 flex-row header5 discount" *ngIf="order?.kitchenDiscount">
+                    <div class="col-6">
+                        <span>Kitchen Discount</span>
+                    </div>
+                    <div class="col-6 alignRight">(-)&#8377; {{order?.mealaweKitchenDiscount}}</div>
+                </div>
+                <div class="row header5 discount receipt6 mt-1"
+                    *ngIf="!order?.mealaweWalletPointsUsed && (order?.discount || order?.mealaweItemDiscount || order?.mealaweDeliveryDiscount)">
+                    <div class="col-6">Offer/Coupon Discount</div>
+                    <div class="col-6" class="alignRight">(-)&#8377;
+                        {{order?.discount+order?.mealaweItemDiscount+order?.mealaweDeliveryDiscount}}</div>
+                </div>
+                <div class="row mt-1 header5 discount flex-row" *ngIf="order?.voucherDiscount">
+                    <div class="col-6">Voucher Discount</div>
+                    <div class="col-6 alignRight">(-)&#8377; {{order?.voucherDiscount}}</div>
+                </div>
+                <div class="row mt-1 header5 discount flex-row" *ngIf="order?.extraDiscount">
+                    <div class="col-6">Happy Hour</div>
+                    <div class="col-6 alignRight">(-)&#8377; {{order?.extraDiscount}}</div>
+                </div>
+                <div class="row mt-1 header5 grey flex-row" *ngIf="order?.moneyWalletPointsUsed">
+                    <div class="col-6">Money Wallet Points</div>
+                    <div class="col-6 alignRight grey">(-)&#8377; {{order?.moneyWalletPointsUsed}}</div>
+                </div>
+                <div class="row mt-1 header5 grey" *ngIf="order?.mealaweWalletPointsUsed">
+                    <div class="col-6">Cashback Points</div>
+                    <div class="col-6 alignRight grey">(-)&#8377; {{order?.mealaweWalletPointsUsed}}</div>
+                </div>
+                <div class="row mt-1 flex-row header4 cartToPayRow">
+                    <div class="col-6">TOTAL PRICE</div>
+                    <div class="col-6 alignRight">
+                        &#8377; <span>{{order?.amount}}</span>
+                    </div>
+                </div>
+
+                <!-- <ion-row class="header5">
+                    <div class="" size="12" class="rowIcon billdatails">
+                        <div class="header5 bold">Bill Details:</div>
+                    </div>
+                    <div class="" size="12" class="bgsidepadding5">
+                        <div>
+                            <div class="listdot"></div>Total Items Price <span class="right">&#8377;
+                                {{order.mealaweTotalAmt}}</span>
+                        </div>
+                        <div>
+                            <div class="listdot"></div>Delivery Charges
+                            <span class="right">&#8377;
+                                <span class="lineThrough"
+                                    *ngIf="order.mealaweDeliveryDiscount">{{order.deliveryCharges}}</span>
+                                {{order.deliveryCharges - order.mealaweDeliveryDiscount}}
+                            </span>
+                        </div>
+                        <div>
+                            <div class="listdot"></div>Applicable Taxes <span class="right">&#8377;
+                                {{order.taxes}}</span>
+                        </div>
+                        <div *ngIf="order.kitchenDiscount">
+                            <div class="listdot"></div>Kitchen Discount<span class="right">- &#8377;
+                                {{order.mealaweKitchenDiscount}}</span>
+                        </div>
+                        <div
+                            *ngIf="!order.mealaweWalletPointsUsed && (order.discount || order.mealaweItemDiscount || order.mealaweDeliveryDiscount)">
+                            <div class="listdot"></div>Offer/Coupon Discount<span class="right">- &#8377;
+                                {{order.discount+order.mealaweItemDiscount+order.mealaweDeliveryDiscount}}</span>
+                        </div>
+                        <div *ngIf="order.voucherDiscount">
+                            <div class="listdot"></div>Voucher Discount<span class="right">- &#8377;
+                                {{order.voucherDiscount}}</span>
+                        </div>
+                        <div *ngIf="order.extraDiscount">
+                            <div class="listdot"></div>Happy Hour<span class="right">- &#8377;
+                                {{order.extraDiscount}}</span>
+                        </div>
+                        <div *ngIf="order.moneyWalletPointsUsed">
+                            <div class="listdot"></div>Money Wallet Points<span class="right">- &#8377;
+                                {{order.moneyWalletPointsUsed}}</span>
+                        </div>
+                        <div *ngIf="order.mealaweWalletPointsUsed">
+                            <div class="listdot"></div>Cashback Points<span class="right">- &#8377;
+                                {{order.mealaweWalletPointsUsed}}</span>
+                        </div>
+                        <div class="totalBillAmout bold">
+                            Total Amount Paid <span class="right"> &#8377; {{order.amount}}</span>
+                        </div>
+                    </div>
+                </ion-row> -->{{order?.orderType}}
+                <div class="bgTopDownpadding2" *ngIf="order?.orderType === 'subscription'">
+                    <div>a
+                        <div class="cartGrayHead">Items:</div>
+                        <div *ngFor="let item of order?.itemList; index as i" class="row cartItemRow">
+                            <div class="col-8">
+                                <div class="header5 grey itemNameStyle">{{item.itemName}}</div>
+                                <div class="header5">{{item.itemDescription}}</div>
+                            </div>
+                            <div class="col-4">
+                                <div class="inline header5 bgsidepadding2 right">
+                                    <div *ngIf="item.count" class="white cartitemStyle">
+                                        <div class="inline cartincbutton count">{{item.count}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5 rowIcon name">
+                        <div class="header5 grey">Name:</div>
+                    </div>
+                    <div class="col-7">
+                        <div class="header5">{{order?.customerName}}</div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="order?.customerLocation">
+                    <div class="col-5 rowIcon address">
+                        <div class="header5 grey">Address:</div>
+                    </div>
+                    <div class="col-7">
+                        <div class="header5">{{order?.customerLocation.address}}</div>
+                        <div class="header5">{{order?.customerLocation.location}}</div>
+                        <div class="header5">Landmark : {{order?.customerLocation.landmark}}</div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="order?.specialRequest">
+                    <div class="col-5 rowIcon star">
+                        <div class="header5 grey">Special Request:</div>
+                    </div>
+                    <div class="col-7">
+                        <div class="header5">{{order?.specialRequest}}</div>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="order?.orderType === 'advance' ">
+                    <div class="col-5 rowIcon dateslot">
+                        <div class="header5 grey">Order Delivery Date:</div>
+                    </div>
+                    <div class="col-7">
+                        <div class="header5">{{order?.orderComplitionDate | date: 'mediumDate'}}</div>
+                    </div>
+                </div>
+                <!-- <div class="row" *ngIf="order.orderType === 'advance'">    
+                    <div class="" size="5" class="rowIcon timeIcon">
+                        <div class="header5 grey">Order Delivery Time:</div>
+                    </div>  
+                    <div class="" size="7">
+                        <div class="header5">{{order.orderComplitionTime | date: 'shortTime'}}</div>
+                    </div> 
+                </div>  -->
+                <div class="row" *ngIf="order?.orderType === 'daily' ">
+                    <div class="col-5 rowIcon timeIcon">
+                        <div class="header5 grey">Order Delivery:</div>
+                    </div>
+                    <div class="col-7">
+                        <div class="header5">{{order.dailyOrderDeliveryTime | date: 'shortTime'}}</div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="order?.orderType === 'allDay' || order?.orderType === 'advance'">
+                    <div class="col-5 rowIcon timeIcon">
+                        <div class="header5 grey">Delivery Slot:</div>
+                    </div>
+                    <div class="col-7">
+                        <div class="header5">{{order.slotStartTime | date: 'shortTime'}} - {{order.slotEndTime | date:
+                            'shortTime'}}</div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="order?.refund_status">
+                    <div class="col-5">
+                        <div class="header5 bold">Refund Status:</div>
+                    </div>
+                    <div class="col-7">
+                        <div class="header5">{{order.refund_status}}</div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="order?.refund_status">
+                    <div class="col-5">
+                        <div class="header5 grey">Refund Amount:</div>
+                    </div>
+                    <div class="col-7">
+                        <div class="header5">&#8377; {{order.refund_amount}}</div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="order?.refund_status">
+                    <div class="col-5">
+                        <div class="header5 bold">Reason to cancel:</div>
+                    </div>
+                    <div class="col-7">
+                        <div class="header5">{{order.cancel_comment}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="right">
+                            <div *ngIf="order?.orderstatus === 'delivered' &&!order?.feedbackProvided"
+                                class="inline reorder" (click)="rateKitchen(order)">RATE</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="showTimer">
+                    <div class="col-12">
+                        <div class="center header4 primary1">
+                            You can cancel this order after <span *ngIf="minute>0">{{minute}} mins and </span>{{second}}
+                            secs.
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="showCancel">
+                    <div class="col-12">
+                        <div class="center">
+                            <div *ngIf="showCancelMsg" class="cancelMsg">Note: You have only today for this order
+                                cancellation</div>
+                            <div *ngIf="order?.orderType === 'allDay'" class="cancelMsg">
+                                For any order related query, kindly contact us on <span class="mobileNo"
+                                    (click)="callRunner('7276619483')">+91-7276619483</span>
+                            </div>
+                            <button class="cancelBtnStyle" (click)="cancelOrder()">CANCEL ORDER</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row"
+                    *ngIf="order?.deliveryTaskId && runnerName && order?.orderstatus !== 'delivered' && (runnerStatus === 'pickup_complete'
+                || runnerStatus === 'started_for_delivery' || runnerStatus === 'reached_for_delivery' || runnerStatus === 'live')">
+                    <div class="col-12">
+                        <div class="header5 bold inline">Delivery Details</div>
+                    </div>
+                </div>
+                <div class="row"
+                    *ngIf="runnerName && order?.orderstatus !== 'delivered' && (runnerStatus === 'pickup_complete'
+                || runnerStatus === 'started_for_delivery' || runnerStatus === 'reached_for_delivery' || runnerStatus === 'live')">
+                    <div class="col-5">
+                        <div class="header5 grey billingDetails">Delivery Boy:</div>
+                    </div>
+                    <div class="col-7">
+                        <div class="header5">{{runnerName}}</div>
+                    </div>
+                </div>
+                <div class="row"
+                    *ngIf="runnerPhone && order?.orderstatus !== 'delivered' && (runnerStatus === 'pickup_complete'
+                || runnerStatus === 'started_for_delivery' || runnerStatus === 'reached_for_delivery' || runnerStatus === 'live')">
+                    <div class="col-5">
+                        <div class="header5 grey billingDetails">Contact:</div>
+                    </div>
+                    <div class="col-7">
+                        <div class="header5">{{runnerPhone}}</div>
+                    </div>
+                    <div class="col-12">
+                        <div class="runnerCall" (click)="callRunner(runnerPhone)">
+                            <i class="bi bi-telephone"></i>
+                            <!-- <ion-icon name="call"></ion-icon> -->
+                            <span class="call">Call</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row"
+                    *ngIf="runnerLocation && order?.orderstatus !== 'delivered' && (runnerStatus === 'pickup_complete'
+                || runnerStatus === 'started_for_delivery' || runnerStatus === 'reached_for_delivery' || runnerStatus === 'live')">
+                    <!-- <div class="col-12 smallSizeMap">
+                        <app-map-route-display [runnerLocation]="runnerLocation" [screenSize]="'small'"
+                            [destinationLocation]="order.customerLocation.geolocation"></app-map-route-display>
+                        <ion-icon (click)="viewRunnerOnBigMap(runnerLocation,order)" name="scan"
+                            class="expandIcon"></ion-icon>
+                    </div> -->
+                </div>
+
+                <!-- Order Status -->
+                <!-- <div class="row" *ngIf="statusHistoryList && statusHistoryList.length > 0">
+                    <div class="" size="12" class="padding-0">
+                        <div *ngFor="let history of statusHistoryList; index as i">
+                            <div class="milestonediv" [ngClass]="history.orderstatus" >
+                                <div class="inline-table milestone" [ngClass]="{lasthistory: !history.completed}">
+                                    <div class="milestoneInner" [ngClass]="{completed: history.completed, inprogress: !history.completed }"></div>
+                                </div>
+                                <div class="inline-table statustext">
+                                    <span class="black bold historyStatus">{{orderStatusMapper[history.orderstatus]}}</span>
+                                    <span class="grey">{{history.updatedOn | date: 'MMM d, h:mm a'}}</span>
+                                </div>
+                            </div>
+                            <div class="mileline" *ngIf="history.completed"></div>
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="row" *ngIf="order?.orderstatus === 'paymentInprogress'">
+                    <div class="col-12">
+                        <div class="paymentError">If payment transaction got failed and money was deducted, you will get
+                            refund within 4-5 business days.</div>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="showReschedule">
+                    <div class="col-12" *ngIf="!rescheduleStart">
+                        <div class="center">
+                            <button class="cancelBtnStyle" (click)="rescheduleOrder()">RESCHEDULE</button>
+                        </div>
+                    </div>
+                    <div class="col-12" *ngIf="rescheduleStart">
+                        <div class="dateslotsection">
+                            <div class="grey dateslottext">Reschedule Date</div>
+                            <div class="dateSlotdiv">
+                                <button id="rescheduleSubDate" class="dateSlotinput date">
+                                    <span *ngIf="!rescheduelDate">Date</span>
+                                    <span *ngIf="rescheduelDate">{{rescheduelDate | date: 'mediumDate'}}</span>
+                                </button>
+                                <!-- <ion-modal trigger="rescheduleSubDate" class="datetimeModal">
+                                    <ng-template>
+                                        <ion-datetime #subDate size="cover" presentation="date"
+                                            [showDefaultButtons]="true" [min]="minAllowedRescheduledDate"
+                                            [max]="after1DayLastSubscription"
+                                            (ionChange)="rescheduleDateChanged(subDate.value)"></ion-datetime>
+                                    </ng-template>
+                                </ion-modal> -->
+                            </div>
+                        </div>
+                        <div class="btnsection">
+                            <div class="formBtnSection">
+                                <button (click)="cancelReschedule()" class="btnDesgin cancel">Cancel</button>
+                            </div>
+                            <div class="formBtnSection">
+                                <button type="button" [disabled]="!rescheduelDate"
+                                    [ngClass]="{disablebtn: !rescheduelDate}" (click)="completeReschedule()"
+                                    class="btnDesgin save">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

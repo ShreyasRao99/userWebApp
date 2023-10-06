@@ -1,5 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { CartRoutingModule } from './cart-routing.module';
 import { CartComponent } from './cart.component';
@@ -34,6 +34,7 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
     MatInputModule,
     NgxMultipleDatesModule
   ],
+  providers:[DatePipe],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class CartModule { }

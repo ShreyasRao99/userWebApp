@@ -2,29 +2,32 @@
     <app-header></app-header>
     <!-- <app-kitchen-card [kitchen]="kitchen"></app-kitchen-card> -->
     <ng-container *ngIf="serviceAvailable">
-        <div class="below-navbar">
-            <app-main-slider [bannerList]="mainBannerList"></app-main-slider>
-            <div class="banner-section">
-                <app-regional-items></app-regional-items>
-                <app-category-items></app-category-items>
-                <!-- <app-meal-time></app-meal-time> -->
-            </div>
-            <div class="kitchen-section mt-4" *ngIf="kitchenList.length>0">
-                <div class="near-kitchen-list">
-                    <h4 class="left">Restaurants with online food delivery in Pune</h4>
-                    <div class="row mt-4">
-                        <div class="col-3" *ngFor="let kitchen of nearKitchenList">
-                            <app-kitchen-card [kitchen]="kitchen"></app-kitchen-card>
+        <div class="row">
+            <div class="col-8 offset-2">
+                <app-main-slider [bannerList]="mainBannerList"></app-main-slider>
+                <div class="banner-section">
+                    <app-regional-items></app-regional-items>
+                    <app-category-items></app-category-items>
+                    <!-- <app-meal-time></app-meal-time> -->
+                </div>
+                <div class="kitchen-section mt-4" *ngIf="kitchenList.length>0">
+                    <div class="near-kitchen-list">
+                        <h4 class="left">Restaurants with online food delivery in Pune</h4>
+                        <div class="row mt-4">
+                            <div class="col-3" *ngFor="let kitchen of nearKitchenList">
+                                <app-kitchen-card [kitchen]="kitchen"></app-kitchen-card>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kitchen-list">
+                        <h4 class="left">Restaurants Nearby</h4>
+                        <div class="row mt-4">
+                            <app-kitchen-near [kitchenList]="kitchenList"></app-kitchen-near>
                         </div>
                     </div>
                 </div>
-                <div class="kitchen-list">
-                    <h4 class="left">Restaurants Nearby</h4>
-                    <div class="row mt-4">
-                        <app-kitchen-near [kitchenList]="kitchenList"></app-kitchen-near>
-                    </div>
-                </div>
             </div>
+            
         </div>
     </ng-container>
 </div>

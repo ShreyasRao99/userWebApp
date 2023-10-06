@@ -11,6 +11,7 @@ import { CustomPipeModule } from 'src/pipes/pipe.module';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
 import { AlertModalComponent } from './alert-modal/alert-modal.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { OrderPlacedComponent } from './order-placed/order-placed.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ToasterComponent,
     ConfirmationModalComponent,
     AlertModalComponent,
+    OrderPlacedComponent,
   ],
   imports: [
     BrowserModule,

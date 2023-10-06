@@ -1,0 +1,23 @@
+@import "/src/styles.scss";
+
+.orderDate{
+    padding-top: 9px;
+}
+.greyBorderBottom{
+    border-bottom: 2px solid #00000017;
+}
+
+.listOrderStyle{
+    margin-bottom: 8px;
+    border:1px solid #afafaf;
+    padding:1%;
+    // box-shadow: -2px 4px 7px -4px #6f61614d;
+}
+.offcanvas{
+    width:40%;
+}
+
+.orders-wrapper{
+    // border:1px solid #afafaf;
+    // padding:2%;
+}

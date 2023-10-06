@@ -30,6 +30,7 @@ export class HeaderComponent implements OnInit {
   currentAddress: any;
   recentSearch: any[] = [];
   showCurrentLocation: boolean = false;
+  getLocation!: boolean;
 
   constructor(private localStorageService:LocalStorageService, private sendDataToComponent:SendDataToComponent, private router:Router, private apiMainService:ApiMainService, private googleMapService:GoogleMapService, private utilityService:UtilityService){
     this.mapId += Math.ceil(Math.random() * 1000)
@@ -133,6 +134,7 @@ export class HeaderComponent implements OnInit {
   getCurrentLocation() {
     this.showCurrentLocation = true
     this.toggleMap()
+    console.log(this.showMap)
   }
 
   async getKitchenList(clusterList: any, doRefresh?: boolean) {
@@ -176,13 +178,13 @@ export class HeaderComponent implements OnInit {
   }
 
   goToMyAccount() {
-    this.router.navigate(['/my-account'])
+    this.router.navigate(['/my-account/orders/pastOrder'])
   }
 
   toggleMap() {
     setTimeout(() => {
       this.showMap = !this.showMap;
-    }, 100);
+    }, 300);
   }
 
   toggleCanvas() {

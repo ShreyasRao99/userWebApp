@@ -14,6 +14,7 @@ import { UserProfileService } from 'src/service/user-profile.service';
 import { SendDataToComponent } from 'src/service/sendDataToComponent';
 import { AlertModalService } from '../alert-modal/alert-modal.service';
 import { ToasterService } from '../toaster/toaster.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-cart',
@@ -159,8 +160,10 @@ export class CartComponent implements OnInit {
   serviceNotAvailable: boolean = false;
   selectedAddressIndex: any;
   selectedDates:any;
+  allTimeSlotSelected!: string;
+  advanceTimeSlotSelected!: string;
 
-  constructor(private cartManagementService: CartManagementService, private toasterService: ToasterService, private alertModalService: AlertModalService, private chgDetRef: ChangeDetectorRef, private sendDataToComponent: SendDataToComponent, private userProfileService: UserProfileService, private localStorageService: LocalStorageService, private googleMapService: GoogleMapService, private confirmationModalService: ConfirmationModalService, private apiMainService: ApiMainService, private paymentGatewayService: PaymentGatewayService, private runtimeStorageService: RuntimeStorageService, private utilityService: UtilityService, private router: Router) {
+  constructor(private cartManagementService: CartManagementService, private datePipe:DatePipe, private toasterService: ToasterService, private alertModalService: AlertModalService, private chgDetRef: ChangeDetectorRef, private sendDataToComponent: SendDataToComponent, private userProfileService: UserProfileService, private localStorageService: LocalStorageService, private googleMapService: GoogleMapService, private confirmationModalService: ConfirmationModalService, private apiMainService: ApiMainService, private paymentGatewayService: PaymentGatewayService, private runtimeStorageService: RuntimeStorageService, private utilityService: UtilityService, private router: Router) {
     const currentDate = new Date();
     const after1Day = new Date((new Date()).setDate(currentDate.getDate() + 1));
     const after2Day = new Date((new Date()).setDate(currentDate.getDate() + 2));
@@ -1002,6 +1005,7 @@ export class CartComponent implements OnInit {
 
   async openOrderPlaced(orderType: any, success: any) {
     this.runtimeStorageService.resetCacheData('OPEN_ORDERS');
+    this.router.navigate(['/order-placed'],{queryParams:{success}})
     // const modal = await this.modalController.create({
     //   component: OrderPlacedComponent,
     //   componentProps: {paymentSucess: success},
@@ -1808,7 +1812,7 @@ export class CartComponent implements OnInit {
   }
 
   toggleCanvas() {
-    let el = this.canvasAddress.nativeElement;
+    let el = this.canvasAddress?.nativeElement;
     el.click();
   }
 
@@ -1842,6 +1846,18 @@ export class CartComponent implements OnInit {
       console.log(this.userSelectedDates)
       // this.chgDetRef.detectChanges();
     }
+  }
+
+  showAllDayTimeSlot(slot:any){
+    let x = this.datePipe.transform(slot.start,'shortTime')
+    let y = this.datePipe.transform(slot.end,'shortTime')
+    this.allTimeSlotSelected = x+' - '+y
+  }
+
+  showAdvanceTimeSlot(slot:any){
+    let x = this.datePipe.transform(slot.start,'shortTime')
+    let y = this.datePipe.transform(slot.end,'shortTime')
+    this.advanceTimeSlotSelected = x+' - '+y
   }
 
 
@@ -2000,6 +2016,7 @@ export class CartComponent implements OnInit {
   goBack() {
     this.toggleSelected = !this.toggleSelected;
   }
+
 
   test(){
     alert('')
