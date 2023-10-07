@@ -1,5 +1,5 @@
-<div class="col-3" *ngFor="let kitchen of kitchenList">
-    <div class="card mb-5 shadow bg-white rounded" style="width: 18rem;">
+<div class="col-3" *ngFor="let kitchen of kitchenList" (click)="goInsideKitchen(kitchen)">
+    <div class="card mb-5 bg-white rounded">
         <img class="card-img-top img-fluid" [src]="imageUrl + kitchen.imageUrl"
             alt="Card image cap">
             <div class="card-body">
@@ -8,7 +8,7 @@
                     <div class="specialdiv">
                         <span class="speacial"><span class="speciality">{{kitchen.mainSpeciality}}</span>, </span>
                         <span class="speacial">{{kitchen.specialityList}}</span>
-                    </div> 
+                    </div>
                     <div>   
                         <div class="inline">
                             <span *ngFor="let type of kitchen.mealType">

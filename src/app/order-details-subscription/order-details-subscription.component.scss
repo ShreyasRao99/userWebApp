@@ -1,0 +1,240 @@
+@import "/src/styles.scss";
+
+.backarrow{
+    color: $primary-color3;
+    font-size: 30px;
+    padding: 45px 8px 8px 8px;
+    float: left;
+}
+.orderDate{
+    padding-top: 9px;
+}
+.capsule{
+    color: white;
+    padding: 4px 7px;
+    border-radius: 5px;
+    margin: 5px 0px;
+    width: fit-content;
+    font-size: 11px;
+    &.green{
+        background: $secondary-color2;
+    }
+    &.pink{
+        background: $primary-color3;
+    }
+    &.red{
+        background: $primary-color1;
+    }
+}
+.greyBorderBottom{
+    border-bottom: 2px solid #00000017;
+}
+.listdot{
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: $secondary-color3;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.listStyle{
+    --padding-start: 0;
+    --border-color: #d6d1d14f;
+    margin-bottom: 19px;
+    box-shadow: -2px 4px 7px -4px #6f61614d;
+}
+
+.gridStyle{
+    margin: 5px 20px;
+}
+.reorder{
+    border: 1px solid $primary-color3;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: bolder;
+    color: $primary-color1;
+    border-radius: 7px;
+    margin: 0px 8px;
+    letter-spacing: 1px;
+}
+
+.cancelBtnStyle{
+    background: $primary-color2;
+    border-radius: 8px;
+    width: 140px;
+    padding: 10px 10px;
+    color: white;
+    letter-spacing: 1px;
+    box-shadow: 3px 5px 9px 0px #716565;
+}
+.orderDetailsSubscription{
+    padding-top: 20px;
+    ion-row{
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+}
+.rowIcon{
+    padding-left: 20px;
+    background-repeat: no-repeat !important;
+    background-size: 12px !important;
+    background-position: 1px 6px !important;
+    &.order{
+        background : url('~/src/assets/orderdetails/ordericon.svg');
+        background-size: 22px !important;
+        background-position: -4px 1px !important;
+    }
+    &.name{
+        background : url('~/src/assets/orderdetails/accounticon.svg');
+        background-size: 22px !important;
+        background-position: -4px 1px !important;
+    }
+    &.email{
+        background : url('~/src/assets/orderdetails/email.svg');
+    }
+    &.phone{
+        background : url('~/src/assets/orderdetails/phoneicon.svg');
+    }
+    &.address{
+        background : url('~/src/assets/orderdetails/address.svg');
+    }
+    &.star{
+        background : url('~/src/assets/orderdetails/star.svg');
+    }
+    &.dateslot{
+        background : url('~/src/assets/orderdetails/datesloticon.svg');
+    }
+    &.timeIcon{
+        background : url('~/src/assets/orderdetails/timesmallIcon.svg');
+    }
+    &.billdatails{
+        background : url('~/src/assets/orderdetails/billdatails.svg');
+        background-size: 16px !important;
+        background-position: 0px 4px !important;
+    }
+}
+.billingIcon{
+    color: $secondary-color2;
+    margin-left: -2px;
+    margin-right: 8px;
+}
+.billingDetails{
+    padding-left: 15px;
+}
+.orderBG{
+    background: url('~/src/assets/orderdetails/orderdetailBG.svg');
+    background-repeat: no-repeat !important;
+    background-size: 74px !important;
+    background-position: 202px 5px !important;
+}
+.totalBillAmout{
+    padding: 2px 0px;
+    border-top: 2px solid #00000017;
+    border-bottom: 2px solid #00000017;
+    margin-top: 4px;
+}
+.cancelMsg{
+    font-size: 10px;
+    padding-bottom: 10px;
+    color: #c5c5c5;
+}
+.runnerCall{
+    background: $secondary-color3;
+    text-align: center;
+    padding: 12px 1px;
+    margin: 0px 50px;
+    border-radius: 12px;
+    color: white;
+    font-size: 18px;
+    letter-spacing: 1px;
+    .call{
+        position: relative;
+        top: -2px;
+    }
+    ion-icon{
+        position: relative;
+        font-size: 20px;
+        right: 7px;
+    }
+}
+.smallSizeMap{
+    width: 100%;
+    height: 300px;
+}
+
+.expandIcon{
+    position: relative;
+    float: right;
+    top: -284px;
+    z-index: 5;
+    font-size: 37px;
+}
+
+.historyStatus{
+    padding: 0px 10px;
+}
+
+.milestone{
+    width: 20px;
+    height: 20px;    
+    border-radius: 50%;
+    border: 2px solid #60c8bc;
+    .milestoneInner{
+        background: #60c8bc;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+    }       
+}
+.statustext{
+    vertical-align: middle;
+    font-size: 3vw;
+} 
+.lasthistory{
+    border: 2px solid red;
+    padding: 2px;
+}
+.mileline{
+    border-right: 1px solid #9E9E9E;
+    height: 22px;
+    width: 11px;
+    margin-top: -2px;
+}
+
+.dailyOrder{
+    background: #80dad0;
+    border-radius: 7px;
+    padding: 5px 5px;
+    margin: 5px;    
+    .midVertical{
+        display: table-cell;
+        vertical-align: middle;
+        height: 36px;
+    }
+}
+
+.lineThrough{
+    text-decoration: line-through;
+}
+
+.addonListStyle{
+    display: flex;
+    flex-direction: row;
+    .addonName{
+        width: 70%;
+    }
+    .addonValue{
+        width: 30%;
+    }
+}
+
+.userDates{
+    background: #80dad0;
+    border-radius: 7px;
+    padding: 5px 5px;
+    margin: 5px; 
+    display: inline-block;
+}
+

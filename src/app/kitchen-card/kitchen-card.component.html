@@ -1,9 +1,9 @@
-<div class="card mb-5 shadow bg-white rounded" style="width: 18rem;" (click)="goInsideKitchen()">
+<div class="card mb-5 bg-white rounded" (click)="goInsideKitchen()">
     <img class="card-img-top img-fluid" [src]="imageUrl + kitchen.imageUrl"
         alt="Card image cap">
     <div class="card-body">
       <div class="kitchenName bold">{{kitchen.kitchenName}}</div> 
-      <div>
+      <div class="special-div">
         <span *ngFor="let speciality of specialityList" class="speacial">
             <span [ngClass]="{speciality: speciality === kitchen.mainSpeciality}"> {{speciality}}</span>
         </span>

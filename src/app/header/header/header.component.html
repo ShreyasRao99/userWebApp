@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand">
+    <a class="navbar-brand" routerLink="/home">
         <img src="assets/images/mealawe.jpeg" width="30" height="30" class="d-inline-block align-top" alt="">
-        Mealawe
+        <span class="company-name inline"> Mealawe</span>
     </a>
     <span role="button" #canvasAddress data-bs-toggle="offcanvas" data-bs-target="#location" class="location"
         (click)="callFindMyAddress()">{{currentAddress.location ? currentAddress.location :
@@ -22,14 +22,14 @@
                 <a class="nav-link" routerLink="/subscription">MealPlan</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" (click)="userProfile ? goToMyAccount():''">{{userProfile?.userName?userProfile?.userName:'Sign
+                <a class="nav-link"
+                    (click)="userProfile ? goToMyAccount():''">{{userProfile?.userName?userProfile?.userName:'Sign
                     In'}}</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" routerLink="/cart">Cart</a>
             </li>
         </ul>
-        <!-- (click)="userProfile ? goToMyAccount():''" -->
     </div>
 </nav>
 <div class="delivery-location">
@@ -48,10 +48,10 @@
                                             placeholder="Search Your Location" aria-label="Recipient's username"
                                             aria-describedby="basic-addon2">
                                     </div>
-                                    <div class="getLocation">
+                                    <div class="getLocation" (click)="getCurrentLocation()">
                                         <div class="d-flex flex-row">
                                             <i class="bi bi-crosshair"></i>
-                                            <div class="flex-content" (click)="getCurrentLocation()">
+                                            <div class="flex-content">
                                                 <div>Get current location</div>
                                                 <div class="location-canvas-info">Using GPS</div>
                                             </div>
@@ -88,7 +88,8 @@
                 <div class="select-address" *ngIf="showMap">
                     <button type="button" style="display:none;" class="btn-close text-reset" #mapCanvas
                         data-bs-dismiss="offcanvas"></button>
-                    <app-set-delivery-location [getCurrentLocation]="showCurrentLocation" (closeOffCanvas)="toggleCanvas()"></app-set-delivery-location>
+                    <app-set-delivery-location [getCurrentLocation]="showCurrentLocation"
+                        (closeOffCanvas)="toggleCanvas()"></app-set-delivery-location>
                 </div>
             </div>
         </div>

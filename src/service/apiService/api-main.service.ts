@@ -207,4 +207,61 @@ export class ApiMainService {
     return this.apiHttpService.REQUEST(this.apiConfigService.apiEndPointObj.getMealPackageListCluster,data);
   }
 
+  getCustomerPastOrders(id:any,page:any){
+    const urlObj = this.apiConfigService.apiEndPointObj.getCustomerPastOrders;
+    return this.apiHttpService.REQUEST({url: urlObj.url + `/${id}/${page}/${this.getTodayStartDate()}`, method: urlObj.method});
+  }
+
+  getCustomerSubscriptionList(id:any,page:any){
+    const urlObj = this.apiConfigService.apiEndPointObj.getCustomerSubscriptionList;
+    return this.apiHttpService.REQUEST({url: urlObj.url + `/${id}/${page}`, method: urlObj.method});
+  }
+  getCustomerPackageList(id:any,page:any){
+    const urlObj = this.apiConfigService.apiEndPointObj.getCustomerPackageList;
+    return this.apiHttpService.REQUEST({url: urlObj.url + `/${id}/${page}`, method: urlObj.method});
+  }
+
+  getSubmittedBulkOrders(id:any, page:any){
+    const urlObj = this.apiConfigService.apiEndPointObj.getSubmittedBulkOrders;
+    return this.apiHttpService.REQUEST({url: urlObj.url + `/${id}/${page}`, method: urlObj.method});
+  }
+
+  getFoodOrder(id:any){
+    const urlObj = this.apiConfigService.apiEndPointObj.getFoodOrder;
+    return this.apiHttpService.REQUEST({url: urlObj.url + `/${id}`, method: urlObj.method});
+  }
+
+  updateFeedbackstatus(id:any){
+    const urlObj = this.apiConfigService.apiEndPointObj.updateFeedbackstatus;
+    return this.apiHttpService
+    .REQUEST({url: urlObj.url + `/${id}`, method: urlObj.method});
+  }
+
+  checkCancelEligibility(id:any) {
+    const urlObj = this.apiConfigService.apiEndPointObj.checkCancelEligibility;
+    return this.apiHttpService
+    .REQUEST({url: urlObj.url + `/${id}`, method: urlObj.method});
+  }
+
+  trackDeliveryTask(id:any,partner:any){
+    const urlObj = this.apiConfigService.apiEndPointObj.trackDeliveryTask;
+    return this.apiHttpService
+    .REQUEST({url: urlObj.url + `/${id}/${partner}`, method: urlObj.method},null,null,true);
+  }
+
+  resechedulePackageOrder(orderDate:any,foodOrderId:any,subscriptionOrderId:any){
+    const urlObj = this.apiConfigService.apiEndPointObj.resechedulePackageOrder;
+    return this.apiHttpService.REQUEST({url: urlObj.url + `/${orderDate}/${foodOrderId}/${subscriptionOrderId}`, method: urlObj.method});
+  }
+
+  getOrderSubscription(id:any){
+    const urlObj = this.apiConfigService.apiEndPointObj.getOrderSubscription;
+    return this.apiHttpService.REQUEST({url: urlObj.url + `/${id}`, method: urlObj.method});
+  }
+
+  getOrderPackage(id:any){
+    const urlObj = this.apiConfigService.apiEndPointObj.getOrderPackage;
+    return this.apiHttpService.REQUEST({url: urlObj.url + `/${id}`, method: urlObj.method});
+  }
+
 }

@@ -7,19 +7,27 @@ import { CouponDisplayComponent } from '../coupon-display/coupon-display.compone
 import { CustomPipeModule } from 'src/pipes/pipe.module';
 import { ItemCardModule } from '../item-card/item-card.module';
 import { CartFooterModule } from '../cart-footer/cart-footer.module';
+import { KitchenMenuPopupComponent } from '../kitchen-menu-popup/kitchen-menu-popup.component';
+import { HeaderModule } from '../header/header.module';
+import { AddonPopupComponent } from '../addon-popup/addon-popup.component';
+import { KitchenFiltersModule } from '../kitchen-filters/kitchen-filters.module';
 
 
 @NgModule({
   declarations: [
     KitchenInsideComponent,
-    CouponDisplayComponent
+    CouponDisplayComponent,
+    KitchenMenuPopupComponent,
+    AddonPopupComponent
   ],
   imports: [
     CommonModule,
     KitchenInsideRoutingModule,
     CustomPipeModule,
     ItemCardModule,
-    CartFooterModule
+    CartFooterModule,
+    HeaderModule,
+    KitchenFiltersModule
   ]
 })
 export class KitchenInsideModule { }

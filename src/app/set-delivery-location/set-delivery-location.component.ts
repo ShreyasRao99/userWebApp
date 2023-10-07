@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { GeolocationService } from 'src/service/geolocation.service';
 import { GoogleMapService } from 'src/service/google-map.service';
 import { LocalStorageService } from 'src/service/local-storage.service';
@@ -11,9 +11,10 @@ import { ApiMainService } from 'src/service/apiService/api-main.service';
   templateUrl: './set-delivery-location.component.html',
   styleUrls: ['./set-delivery-location.component.scss']
 })
-export class SetDeliveryLocationComponent implements OnInit {
+export class SetDeliveryLocationComponent implements OnInit, OnChanges {
   @Input() showSkipButton: boolean = false;
   @Input() getCurrentLocation: boolean = false;
+  @Input() patchValue: any;
   @Output() closeOffCanvas = new EventEmitter<any>();
   serviceAvailable: boolean = true;
 
@@ -30,9 +31,28 @@ export class SetDeliveryLocationComponent implements OnInit {
   landmark: any;
   tagLocation = 'home';
 
+  ngOnChanges(changes: SimpleChanges){
+    console.log(changes)
+    this.patchValue = changes['patchValue']?.currentValue
+    this.address = changes['patchValue']?.currentValue.address
+    this.landmark = changes['patchValue']?.currentValue.landmark;
+    if(changes['patchValue']?.currentValue){
+      this.loadCurrentSavedLocation()
+    }
+    // this.getCurrentLocation = changes['getCurrentLocation'].currentValue
+    
+  }
+
   ngOnInit(): void {
+    console.log(this.getCurrentLocation)
+    console.log(this.showSkipButton)
+    console.log(this.patchValue)
     // let a = document.getElementById('mapid123');
     // console.log(a)
+    // if (this.patchValue) {
+    //   this.address = this.patchValue.address
+    //   this.landmark = this.patchValue.landmark;
+    // }
     if (!this.getCurrentLocation) {
       this.loadCurrentSavedLocation()
     }
@@ -151,11 +171,13 @@ export class SetDeliveryLocationComponent implements OnInit {
     this.checkServicability(this.selectedAddress)
   }
 
-  sendCurrentLocation() {
+  sendCurrentLocation(skip?: any) {
     if (this.serviceAvailable) {
-      this.addAddress()
-      this.closeOffCanvas.emit(true)
-      this.sendDataToComponent.publish('ADDRESS_FROM_DELIVERY', this.selectedAddress)
+      if (!skip) {
+        this.addAddress()
+        this.sendDataToComponent.publish('ADDRESS_FROM_DELIVERY', this.selectedAddress)
+      }
+      this.closeOffCanvas.emit(true) 
     }
     else {
       return;

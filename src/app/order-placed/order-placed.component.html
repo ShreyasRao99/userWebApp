@@ -1,0 +1,20 @@
+<div>
+    <!-- <div (click)="close(false)">
+        <ion-icon class="backarrow" name="arrow-back-outline"></ion-icon>
+    </div>     -->
+      <div class="setToCenter" *ngIf="paymentSucess">
+        <div class="orderPlaced"></div>
+        <div class="header2 bgpadding1 center">Order Placed!</div> 
+        <div class="header5 bgpadding1 grey center">
+          <button class="addressBtnStyle" (click)="GoToOrders()">Track Order</button>
+        </div> 
+      </div>  
+      <div class="setToCenter" *ngIf="!paymentSucess">
+        <div class="orderFailed"></div>
+        <div class="header2 bgpadding1 center primary1">Order Payment Transaction Failed!</div> 
+        <div class="header5 bgpadding1 center grey">We are sorry for your inconvenience. If your money is deducted, you will get refund within 4-5 business days.</div> 
+        <div class="header5 bgpadding1 grey center">
+          <button class="trackFailedBtnStyle" (click)="GoToOrders()">Track Failed Order</button>
+        </div> 
+      </div>  
+  </div>

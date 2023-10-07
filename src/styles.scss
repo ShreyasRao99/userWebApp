@@ -33,6 +33,7 @@
 // @import '~swiper/scss/scrollbar';
 // @import '~swiper/scss/zoom';
 @import "~bootstrap-icons/font/bootstrap-icons.css";
+@import 'ngx-multiple-dates/prebuilt-themes/indigo-pink.css';
 
 // html.ios {
 //     --ion-safe-area-top: 10px;
@@ -429,18 +430,20 @@ ion-slides {
 .headerBG {
     background: $primary-color1;
     height: 85px;
-    box-shadow: 0px 3px 9px 0px #9e6c73;
-    margin-bottom: 7%;
+    // box-shadow: 0px 3px 9px 0px #9e6c73;
+    margin-bottom: 1%;
     color: white;
     font-size: 17px;
-    padding-top: 45px;
-    position: fixed;
+    padding: 3% 1% 1% 1%;
+    // position: fixed;
     width: 100%;
-    z-index: 1;
+    // z-index: 1;
 }
 
 .pageContent {
-    padding-top: 102px;
+    margin-top:1%;
+    // padding:1%;
+    // padding-top: 102px;
 }
 
 .backIcon {
@@ -577,13 +580,13 @@ ion-slides {
     color: white;
 }
 
-.modalCntrlparentHeight {
-    height: inherit;
-}
+// .modalCntrlparentHeight {
+//     height: inherit;
+// }
 
-.modalCntrlmodalscrollbody {
-    overflow-y: none;
-}
+// .modalCntrlmodalscrollbody {
+//     overflow-y: none;
+// }
 
 .photo-edit-modal-design {
     --width: 95%;
@@ -620,7 +623,7 @@ ion-slides {
     background-size: 18px !important;
     background-repeat: no-repeat !important;
     background-position: 5px 0px !important;
-    background-position: 5px 8px !important;
+    background-position: 6px 4px !important;
     display: inline-block;
 
     &.selected {
@@ -912,6 +915,28 @@ input[type="text"]:focus {
     outline: 0 none;
 }
 
+.menuModel {
+    .modal-dialog {
+        position: absolute;
+        top: 60%;
+        left:33%;
+        width:50%;
+    }
+    .modal-content{
+        padding:5%;
+    }
+}
+
+.addonsModel{
+    .modal-dialog{
+        position:absolute;
+        top:10%;
+        left:33%;
+        width:65%;
+    }
+}
+
+
 // .menuModel{
 //     .modal-dialog{
 //         height: 100%;
@@ -922,6 +947,19 @@ input[type="text"]:focus {
 //                 height: 100%;
 //             }
 //         }
-        
+
 //     }
 // }
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.pointer{
+    cursor:pointer;
+}

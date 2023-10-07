@@ -1,151 +1,275 @@
-<app-header></app-header>
-<div class="cart-wrapper">
-  <div *ngIf="!cartObj || (cartObj && cartObj.itemList && cartObj.itemList.length === 0)" class="setToCenter">
-    <div class="noitem"></div>
-    <div class="header2 bgpadding3 center">You can almost taste this!</div>
-    <div class="header5 bgpadding2 grey center">Your cart is empty. Let's add some meals</div>
-  </div>
-  <div class="container-fluid" *ngIf="cartObj && cartObj.itemList && cartObj.itemList.length > 0">
+<div class="container-fluid">
+  <app-header></app-header>
+  <div class="cart-wrapper">
     <div class="row">
-      <div class="col-8 left-section">
-        <i class="bi bi-arrow-left" *ngIf="!toggleSelected && addressSelected" (click)="goBack()"></i>
-        <div class="d-flex flex-row mt-2">
-          <div class="cartGrayHead">{{!toggleSelected ? 'Select Delivery Address' : 'Delivery address'}}</div>
-          <div class="buttonDiv">
-            <button class="btn btn-outline-danger" *ngIf="toggleSelected"
-              (click)="toggleAddressSelected(null)">Change</button>
-          </div>
+      <div class="col-10 offset-1">
+        <div *ngIf="!cartObj || (cartObj && cartObj.itemList && cartObj.itemList.length === 0)">
+          <div class="noitem"></div>
+          <div class="header2 bgpadding1 center">You can almost taste this!</div>
+          <div class="header5 grey center">Your cart is empty. Let's add some meals</div>
         </div>
-        <div class="row">
-          <ng-container *ngIf="!toggleSelected">
-            <div class="col-6 mt-4" *ngFor="let address of userProfile.addressList; let i = index">
-              <div class="taglocationdiv">
-                <div class="taglocation2">{{address.tagLocation}}</div>
-                <div class="completeAdd">{{address.location}}</div>
-                <button class="btn btn-danger mt-3" (click)="toggleAddressSelected(address,i)">Deliver Here</button>
-                <div *ngIf="serviceNotAvailable  && selectedAddressIndex == i">No service at this location</div>
+        <div class="container-fluid" *ngIf="cartObj && cartObj.itemList && cartObj.itemList.length > 0">
+          <div class="row">
+            <div class="col-8 left-section">
+              <i class="bi bi-arrow-left" *ngIf="!toggleSelected && addressSelected" (click)="goBack()"></i>
+              <div class="d-flex flex-row mt-2">
+                <div class="cartGrayHead">{{!toggleSelected ? 'Select Delivery Address' : 'Delivery address'}}</div>
+                <div class="buttonDiv">
+                  <button class="btn btn-outline-danger" *ngIf="toggleSelected"
+                    (click)="toggleAddressSelected(null)">Change</button>
+                </div>
+              </div>
+              <div class="row">
+                <ng-container *ngIf="!toggleSelected">
+                  <div class="col-6 mt-4" *ngFor="let address of userProfile.addressList; let i = index">
+                    <div class="taglocationdiv mt-2">
+                      <div class="taglocation2">{{address.tagLocation}}</div>
+                      <div class="completeAdd">{{address.location}}</div>
+                      <button class="btn btn-danger mt-3" (click)="toggleAddressSelected(address,i)">DELIVER HERE</button>
+                      <div *ngIf="serviceNotAvailable  && selectedAddressIndex == i">No service at this location</div>
+                    </div>
+                  </div>
+                  <div class="col-6 mt-4">
+                    <div class="taglocationdiv">
+                      <div class="taglocation2" (click)="changeLocation()">Add new address</div>
+                      <div class="completeAdd">{{currentLocation}}</div>
+                      <button class="btn btn-outline-danger mt-3" (click)="toggleMap()" data-bs-toggle="offcanvas"
+                        data-bs-target="#addAddress">ADD NEW</button>
+                    </div>
+                  </div>
+                </ng-container>
+                <div class="col-8 mb-2 mt-3" *ngIf="toggleSelected">
+                  <div class="taglocationdiv">
+                    <div class="taglocation2">{{addressSelected.tagLocation}}</div>
+                    <div class="completeAdd">{{addressSelected.location}}</div>
+                    <!-- <button class="btn btn-outline-danger mt-3">Add New</button> -->
+                  </div>
+                </div>
+                <div class="col-12 mt-5 payment" *ngIf="toggleSelected">
+                  <div class="cartGrayHead">Choose payment method</div>
+                  <button class="btn btn-danger mt-4" (click)="checkUserProfile()">PROCEED TO PAY</button>
+                </div>
               </div>
             </div>
-            <div class="col-6 mt-4">
-              <div class="taglocationdiv">
-                <div class="taglocation2" (click)="changeLocation()">Add new address</div>
-                <div class="completeAdd">{{currentLocation}}</div>
-                <button class="btn btn-outline-danger mt-3" (click)="toggleMap()" data-bs-toggle="offcanvas"
-                  data-bs-target="#location">Add
-                  New</button>
+            <div class="col-4 right-section">
+              <div *ngIf="cartObj.orderType !== 'subscription'">
+                <div class="cartKitchenCard">
+                  <app-cart-kitchen-cart [orderType]="cartObj.orderType" [showsubOffer]="true" [disableNav]="false"
+                    [kitchen]="cartObj.kitchen" [disableFav]="true"></app-cart-kitchen-cart>
+                </div>
+                <div class="bgTopDownpadding2">
+                  <div class="row" *ngFor="let item of cartObj.itemList" class="cartItemRow">
+                    <div class="col-12" class="inline-flex">
+                      <span>
+                        <div *ngIf="item.itemType==='Veg'" class="vegIcon typeIcon inline"></div>
+                        <div *ngIf="item.itemType==='NonVeg'" class="nonvegIcon typeIcon inline"></div>
+                        <div *ngIf="item.itemType==='Jain'" class="jainIcon inline">Jain</div>
+                      </span>
+                      <div class="header grey itemNameStyle">{{item.itemName}}
+                        <div class="itemPrice">&#8377;
+                          {{item.mealawePrice * item.count}}
+                          <span *ngIf="subscriptionCount">x {{subscriptionCount}}</span>
+                        </div>
+                      </div>
+                      <div>
+                        <div class="right quantitydiv">
+                          <div *ngIf="item.count" class="white cartitemStyle">
+                            <div class="cartincbutton quantity" (click)="decreaseCount(item)">
+                              <span class="dec">-</span>
+                            </div>
+                            <div class="cartincbuttoncenter count">{{item.count}}</div>
+                            <div class="cartincbutton quantity" (click)="increaseCount(item)">
+                              <span class="plus">+</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="preparationTimemsg" *ngIf="item.preparationTime > 45">This item takes
+                      {{item.preparationTime}}mins to prepare</div>
+                  </div>
+                  <div class="d-flex flex-row" *ngFor="let addon of cartObj.addOns">
+                    <span>
+                      <div class="vegIcon typeIcon inline"></div>
+                      <!-- <div *ngIf="item.itemType==='NonVeg'" class="nonvegIcon typeIcon inline"></div>
+                      <div *ngIf="item.itemType==='Jain'" class="jainIcon inline">Jain</div> -->
+                    </span>
+                    <div class="itemNameStyle header grey">{{addon.addOnName}}
+                      <div class="itemPrice">&#8377;
+                        {{addon.mealawePrice * addon.count}}
+                        <span *ngIf="subscriptionCount">x {{subscriptionCount}}</span>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="header5 mt-2 bgsidepadding1 quantitydiv">
+                        <div *ngIf="addon.count" class="white cartitemStyle">
+                          <div class="cartincbutton quantity" (click)="decreaseAddOnCount(addon)">
+                            <span class="dec">-</span>
+                          </div>
+                          <div class="cartincbuttoncenter count">{{addon.count}}</div>
+                          <div class="cartincbutton quantity" (click)="increaseAddOnCount(addon)">
+                            <span class="plus">+</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </ng-container>
-          <div class="col-8 mb-2" *ngIf="toggleSelected">
-            <div class="taglocationdiv">
-              <div class="taglocation2">{{addressSelected.tagLocation}}</div>
-              <div class="completeAdd">{{addressSelected.location}}</div>
-              <!-- <button class="btn btn-outline-danger mt-3">Add New</button> -->
-            </div>
-          </div>
-          <div class="col-12 mt-5 payment" *ngIf="toggleSelected">
-            <div class="cartGrayHead">Choose payment method</div>
-            <button class="btn btn-danger mt-4" (click)="checkUserProfile()">PROCEED TO PAY</button>
-          </div>
-        </div>
-      </div>
-      <div class="col-4 right-section">
-        <div *ngIf="cartObj.orderType !== 'subscription'">
-          <div class="cartKitchenCard">
-            <app-cart-kitchen-cart [orderType]="cartObj.orderType" [showsubOffer]="true" [disableNav]="false"
-              [kitchen]="cartObj.kitchen" [disableFav]="true"></app-cart-kitchen-cart>
-          </div>
-          <div class="bgTopDownpadding2">
-            <div class="row" *ngFor="let item of cartObj.itemList" class="cartItemRow">
-              <div class="col-12" class="inline-flex">
+              <div *ngIf="cartObj.orderType === 'subscription'">
+                <div class="bgTopDownpadding2">
+                  <div *ngFor="let item of cartObj.itemList">
+                    <div>
+                      <div class="cartGrayHead">Items:</div>
+                      <div class="row cartItemRow">
+                        <div class="col-6 inline-flex">
+                          <div class="header5 grey itemNameStyle">{{item.packageName}}
+                            <div class="itemPrice">&#8377;
+                              {{item.packagePrice}} x {{item.count}}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="inline header5 bgsidepadding2 right quantitydiv">
+                            <div *ngIf="item.count" class=" cartitemStyle">
+                              <div class="cartincbutton quantity" (click)="decreaseCount(item)">
+                                <span class="dec">-</span>
+                              </div>
+                              <div class="cartincbuttoncenter count white">{{item.count}}</div>
+                              <div class="cartincbutton quantity" (click)="increaseCount(item)">
+                                <span class="plus">+</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="cartGrayHead">Addons:</div>
+                      <div class="row" *ngFor="let addon of item.addonsList">
+                        <div class="col-12 checkbox" [ngClass]="{selected: addon.selected}"
+                          (click)="addon.selected = !addon.selected;changePackageAddons(item)">
+                          <div class="inline-table">
+                            <input type="checkbox" class="checkboxStyle" [(ngModel)]="addon.selected">
+                          </div>
+                          <div class="inline-table">
+                            <div class="header5 bold">{{addon.addonName}}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <div *ngIf="cartObj.orderType === 'subscription'">
+                <div class="row mealrow">
+                  <div (click)="mealTimeSelected('lunchSubscription')" class="col-6 center">
+                    <div class="mealCapsule" [ngClass]="{'selectedmeal': subscriptionObj.lunchSubscription}">Lunch</div>
+                  </div>
+                  <div (click)="mealTimeSelected('dinnerSubscription')" class="col-6 center">
+                    <div class="mealCapsule" [ngClass]="{'selectedmeal': subscriptionObj.dinnerSubscription}">Dinner</div>
+                  </div>
+                </div>
+                <div class="bgBottompadding3">
+                  <div class="mealTimingTxt" *ngIf="subscriptionObj.lunchSubscription">Lunch will be delivered between
+                    12pm to
+                    2pm</div>
+                  <div class="mealTimingTxt" *ngIf="subscriptionObj.dinnerSubscription">Dinner will be delivered between
+                    7pm
+                    to
+                    9pm</div>
+                </div>
                 <div>
-                  <!-- <img [src]="imageUrl + item.imageUrl" class="itemImage" *ngIf="item.imageUrl" /> -->
-                  <!-- <div *ngIf="item.itemType === 'Veg'" class="vegIcon typeIcon"></div> -->
-                  <!-- <div *ngIf="item.itemType === 'NonVeg'" class="nonvegIcon typeIcon"></div> -->
-                </div>&nbsp;
-                <span>
-                  <div *ngIf="item.itemType==='Veg'" class="vegIcon typeIcon inline"></div>
-                  <div *ngIf="item.itemType==='NonVeg'" class="nonvegIcon typeIcon inline"></div>
-                  <div *ngIf="item.itemType==='Jain'" class="jainIcon inline">Jain</div>
-                </span>
-                <div class="header grey itemNameStyle">{{item.itemName}}
-                  <div class="itemPrice">&#8377;
-                    {{item.mealawePrice * item.count}}
-                    <span *ngIf="subscriptionCount">x {{subscriptionCount}}</span>
-                  </div>
-                </div>
-                <div class="col-6">
-                  <div class="right quantitydiv">
-                    <div *ngIf="item.count" class="white cartitemStyle">
-                      <div class="cartincbutton quantity" (click)="decreaseCount(item)">
-                        <span class="dec">-</span>
-                      </div>
-                      <div class="cartincbuttoncenter count">{{item.count}}</div>
-                      <div class="cartincbutton quantity" (click)="increaseCount(item)">
-                        <span class="plus">+</span>
+                  <div class="col-6" *ngIf="!subscriptionObj.multiDateAllowed">
+                    <div class="cartGrayHead">Pick Subscription Date</div>
+                    <div>
+                      <div>
+                        <mat-form-field>
+                          <mat-label>Enter Date</mat-label>
+                          <input style="visibility:hidden;" matInput [matDatepicker]="picker" [min]="allowedMinDate"
+                            [max]="allowedMaxDateSub" (dateChange)="subOrderDateChanged($event.value)">
+                          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div class="preparationTimemsg" *ngIf="item.preparationTime > 45">This item takes
-                {{item.preparationTime}}mins to prepare</div>
-            </div>
-
-            <div class="row" *ngFor="let addon of cartObj.addOns" class="cartItemRow">
-              <div class="col-12" class="inline-flex">
-                <div class="inline">
-                  <img *ngIf="addon.imageUrl" [src]="imageUrl+addon.imageUrl" class="addonImg">
-                </div>&nbsp;
-                <div class="header5 grey itemNameStyle">{{addon.addOnName}}
-                  <div class="itemPrice">&#8377;
-                    {{addon.mealawePrice * addon.count}}
-                    <span *ngIf="subscriptionCount">x {{subscriptionCount}}</span>
+                  <div class="col-12" *ngIf="subscriptionObj.multiDateAllowed">
+                    <span slot="title">Select your {{cartObj.subscriptionObj.subscriptionDays}} Delivery Dates</span>
+                    <mat-form-field>
+                      <ngx-multiple-dates
+                        (dateChange)="multiSubOrderDateChanged(cartObj.subscriptionObj.subscriptionDays)"
+                        [min]="allowedMinDate" [matDatepicker]="picker" placeholder="Select Dates" name="excludedDates"
+                        [(ngModel)]="selectedDates">
+                      </ngx-multiple-dates>
+                      <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
                   </div>
                 </div>
               </div>
-              <div class="col-12">
-                <div class="inline header5 bgsidepadding2 right quantitydiv">
-                  <div *ngIf="addon.count" class="white cartitemStyle">
-                    <div class="cartincbutton quantity" (click)="decreaseAddOnCount(addon)">
-                      <span class="dec">-</span>
-                    </div>
-                    <div class="cartincbuttoncenter count">{{addon.count}}</div>
-                    <div class="cartincbutton quantity" (click)="increaseAddOnCount(addon)">
-                      <span class="plus">+</span>
+              <div *ngIf="cartObj.orderType === 'advance'">
+                <div class="cartGrayHead">Date Slot</div>
+                <mat-form-field>
+                  <mat-label>Select Date Slot</mat-label>
+                  <input [disabled]="notInTimeSlot" matInput [matDatepicker]="picker" [min]="allowedMinDate"
+                    [max]="allowedMaxDate" (dateChange)="advOrderDateChanged($event.value)">
+                  <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <div class="timeSlot">
+                  <div class="cartGrayHead">Time Slot</div>
+                  <div class="dateslottext">
+                    <div ngbDropdown class="time-slot-dropdown d-inline-block">
+                      <button type="button" [disabled]="notInTimeSlot" class="time-slot-dropdown btn btn-outline-danger" id="dropdownBasic1"
+                        ngbDropdownToggle>
+                        {{advanceTimeSlotSelected ? advanceTimeSlotSelected : 'Delivery Slot'}}
+                      </button>
+                      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                        <button ngbDropdownItem [value]="i+1" (click)="applyExtraDiscount(advSlotArray,i);showAdvanceTimeSlot(slot)"
+                          *ngFor="let slot of advSlotArray; let i = index"><span class="happyHours" style="color:red"
+                            *ngIf="i>=2">Extra 5%
+                            Discount</span>
+                          {{slot.start |
+                          date: 'shortTime'}} - {{slot.end | date: 'shortTime'}}</button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <form class="suggestion-form">
-              <div>
-                <input type="text" class="form-control shadow-none" id="suggestion"
-                  placeholder="Any suggestions? we will pass it on..." aria-label="Recipient's username"
-                  aria-describedby="basic-addon2">
-              </div>
-            </form>
-            <div class="no-contact mt-3">
-              <div class="d-flex flex-row">
-                <input class="inline" type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-                <div class="flex-content">
-                  <div><b>Opt in for No-contact Delivery</b></div>
-                  <div class="no-contact-info">Unwell, or avoiding contact? Please select no-contact delivery. Partner
-                    will safely place the order outside your door (not for COD)</div>
+              <form class="suggestion-form mt-3">
+                <div>
+                  <input type="text" class="form-control shadow-none" id="suggestion"
+                    placeholder="Any suggestions? we will pass it on..." aria-label="Recipient's username"
+                    aria-describedby="basic-addon2">
+                </div>
+              </form>
+              <div class="no-contact mt-3">
+                <div class="d-flex flex-row">
+                  <input class="inline" type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                  <div class="flex-content">
+                    <div><b>Opt in for No-contact Delivery</b></div>
+                    <div class="no-contact-info">Unwell, or avoiding contact? Please select no-contact delivery. Partner
+                      will safely place the order outside your door.</div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="slotDropdown mt-3"
-              *ngIf="cartObj.orderType === 'allDay' || (cartObj.orderType === 'subscription' && subscriptionObj.subscriptionDays === 1)">
-              <div ngbDropdown class="d-inline-block">
-                <button type="button" [disabled]="notInTimeSlotAllDay" class="btn btn-outline-danger"
-                  id="dropdownBasic1" ngbDropdownToggle>
-                  Delivery Slot
-                </button>
-                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                  <button ngbDropdownItem [value]="i+1" (click)="applyExtraDiscount(allDaySlotArray,i)"
-                    *ngFor="let slot of allDaySlotArray; let i = index">{{slot.start |
-                    date: 'shortTime'}} - {{slot.end | date: 'shortTime'}}</button>
+              <div class="slotDropdown mt-3"
+                *ngIf="cartObj.orderType === 'allDay' || (cartObj.orderType === 'subscription' && subscriptionObj.subscriptionDays === 1)">
+                <div ngbDropdown class="d-inline-block">
+                  <button type="button" [disabled]="notInTimeSlotAllDay" class="btn btn-outline-danger"
+                    id="dropdownBasic1" ngbDropdownToggle>
+                    {{allTimeSlotSelected ? allTimeSlotSelected : 'Delivery Slot'}}
+                  </button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button ngbDropdownItem [value]="i+1" (click)="applyExtraDiscount(allDaySlotArray,i);showAllDayTimeSlot(slot)"
+                      *ngFor="let slot of allDaySlotArray; let i = index"><span class="happyHours" style="color:red"
+                        *ngIf="i>=2">Extra 5%
+                        Discount</span>
+                      {{slot.start |
+                      date: 'shortTime'}} - {{slot.end | date: 'shortTime'}}</button>
+                  </div>
                 </div>
               </div>
               <div class="coupons-div mt-3 p-3" (click)="openVoucherSection()" data-bs-toggle="offcanvas"
@@ -156,8 +280,7 @@
                 <div class="right remove" (click)="removeCoupon(true)">REMOVE</div>
                 <div>{{couponCode}} applied</div>
               </div>
-              <div class="bgTopDownpadding2"
-                *ngIf="mealaweWalletPoinstAvailable && cartObj.orderType !== 'subscription'">
+              <div class="bgTopDownpadding2" *ngIf="mealaweWalletPoinstAvailable && cartObj.orderType !== 'subscription'">
                 <div class="checkbox" (click)="mealaweWalletApplied()" [ngClass]="{selected: applyMealaweWalletPoints}">
                   <div class="inline-table">
                     <input type="checkbox" class="checkboxStyle" [(ngModel)]="applyMealaweWalletPoints"
@@ -171,7 +294,7 @@
                   </div>
                 </div>
               </div>
-              <div class="bgTopDownpadding2" *ngIf="moneyWalletPoinstAvailable">
+              <div *ngIf="moneyWalletPoinstAvailable">
                 <label class="checkbox" for="applyMoneyWalletPoints" [ngClass]="{selected: applyMoneyWalletPoints}">
                   <div class="inline-table">
                     <input id="applyMoneyWalletPoints" type="checkbox" class="checkboxStyle"
@@ -183,70 +306,132 @@
                   </div>
                 </label>
               </div>
-              <div class="bgTopDownpadding2 mt-3">
-                <div class="bilingDiv">
-                  <div class="receiptText">
-                    <div size="12">Receipt:</div>
-                  </div>
-                  <div class="header5 grey receipt3 receipt-parent">
-                    <div class="left-div">Sub Total</div>
-                    <div class="right-div dark">&#8377;
-                      <span class="lineThrough" *ngIf="mealaweItemDiscount">{{mealaweTotalAmt}}</span>
-                      {{mealaweTotalAmt - mealaweItemDiscount}}
+  
+              <div *ngIf="cartObj.orderType !== 'subscription'">
+                <div class="bgTopDownpadding2 mt-1">
+                  <div class="bilingDiv">
+                    <div class="receiptText">
+                      <div size="12">Receipt:</div>
+                    </div>
+                    <div class="header5 grey receipt3 receipt-parent">
+                      <div class="left-div">Sub Total</div>
+                      <div class="right-div dark">&#8377;
+                        <span class="lineThrough" *ngIf="mealaweItemDiscount">{{mealaweTotalAmt}}</span>
+                        {{mealaweTotalAmt - mealaweItemDiscount}}
+                      </div>
+                    </div>
+                    <div class="header5 grey receipt6 receipt-parent">
+                      <div class="left-div">Delivery Charges</div>
+                      <div class="right-div">
+                        <span *ngIf="deliveryCharges === 0 ">loading..</span>
+                        <span *ngIf="deliveryCharges !== 0">&#8377;
+                          <span class="lineThrough" *ngIf="mealaweDeliveryDiscount">{{deliveryCharges | number :
+                            '1.2-2'}}</span>
+                          {{(deliveryCharges - mealaweDeliveryDiscount) | number : '1.2-2'}}</span>
+                      </div>
+                    </div>
+                    <div class="header5 grey receipt-parent">
+                      <div class="left-div">Applicable Taxes</div>
+                      <div class="right-div">&#8377; {{taxes}}</div>
+                    </div>
+                    <div class="header5 discount receipt-parent" *ngIf="mealaweKitchenDiscount">
+                      <div class="left-div">
+                        <span *ngIf="cartObj.orderType !== 'subscription' ">Kitchen Discount</span>
+                        <span *ngIf="cartObj.orderType === 'subscription' ">Subscription Discount</span>
+                      </div>
+                      <div class="alignRight right-div">(-)&#8377; {{mealaweKitchenDiscount}}</div>
+                    </div>
+                    <div class="header5 grey receipt-parent" *ngIf="moneyWalletPointsUsed">
+                      <div class="left-div">Money Wallet Points</div>
+                      <div class="right-div grey">(-)&#8377; {{moneyWalletPointsUsed}}</div>
+                    </div>
+                    <div class="header5 grey receipt-parent" *ngIf="mealaweWalletPointsUsed">
+                      <div class="left-div">Cashback Points</div>
+                      <div class="right-div grey">(-)&#8377; {{mealaweWalletPointsUsed}}</div>
+                    </div>
+                    <div class="header5 discount receipt6 receipt-parent"
+                      *ngIf="(discount || mealaweItemDiscount || mealaweDeliveryDiscount) && !mealaweWalletPointsUsed">
+                      <div class="left-div">Coupon Discount</div>
+                      <div class="right-div">(-)&#8377;
+                        {{discount+mealaweItemDiscount+mealaweDeliveryDiscount}}</div>
+                    </div>
+                    <div class="header5 discount receipt-parent" *ngIf="voucherDiscount">
+                      <div class="left-div">Voucher Discount</div>
+                      <div class="right-div">(-)&#8377; {{voucherDiscount}}</div>
+                    </div>
+                    <div class="header5 discount receipt-parent" *ngIf="extraDiscount">
+                      <div class="left-div">Happy Hour</div>
+                      <div class="right-div">(-)&#8377; {{extraDiscount}}</div>
+                    </div>
+                    <div class="header4 cartToPayRow receipt-parent">
+                      <div class="left-div">TOTAL PRICE</div>
+                      <div class="right-div">
+                        &#8377;
+                        <span *ngIf="payAmtBeforeDiscount && payAmt < payAmtBeforeDiscount" class="lineThrough">
+                          {{mealaweDeliveryDiscount + mealaweItemDiscount + discount + mealaweKitchenDiscount +
+                          moneyWalletPointsUsed + payAmt + voucherDiscount + extraDiscount}}
+                        </span>
+                        <span>{{payAmt}}</span>
+                      </div>
                     </div>
                   </div>
-                  <div class="header5 grey receipt6 receipt-parent">
-                    <div class="left-div">Delivery Charges</div>
-                    <div class="right-div">
-                      <span *ngIf="deliveryCharges === 0 ">loading..</span>
-                      <span *ngIf="deliveryCharges !== 0">&#8377;
-                        <span class="lineThrough" *ngIf="mealaweDeliveryDiscount">{{deliveryCharges | number :
-                          '1.2-2'}}</span>
-                        {{(deliveryCharges - mealaweDeliveryDiscount) | number : '1.2-2'}}</span>
+                </div>
+              </div>
+              <div *ngIf="cartObj.orderType === 'subscription'">
+                <div class="bgTopDownpadding2 mt-1">
+                  <div class="bilingDiv">
+                    <div class="receiptText">
+                      <div size="12">Receipt:</div>
                     </div>
-                  </div>
-                  <div class="header5 grey receipt-parent">
-                    <div class="left-div">Applicable Taxes</div>
-                    <div class="right-div">&#8377; {{taxes}}</div>
-                  </div>
-                  <div class="header5 discount receipt-parent" *ngIf="mealaweKitchenDiscount">
-                    <div class="left-div">
-                      <span *ngIf="cartObj.orderType !== 'subscription' ">Kitchen Discount</span>
-                      <span *ngIf="cartObj.orderType === 'subscription' ">Subscription Discount</span>
+                    <div class="header5 grey receipt3 receipt-parent">
+                      <div class="left-div">Sub Total</div>
+                      <div class="right-div dark">&#8377;
+                        <span class="lineThrough">{{packageTotalAmt}}</span>
+                      </div>
                     </div>
-                    <div class="alignRight right-div">(-)&#8377; {{mealaweKitchenDiscount}}</div>
-                  </div>
-                  <div class="header5 grey receipt-parent" *ngIf="moneyWalletPointsUsed">
-                    <div class="left-div">Money Wallet Points</div>
-                    <div class="right-div grey">(-)&#8377; {{moneyWalletPointsUsed}}</div>
-                  </div>
-                  <div class="header5 grey receipt-parent" *ngIf="mealaweWalletPointsUsed">
-                    <div class="left-div">Cashback Points</div>
-                    <div class="right-div grey">(-)&#8377; {{mealaweWalletPointsUsed}}</div>
-                  </div>
-                  <div class="header5 discount receipt6 receipt-parent"
-                    *ngIf="(discount || mealaweItemDiscount || mealaweDeliveryDiscount) && !mealaweWalletPointsUsed">
-                    <div class="left-div">Coupon Discount</div>
-                    <div class="right-div">(-)&#8377;
-                      {{discount+mealaweItemDiscount+mealaweDeliveryDiscount}}</div>
-                  </div>
-                  <div class="header5 discount receipt-parent" *ngIf="voucherDiscount">
-                    <div class="left-div">Voucher Discount</div>
-                    <div class="right-div">(-)&#8377; {{voucherDiscount}}</div>
-                  </div>
-                  <div class="header5 discount receipt-parent" *ngIf="extraDiscount">
-                    <div class="left-div">Happy Hour</div>
-                    <div class="right-div">(-)&#8377; {{extraDiscount}}</div>
-                  </div>
-                  <div class="header4 cartToPayRow receipt-parent">
-                    <div class="left-div">TOTAL PRICE</div>
-                    <div class="right-div">
-                      &#8377;
-                      <span *ngIf="payAmtBeforeDiscount && payAmt < payAmtBeforeDiscount" class="lineThrough">
-                        {{mealaweDeliveryDiscount + mealaweItemDiscount + discount + mealaweKitchenDiscount +
-                        moneyWalletPointsUsed + payAmt + voucherDiscount + extraDiscount}}
-                      </span>
-                      <span>{{payAmt}}</span>
+                    <div class="header5 grey receipt-parent">
+                      <div class="left-div">Applicable Taxes</div>
+                      <div class="right-div">&#8377; {{taxes}}</div>
+                    </div>
+                    <div *ngFor="let item of cartObj.itemList">
+                      <div *ngFor="let addon of item.addonsList">
+                        <div *ngIf="addon.selected">
+                          <div class="header5 grey receipt-parent discount" *ngIf="addon.daily">
+                            <div class="left-div">{{addon.addonName}}</div>
+                            <div class="right-div grey">&#8377; {{addon.extraPrice * item.count * mealPerdayCount *
+                              subscriptionObj.subscriptionDays}}</div>
+                          </div>
+                          <div class="header5 grey receipt-parent discount" *ngIf="!addon.daily">
+                            <div class="left-div">{{addon.addonName}}</div>
+                            <div class="right-div grey">&#8377; {{addon.extraPrice * item.count * mealPerdayCount *
+                              subscriptionObj.subscriptionDays}}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="header5 grey receipt-parent discount" *ngIf="discount">
+                      <div class="left-div">Disount</div>
+                      <div class="right-div grey">(-)&#8377; {{discount}}</div>
+                    </div>
+                    <div class="header5 grey receipt-parent" *ngIf="moneyWalletPointsUsed">
+                      <div class="left-div">Money Wallet Points</div>
+                      <div class="right-div grey">(-)&#8377; {{moneyWalletPointsUsed}}</div>
+                    </div>
+                    <div class="header5 discount receipt-parent" *ngIf="voucherDiscount">
+                      <div class="left-div">Voucher Discount</div>
+                      <div class="right-div">(-)&#8377; {{voucherDiscount}}</div>
+                    </div>
+                    <div class="header4 cartToPayRow receipt-parent">
+                      <div class="left-div">TOTAL PRICE</div>
+                      <div class="right-div">
+                        &#8377;
+                        <span *ngIf="payAmtBeforeDiscount && payAmt < payAmtBeforeDiscount" class="lineThrough">
+                          {{mealaweDeliveryDiscount + mealaweItemDiscount + discount + mealaweKitchenDiscount +
+                          moneyWalletPointsUsed + payAmt + voucherDiscount + extraDiscount}}
+                        </span>
+                        <span>{{payAmt}}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -254,99 +439,101 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="offcanvas offcanvas-end sign-up" tabindex="-1" id="coupon" aria-labelledby="offcanvasExampleLabel">
-    <div class="offcanvas-body">
-      <button type="button" #voucherCanvas class="btn-close text-reset mt-3" data-bs-dismiss="offcanvas"
-        aria-label="Close"></button>
-      <div class="row">
-        <div class="col-12">
-          <div class="modalCntrlmodalscrollbody">
-            <div class="offersheader">
-              <!-- <ion-icon (click)="goBack()" class="couponBackIcon" name="arrow-back-outline"></ion-icon> -->
-              <div class="header3 coupanIcon grey">Apply Coupons</div>
-            </div>
-            <div class="offersearchbg">
-              <!-- <ion-item class="offersearchIcon">
-                  <ion-input class="inputStyle searchIcon" type="text" 
-                  placeholder="Enter Coupon Code" [(ngModel)]="searchText"></ion-input>
-                </ion-item> -->
-              <div class="voucherStyle">
-                <input [(ngModel)]="modalVoucherCode" class="voucherInput" placeholder="Enter voucher code here">
-                <div class="voucherbtn" (click)="validateVoucher()">APPLY</div>
-              </div>
-            </div>
-            <div class="couponParent">
-              <div class="cardParent"
-                *ngFor="let offer of couponProps?.offerList | filter : searchText : 'couponCode'; index as i ">
-                <!-- <div class="couponcard">
-                        <div class="apply" (click)="selectCoupon(offer)">APPLY</div>
-                        <div class="couponCode">{{offer.couponCode}}</div>
-                        <div class="coupontext">
+        <div class="offcanvas offcanvas-end sign-up" tabindex="-1" id="coupon" aria-labelledby="offcanvasExampleLabel">
+          <div class="offcanvas-body">
+            <button type="button" #voucherCanvas class="btn-close text-reset mt-3" data-bs-dismiss="offcanvas"
+              aria-label="Close"></button>
+            <div class="row">
+              <div class="col-12">
+                <div class="modalCntrlmodalscrollbody">
+                  <div class="offersheader">
+                    <!-- <ion-icon (click)="goBack()" class="couponBackIcon" name="arrow-back-outline"></ion-icon> -->
+                    <div class="header3 coupanIcon grey">Apply Coupons</div>
+                  </div>
+                  <div class="offersearchbg">
+                    <!-- <ion-item class="offersearchIcon">
+                        <ion-input class="inputStyle searchIcon" type="text" 
+                        placeholder="Enter Coupon Code" [(ngModel)]="searchText"></ion-input>
+                      </ion-item> -->
+                    <div class="voucherStyle">
+                      <input [(ngModel)]="modalVoucherCode" class="voucherInput" placeholder="Enter voucher code here">
+                      <div class="voucherbtn" (click)="validateVoucher()">APPLY</div>
+                    </div>
+                  </div>
+                  <div class="couponParent">
+                    <div class="cardParent"
+                      *ngFor="let offer of couponProps?.offerList | filter : searchText : 'couponCode'; index as i ">
+                      <!-- <div class="couponcard">
+                              <div class="apply" (click)="selectCoupon(offer)">APPLY</div>
+                              <div class="couponCode">{{offer.couponCode}}</div>
+                              <div class="coupontext">
+                                  <div class="couponHeader">{{offer.couponHeader}}</div>
+                                  <div class="description">{{offer.description}}</div>
+                              </div>
+                              <div class="termNcondition">
+                                  <div class="termNconditionText">Term & Conditions Apply:</div>
+                                  <ul class="termNconditionlist"> 
+                                      <li class="termslistdot" *ngFor="let term of offer.termsAndConditions">{{term}}</li>                 
+                                  </ul>
+                              </div>
+                          </div> -->
+                      <div class="couponOuter">
+                        <div class="couponcard">
+                          <div class="leftSide">
                             <div class="couponHeader">{{offer.couponHeader}}</div>
-                            <div class="description">{{offer.description}}</div>
+                          </div>
+                          <div class="rightSide">
+                            <div class="apply" (click)="showConfirmationAlert(offer)">APPLY</div>
+                            <div class="couponCode">{{offer.couponCode}}</div>
+                            <div class="coupontext">
+                              <div class="description">{{offer.description}}</div>
+                            </div>
+                            <div class="subdescription">{{offer.subDescription}}</div>
+                            <div class="showMore" (click)="offer.showMore = true" *ngIf="!offer.showMore">
+                              <span class="sign">+</span> MORE
+                            </div>
+                            <div class="showMore" (click)="offer.showMore = false" *ngIf="offer.showMore">
+                              <span class="sign">-</span> LESS
+                            </div>
+                          </div>
                         </div>
-                        <div class="termNcondition">
-                            <div class="termNconditionText">Term & Conditions Apply:</div>
-                            <ul class="termNconditionlist"> 
-                                <li class="termslistdot" *ngFor="let term of offer.termsAndConditions">{{term}}</li>                 
-                            </ul>
+                        <div class="termNcondition" *ngIf="offer.showMore">
+                          <div class="termNconditionText">Term & Conditions Apply:</div>
+                          <ul class="termNconditionlist">
+                            <li class="termslistdot" *ngFor="let term of offer.termsAndConditions">{{term}}</li>
+                          </ul>
                         </div>
-                    </div> -->
-                <div class="couponOuter">
-                  <div class="couponcard">
-                    <div class="leftSide">
-                      <div class="couponHeader">{{offer.couponHeader}}</div>
-                    </div>
-                    <div class="rightSide">
-                      <div class="apply" (click)="showConfirmationAlert(offer)">APPLY</div>
-                      <div class="couponCode">{{offer.couponCode}}</div>
-                      <div class="coupontext">
-                        <div class="description">{{offer.description}}</div>
-                      </div>
-                      <div class="subdescription">{{offer.subDescription}}</div>
-                      <div class="showMore" (click)="offer.showMore = true" *ngIf="!offer.showMore">
-                        <span class="sign">+</span> MORE
-                      </div>
-                      <div class="showMore" (click)="offer.showMore = false" *ngIf="offer.showMore">
-                        <span class="sign">-</span> LESS
                       </div>
                     </div>
-                  </div>
-                  <div class="termNcondition" *ngIf="offer.showMore">
-                    <div class="termNconditionText">Term & Conditions Apply:</div>
-                    <ul class="termNconditionlist">
-                      <li class="termslistdot" *ngFor="let term of offer.termsAndConditions">{{term}}</li>
-                    </ul>
+                    <div *ngIf="couponProps?.offerList.length === 0" class="setToCenter">
+                      <div class="header2 bgpadding3 center grey">No coupon available right now</div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div *ngIf="couponProps?.offerList.length === 0" class="setToCenter">
-                <div class="header2 bgpadding3 center grey">No coupon available right now</div>
+  
               </div>
             </div>
           </div>
-
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="delivery-location">
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="location" aria-labelledby="offcanvasExampleLabel">
-      <button type="button" style="display:none;" #canvasAddress class="btn-close text-reset mt-3"
-        data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      <div class="offcanvas-div">
-        <div class="offcanvas-body">
-          <!-- <div class="container" *ngIf="!showMap"> -->
-          <!-- <div class="select-address" *ngIf="showMap"> -->
-          <div class="select-address">
-            <button type="button" style="display:none;" class="btn-close text-reset" #mapCanvas
-              data-bs-dismiss="offcanvas"></button>
-            <app-set-delivery-location *ngIf="showMap" [showSkipButton]="showSkipButton"></app-set-delivery-location>
+        <div class="delivery-location">
+          <div class="offcanvas offcanvas-start" tabindex="-1" id="addAddress" aria-labelledby="offcanvasExampleLabel">
+            <button type="button" style="display:none;" #canvasAddress class="btn-close text-reset mt-3"
+              data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <div class="offcanvas-div">
+              <div class="offcanvas-body">
+                <!-- <div class="container" *ngIf="!showMap"> -->
+                <!-- <div class="select-address" *ngIf="showMap"> -->
+                <div class="select-address">
+                  <button type="button" style="display:none;" class="btn-close text-reset" #mapCanvas
+                    data-bs-dismiss="offcanvas"></button>
+                  <app-set-delivery-location *ngIf="showMap"
+                    [showSkipButton]="showSkipButton"></app-set-delivery-location>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>

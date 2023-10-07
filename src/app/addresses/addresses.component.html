@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <h3>Manage Addresses</h3>
+    <div class="header2">Manage Addresses</div>
     <div class="row">
         <div class="col-6" *ngFor="let address of userProfile.addressList; let i = index">
             <div class="mt-4 d-flex flex-row savedAddresses">
@@ -7,10 +7,31 @@
                 <div class="address-div">
                     <div><b>{{address.tagLocation}}</b></div>
                     <div>{{address.location}}</div>
-                    <button class="btn btn-primary">Edit</button>
-                    <button class="btn btn-danger" (click)="deleteAddress(i)">Delete</button>
+                    <span class="editSpan" (click)="editAddress(address)" data-bs-toggle="offcanvas"
+                    data-bs-target="#editAddress">EDIT</span>
+                    <span class="deleteSpan" (click)="deleteAddress(i)">DELETE</span>
+                    <!-- <button class="btn btn-primary">Edit</button> -->
+                    <!-- <button class="btn btn-danger" (click)="deleteAddress(i)">Delete</button> -->
                 </div>
             </div>
         </div>
     </div>
 </div>
+<div class="delivery-location">
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="editAddress" aria-labelledby="offcanvasExampleLabel">
+      <button type="button" style="display:none;" #canvasAddress class="btn-close text-reset mt-3"
+        data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      <div class="offcanvas-div">
+        <div class="offcanvas-body">
+          <!-- <div class="container" *ngIf="!showMap"> -->
+          <!-- <div class="select-address" *ngIf="showMap"> -->
+          <div class="select-address">
+            <button type="button" style="display:none;" class="btn-close text-reset" #mapCanvas
+              data-bs-dismiss="offcanvas"></button>
+            <app-set-delivery-location *ngIf="showMap"
+              [showSkipButton]="showSkipButton" [patchValue]="patchValue"></app-set-delivery-location>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

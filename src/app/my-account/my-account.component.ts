@@ -9,6 +9,14 @@ import { LocalStorageService } from 'src/service/local-storage.service';
 })
 export class MyAccountComponent implements OnInit {
   userProfile: any;
+  linkList:any=[
+    {label:'Orders',link:'orders'},
+    {label:'Favourites',link:'favourites'},
+    {label:'Payments',link:'payments'},
+    {label:'Addresses',link:'addresses'},
+    {label:'Settings',link:'settings'},
+    {label:'Checkout',link:'checkout'},
+  ]
 
   constructor(private localStorageService:LocalStorageService, private router:Router){}
 

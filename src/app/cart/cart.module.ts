@@ -1,14 +1,18 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { CartRoutingModule } from './cart-routing.module';
 import { CartComponent } from './cart.component';
 import { CartKitchenCardModule } from '../cart-kitchen-card/cart-kitchen-card.module';
 import { CustomPipeModule } from 'src/pipes/pipe.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SetDeliveryLocationModule } from '../set-delivery-location/set-delivery-location.module';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderModule } from '../header/header.module';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { NgxMultipleDatesModule } from 'ngx-multiple-dates';
+import { MatInputModule } from '@angular/material/input';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -20,11 +24,17 @@ import { HeaderModule } from '../header/header.module';
     CartRoutingModule,
     CartKitchenCardModule,
     FormsModule,
+    ReactiveFormsModule,
     CustomPipeModule,
     SetDeliveryLocationModule,
+    HeaderModule,
     NgbDropdownModule,
-    HeaderModule
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    NgxMultipleDatesModule
   ],
+  providers:[DatePipe],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class CartModule { }

@@ -1,0 +1,225 @@
+<div class="modalCntrlmodalscrollbody">
+    <!-- <div (click)="close()">
+        <ion-icon class="backarrow" name="arrow-back-outline"></ion-icon>
+    </div> -->
+    <div class="bgpadding5">
+        <div class="orderDetailsSubscription">
+            <div class="row orderBG">    
+                <div class="col-12">
+                    <div class="header5 grey right ">{{order?.orderDate | date: 'MMM d, h:mm a'}}</div>
+                    <div class="header4 bold">ORDER NO {{order?.orderNo}}</div>
+                    <!-- <div class="header4 grey bgToppadding5">Receipt No : {{order.receipt}}</div>                                 -->
+                    <div class="header5 capsule green" 
+                        [ngClass]="{red: (order?.orderstatus==='cancelledByUser' || order?.orderstatus==='cancelledByKitchen' 
+                        || order?.orderstatus==='rejectedByKitchen')}">Order Status: {{orderStatusMapper[order?.orderstatus]}}</div>
+                    <div class="header5 capitalize capsule pink">Order Type: <span>{{orderStatusMapper[order?.orderType]}}</span></div>
+                </div>
+            </div>  
+            <div class="row greyBorderBottom">    
+                <div class="col-12">
+                    <div class="header5 grey bold">SUMMARY</div>
+                </div>
+            </div> 
+            <div class="row">    
+                <!-- <ion-col size="12">
+                    <div class="header4 bold">{{order.firstKitchenName ? order.firstKitchenName : order.kitchenName}}</div>
+                </ion-col>   -->
+                <!-- <ion-col size="4">
+                    <div class="bold header4 right bgsidepadding2">&#8377; {{order.amount}}</div>
+                </ion-col>  -->
+            </div>
+
+            <div class="row header5" *ngIf="order?.orderType === 'subscriptionParent'"> 
+                <div class="col-12 rowIcon order">
+                    <div class="header5 bold">Items:</div>
+                </div>    
+                <div class="col-12 bgsidepadding5">
+                    <div  *ngFor="let item of order?.itemList; index as i">
+                        <div class="listdot"></div>{{item.itemName}}  <span class="right">{{item.count}} x &#8377; {{item.itemPrice}}</span>
+                    </div>
+                    <div  *ngFor="let addon of order?.addOns">
+                        <div class="listdot"></div>{{addon.addOnName}} <span class="right">{{addon.count}} x &#8377; {{addon.addOnPrice}}</span>
+                    </div>
+                </div> 
+            </div>
+            <div class="row header5" *ngIf="order?.orderType === 'subscriptionParent'"> 
+                <div class="col-12 rowIcon billdatails">
+                    <div class="header5 bold">Bill Details:</div>
+                </div>    
+                <div class="col-12 bgsidepadding5">
+                    <div>
+                        <div class="listdot"></div>Total Items Price  <span class="right">&#8377; {{order?.mealaweTotalAmt}}</span>
+                    </div>
+                    <div>
+                        <div class="listdot"></div>Delivery Charges  <span class="right">&#8377; 
+                            <span class="lineThrough" *ngIf="order.mealaweDeliveryDiscount">{{order?.deliveryCharges}}</span>
+                            {{order?.deliveryCharges - order?.mealaweDeliveryDiscount}}
+                            </span>
+                    </div>
+                    <div>
+                        <div class="listdot"></div>Applicable Taxes  <span class="right">&#8377; {{order?.taxes}}</span>
+                    </div>                     
+                    <div *ngIf="order.kitchenDiscount" >
+                        <div class="listdot"></div>Kitchen Discount<span class="right">- &#8377; {{order?.mealaweKitchenDiscount}}</span>
+                    </div>
+                    <div *ngIf="order.discount || order.mealaweItemDiscount || order.mealaweDeliveryDiscount" >
+                        <div class="listdot"></div>Offer/Coupon Discount<span class="right">- &#8377; {{order?.discount+order.mealaweItemDiscount+order.mealaweDeliveryDiscount}}</span>
+                    </div>
+                    <div *ngIf="order.moneyWalletPointsUsed" >
+                        <div class="listdot"></div>Money Wallet Points<span class="right">- &#8377; {{order?.moneyWalletPointsUsed}}</span>
+                    </div>
+                    <div *ngIf="order.mealaweWalletPointsUsed" >
+                        <div class="listdot"></div>Cashback Points<span class="right">- &#8377; {{order?.mealaweWalletPointsUsed}}</span>
+                    </div>                    
+                    <div class="totalBillAmout bold">
+                        Total Amount Paid <span class="right"> &#8377; {{order?.amount}}</span>
+                    </div>
+                </div> 
+            </div>
+
+            <div class="row header5" *ngIf="order?.orderType === 'subscriptionPackage'"> 
+                <div class="col-12 rowIcon order">
+                    <div class="header5 bold">Items:</div>
+                </div>    
+                <div class="col-12 bgsidepadding5">
+                    <div >
+                        <div class="listdot"></div>{{order?.mealPackage.packageName}}  <span class="right">{{order?.mealPackage.packagePrice * order?.mealPackage.count * mealPerdayCount}}</span>
+                    </div>
+                </div> 
+            </div>
+            <div class="row header5" *ngIf="order?.orderType === 'subscriptionPackage'"> 
+                <div class="col-12 rowIcon billdatails">
+                    <div class="header5 bold">Bill Details:</div>
+                </div>    
+                <div class="col-12 bgsidepadding5">
+                    <div>
+                        <div class="listdot"></div>Total Price  <span class="right">&#8377; {{order?.mealPackage.packagePrice * order?.mealPackage.count * mealPerdayCount}}</span>
+                    </div>
+                    <div *ngFor="let addon of order.mealPackage.addonsList" >
+                        <div *ngIf="addon.selected" class="addonListStyle">  
+                            <div class="addonName">
+                                <div class="listdot"></div>{{addon.addonName}}
+                            </div>  
+                            <div class="addonValue">
+                                <span class="right">&#8377; {{addon.extraPrice * order.mealPackage.count * mealPerdayCount}}</span>
+                            </div>             
+                        </div>       
+                      </div>
+                    <div *ngIf="order.discount" >
+                        <div class="listdot"></div>Applicable Taxes<span class="right">&#8377; {{order?.taxes}}</span>
+                    </div>
+                    <div *ngIf="order.discount" >
+                        <div class="listdot"></div>Discount<span class="right">- &#8377; {{order?.discount}}</span>
+                    </div>
+                    <div *ngIf="order.moneyWalletPointsUsed" >
+                        <div class="listdot"></div>Money Wallet Points<span class="right">- &#8377; {{order?.moneyWalletPointsUsed}}</span>
+                    </div>
+                    <div *ngIf="order.voucherDiscount" >
+                        <div class="listdot"></div>Voucher Discount<span class="right">- &#8377; {{order?.voucherDiscount}}</span>
+                    </div>
+                    <div class="totalBillAmout bold">
+                        Total Amount Paid <span class="right"> &#8377; {{order?.amount}}</span>
+                    </div>
+                </div> 
+            </div>
+
+            <div class="row">    
+                <div class="col-5 rowIcon name">
+                    <div class="header5 grey">Name:</div>
+                </div>  
+                <div class="col-7">
+                    <div class="header5">{{order?.customerName}}</div>
+                </div> 
+            </div>
+            <div class="row">
+                <div class="col-5 rowIcon address">
+                    <div class="header5 grey">Address:</div>
+                </div>  
+                <div class="col-7">
+                    <div class="header5">{{order?.customerLocation.address}}</div>
+                    <div class="header5">{{order?.customerLocation.location}}</div>
+                    <div class="header5">Landmark : {{order?.customerLocation.landmark}}</div>
+                </div>                
+            </div>
+            <div class="row" *ngIf="order?.specialRequest">    
+                <div class="col-5 rowIcon star">
+                    <div class="header5 grey">Special Request:</div>
+                </div>  
+                <div class="col-7">
+                    <div class="header5">{{order?.specialRequest}}</div>
+                </div> 
+            </div>
+                      
+            <div class="row" *ngIf="order?.refund_status">    
+                <div class="col-5">
+                    <div class="header5 bold">Refund Status:</div>
+                </div>  
+                <div class="col-7">
+                    <div class="header5">{{order?.refund_status}}</div>
+                </div> 
+            </div>
+            <div class="row" *ngIf="order?.refund_status">    
+                <div class="col-5">
+                    <div class="header5 grey">Refund Amount:</div>
+                </div>  
+                <div class="col-7">
+                    <div class="header5">&#8377; {{order?.refund_amount}}</div>
+                </div> 
+            </div>
+            <div class="row" *ngIf="order?.refund_status">    
+                <div class="col-5">
+                    <div class="header5 bold">Reason to cancel:</div>
+                </div>  
+                <div class="col-7">
+                    <div class="header5">{{order?.cancel_comment}}</div>
+                </div> 
+            </div>
+
+            <!-- <ion-row *ngIf="statusHistoryList && statusHistoryList.length > 0">
+                <ion-col size="12" class="padding-0">
+                    <div *ngFor="let history of statusHistoryList; index as i">
+                        <div class="milestonediv">
+                            <div class="inline-table milestone" [ngClass]="{lasthistory: i === statusHistoryList.length-1}">
+                                <div class="milestoneInner"></div>
+                            </div>
+                            <div class="inline-table statustext">
+                                <span class="black bold historyStatus">{{orderStatusMapper[history.orderstatus]}}</span>
+                                <span class="grey">{{history.updatedOn | date: 'MMM d, h:mm a'}}</span>
+                            </div>
+                        </div>
+                        <div class="mileline" *ngIf="i < statusHistoryList.length-1"></div>
+                        
+                    </div>
+                </ion-col>                
+            </ion-row> -->
+            
+            <div *ngIf="order?.dailyOrderList && order?.dailyOrderList.length === 0">
+                <div class="header4 bold">Delivery Dates</div>
+                <div *ngFor="let meal of order?.userSelectedDates" class="userDates">
+                    <div class="center">
+                        <div class="header2">{{meal | date: 'dd'}}</div>
+                        <div class="header5">{{meal | date: 'MMM'}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="order?.dailyOrderList.length > 0">    
+                <div class="col-12">
+                    <div class="header4 bold">Daily Meal Orders</div>
+                </div>
+            </div>
+            <div *ngFor="let meal of order?.dailyOrderList | sort : 'orderDate' " class="row dailyOrder">    
+                <div class="col-4 center">
+                    <div class="header2">{{meal.orderDate | date: 'dd'}}</div>
+                    <div class="header5">{{meal.orderDate | date: 'MMM'}}</div>
+                </div>
+                <div class="col-4 center">
+                    <div class="midVertical">{{meal.mealType}}</div>
+                </div>
+                <div class="col-4 center" (click)="viewOrder(meal.foodOrderId)" *ngIf="meal.foodOrderId">
+                    <div class="midVertical right">view</div>
+                </div>
+            </div>
+        </div>         
+    </div>
+</div>

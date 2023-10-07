@@ -1,0 +1,72 @@
+@import "/src/styles.scss";
+
+.addonImg {
+    border-radius: 8px;
+}
+
+.addAddonPosition {
+    position: absolute;
+    bottom: 0px;
+    left: 26px;
+}
+
+.addAddonButton {
+    background: white;
+    width: 62px;
+    text-align: center;
+    border-radius: 8px;
+    padding: 4px 13px;
+    color: #15a292;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 20px;
+    box-shadow: 1px 3px 6px rgb(16 24 40 / 55%);
+    margin-bottom: 10px;
+}
+
+.addedAddonStyle {
+    height: 22px;
+    width: 63px;
+    background: $secondary-color3;
+    border-radius: 8px;
+    padding: 2px 0px;
+    font-size: 14px;
+}
+
+.incAddonbutton {
+    width: 33%;
+    text-align: center;
+}
+
+.goToCart {
+    position: absolute;
+    bottom: 0;
+    background: $secondary-color3;
+    width: 100%;
+    text-align: center;
+    padding: 14px;
+    color: white;
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+
+img:before {
+    content: '';
+    display: block;
+    position: absolute;
+    height: 42px;
+    width: 42px;
+    background: white;
+}
+
+.closePopup {
+    font-size: 25px;
+    position: relative;
+    left: 103px;
+    top: -6px;
+    cursor:pointer;
+}
+
+.listStyle {
+    padding-bottom: 50px;
+}

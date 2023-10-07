@@ -1,3 +1,5 @@
+@import "/src/styles.scss";
+
 .savedAddresses {
     height: 80%;
     border: 1px solid #adadad;
@@ -13,4 +15,15 @@
 .address-div{
     font-size:13px;
     padding-left:3%;
+    .editSpan,.deleteSpan{
+        color: $primary-color1;
+        font-weight:500;
+    }
+    .deleteSpan{
+        margin-left:2%;
+    }
+}
+
+.offcanvas{
+    width:40%;
 }
