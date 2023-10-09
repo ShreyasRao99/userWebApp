@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PaymentsComponent } from './payments.component';
+import { BulkOrderComponent } from './bulk-order.component';
 
 const routes: Routes = [
-  {path:'', component:PaymentsComponent}
+  {path:'', component:BulkOrderComponent}
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class PaymentsRoutingModule { }
+export class BulkOrderRoutingModule { }

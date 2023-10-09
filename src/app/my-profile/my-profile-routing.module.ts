@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SettingsComponent } from './settings.component';
+import { MyProfileComponent } from './my-profile.component';
 
 const routes: Routes = [
-  {path:'', component:SettingsComponent}
+  {path:'', component:MyProfileComponent}
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class SettingsRoutingModule { }
+export class MyProfileRoutingModule { }

@@ -264,4 +264,35 @@ export class ApiMainService {
     return this.apiHttpService.REQUEST({url: urlObj.url + `/${id}`, method: urlObj.method});
   }
 
+  getCashbackListUser(id:any,pageNumber:any){
+    const urlObj = this.apiConfigService.apiEndPointObj.getCashbackListUser;
+    return this.apiHttpService
+    .REQUEST({url: urlObj.url + `/${id}/${pageNumber}`, method: urlObj.method},null,null,true);
+  }
+
+  getUserMelaweWalletBalance(id:any){
+    const urlObj = this.apiConfigService.apiEndPointObj.getUserMelaweWalletBalance;
+    return this.runTimeCacheInterceptor('MEALAWE_WALLET_BALANCE',
+    // return this.apiHttpService.REQUEST(
+    {url: urlObj.url + `/${id}`, method: urlObj.method},null,null,true);
+  }
+
+  userRewardsPointsHistory(id:any,pageNumber:any, nPerPage:any){
+    const urlObj = this.apiConfigService.apiEndPointObj.userRewardsPointsHistory;
+    return this.apiHttpService
+    .REQUEST({url: urlObj.url + `/${id}/${pageNumber}/${nPerPage}`, method: urlObj.method},null,null,true);
+  }
+
+  getUserFAQ(){
+    return this.runTimeCacheInterceptor('FAQ_LIST', this.apiConfigService.apiEndPointObj.getUserFAQ);
+  }
+
+  saveFoodOrderBulk(data:any){
+    try {
+      return this.apiHttpService.REQUEST(this.apiConfigService.apiEndPointObj.saveFoodOrderBulk,data);
+    } catch (error) {
+       console.log('error while calling error api ',error) 
+    }    
+  }
+
 }

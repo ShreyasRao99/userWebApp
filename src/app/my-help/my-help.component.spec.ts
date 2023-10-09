@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FavouritesComponent } from './favourites.component';
+import { MyHelpComponent } from './my-help.component';
 
 describe('FavouritesComponent', () => {
-  let component: FavouritesComponent;
-  let fixture: ComponentFixture<FavouritesComponent>;
+  let component: MyHelpComponent;
+  let fixture: ComponentFixture<MyHelpComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FavouritesComponent]
+      declarations: [MyHelpComponent]
     });
-    fixture = TestBed.createComponent(FavouritesComponent);
+    fixture = TestBed.createComponent(MyHelpComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

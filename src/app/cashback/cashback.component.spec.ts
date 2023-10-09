@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CheckoutComponent } from './checkout.component';
+import { PaymentsComponent } from './cashback.component';
 
-describe('CheckoutComponent', () => {
-  let component: CheckoutComponent;
-  let fixture: ComponentFixture<CheckoutComponent>;
+describe('PaymentsComponent', () => {
+  let component: PaymentsComponent;
+  let fixture: ComponentFixture<PaymentsComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CheckoutComponent]
+      declarations: [PaymentsComponent]
     });
-    fixture = TestBed.createComponent(CheckoutComponent);
+    fixture = TestBed.createComponent(PaymentsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

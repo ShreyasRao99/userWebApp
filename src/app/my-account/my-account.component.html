@@ -3,15 +3,9 @@
     <div class="options-container">
         <div class="row">
             <div class="col-2">
-                <!-- <div class="mt-5" routerLink="orders">Orders</div>
-                <div class="mt-5" routerLink="favourites">Favourites</div>
-                <div class="mt-5" routerLink="payments">Payments</div>
-                <div class="mt-5" routerLink="addresses">addresses</div>
-                <div class="mt-5" routerLink="settings">settings</div>
-                <div class="mt-5" routerLink="checkout">checkout</div> -->
                 <div *ngFor="let item of linkList" class="mt-5" [routerLink]="item.link">{{item.label}}</div>
             </div>
-            <div class="col-10 mt-5">
+            <div class="col-10">
                 <router-outlet></router-outlet>
             </div>
         </div>

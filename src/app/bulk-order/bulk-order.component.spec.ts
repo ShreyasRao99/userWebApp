@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SettingsComponent } from './settings.component';
+import { BulkOrderComponent } from './bulk-order.component';
 
-describe('SettingsComponent', () => {
-  let component: SettingsComponent;
-  let fixture: ComponentFixture<SettingsComponent>;
+describe('BulkOrderComponent', () => {
+  let component: BulkOrderComponent;
+  let fixture: ComponentFixture<BulkOrderComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SettingsComponent]
+      declarations: [BulkOrderComponent]
     });
-    fixture = TestBed.createComponent(SettingsComponent);
+    fixture = TestBed.createComponent(BulkOrderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

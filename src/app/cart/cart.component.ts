@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { CartManagementService } from 'src/service/cart-management.service';
 import { orderStatusMapper } from 'src/config/order-status.config';
@@ -21,7 +21,7 @@ import { DatePipe } from '@angular/common';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss']
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, OnDestroy {
   @ViewChild('canvasAddress') canvasAddress!: ElementRef<HTMLElement>
   @ViewChild('voucherCanvas') voucherCanvas!: ElementRef<HTMLElement>
   @ViewChild("voucherContent") voucherContent: any;
@@ -162,6 +162,7 @@ export class CartComponent implements OnInit {
   selectedDates:any;
   allTimeSlotSelected!: string;
   advanceTimeSlotSelected!: string;
+  subscription: any[] = [];
 
   constructor(private cartManagementService: CartManagementService, private datePipe:DatePipe, private toasterService: ToasterService, private alertModalService: AlertModalService, private chgDetRef: ChangeDetectorRef, private sendDataToComponent: SendDataToComponent, private userProfileService: UserProfileService, private localStorageService: LocalStorageService, private googleMapService: GoogleMapService, private confirmationModalService: ConfirmationModalService, private apiMainService: ApiMainService, private paymentGatewayService: PaymentGatewayService, private runtimeStorageService: RuntimeStorageService, private utilityService: UtilityService, private router: Router) {
     const currentDate = new Date();
@@ -189,6 +190,9 @@ export class CartComponent implements OnInit {
     }
     this.autoCoupon.startDate = currentDate;
     this.autoCoupon.expiryDate = after1Day;
+  }
+  ngOnDestroy(): void {
+    this.sendDataToComponent.unsubscribe('ADDRESS_FROM_DELIVERY');
   }
 
   ngOnInit(): void {

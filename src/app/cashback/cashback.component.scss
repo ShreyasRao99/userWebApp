@@ -1,0 +1,253 @@
+@import "/src/styles.scss";
+
+.bottom {
+  border-bottom: 2px solid #0000001f;
+}
+
+.incomeBig {
+  background: url("~/src/assets/icon/wallet_big.svg");
+  background-size: 110px;
+  background-position: center 9px;
+  background-repeat: no-repeat;
+  padding-top: 100px;
+  padding-bottom: 5px;
+  font-size: 14px;
+  font-weight: bolder;
+}
+
+.withdrawalHistroy {
+  padding: 4% 5%;
+  color: #6B7280;
+  text-align: center;
+}
+
+.historyDate {
+  color: white;
+  padding: 8px 12px;
+  font-size: 12px;
+  border-radius: 10px;
+  background: #ffffff;
+  border: 1px solid rgba(8, 24, 40, 0.02);
+  box-shadow: 1px 4px 12px -8px rgba(0, 0, 0, 0.2);
+}
+
+.gridPadding {
+  padding: 1% 5%;
+}
+
+.payoutIdMode {
+  width: 80px;
+  display: inline-block;
+}
+
+.listloader {
+  height: 34px;
+  width: 100%;
+}
+
+.redeem {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px 0px;
+  gap: 10px;
+  background-color: white;
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+  left: 30px;
+  position: sticky;
+  top: 0;
+  bottom: 0px;
+  flex-direction: row;
+  z-index: 3;
+
+  .redeemButton {
+    color: white;
+    width: 90%;
+    height: 42px;
+    background: linear-gradient(256.63deg, #fc767c 1.68%, #eb5061 113.03%);
+    border-radius: 10px;
+    margin-left: 5%;
+  }
+}
+
+.title {
+  position: absolute;
+  left: 15%;
+  top: 10%;
+  font-size: 18px;
+}
+
+.remark {
+  position: absolute;
+  left: 15%;
+}
+
+.cashbackPoints {
+  color: #f85266;
+  font-weight: 600;
+  font-size: 22px;
+  text-transform: capitalize;
+  text-align: end;
+}
+.status{
+  color: #f85266;
+  font-size: 10px;
+  text-align: end;
+}
+.cashbackexpired{
+  color: grey !important;
+  text-decoration: line-through;
+}
+.expiredText{
+  color: grey !important;
+}
+
+.historyTitle {
+  color: #081828;
+  font-size: 14px;
+  line-height: 21px;
+  text-transform: capitalize;
+}
+
+.historyRemark {
+  color: #676F81;
+  font-size: 10px;
+  line-height: 15px;
+}
+
+.tabButton {
+  display: flex;
+  align-items: center;
+}
+
+.selectedButton {
+  background: #ffe3e6 !important;
+  color: #f85266 !important;
+  border: 1px solid rgba(181, 184, 191, 0.05);
+}
+
+.unSelectedButton {
+  width: 91px;
+  height: 36px;
+  background: #ffffff;
+  color: #b5b8bf;
+  border: 1px solid;
+  border-radius: 18px;
+  margin: 5px;
+}
+
+.header {
+//   margin-top: 10%;
+}
+
+.question {
+  width: 305px;
+  font-style: normal;
+  font-weight: 500;
+  color: #000000;
+  flex: none;
+  order: 0;
+  flex-grow: 1;
+}
+
+.answer {
+  width: 305px;
+  font-style: normal;
+  font-weight: 400;
+  color: #6b7280;
+  flex: none;
+  order: 0;
+  flex-grow: 1;
+}
+
+.header2 {
+  height: 36px;
+  border: 1px solid rgba(8, 24, 40, 0.02);
+  box-shadow: 1px 4px 12px -8px rgba(0, 0, 0, 0.2);
+}
+
+.boldDate {
+  font-size: 22px;
+  line-height: 100%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  text-transform: capitalize;
+  color: #081828;
+}
+
+.bold {
+  color: #676F81;
+}
+
+ion-accordion-group {
+  width: 100%;
+}
+
+ion-item {
+  font-weight: 600px;
+  height: auto;
+  font-style: normal;
+  font-size: 15px;
+  line-height: 28px;
+  color: #000000;
+  flex: none;
+  order: 0;
+  flex-grow: 1;
+}
+
+.faqans {
+  font-weight: 400;
+  font-size: 13px;
+  color: #6b7280;
+  padding: 10px 20px 0px 20px;
+}
+
+.mealaweCoin {
+  position: absolute;
+  position: absolute;
+  padding-left: 280px;
+}
+
+.faqlist {
+  padding: 0 13px;
+  color: #6B7280;
+}
+
+.lebaltxt {
+  font-weight: 700;
+  font-size: 20px;
+  text-align: center;
+}
+
+.accordiantxt {
+  font-size: 13px;
+  word-spacing: 1px;
+}
+
+.accordion {
+  padding-top: 10px;
+  --padding-start: 10px;
+}
+
+.accordionitem {
+  --ion-color-base: #fffcfc !important;
+}
+
+.text1 {
+  color: #9FA4AF;
+  font-weight: 300;
+}
+
+.text2 {
+  color: #F85266;
+  font-weight: 700;
+
+  b {
+    font-size: 25px;
+  }
+}

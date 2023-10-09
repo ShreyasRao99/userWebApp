@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FavouritesComponent } from './favourites.component';
+import { CashbackComponent } from './cashback.component';
 
 const routes: Routes = [
-  {path:'', component:FavouritesComponent}
+  {path:'', component:CashbackComponent}
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class FavouritesRoutingModule { }
+export class CashbackRoutingModule { }

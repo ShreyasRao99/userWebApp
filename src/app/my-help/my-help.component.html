@@ -1,0 +1,35 @@
+<!-- <div class="tabButton">
+    <button class="unSelectedButton" [ngClass]="{selectedButton: selectedTab === 'cashback'}" type="button"
+        (click)="tabChange('cashback')">Cashback</button>
+    <button class="unSelectedButton" [ngClass]="{selectedButton: selectedTab === 'faq'}" type="button"
+        (click)="tabChange('faq')">FAQs</button>
+</div> -->
+<div>
+    <div class="headerBG">
+        <span>
+            <!-- <div class="inline-table">
+                <ion-icon class="backIcon" name="arrow-back-outline"></ion-icon>
+            </div> -->
+            <div class="inline-table headerText">Help</div>
+        </span>
+    </div>
+
+    <div class="tabButton">
+        <button class="unSelectedButton" [ngClass]="{selectedButton: selectedTab === 'faq'}" type="button"
+            (click)="tabChange('faq')">FAQs</button>
+        <button class="unSelectedButton" [ngClass]="{selectedButton: selectedTab === 'cashback'}" type="button"
+            (click)="tabChange('email');sendEmail()">Email</button>
+    </div>
+
+    <div class="pageContent" *ngIf="selectedTab == 'faq'">
+        <div>
+            <div button class="helplistStyle">
+                <div class="header4">FAQs</div>
+                <div *ngFor="let faq of faqlist">
+                    <div><span class="bold">Q: </span><span class="header5">{{faq.question}}</span></div>
+                    <div class="grey"><span class="bold">A: </span><span class="header5">{{faq.answer}}</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -16,7 +16,11 @@
     .location {
         margin-top: 4px;
         font-size: 14px;
-        cursor: pointer;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: inline-block;
+        width: 15%;
+        white-space: nowrap;
     }
 }
 
@@ -84,4 +88,8 @@
 
 .company-name{
     margin:5px 5px;
+}
+
+.nav-item{
+    cursor:pointer;
 }

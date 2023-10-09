@@ -12,24 +12,24 @@ const routes: Routes = [
         loadChildren: () => import('../orders/orders.module').then(m => m.OrdersModule)
       },
       {
-        path: 'favourites',
-        loadChildren: () => import('../favourites/favourites.module').then(m => m.FavouritesModule)
-      },
-      {
-        path: 'payments',
-        loadChildren: () => import('../payments/payments.module').then(m => m.PaymentsModule)
-      },
-      {
         path: 'addresses',
         loadChildren: () => import('../addresses/addresses.module').then(m => m.AddressesModule)
       },
       {
-        path: 'settings',
-        loadChildren: () => import('../settings/settings.module').then(m => m.SettingsModule)
+        path: 'cashback',
+        loadChildren: () => import('../cashback/cashback.module').then(m => m.CashbackModule)
       },
       {
-        path: 'checkout',
-        loadChildren: () => import('../checkout/checkout.module').then(m => m.CheckoutModule)
+        path: 'my-wallet',
+        loadChildren: () => import('../my-wallet/my-wallet.module').then(m => m.MyWalletModule)
+      },
+      {
+        path: 'my-help',
+        loadChildren: () => import('../my-help/my-help.module').then(m => m.MyHelpModule)
+      },
+      {
+        path: 'myProfile',
+        loadChildren: () => import('../my-profile/my-profile.module').then(m => m.MyProfileModule)
       }
     ]
   }
