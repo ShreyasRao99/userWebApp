@@ -150,7 +150,7 @@ export class CartComponent implements OnInit, OnDestroy {
   couponProps: any;
   modalVoucherCode: any;
   addressSelected: any;
-  toggleSelected: boolean = false;
+  toggleSelected: boolean = true;
   mapId = 'mapid';
   showSkipButton: boolean = true
   showMap: boolean = false;
@@ -197,6 +197,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userProfile = this.localStorageService.getCacheData('USER_PROFILE');
+    console.log(this.userProfile)
     const cartObj = this.cartManagementService.getCart();
     this.checkUserLoginProfile();
     this.getDBTimeSlots();
@@ -212,11 +213,15 @@ export class CartComponent implements OnInit, OnDestroy {
     }
     console.log(this.userProfile)
     this.sendDataToComponent.subscribe('ADDRESS_FROM_DELIVERY', (address) => {
-      if (address) {
+      if (address.address) {
         this.userProfile.addressList.push(address);
         this.toggleAddressSelected(address);
         this.toggleCanvas();
         // this.setCurrentLocation()  
+      }
+      else{
+        this.addressSelected = address
+        this.saveCurrentLocation = false
       }
     })
     // this.getCouponList()
@@ -261,9 +266,11 @@ export class CartComponent implements OnInit, OnDestroy {
 
   async setCurrentLocation() {
     const currentStorageLocation = this.localStorageService.getCacheData('CURRENT_LOCATION');
+    console.log(currentStorageLocation)
     if (currentStorageLocation) {
       const formatedAddess = this.userProfileService.getSavedAddress(currentStorageLocation);
       console.log(formatedAddess)
+      this.addressSelected = formatedAddess
       this.customerLocation = { ...formatedAddess };
       let address = '';
       if (formatedAddess.address) {
@@ -275,6 +282,7 @@ export class CartComponent implements OnInit, OnDestroy {
       const landmark = formatedAddess.landmark ? `, Landmark: ${formatedAddess.landmark}, ` : '';
       this.currentLocation = formatedAddess.location ? `${address}${formatedAddess.location}${landmark}` : `${address}${landmark}`;
       this.tagLocation = formatedAddess.tagLocation;
+      console.log(this.customerLocation)
       if (this.cartObj && this.cartObj.kitchen && this.cartObj.kitchen.geolocation) {
         // this.cartObj.kitchen = await this.googleMapService.getKitchenDistance(this.cartObj.kitchen, formatedAddess.geolocation, true);
         const kitchenList = await this.googleMapService.getKitchenGoogleDistance([this.cartObj.kitchen], formatedAddess.geolocation);
@@ -313,6 +321,12 @@ export class CartComponent implements OnInit, OnDestroy {
         this.userSelectedDates = [this.allowedMinDate];
         this.updateCart(cartObj);
         this.getDBTimeSlots();
+      }
+    });
+    this.sendDataToComponent.subscribe('ADDRESS_FROM_HEADER', (address) => {
+      if (address) {
+        this.addressSelected = address
+        this.toggleSelected = true
       }
     });
     this.sendDataToComponent.subscribe('LOCATION_ADDED_UPDATE_CART_PAGE', (flag) => {
@@ -1799,7 +1813,7 @@ export class CartComponent implements OnInit, OnDestroy {
         if (this.cartObj.orderType !== 'subscription') {
           this.getDeliveryChargeQuote()
         }
-        console.log(this.addressSelected)
+        this.saveCurrentLocation = !this.saveCurrentLocation
       }
       else {
         this.serviceNotAvailable = true
@@ -1811,9 +1825,9 @@ export class CartComponent implements OnInit, OnDestroy {
     }
   }
 
-  toggleMap() {
-    this.showMap = true
-  }
+  // toggleMap() {
+  //   this.showMap = true
+  // }
 
   toggleCanvas() {
     let el = this.canvasAddress?.nativeElement;

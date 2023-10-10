@@ -5,13 +5,14 @@ import { LocalStorageService } from '../local-storage.service';
 import { RuntimeStorageService } from '../runtime-storage.service';
 import { LoaderstatusService } from 'src/app/mainloader/loaderstatus.service';
 import { ToasterService } from 'src/app/toaster/toaster.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiHttpService {
   private withCredentials: boolean = environment.withCredentials ? environment.withCredentials : false;
-  constructor(private httpClient:HttpClient, private toasterService:ToasterService, private loaderstatusService:LoaderstatusService, private localStorageService:LocalStorageService, private runtimeStorageService:RuntimeStorageService) { }
+  constructor(private httpClient:HttpClient, private router:Router, private toasterService:ToasterService, private loaderstatusService:LoaderstatusService, private localStorageService:LocalStorageService, private runtimeStorageService:RuntimeStorageService) { }
 
   callFinalApi(requestObj: HttpRequest<any>, hideLoader?:any): Promise<any> {
     const p = new Promise((resolve, reject) => {
@@ -58,7 +59,7 @@ export class ApiHttpService {
       if(FCM_TOKEN){
         this.localStorageService.setCacheData('FCM_TOKEN',FCM_TOKEN);
       }      
-      // this.navCntrl.navigateRoot('/mobile/false');
+      this.router.navigate(['/welcome']);
     }catch(error){
       console.log('Error while logging out', error)
     }

@@ -13,6 +13,10 @@ div[scrollx=true] {
     .itemStyle {
         flex: 0 0 auto;
     }
+
+    &.center-capsule {
+        justify-content: center;
+    }
 }
 
 .headerMargin {
@@ -120,7 +124,7 @@ div[scrollx=true] {
     height: 100%;
     padding: 0;
     margin: 0px;
-    border:none;
+    border: none;
 
     .indicator {
         background: $secondary-color3;
@@ -330,8 +334,9 @@ div[scrollx=true] {
     // margin: 10px;
     padding: 0px 5px 10px 5px;
     border-radius: 14px;
-    .insideCardBackground{
-        padding:0px 10px;
+
+    .insideCardBackground {
+        padding: 0px 10px;
     }
 }
 
@@ -527,7 +532,7 @@ div[scrollx=true] {
     background-size: cover
 }
 
-.footerdesign{
+.footerdesign {
     background: #15a292;
     padding: 12px 25px;
     color: white;
@@ -537,28 +542,52 @@ div[scrollx=true] {
     background: url('~/src/assets/navbar/cart.svg');
 }
 
-.cartIconstyle{
+.cartIconstyle {
     background-size: 36px 67px !important;
     background-repeat: no-repeat !important;
     background-position: 86% -23px;
     padding-left: 31px;
 }
 
-.positionBottom{
+.positionBottom {
     z-index: 3;
     left: 275px;
     position: fixed;
     bottom: 0;
     width: 969px;
-    .cartParent{
-        display:flex;
-        flex-direction:row;
-        .left-div{
-            width:50%;
+
+    .cartParent {
+        display: flex;
+        flex-direction: row;
+
+        .left-div {
+            width: 50%;
         }
-        .right-div{
-            width:50%;
-            text-align:right;
+
+        .right-div {
+            width: 50%;
+            text-align: right;
         }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    div[scrollx=true] {
+        &.center-capsule {
+            justify-content: flex-start;
+        }
+    }
+
+    .discountImg1 {
+        background-size: 70% !important;
+    }
+
+    .positionBottom {
+        left: 0px;
+        width: 100%
+    }
+
+    .cartIconstyle {
+        background-position: 56% -24px;
     }
 }

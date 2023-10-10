@@ -1,7 +1,7 @@
+<app-header></app-header>
 <div class="container-fluid">
-    <app-header></app-header>
     <div class="row mt-5">
-        <div class="col-6 offset-md-3">
+        <div class="col-lg-6 offset-sm-0 offset-lg-3">
             <div *ngIf="!kitchenNotFound">
                 <div class="restaurant-info">
                     <div class="row flex-row">
@@ -275,11 +275,10 @@
                     <div class="center header3 grey">No Kitchen Found</div>
                 </div>
             </div>
-            <app-cart-footer class="positionBottom" (viewCart)="addAddons()"
-                [insideKitchenId]="kitchen._id"></app-cart-footer>
         </div>
     </div>
 </div>
+<app-cart-footer class="positionBottom" (viewCart)="addAddons()" [insideKitchenId]="kitchen._id"></app-cart-footer>
 <ng-template #menuModal let-modal>
     <app-kitchen-menu-popup [groupList]="componentProps"
         (selectedGroup)="scrollToPoint($event.groupName)"></app-kitchen-menu-popup>

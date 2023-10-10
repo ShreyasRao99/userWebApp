@@ -295,4 +295,12 @@ export class ApiMainService {
     }    
   }
 
+  logout() {
+    return this.apiHttpService.REQUEST(this.apiConfigService.apiEndPointObj.logout);
+  }
+
+  afterLogout() {
+    this.apiHttpService.afterLogout();
+  }
+
 }

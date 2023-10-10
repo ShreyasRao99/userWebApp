@@ -4,7 +4,7 @@
         <span class="company-name inline"> Mealawe</span>
     </a>
     <span role="button" #canvasAddress data-bs-toggle="offcanvas" data-bs-target="#location" class="location"
-        (click)="callFindMyAddress()">{{currentAddress.location ? currentAddress.location :
+        (click)="callFindMyAddress()">{{currentAddress?.location ? currentAddress?.location :
         currentAddress.address}}</span>
         <i class="mt-1 pointer bi bi-chevron-down" data-bs-toggle="offcanvas" data-bs-target="#location" (click)="callFindMyAddress()"></i>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -32,6 +32,9 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" routerLink="/cart">Cart</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" (click)="logOut()">Log Out</a>
             </li>
         </ul>
     </div>
@@ -93,7 +96,7 @@
                     <button type="button" style="display:none;" class="btn-close text-reset" #mapCanvas
                         data-bs-dismiss="offcanvas"></button>
                     <app-set-delivery-location [getCurrentLocation]="showCurrentLocation"
-                        (closeOffCanvas)="toggleCanvas()"></app-set-delivery-location>
+                        (closeOffCanvas)="toggleCanvas()" (toggleMap)="toggleMap()"></app-set-delivery-location>
                 </div>
             </div>
         </div>

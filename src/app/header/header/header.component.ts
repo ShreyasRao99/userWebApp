@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { ApiMainService } from 'src/service/apiService/api-main.service';
+import { CartManagementService } from 'src/service/cart-management.service';
 import { GoogleMapService } from 'src/service/google-map.service';
 import { LocalStorageService } from 'src/service/local-storage.service';
 import { SendDataToComponent } from 'src/service/sendDataToComponent';
@@ -32,7 +33,7 @@ export class HeaderComponent implements OnInit {
   showCurrentLocation: boolean = false;
   getLocation!: boolean;
 
-  constructor(private localStorageService:LocalStorageService, private sendDataToComponent:SendDataToComponent, private router:Router, private apiMainService:ApiMainService, private googleMapService:GoogleMapService, private utilityService:UtilityService){
+  constructor(private localStorageService:LocalStorageService, private cartManagementService:CartManagementService, private sendDataToComponent:SendDataToComponent, private router:Router, private apiMainService:ApiMainService, private googleMapService:GoogleMapService, private utilityService:UtilityService){
     this.mapId += Math.ceil(Math.random() * 1000)
   }
   ngOnInit(): void {
@@ -40,7 +41,6 @@ export class HeaderComponent implements OnInit {
     this.userProfile = this.localStorageService.getCacheData('USER_PROFILE');
     console.log(this.userProfile)
     this.currentAddress = this.localStorageService.getCacheData('CURRENT_LOCATION');
-    this.checkServicability()
     this.subscribeEvents();
   }
 
@@ -191,4 +191,16 @@ export class HeaderComponent implements OnInit {
     let el = this.canvasAddress.nativeElement;
     el.click();
   }  
+
+  async logOut(){
+    try{
+      await this.apiMainService.logout();
+      // this.mixpanelservice.track('logout',{});
+      this.cartManagementService.resetCart();
+      this.apiMainService.afterLogout();
+    }catch(error){
+      console.log('Error while logging out', error)
+    }
+  }
+
 }

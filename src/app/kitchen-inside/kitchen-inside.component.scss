@@ -667,5 +667,12 @@ button.accordion-button:focus{
     height: 40px;
 }
 
+@media only screen and (max-width: 600px) {
+    .positionBottom{
+        left:0;
+        width:100%;
+    }
+  }
+
 
 

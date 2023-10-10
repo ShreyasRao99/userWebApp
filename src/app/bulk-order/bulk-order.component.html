@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row m-auto">
-        <div class="col-md-8 col-sm-12 offset-md-2">
+        <div class="col-lg-8 col-sm-12 offset-lg-2">
             <div *ngIf="showForm">
                 <div class="mainDiv">
                     <div class="secondDiv">
@@ -10,6 +10,7 @@
                         <div>
                             <div class="row">
                                 <div class="col-12">
+                                    <img class="backarrow pointer" src="assets/regional/arrow-redpink.svg" (click)="goBack()">
                                     <img class="headerImg" src="assets/bulkOrder/BO-Header.png">
                                 </div>
                             </div>
@@ -18,7 +19,7 @@
                             <i class="text1">order customised menus for various occasions, such as:</i>
                         </div>
                         <div class="row firstRow">
-                            <div class="col-md-6 col-sm-12">
+                            <div class="col-lg-6 col-sm-12">
                                 <div>
                                     <img class="roundImg" src="assets/bulkOrder/BO_img4.png">
                                     <span class="eventHeader">corporate events</span>
@@ -27,7 +28,7 @@
                                         note.</span>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-sm-12">
+                            <div class="col-lg-6 col-sm-12">
                                 <div>
                                     <img class="roundImg" src="assets/bulkOrder/BO_img3.png">
                                     <span class="eventHeader">kitty parties</span>
@@ -35,7 +36,7 @@
                                         unforgettable.</span>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-sm-12">
+                            <div class="col-lg-6 col-sm-12">
                                 <div>
                                     <img class="roundImg" src="assets/bulkOrder/BO_img2.png">
                                     <span class="eventHeader">traditional events</span>
@@ -43,7 +44,7 @@
                                         occasion.</span>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-sm-12">
+                            <div class="col-lg-6 col-sm-12">
                                 <div>
                                     <img class="roundImg" src="assets/bulkOrder/BO_img1.png">
                                     <span class="eventHeader">college events</span>
@@ -54,12 +55,12 @@
                         </div>
 
                         <div class="row secondRow">
-                            <div class="col-md-12">
+                            <div class="col-lg-12">
                                 <div>
                                     <img class="roundImg" src="assets/bulkOrder/BO_img5.png">
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-lg-12">
                                 <div>
                                     <span class="eventHeader">monthly subscription</span>
                                     <span class="eventDescription">This type is highly considerable for office
@@ -81,7 +82,7 @@
             <div class="mt-3" *ngIf="showForm">
                 <form [formGroup]="registerForm">
                     <div class="row">
-                        <div class="col-md-6 col-sm-12">
+                        <div class="col-lg-6 col-sm-12">
                             <div class="form-group mt-1">
                                 <label for="customerName" class="form-label">Full Name</label>
                                 <input formControlName="customerName" id="customerName" type="text" class="form-control"
@@ -92,7 +93,7 @@
                                 Please enter a valid name.
                             </div>
                         </div>
-                        <div class="col-md-6 col-sm-12">
+                        <div class="col-lg-6 col-sm-12">
                             <div class="form-group mt-1">
                                 <label for="customerEmail" class="form-label">Email address</label>
                                 <input formControlName="customerEmail" id="customerEmail" type="email"
@@ -103,7 +104,7 @@
                                 Please enter your valid email.
                             </div>
                         </div>
-                        <div class="col-md-6 col-sm-12">
+                        <div class="col-lg-6 col-sm-12">
                             <div class="form-group mt-1">
                                 <label for="phoneNumber" class="form-label">Phone Number</label>
                                 <input formControlName="customerPhoneNo" id="phoneNumber" type="text"
@@ -114,7 +115,7 @@
                                 Enter valid mobile number.
                             </div>
                         </div>
-                        <div class="col-md-6 col-sm-12">
+                        <div class="col-lg-6 col-sm-12">
                             <label for="groupType" class="mt-1 form-label">Group Type</label>
                             <select name="groupType" class="dropdown-style" formControlName="groupType">
                                 <option>Individual</option>
@@ -125,7 +126,7 @@
                                 Please select any Group type.
                             </div>
                         </div>
-                        <div class="col-md-6 col-sm-12" *ngIf="registerForm.controls.groupType.value === 'Company'">
+                        <div class="col-lg-6 col-sm-12" *ngIf="registerForm.controls.groupType.value === 'Company'">
                             <div class="form-group mt-1">
                                 <label for="companyName" class="form-label">Email address</label>
                                 <input formControlName="companyName" id="companyName" type="text" class="form-control"
@@ -136,7 +137,7 @@
                                 Company name is required
                             </div>
                         </div>
-                        <div class="col-md-6 col-sm-12">
+                        <div class="col-lg-6 col-sm-12">
                             <label for="numberOfPeople" class="mt-1 form-label">Number Of People</label>
                             <input formControlName="numberOfPeople" id="numberOfPeople" type="text" class="form-control"
                                 placeholder="Number Of People">
@@ -145,7 +146,7 @@
                                 Count of people is required.
                             </div>
                         </div>
-                        <div class="col-md-6 col-sm-12">
+                        <div class="col-lg-6 col-sm-12">
                             <label class="mt-1 form-label" for="ocassion">Ocassion</label>
                             <select name="ocassion" class="dropdown-style" formControlName="occassion">
                                 <option value="Party">Party</option>
@@ -160,7 +161,7 @@
                                 Please select any Occassion.
                             </div>
                         </div>
-                        <div class="col-md-6 col-sm-12">
+                        <div class="col-lg-6 col-sm-12">
                             <label for="address" class="mt-1 form-label">Address</label>
                             <input formControlName="address" id="address" type="text" class="form-control"
                                 placeholder="Address">
@@ -169,7 +170,7 @@
                                 Address is required.
                             </div>
                         </div>
-                        <div class="col-md-6 col-sm-12">
+                        <div class="col-lg-6 col-sm-12">
                             <!-- <label for="mealType">Meal Type</label> -->
                             <label for="mealType" class="mt-1 form-label">Meal Type</label>
                             <select name="mealType" class="dropdown-style" formControlName="mealType"
@@ -183,12 +184,12 @@
                                 Please select any Meal type.
                             </div>
                         </div>
-                        <div class="col-md-6 col-sm-12">
+                        <div class="col-lg-6 col-sm-12">
                             <label for="startDate" class="mt-1 form-label">Select Date</label>
                             <input id="startDate" (change)="bulkOrderDateChanged($event.target)" class="form-control"
                                 [min]="allowedMinDate" type="date" />
                         </div>
-                        <div class="col-md-6 col-sm-12">
+                        <div class="col-lg-6 col-sm-12">
                             <label for="time" class="mt-1 form-label">Select a time:</label>
                             <input type="time" class="dropdown-style time" id="time"
                                 (change)="bulkOrderTimeChanged($event.target)">

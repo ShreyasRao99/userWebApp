@@ -1,12 +1,12 @@
-<div class="container-fluid">
-    <app-header></app-header>
+<app-header></app-header>
+<div class="container-fluid p-0">
     <div class="paddingBelow">
         <div class="row">
-            <div class="col-8 offset-2">
+            <div class="col-sm-12 col-lg-8 offset-lg-2">
                 <app-main-slider *ngIf="showSlider" [bannerList]="subBannerList"></app-main-slider>
                 <div class="mealCapsuleDiv center">
-                    <!-- <div class="scroll" scrollX="true"> -->
-                    <div>
+                    <div class="scroll center-capsule" scrollX="true">
+                    <!-- <div> -->
                         <div *ngFor="let category of packageCategoryList" class="orderCapsule"
                             [ngClass]="{'selectedOrder': packageCategory === category}"
                             (click)="selectPackageCategory(category)">
@@ -25,7 +25,7 @@
                             <div *ngFor="let package of group.mealList; index as i " class="cardbackground">
                                 <div class="insideCardBackground">
                                     <div class="row justify-content-between">
-                                        <div class="col-6" (click)="selectedPackage = package._id">
+                                        <div class="col-7" (click)="selectedPackage = package._id">
                                             <div class="radiogrp">
                                                 <input class="form-check-input" [(ngModel)]="selectedPackage"
                                                     class="radiobtn" type="radio" [value]="package._id">
@@ -49,7 +49,7 @@
                                             </div>
                                             <div class="description">{{package.packageInfo}}</div>
                                         </div>
-                                        <div class="col-6 right">
+                                        <div class="col-5 right">
                                             <div *ngIf="package.offerText" class="offerTextDiv"
                                                 [ngClass]="{offerRedbg: package.offerColor === 'red', offerYellowbg: package.offerColor === 'yellow',offerGreenbg: package.offerColor === 'green'}">
                                                 {{package.offerText}}</div>

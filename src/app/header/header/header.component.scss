@@ -61,11 +61,11 @@
         padding: 4%;
         cursor: pointer;
 
-        h6{
+        h6 {
             margin-left: 8%;
-            font-size:13px;
-            color:#adadad;
-            margin-bottom:0;
+            font-size: 13px;
+            color: #adadad;
+            margin-bottom: 0;
             // padding-top:2%; 
         }
     }
@@ -82,14 +82,22 @@
     color: #adadad;
 }
 
-.user-popover{
-    color:red;
+.user-popover {
+    color: red;
 }
 
-.company-name{
-    margin:5px 5px;
+.company-name {
+    margin: 5px 5px;
 }
 
-.nav-item{
-    cursor:pointer;
+.nav-item {
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+    .navbar {
+        .navbar-brand {
+            margin-left: 10px;
+        }
+    }
 }
