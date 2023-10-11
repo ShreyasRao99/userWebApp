@@ -303,4 +303,12 @@ export class ApiMainService {
     this.apiHttpService.afterLogout();
   }
 
+  userNearSearch(text: string, pageNumber:any,geolocation:any, data:any){
+    const urlObj = this.apiConfigService.apiEndPointObj.userNearSearch;
+    return this.runTimeCacheInterceptor(`SEARCH_NEAR_USER_${text}_${pageNumber}`,
+    // return this.apiHttpService.REQUEST(
+    {url: urlObj.url + `/${text}/${this.getTodayStartDate()}/${pageNumber}/${geolocation.lng}/${geolocation.lat}`,
+     method: urlObj.method},data,null,pageNumber>1?true:false);  
+  }
+
 }

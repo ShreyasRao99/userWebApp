@@ -1,8 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { ApiMainService } from 'src/service/apiService/api-main.service';
 import { CartManagementService } from 'src/service/cart-management.service';
+import { FavouriteManagementService } from 'src/service/favourite-management.service';
 import { GoogleMapService } from 'src/service/google-map.service';
 import { LocalStorageService } from 'src/service/local-storage.service';
 import { SendDataToComponent } from 'src/service/sendDataToComponent';
@@ -15,6 +17,8 @@ import { UtilityService } from 'src/service/utility.service';
 })
 export class HeaderComponent implements OnInit {
   @ViewChild('canvasAddress') canvasAddress!: ElementRef<HTMLElement>
+  @ViewChild('loginCanvas') loginCanvas!: ElementRef<HTMLElement>;
+
   currentGeoLocation: any;
   serviceAvailable!: boolean;
   kitchenList: any[] = [];
@@ -32,8 +36,17 @@ export class HeaderComponent implements OnInit {
   recentSearch: any[] = [];
   showCurrentLocation: boolean = false;
   getLocation!: boolean;
+  LoginForm:any;
+  phoneNo:any;
+  showOTPscreen!: boolean;
+  showResendOTP!: boolean;
+  second!: number;
+  intervalCounter!: any;
+  OTPprovided: any;
+  loggedIn!: boolean;
+  enableVerfiy!: boolean;
 
-  constructor(private localStorageService:LocalStorageService, private cartManagementService:CartManagementService, private sendDataToComponent:SendDataToComponent, private router:Router, private apiMainService:ApiMainService, private googleMapService:GoogleMapService, private utilityService:UtilityService){
+  constructor(private localStorageService:LocalStorageService, private favouriteManagementService:FavouriteManagementService, private fb:FormBuilder, private cartManagementService:CartManagementService, private sendDataToComponent:SendDataToComponent, private router:Router, private apiMainService:ApiMainService, private googleMapService:GoogleMapService, private utilityService:UtilityService){
     this.mapId += Math.ceil(Math.random() * 1000)
   }
   ngOnInit(): void {
@@ -41,6 +54,9 @@ export class HeaderComponent implements OnInit {
     this.userProfile = this.localStorageService.getCacheData('USER_PROFILE');
     console.log(this.userProfile)
     this.currentAddress = this.localStorageService.getCacheData('CURRENT_LOCATION');
+    this.LoginForm = this.fb.group({
+      phoneNo: ['', [Validators.required, Validators.pattern("^[0-9]{10}$")]]
+    })
     this.subscribeEvents();
   }
 
@@ -192,6 +208,70 @@ export class HeaderComponent implements OnInit {
     el.click();
   }  
 
+  async registerMobileNumer() {
+    if (this.LoginForm.value) {
+      this.phoneNo = this.LoginForm.value.phoneNo;
+      if (this.phoneNo && Math.ceil(Math.log10(this.phoneNo)) === 10) {
+        try {
+          const otpres = await this.apiMainService.registerPhoneNo({ phoneNo: this.phoneNo });
+          this.localStorageService.setCacheData('USER_MOBILE', this.phoneNo);
+          this.showOTPscreen = true;
+          this.startTimer()
+        } catch (e) {
+          console.log(e);
+        }
+      }
+    }
+  }
+
+  async verifyOTP() {
+    const finalOTP = this.OTPprovided;
+    try {
+      const loginObj = await this.apiMainService.verifyOTP({ phoneNo: this.phoneNo, password: finalOTP, userType: 'customer' });
+      if (loginObj) {
+        let el: HTMLElement = this.loginCanvas.nativeElement;
+        el.click();
+      }
+      this.localStorageService.setCacheData('OTP_VERIFIED', true);
+      this.localStorageService.setCacheData('TOKEN', loginObj.token);
+      this.userProfile = await this.apiMainService.saveOrRetrieveUserProfile(loginObj.loginInfo);
+      this.localStorageService.setCacheData('USER_PROFILE', this.userProfile);
+      this.loggedIn = true
+      const fcmToken = this.localStorageService.getCacheData('FCM_TOKEN');
+      // this.mixpanelservice.track('login',{});
+      if (fcmToken) {
+        this.apiMainService.saveFcmToken({ profileId: this.userProfile._id, fcmToken });
+      }
+      if (this.userProfile.addressList && this.userProfile.addressList.length > 0) {
+        this.localStorageService.setCacheData('PREFERENCE_SET', true);
+        this.localStorageService.setCacheData('LOCATION_SET', true);
+        this.favouriteManagementService.getUserFavKitchenList();
+        // this.router.navigate(['home'])
+        // this.navCntrl.navigateRoot('/tabs');
+      } else {
+        if (this.userProfile.userName && this.userProfile.email) {
+          this.localStorageService.setCacheData('PREFERENCE_SET', true);
+          // this.router.navigate(['home'])
+          // this.navCntrl.navigateRoot('/location');
+          // this.navCntrl.navigateRoot('/tabs');
+        } else {
+          // this.navCntrl.navigateRoot('/favcuisine');
+        }
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  onOtpChange(event: any) {
+    if (!isNaN(event) && event.length === 6) {
+      this.enableVerfiy = true;
+      this.OTPprovided = event;
+    } else {
+      this.enableVerfiy = false;
+    }
+  }
+
   async logOut(){
     try{
       await this.apiMainService.logout();
@@ -201,6 +281,19 @@ export class HeaderComponent implements OnInit {
     }catch(error){
       console.log('Error while logging out', error)
     }
+  }
+
+  startTimer() {
+    this.showResendOTP = false;
+    this.second = 30;
+    this.intervalCounter = setInterval(() => {
+      if (this.second <= 0) {
+        clearInterval(this.intervalCounter);
+        this.showResendOTP = true;
+      } else {
+        this.second--;
+      }
+    }, 1000);
   }
 
 }

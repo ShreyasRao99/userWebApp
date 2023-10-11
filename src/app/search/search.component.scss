@@ -1,0 +1,158 @@
+@import "/src/styles.scss";
+
+.searchLabel{
+    position: absolute;
+    z-index: 1;
+    top: 61px;
+    right: 53px;
+    padding: 25px;
+}
+.searchbg{
+    background: #eeeeee;
+    margin-top: -5px;
+    padding: 15px 25px;
+}
+.searchIOnItem{
+    padding: 2%;
+    border-radius: 9px;
+    // --inner-border-width: 0px;
+    background: white;
+}
+.inputStyle{
+    --padding-start: 14px !important;  
+}
+.searchIcon{
+    --padding-start: 36px !important;  
+    background-image: url('~/src/assets/search/magnifyglass-red.svg');
+    background-repeat: no-repeat;
+    background-size: 25px 25px;
+    background-position: 5px;
+}
+.apiSearchIcon{
+    color : $secondary-color3
+}
+.recentSearch{
+    border-bottom: 1px solid #a4a4a442;
+    padding: 4px 4px 4px 32px;
+    background-image: url('~/src/assets/search/magnifyglass.svg');
+    background-repeat: no-repeat;
+    background-size: 25px 25px;
+    background-position: 5px;
+}
+.searchChoice{
+    padding: 5px 13px;
+    border-radius: 9px;
+    margin: 0px 2%;   
+    border: 2px solid $primary-color3;
+    color: $primary-color3;
+}
+.selected{
+    background-color: $primary-color3 !important;
+    color: white;
+}
+.filterStyle{
+    padding: 8px 10px 8px 10px;
+    font-size: 10px;
+    border-radius: 15px;
+    background: url('~/src/assets/icon/filterIcon.svg');  
+    background-size: 20px !important;
+    background-repeat: no-repeat !important;
+    background-position: 8px 4px;
+    text-align: right;
+    width: 110px;
+}
+.noresult{
+    background: url('~/src/assets/search/noResults.svg');
+    background-size: 300px 300px !important;
+    background-repeat: no-repeat !important;
+    height: 400px;
+    background-position: bottom;      
+}
+.filterBG{
+    position: relative;
+    padding: 8%;
+    z-index: 1;
+    top: 1px;
+    border-radius: 8px;
+    box-shadow: 0px 1px 6px 0px;
+}
+
+.userSearchLookup{
+    padding:1%;
+    width: 65%;
+    z-index: 1;
+    position: absolute;
+    background: #fff !important;
+    border-radius: 0px 0px 15px 15px;
+}
+
+.fullDiv{
+    width: 100%;
+    .leftDiv{
+        width: 66%;
+    }
+    .rightDiv{
+        width: 33%;
+    }
+}
+
+.backDiv{
+    position: absolute;
+    z-index: 1;
+    left: -5px;
+    top: -1px;
+    padding: 25px;
+    .backIconarrow{
+        padding-top: 10px;
+        width: 14px;
+    }
+}
+
+.filterpopupdiv{
+    background: url('~/src/assets/icon/filterIcon.png'); 
+    background-repeat: no-repeat;
+    background-position: center;
+    float: right;
+    height: 29px;
+    width: 30px;
+}
+.orderCapsule{
+    display: inline-block;
+    border-radius: 17px;
+    color: #808080;
+    margin: 0px 6px 5px 0px;
+    text-align: center;
+    border: 1px solid #808080;
+    font-size: 12px;
+    padding: 8px 12px;
+}
+
+.headerMargin{
+    margin-top: 30px;
+    padding: 5%;
+}
+
+.backarrow{
+    width: 25px;
+    margin-right: 10px;
+    position: relative;
+    bottom: -15px;
+    left: 15px;
+}
+
+.regionalLabel{
+    position: absolute;
+    z-index: 1;
+    top: 52px;
+    left: 25px;
+}
+
+.form-control{
+    padding:1%;
+    border-radius:0;
+}
+
+.search-list{
+    padding: 1% 0% 1% 0%;
+    border-bottom: 1px solid #afafaf;
+}

@@ -3,6 +3,7 @@ import { GoogleKeys } from 'src/config/google.config';
 import { Loader, LoaderOptions } from 'google-maps';
 import { ApiMainService } from './apiService/api-main.service';
 import { RuntimeStorageService } from './runtime-storage.service';
+import { LocalStorageService } from './local-storage.service';
 
 
 declare interface google {
@@ -23,7 +24,7 @@ export class GoogleMapService {
   googleQueue:any[] = [];
   callInProgess = false;
 
-  constructor(private apiMainService:ApiMainService, private runtimeStorageService:RuntimeStorageService) { }
+  constructor(private apiMainService:ApiMainService, private localStorageService:LocalStorageService, private runtimeStorageService:RuntimeStorageService) { }
 
   getGoogle(): Promise<google>{
     const googlePromise:any = new Promise(async (resolve, reject) => {
@@ -80,7 +81,7 @@ private async loadGoogleMap() {
                     }
                 });                   
             }
-            // this.localStorageService.setCacheData('USER_CLUSTERS',mappedClusterList);
+            this.localStorageService.setCacheData('USER_CLUSTERS',mappedClusterList);
             resolve(mappedClusterList);                
         }catch(error){
           reject(error);

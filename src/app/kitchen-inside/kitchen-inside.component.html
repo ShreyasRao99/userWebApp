@@ -1,7 +1,7 @@
 <app-header></app-header>
 <div class="container-fluid">
     <div class="row mt-5">
-        <div class="col-lg-6 offset-sm-0 offset-lg-3">
+        <div class="col-lg-6 offset-sm-0 offset-md-0 offset-lg-3">
             <div *ngIf="!kitchenNotFound">
                 <div class="restaurant-info">
                     <div class="row flex-row">
@@ -32,8 +32,8 @@
                     </div>
                 </div>
                 <div class="row">
-                    <app-coupon-display [kitchenCoupon]="subscriptionOfferText" [orderType]="orderType"
-                        [offerText]="offerText"></app-coupon-display>
+                    <!-- <app-coupon-display [kitchenCoupon]="subscriptionOfferText" [orderType]="orderType"
+                        [offerText]="offerText"></app-coupon-display> -->
                     <div class="col-12 mt-4">
                         <div class="orderCapsule twoCapsule" (click)="selectOrderType('allDay')" *ngIf="!noAlldayMenu"
                             [ngClass]="{'selectedOrder': orderType === 'allDay'}">All Day</div>
@@ -258,7 +258,7 @@
                     </div>
                     <div class="floatingMenu bgTopDownpadding2">
                         <button (click)="showkitchenMenu()">
-                            <i class="menuIcon bi bi-book"></i>
+                            <!-- <i class="menuIcon bi bi-book"></i> -->
                             <div class="menuText">MENU</div>
                         </button>
                     </div>
@@ -275,10 +275,11 @@
                     <div class="center header3 grey">No Kitchen Found</div>
                 </div>
             </div>
+            <app-cart-footer class="positionBottom" (viewCart)="addAddons()" [insideKitchenId]="kitchen._id"></app-cart-footer>
         </div>
     </div>
 </div>
-<app-cart-footer class="positionBottom" (viewCart)="addAddons()" [insideKitchenId]="kitchen._id"></app-cart-footer>
+<!-- <app-cart-footer class="positionBottom" (viewCart)="addAddons()" [insideKitchenId]="kitchen._id"></app-cart-footer> -->
 <ng-template #menuModal let-modal>
     <app-kitchen-menu-popup [groupList]="componentProps"
         (selectedGroup)="scrollToPoint($event.groupName)"></app-kitchen-menu-popup>

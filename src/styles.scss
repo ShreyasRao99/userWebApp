@@ -402,26 +402,16 @@ ion-slides {
     margin-right: 2px;
 }
 
-.vegIcon {
-    background: url('~/src/assets/icon/veg.png');
-    border: 1px solid #5BC085;
-}
-
-.nonvegIcon {
-    background: url('~/src/assets/icon/nonveg.svg');
-    border: 1px solid #e21c24;
-}
-
 .jainIcon {
-    background: url('~/src/assets/icon/jain.svg');
-    background-size: 10px !important;
+    // background: url('~/src/assets/icon/jain.svg');
+    // background-size: 10px !important;
     width: 26px;
     text-align: center;
     font-size: 8px;
     border: 1px solid #BBC0D0;
     border-radius: 2px;
     padding: 2px 0px;
-    vertical-align: top;
+    // vertical-align: top;
 }
 
 
@@ -790,18 +780,6 @@ ion-refresher {
 .nonvegIcon {
     background: url('~/src/assets/icon/nonveg.svg');
     border: 1px solid #e21c24;
-}
-
-.jainIcon {
-    // background: url('~/src/assets/icon/jain.svg'); 
-    // background-size: 10px !important; 
-    width: 26px;
-    text-align: center;
-    font-size: 8px;
-    border: 1px solid #BBC0D0;
-    border-radius: 2px;
-    padding: 2px 0px;
-    vertical-align: top;
 }
 
 
