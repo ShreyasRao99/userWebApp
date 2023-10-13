@@ -34,7 +34,7 @@
 // @import '~swiper/scss/zoom';
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 @import 'ngx-multiple-dates/prebuilt-themes/indigo-pink.css';
-
+// @import "~swiper/swiper-bundle";
 // html.ios {
 //     --ion-safe-area-top: 10px;
 // }
@@ -431,7 +431,7 @@ ion-slides {
 }
 
 .pageContent {
-    margin-top:1%;
+    margin-top: 1%;
     // padding:1%;
     // padding-top: 102px;
 }
@@ -897,20 +897,21 @@ input[type="text"]:focus {
     .modal-dialog {
         position: absolute;
         top: 60%;
-        left:33%;
-        width:50%;
+        left: 33%;
+        width: 50%;
     }
-    .modal-content{
-        padding:5%;
+
+    .modal-content {
+        padding: 5%;
     }
 }
 
-.addonsModel{
-    .modal-dialog{
-        position:absolute;
-        top:10%;
-        left:33%;
-        width:65%;
+.addonsModel {
+    .modal-dialog {
+        position: absolute;
+        top: 10%;
+        left: 33%;
+        width: 65%;
     }
 }
 
@@ -939,10 +940,12 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.pointer{
-    cursor:pointer;
+.pointer {
+    cursor: pointer;
 }
 
-.container-fluid{
-    overflow:hidden;
+.container-fluid {
+    overflow: hidden;
 }
+
+.cdk-overlay-container{ z-index: 1200 !important; }

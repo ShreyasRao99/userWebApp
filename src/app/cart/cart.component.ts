@@ -35,7 +35,7 @@ export class CartComponent implements OnInit, OnDestroy {
   deliveryCharges = 0;
   taxes = 10;
   currentLocation!: string;
-  tagLocation!: string;
+  tagLocation: string = 'home';
   saveCurrentLocation = false;
   showBackButton = false;
   // serviceAvailable = false;
@@ -163,6 +163,7 @@ export class CartComponent implements OnInit, OnDestroy {
   allTimeSlotSelected!: string;
   advanceTimeSlotSelected!: string;
   subscription: any[] = [];
+  
 
   constructor(private cartManagementService: CartManagementService, private datePipe:DatePipe, private toasterService: ToasterService, private alertModalService: AlertModalService, private chgDetRef: ChangeDetectorRef, private sendDataToComponent: SendDataToComponent, private userProfileService: UserProfileService, private localStorageService: LocalStorageService, private googleMapService: GoogleMapService, private confirmationModalService: ConfirmationModalService, private apiMainService: ApiMainService, private paymentGatewayService: PaymentGatewayService, private runtimeStorageService: RuntimeStorageService, private utilityService: UtilityService, private router: Router) {
     const currentDate = new Date();
@@ -212,19 +213,12 @@ export class CartComponent implements OnInit, OnDestroy {
       this.userSelectedDates.push(this.allowedMinDate);
     }
     console.log(this.userProfile)
-    this.sendDataToComponent.subscribe('ADDRESS_FROM_DELIVERY', (address) => {
-      if (address.address) {
-        this.userProfile.addressList.push(address);
-        this.toggleAddressSelected(address);
-        this.toggleCanvas();
-        // this.setCurrentLocation()  
-      }
-      else{
-        this.addressSelected = address
-        this.saveCurrentLocation = false
-      }
-    })
     // this.getCouponList()
+  }
+
+  getUserDetails(){
+    this.checkUserLoginProfile()
+    this.setCurrentLocation()
   }
 
   validateDailyTimings() {
@@ -269,7 +263,6 @@ export class CartComponent implements OnInit, OnDestroy {
     console.log(currentStorageLocation)
     if (currentStorageLocation) {
       const formatedAddess = this.userProfileService.getSavedAddress(currentStorageLocation);
-      console.log(formatedAddess)
       this.addressSelected = formatedAddess
       this.customerLocation = { ...formatedAddess };
       let address = '';
@@ -323,12 +316,20 @@ export class CartComponent implements OnInit, OnDestroy {
         this.getDBTimeSlots();
       }
     });
-    this.sendDataToComponent.subscribe('ADDRESS_FROM_HEADER', (address) => {
-      if (address) {
-        this.addressSelected = address
-        this.toggleSelected = true
+
+    this.sendDataToComponent.subscribe('ADDRESS_FROM_DELIVERY', (address) => {
+      if (address.address) {
+        this.userProfile.addressList.push(address);
+        this.toggleAddressSelected(address);
+        this.toggleCanvas();
+        // this.setCurrentLocation()  
       }
-    });
+      else{
+        this.addressSelected = address
+        this.saveCurrentLocation = false
+      }
+    })
+
     this.sendDataToComponent.subscribe('LOCATION_ADDED_UPDATE_CART_PAGE', (flag) => {
       if (flag) {
         this.updateLocationChange();
@@ -1808,12 +1809,12 @@ export class CartComponent implements OnInit, OnDestroy {
       if (checkServicability) {
         this.addressSelected = address
         this.customerLocation = address
-        this.toggleSelected = !this.toggleSelected;
+        this.toggleSelected = true;
         this.serviceNotAvailable = false;
         if (this.cartObj.orderType !== 'subscription') {
           this.getDeliveryChargeQuote()
         }
-        this.saveCurrentLocation = !this.saveCurrentLocation
+        this.saveCurrentLocation = true
       }
       else {
         this.serviceNotAvailable = true
@@ -1821,7 +1822,7 @@ export class CartComponent implements OnInit, OnDestroy {
       }
     }
     else {
-      this.toggleSelected = !this.toggleSelected;
+      this.toggleSelected = false;
     }
   }
 

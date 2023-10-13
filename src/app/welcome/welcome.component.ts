@@ -179,6 +179,7 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
       this.localStorageService.setCacheData('OTP_VERIFIED', true);
       this.localStorageService.setCacheData('TOKEN', loginObj.token);
       this.userProfile = await this.apiMainService.saveOrRetrieveUserProfile(loginObj.loginInfo);
+      console.log(this.userProfile)
       this.localStorageService.setCacheData('USER_PROFILE', this.userProfile);
       this.loggedIn = true
       const fcmToken = this.localStorageService.getCacheData('FCM_TOKEN');

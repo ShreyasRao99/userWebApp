@@ -20,7 +20,7 @@ export class SetDeliveryLocationComponent implements OnInit, OnChanges {
   @Output() toggleMap = new EventEmitter<any>();
   serviceAvailable: boolean = true;
 
-  constructor(private localStorageService: LocalStorageService, private utilityService:UtilityService, private apiMainService: ApiMainService, private sendDataToComponent: SendDataToComponent, private chgDetRef: ChangeDetectorRef, private googleMapService: GoogleMapService, private geoLocationService: GeolocationService) {
+  constructor(private localStorageService: LocalStorageService, private utilityService: UtilityService, private apiMainService: ApiMainService, private sendDataToComponent: SendDataToComponent, private chgDetRef: ChangeDetectorRef, private googleMapService: GoogleMapService, private geoLocationService: GeolocationService) {
     this.mapid += Math.round(Math.random() * 1000);
   }
 
@@ -33,16 +33,16 @@ export class SetDeliveryLocationComponent implements OnInit, OnChanges {
   landmark: any;
   tagLocation = 'home';
 
-  ngOnChanges(changes: SimpleChanges){
+  ngOnChanges(changes: SimpleChanges) {
     console.log(changes)
     this.patchValue = changes['patchValue']?.currentValue
     this.address = changes['patchValue']?.currentValue.address
     this.landmark = changes['patchValue']?.currentValue.landmark;
-    if(changes['patchValue']?.currentValue){
+    if (changes['patchValue']?.currentValue) {
       this.loadCurrentSavedLocation()
     }
     // this.getCurrentLocation = changes['getCurrentLocation'].currentValue
-    
+
   }
 
   ngOnInit(): void {
@@ -178,15 +178,20 @@ export class SetDeliveryLocationComponent implements OnInit, OnChanges {
     if (this.serviceAvailable) {
       if (!skip) {
         this.addAddress()
-        this.sendDataToComponent.publish('ADDRESS_FROM_DELIVERY', this.selectedAddress)
+        this.addressChangeLogic()
+        return
       }
-      this.sendDataToComponent.publish('ADDRESS_FROM_DELIVERY', this.selectedAddress)
-      this.utilityService.configureCurrentLocation(this.selectedAddress)
-      this.closeOffCanvas.emit(true) 
+      this.addressChangeLogic()
     }
     else {
       return;
     }
+  }
+
+  addressChangeLogic() {
+    this.sendDataToComponent.publish('ADDRESS_FROM_DELIVERY', this.selectedAddress)
+    this.utilityService.configureCurrentLocation(this.selectedAddress)
+    this.closeOffCanvas.emit(true)
   }
 
   toggleAdditionalDetails() {
@@ -237,7 +242,7 @@ export class SetDeliveryLocationComponent implements OnInit, OnChanges {
     }
   }
 
-  back(){
+  back() {
     this.toggleMap.emit(true);
   }
 

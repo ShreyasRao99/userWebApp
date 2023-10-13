@@ -7,9 +7,9 @@
             <!-- <div class="inline-table headerText">Meal Subscription Orders</div> -->
         </span>
     </div>
-    <div class="pageContent">
+    <div class="pageContent" data-bs-toggle="offcanvas" data-bs-target="#orders">
         <div class="listStyle" *ngFor="let order of pastOrderList | sort : 'orderDate' : -1"
-            (click)="goToOrderPage(order)"  data-bs-toggle="offcanvas" data-bs-target="#orders">
+            (click)="goToOrderPage(order)">
             <div *ngIf="order.orderType === 'subscriptionParent' ">
                 <div class="row">
                     <div class="col-12">

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GoogleMapService } from 'src/service/google-map.service';
+import { register } from 'swiper/element/bundle';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.routeConditions();
+    register()
   }
 
   async googleLoad(){  
@@ -28,6 +30,6 @@ export class AppComponent implements OnInit {
   }
 
   routeConditions() {
-    // this.router.navigate(['/welcome'])
+    this.router.navigate(['/welcome'])
   }
 }

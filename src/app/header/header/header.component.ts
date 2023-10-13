@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
@@ -18,6 +18,7 @@ import { UtilityService } from 'src/service/utility.service';
 export class HeaderComponent implements OnInit {
   @ViewChild('canvasAddress') canvasAddress!: ElementRef<HTMLElement>
   @ViewChild('loginCanvas') loginCanvas!: ElementRef<HTMLElement>;
+  @Output() isLoggedIn:EventEmitter<any> = new EventEmitter<any>();;
 
   currentGeoLocation: any;
   serviceAvailable!: boolean;
@@ -74,7 +75,7 @@ export class HeaderComponent implements OnInit {
   setAddress(address: any) {
     console.log(address)
     this.currentAddress = address
-    this.sendDataToComponent.publish('ADDRESS_FROM_HEADER',address)
+    this.sendDataToComponent.publish('ADDRESS_FROM_DELIVERY',address)
     this.toggleCanvas()
   }
 
@@ -235,7 +236,9 @@ export class HeaderComponent implements OnInit {
       this.localStorageService.setCacheData('OTP_VERIFIED', true);
       this.localStorageService.setCacheData('TOKEN', loginObj.token);
       this.userProfile = await this.apiMainService.saveOrRetrieveUserProfile(loginObj.loginInfo);
+      console.log(this.userProfile)
       this.localStorageService.setCacheData('USER_PROFILE', this.userProfile);
+      this.isLoggedIn.emit()
       this.loggedIn = true
       const fcmToken = this.localStorageService.getCacheData('FCM_TOKEN');
       // this.mixpanelservice.track('login',{});

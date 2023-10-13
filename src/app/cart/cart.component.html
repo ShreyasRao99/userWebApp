@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <app-header></app-header>
+  <app-header (isLoggedIn)="getUserDetails()"></app-header>
   <div class="cart-wrapper">
     <div class="row">
       <div class="col-10 offset-1">
@@ -26,8 +26,7 @@
                       <div class="taglocationdiv mt-2">
                         <div class="taglocation2">{{address.tagLocation}}</div>
                         <div class="completeAdd">{{address.location}}</div>
-                        <button class="btn btn-danger mt-3" (click)="toggleAddressSelected(address,i)">DELIVER
-                          HERE</button>
+                        <button class="btn btn-danger mt-3" (click)="toggleAddressSelected(address,i)">DELIVER HERE</button>
                         <div *ngIf="serviceNotAvailable  && selectedAddressIndex == i">No service at this location</div>
                       </div>
                     </div>
@@ -43,8 +42,8 @@
                   <ng-container *ngIf="toggleSelected">
                     <div class="col-8 mb-2 mt-3">
                       <div class="taglocationdiv">
-                        <div class="taglocation2">{{addressSelected?.tagLocation}}</div>
-                        <div class="completeAdd">{{addressSelected?.location}}</div>
+                        <div class="taglocation2">{{addressSelected?.tagLocation ? addressSelected?.tagLocation : 'home'}}</div>
+                        <div class="completeAdd">{{addressSelected?.location ? addressSelected?.location : addressSelected.address}}</div>
                         <!-- <button class="btn btn-outline-danger mt-3">Add New</button> -->
                       </div>
                     </div>
@@ -204,9 +203,9 @@
                     <div class="cartGrayHead">Pick Subscription Date</div>
                     <div>
                       <div>
-                        <mat-form-field>
+                        <mat-form-field (click)="picker.open()">
                           <mat-label>Enter Date</mat-label>
-                          <input style="visibility:hidden;" matInput [matDatepicker]="picker" [min]="allowedMinDate"
+                          <input readonly matInput [matDatepicker]="picker" [min]="allowedMinDate"
                             [max]="allowedMaxDateSub" (dateChange)="subOrderDateChanged($event.value)">
                           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                           <mat-datepicker #picker></mat-datepicker>
@@ -230,9 +229,9 @@
               </div>
               <div *ngIf="cartObj.orderType === 'advance'">
                 <div class="cartGrayHead">Date Slot</div>
-                <mat-form-field>
+                <mat-form-field (click)="picker.open()">
                   <mat-label>Select Date Slot</mat-label>
-                  <input [disabled]="notInTimeSlot" matInput [matDatepicker]="picker" [min]="allowedMinDate"
+                  <input readonly [disabled]="notInTimeSlot" matInput [matDatepicker]="picker" [min]="allowedMinDate"
                     [max]="allowedMaxDate" (dateChange)="advOrderDateChanged($event.value)">
                   <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
