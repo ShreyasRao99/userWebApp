@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <app-header></app-header>
+  <app-header (isLoggedIn)="getUserDetails()"></app-header>
   <div class="cart-wrapper">
     <div class="row">
       <div class="col-10 offset-1">
@@ -11,45 +11,62 @@
         <div class="container-fluid" *ngIf="cartObj && cartObj.itemList && cartObj.itemList.length > 0">
           <div class="row">
             <div class="col-8 left-section">
-              <i class="bi bi-arrow-left" *ngIf="!toggleSelected && addressSelected" (click)="goBack()"></i>
-              <div class="d-flex flex-row mt-2">
-                <div class="cartGrayHead">{{!toggleSelected ? 'Select Delivery Address' : 'Delivery address'}}</div>
-                <div class="buttonDiv">
-                  <button class="btn btn-outline-danger" *ngIf="toggleSelected"
-                    (click)="toggleAddressSelected(null)">Change</button>
+              <ng-container *ngIf="userProfile">
+                <i class="bi bi-arrow-left" *ngIf="!toggleSelected && addressSelected" (click)="goBack()"></i>
+                <div class="d-flex flex-row mt-2">
+                  <div class="cartGrayHead">{{!toggleSelected ? 'Select Delivery Address' : 'Delivery address'}}</div>
+                  <div class="buttonDiv">
+                    <button class="btn btn-outline-danger" *ngIf="toggleSelected"
+                      (click)="toggleAddressSelected(null)">Change</button>
+                  </div>
                 </div>
-              </div>
-              <div class="row">
-                <ng-container *ngIf="!toggleSelected">
-                  <div class="col-6 mt-4" *ngFor="let address of userProfile.addressList; let i = index">
-                    <div class="taglocationdiv mt-2">
-                      <div class="taglocation2">{{address.tagLocation}}</div>
-                      <div class="completeAdd">{{address.location}}</div>
-                      <button class="btn btn-danger mt-3" (click)="toggleAddressSelected(address,i)">DELIVER HERE</button>
-                      <div *ngIf="serviceNotAvailable  && selectedAddressIndex == i">No service at this location</div>
+                <div class="row">
+                  <ng-container *ngIf="!toggleSelected">
+                    <div class="col-6 mt-4" *ngFor="let address of userProfile.addressList; let i = index">
+                      <div class="taglocationdiv mt-2">
+                        <div class="taglocation2">{{address.tagLocation}}</div>
+                        <div class="completeAdd">{{address.location}}</div>
+                        <button class="btn btn-danger mt-3" (click)="toggleAddressSelected(address,i)">DELIVER HERE</button>
+                        <div *ngIf="serviceNotAvailable  && selectedAddressIndex == i">No service at this location</div>
+                      </div>
                     </div>
-                  </div>
-                  <div class="col-6 mt-4">
-                    <div class="taglocationdiv">
-                      <div class="taglocation2" (click)="changeLocation()">Add new address</div>
-                      <div class="completeAdd">{{currentLocation}}</div>
-                      <button class="btn btn-outline-danger mt-3" (click)="toggleMap()" data-bs-toggle="offcanvas"
-                        data-bs-target="#addAddress">ADD NEW</button>
+                    <div class="col-6 mt-4">
+                      <div class="taglocationdiv">
+                        <div class="taglocation2" (click)="changeLocation()">Add new address</div>
+                        <div class="completeAdd">{{currentLocation}}</div>
+                        <button class="btn btn-outline-danger mt-3" data-bs-toggle="offcanvas"
+                          data-bs-target="#location">ADD NEW</button>
+                      </div>
                     </div>
-                  </div>
-                </ng-container>
-                <div class="col-8 mb-2 mt-3" *ngIf="toggleSelected">
-                  <div class="taglocationdiv">
-                    <div class="taglocation2">{{addressSelected.tagLocation}}</div>
-                    <div class="completeAdd">{{addressSelected.location}}</div>
-                    <!-- <button class="btn btn-outline-danger mt-3">Add New</button> -->
-                  </div>
+                  </ng-container>
+                  <ng-container *ngIf="toggleSelected">
+                    <div class="col-8 mb-2 mt-3">
+                      <div class="taglocationdiv">
+                        <div class="taglocation2">{{addressSelected?.tagLocation ? addressSelected?.tagLocation : 'home'}}</div>
+                        <div class="completeAdd">{{addressSelected?.location ? addressSelected?.location : addressSelected.address}}</div>
+                        <!-- <button class="btn btn-outline-danger mt-3">Add New</button> -->
+                      </div>
+                    </div>
+                    <div class="col-6 mt-5 payment" *ngIf="!saveCurrentLocation">
+                      <button class="btn btn-danger mt-4" (click)="toggleAddressSelected(null)">SELECT ADDRESS</button>
+                    </div>
+                    <div class="col-6 mt-5 payment" *ngIf="!saveCurrentLocation">
+                      <button class="btn btn-danger mt-4" data-bs-toggle="offcanvas" data-bs-target="#location"
+                        >ADD ADDRESS</button>
+                    </div>
+                    <div class="col-12 mt-5 payment" *ngIf="saveCurrentLocation">
+                      <div class="cartGrayHead">Choose payment method</div>
+                      <button class="btn btn-danger mt-4" (click)="checkUserProfile()">PROCEED TO PAY</button>
+                    </div>
+                  </ng-container>
                 </div>
-                <div class="col-12 mt-5 payment" *ngIf="toggleSelected">
-                  <div class="cartGrayHead">Choose payment method</div>
-                  <button class="btn btn-danger mt-4" (click)="checkUserProfile()">PROCEED TO PAY</button>
+              </ng-container>
+              <ng-container *ngIf="!userProfile">
+                <div class="col-12 mt-5 payment">
+                  <div class="cartGrayHead">Delivery address</div>
+                  <button class="btn btn-danger mt-4" data-bs-toggle="offcanvas" data-bs-target="#login">LOGIN</button>
                 </div>
-              </div>
+              </ng-container>
             </div>
             <div class="col-4 right-section">
               <div *ngIf="cartObj.orderType !== 'subscription'">
@@ -161,14 +178,15 @@
                   </div>
                 </div>
               </div>
-  
+
               <div *ngIf="cartObj.orderType === 'subscription'">
                 <div class="row mealrow">
                   <div (click)="mealTimeSelected('lunchSubscription')" class="col-6 center">
                     <div class="mealCapsule" [ngClass]="{'selectedmeal': subscriptionObj.lunchSubscription}">Lunch</div>
                   </div>
                   <div (click)="mealTimeSelected('dinnerSubscription')" class="col-6 center">
-                    <div class="mealCapsule" [ngClass]="{'selectedmeal': subscriptionObj.dinnerSubscription}">Dinner</div>
+                    <div class="mealCapsule" [ngClass]="{'selectedmeal': subscriptionObj.dinnerSubscription}">Dinner
+                    </div>
                   </div>
                 </div>
                 <div class="bgBottompadding3">
@@ -185,9 +203,9 @@
                     <div class="cartGrayHead">Pick Subscription Date</div>
                     <div>
                       <div>
-                        <mat-form-field>
+                        <mat-form-field (click)="picker.open()">
                           <mat-label>Enter Date</mat-label>
-                          <input style="visibility:hidden;" matInput [matDatepicker]="picker" [min]="allowedMinDate"
+                          <input readonly matInput [matDatepicker]="picker" [min]="allowedMinDate"
                             [max]="allowedMaxDateSub" (dateChange)="subOrderDateChanged($event.value)">
                           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                           <mat-datepicker #picker></mat-datepicker>
@@ -211,9 +229,9 @@
               </div>
               <div *ngIf="cartObj.orderType === 'advance'">
                 <div class="cartGrayHead">Date Slot</div>
-                <mat-form-field>
+                <mat-form-field (click)="picker.open()">
                   <mat-label>Select Date Slot</mat-label>
-                  <input [disabled]="notInTimeSlot" matInput [matDatepicker]="picker" [min]="allowedMinDate"
+                  <input readonly [disabled]="notInTimeSlot" matInput [matDatepicker]="picker" [min]="allowedMinDate"
                     [max]="allowedMaxDate" (dateChange)="advOrderDateChanged($event.value)">
                   <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
@@ -222,12 +240,13 @@
                   <div class="cartGrayHead">Time Slot</div>
                   <div class="dateslottext">
                     <div ngbDropdown class="time-slot-dropdown d-inline-block">
-                      <button type="button" [disabled]="notInTimeSlot" class="time-slot-dropdown btn btn-outline-danger" id="dropdownBasic1"
-                        ngbDropdownToggle>
+                      <button type="button" [disabled]="notInTimeSlot" class="time-slot-dropdown btn btn-outline-danger"
+                        id="dropdownBasic1" ngbDropdownToggle>
                         {{advanceTimeSlotSelected ? advanceTimeSlotSelected : 'Delivery Slot'}}
                       </button>
                       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                        <button ngbDropdownItem [value]="i+1" (click)="applyExtraDiscount(advSlotArray,i);showAdvanceTimeSlot(slot)"
+                        <button ngbDropdownItem [value]="i+1"
+                          (click)="applyExtraDiscount(advSlotArray,i);showAdvanceTimeSlot(slot)"
                           *ngFor="let slot of advSlotArray; let i = index"><span class="happyHours" style="color:red"
                             *ngIf="i>=2">Extra 5%
                             Discount</span>
@@ -263,7 +282,8 @@
                     {{allTimeSlotSelected ? allTimeSlotSelected : 'Delivery Slot'}}
                   </button>
                   <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                    <button ngbDropdownItem [value]="i+1" (click)="applyExtraDiscount(allDaySlotArray,i);showAllDayTimeSlot(slot)"
+                    <button ngbDropdownItem [value]="i+1"
+                      (click)="applyExtraDiscount(allDaySlotArray,i);showAllDayTimeSlot(slot)"
                       *ngFor="let slot of allDaySlotArray; let i = index"><span class="happyHours" style="color:red"
                         *ngIf="i>=2">Extra 5%
                         Discount</span>
@@ -280,7 +300,8 @@
                 <div class="right remove" (click)="removeCoupon(true)">REMOVE</div>
                 <div>{{couponCode}} applied</div>
               </div>
-              <div class="bgTopDownpadding2" *ngIf="mealaweWalletPoinstAvailable && cartObj.orderType !== 'subscription'">
+              <div class="bgTopDownpadding2"
+                *ngIf="mealaweWalletPoinstAvailable && cartObj.orderType !== 'subscription'">
                 <div class="checkbox" (click)="mealaweWalletApplied()" [ngClass]="{selected: applyMealaweWalletPoints}">
                   <div class="inline-table">
                     <input type="checkbox" class="checkboxStyle" [(ngModel)]="applyMealaweWalletPoints"
@@ -306,7 +327,7 @@
                   </div>
                 </label>
               </div>
-  
+
               <div *ngIf="cartObj.orderType !== 'subscription'">
                 <div class="bgTopDownpadding2 mt-1">
                   <div class="bilingDiv">
@@ -409,7 +430,7 @@
                         </div>
                       </div>
                     </div>
-  
+
                     <div class="header5 grey receipt-parent discount" *ngIf="discount">
                       <div class="left-div">Disount</div>
                       <div class="right-div grey">(-)&#8377; {{discount}}</div>
@@ -510,19 +531,17 @@
                     </div>
                   </div>
                 </div>
-  
+
               </div>
             </div>
           </div>
         </div>
-        <div class="delivery-location">
+        <!-- <div class="delivery-location">
           <div class="offcanvas offcanvas-start" tabindex="-1" id="addAddress" aria-labelledby="offcanvasExampleLabel">
             <button type="button" style="display:none;" #canvasAddress class="btn-close text-reset mt-3"
               data-bs-dismiss="offcanvas" aria-label="Close"></button>
             <div class="offcanvas-div">
               <div class="offcanvas-body">
-                <!-- <div class="container" *ngIf="!showMap"> -->
-                <!-- <div class="select-address" *ngIf="showMap"> -->
                 <div class="select-address">
                   <button type="button" style="display:none;" class="btn-close text-reset" #mapCanvas
                     data-bs-dismiss="offcanvas"></button>
@@ -532,7 +551,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

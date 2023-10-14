@@ -19,6 +19,7 @@ export class MyPastOrderComponent implements OnInit {
   pageNumber = 1;
   paginationOver = false;
   order: any;
+  showOrders: boolean  = false;
 
   constructor(private localStorageService: LocalStorageService, private apiMainService:ApiMainService) { }
 

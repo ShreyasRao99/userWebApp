@@ -28,6 +28,9 @@ const routes: Routes = [
     path: 'subscription', loadChildren: () => import('./subscription/subscription.module').then(m => m.SubscriptionModule)
   },
   {
+    path: 'bulk-order', loadChildren: () => import('./bulk-order/bulk-order.module').then(m => m.BulkOrderModule)
+  },
+  {
     path: 'kitchenInside/:orderType/:kitchenId', loadChildren: () => import('./kitchen-inside/kitchen-inside.module').then(m => m.KitchenInsideModule)
   },
   {

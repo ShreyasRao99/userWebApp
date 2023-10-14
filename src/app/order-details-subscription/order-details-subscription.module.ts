@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OrderDetailsSubscriptionComponent } from './order-details-subscription.component';
 import { CustomPipeModule } from 'src/pipes/pipe.module';
+import { OrderDetailsModule } from '../order-details/order-details.module';
 
 
 
@@ -11,7 +12,8 @@ import { CustomPipeModule } from 'src/pipes/pipe.module';
   ],
   imports: [
     CommonModule,
-    CustomPipeModule
+    CustomPipeModule,
+    OrderDetailsModule
   ],
   exports: [
     OrderDetailsSubscriptionComponent

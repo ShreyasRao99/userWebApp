@@ -1,0 +1,85 @@
+@import "/src/styles.scss";
+
+.profileIcon{
+    font-size: 127px;
+    color: #61525296;
+    border-radius: 50%;
+    width: 140px;
+    height: 140px;
+}
+.rowStyle{
+    border-bottom: 1px solid #80808030;
+    padding: 10px 20px;
+}
+.preferenceRowStyle{
+    border-bottom: 0px solid #80808030 !important;
+}
+.valueStyle{
+    padding: 5px 10px 0px 10px;
+    ion-input{
+        --padding-top: 0px;
+        --padding-bottom: 0px;
+    }
+}
+.edit{
+    font-weight: bold;
+    text-align:end;
+    // position: absolute;
+    right: 52px;
+    font-size: 14px;
+    color: $secondary-color3;
+}
+.changePhoto{
+    font-weight: bold;
+    position: absolute;
+    right: 20px;
+    font-size: 14px;
+    color: #15a292;
+}
+.cuisineImg{
+    height: 90px;
+    width: 90px;
+}
+.cuisinetickposition{
+    // position: absolute;
+    // top: 37px;
+    // left: 37px;
+    bottom:248px;
+    left:410px;
+    background: url('~/src/assets/images/tick.svg');
+    background-size: cover !important;;
+    background-repeat: no-repeat !important;
+    background-position:center;
+    height: 30px;
+    width: 30px;
+}
+.fileInput{
+    visibility: hidden;
+}
+.btnDesgin{
+    padding: 5px;
+    color: white;
+    border:none;
+    // border-radius: 20px;
+    width: 80px;
+}
+.formBtnSection{
+    margin: 0 1%;
+    // width: 50%;
+    // text-align: center;
+}
+.cancel{
+ background: $primary-color2;
+}
+.save{
+    background: $secondary-color3;
+}
+.validator-error{
+    color: $primary-color2;
+    font-size: 10px;
+    padding-left: 20px;
+}
+
+.checked-cuisine-div{
+
+}

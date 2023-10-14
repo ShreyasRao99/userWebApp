@@ -4,8 +4,10 @@
         <span class="company-name inline"> Mealawe</span>
     </a>
     <span role="button" #canvasAddress data-bs-toggle="offcanvas" data-bs-target="#location" class="location"
-        (click)="callFindMyAddress()">{{currentAddress.location ? currentAddress.location :
+        (click)="callFindMyAddress()">{{currentAddress?.location ? currentAddress?.location :
         currentAddress.address}}</span>
+    <i class="mt-1 pointer bi bi-chevron-down" data-bs-toggle="offcanvas" data-bs-target="#location"
+        (click)="callFindMyAddress()"></i>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -22,12 +24,17 @@
                 <a class="nav-link" routerLink="/subscription">MealPlan</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"
-                    (click)="userProfile ? goToMyAccount():''">{{userProfile?.userName?userProfile?.userName:'Sign
-                    In'}}</a>
+                <a *ngIf="userProfile" class="nav-link" (click)="goToMyAccount()">{{userProfile.userName}} </a>
+                <a *ngIf="!userProfile" class="nav-link" data-bs-toggle="offcanvas" data-bs-target="#login">Sign In</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/bulk-order">BulkOrder</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" routerLink="/cart">Cart</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" (click)="logOut()">Log Out</a>
             </li>
         </ul>
     </div>
@@ -89,7 +96,41 @@
                     <button type="button" style="display:none;" class="btn-close text-reset" #mapCanvas
                         data-bs-dismiss="offcanvas"></button>
                     <app-set-delivery-location [getCurrentLocation]="showCurrentLocation"
-                        (closeOffCanvas)="toggleCanvas()"></app-set-delivery-location>
+                        (closeOffCanvas)="toggleCanvas()" (toggleMap)="toggleMap()"></app-set-delivery-location>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="offcanvas offcanvas-end login" tabindex="-1" id="login" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-body">
+        <button type="button" #loginCanvas class="btn-close text-reset" data-bs-dismiss="offcanvas"
+            aria-label="Close"></button>
+        <h5 class="offcanvas-title header1 mt-3" id="offcanvasExampleLabel">Login</h5>
+        <div>or <span style="color:#e62841;">create an account</span></div>
+        <div class="row mt-5">
+            <div class="col-8">
+                <form [formGroup]="LoginForm" *ngIf="!showOTPscreen">
+                    <div class="form-group">
+                        <input type="number" class="form-control shadow-none" formControlName="phoneNo"
+                            id="formGroupExampleInput" placeholder="Phone Number">
+                        <div *ngIf="LoginForm.controls.phoneNo.invalid && LoginForm.controls.phoneNo.dirty">
+                            Please enter a valid phone number
+                        </div>
+                        <button class="btn btn-primary fullwidth my-4 py-3 yesbtn" type="button"
+                            [disabled]="LoginForm.invalid" (click)="registerMobileNumer()">CONFIRM</button>
+                    </div>
+                </form>
+                <div *ngIf="showOTPscreen">
+                    <h2 class="mt-3">Verify the OTP</h2>
+                    <h3 class="mt-3">Sent to</h3>
+                    <p class="mt-3">+91 {{phoneNo}}</p>
+                    <div class="mt-3">
+                        <ng-otp-input (onInputChange)="onOtpChange($event)"
+                            [config]="{length:6,allowNumbersOnly:true}"></ng-otp-input>
+                        <button class="btn btn-primary yesbtn mt-2" (click)="verifyOTP()"
+                            [disabled]="!enableVerfiy">Verify</button>
+                    </div>
                 </div>
             </div>
         </div>

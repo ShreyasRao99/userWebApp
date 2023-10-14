@@ -1,6 +1,6 @@
 <div class="container-fluid">
-  <div class="row h-80">
-    <div class="col-6 top-section">
+  <div class="row">
+    <div class="col-7 top-section">
       <div class="row">
         <div class="col-6 logo">
           <img class="img-fluid" src="assets/images/mealawe.jpeg"><b> Mealawe</b>
@@ -19,19 +19,15 @@
         <div class="col-12">
           <p class="first-line">Cooking gone wrong?</p>
           <p class="second-line mt-3">Order food from favourite restaurants near you.</p>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
           <form class="search-form mt-3">
             <div class="input-group mb-3">
               <input type="text" class="form-control shadow-none" [id]="mapId" placeholder="Search Your Location"
                 aria-label="Recipient's username" aria-describedby="basic-addon2">
               <div class="input-group-append">
-                <button class="btn btn-primary yesbtn" type="button">FIND FOOD</button>
+                <button class="btn btn-primary yesbtn" type="button" (click)="loadSelectedLocation(null)">FIND FOOD</button>
               </div>
             </div>
-            <button type="button" class="btn btn-danger btn-sm">Locate Me</button>
+            <button type="button" class="btn btn-danger btn-sm" (click)="loadSelectedLocation(null)">Locate Me</button>
           </form>
           <p class="mt-4">POPULAR CITIES IN INDIA</p>
           <span class="bold">Ahmedabad Bangalore Chennai Kolkata Mumbai Pune & more.</span>
@@ -39,8 +35,7 @@
       </div>
     </div>
 
-    <div class="col-6 top-section-img">
-      <img class="img-fluid" src="assets/images/image_1.jpeg">
+    <div class="col-5 top-section-img">
     </div>
   </div>
 

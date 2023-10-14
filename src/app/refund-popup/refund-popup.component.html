@@ -1,0 +1,38 @@
+<div>
+    <div>
+        <i class="bi bi-x" (click)="close()"></i>
+        <div class="header3 center">Refund Details</div>
+    </div>
+    <div class="modalCntrlmodalscrollbody modalCntrlparentHeight">
+        <div class="bgTopDownpadding2">
+            <div>
+                <div class="row flex-row header5 grey">
+                    <div class="col-6">Total Amount Paid</div>
+                    <div class="col-6 alignRight grey">&#8377; {{order.amount}}</div>
+                </div>
+                <div class="row flex-row header5 grey" *ngIf="moneyWalletPointsUsed">
+                    <div class="col-6">Money wallet Points</div>
+                    <div class="col-6 alignRight">&#8377; {{moneyWalletPointsUsed}}</div>
+                </div>
+                <div class="row flex-row header5 grey" *ngIf="mealaweWalletPointsUsed">
+                    <div class="col-6">Cashback Points</div>
+                    <div class="col-6 alignRight grey">&#8377; {{mealaweWalletPointsUsed}}</div>
+                </div>
+                <div class="row flex-row header5 refundItemRow grey">
+                    <div class="col-6">Cancellation Charges</div>
+                    <div class="col-6 alignRight grey">- &#8377; {{order.amount + moneyWalletPointsUsed +
+                        mealaweWalletPointsUsed - refundAmt}}</div>
+                </div>
+                <div class="row flex-row header4">
+                    <div class="col-6">TO REFUND</div>
+                    <div class="col-6 alignRight grey">&#8377; {{refundAmt}}</div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Example textarea</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="refundbtn" (click)="refund()">Refund &#8377; {{refundAmt}}</div>
+    </div>
+</div>

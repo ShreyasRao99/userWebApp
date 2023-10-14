@@ -1,5 +1,5 @@
 <div>
-    <div class="headerBG">
+    <div>
         <span (click)="goback()">
             <!-- <div class="inline-table">
                 <ion-icon class="backIcon" name="arrow-back-outline"></ion-icon>
@@ -10,7 +10,7 @@
     <div class="pageContent">
         <div class="listOrderStyle" *ngFor="let order of bulkOrderList">
             <div class="row">
-                <div class="col-12">
+                <div class="info-div col-12">
                     <div class="header5 grey right bgsidepadding2">{{order.orderDate | date: 'mediumDate'}}
                     </div>
                     <div class="header5 bold">Order No: {{order.orderNo}}</div>

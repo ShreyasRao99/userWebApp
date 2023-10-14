@@ -3,7 +3,7 @@
 }
 
 .top-section{
-    padding: 80px 0px 0px 150px;
+    padding: 5% 0% 8% 10%;
     .row{
         .btn-light {
             padding: 6px 22px;
@@ -32,7 +32,8 @@
 }
 
 .top-section-img{
-    max-height: 80%;
+    background-image: url('/assets/images/image_1.jpeg');
+    background-size: cover;
     padding:0 !important;
 }
 
@@ -88,7 +89,7 @@
 }
 
 .mid-section{
-    height:200px;
+    height:400px;
     color:white;
     background-color:#111111
 }

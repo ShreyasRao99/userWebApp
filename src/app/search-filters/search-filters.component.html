@@ -1,0 +1,43 @@
+<div class="bgpadding5 popoverBG">
+    <div class="bgTopDownpadding2">
+        <div class='grey header5 bold'>Spice Level</div>
+        <div class="spicyLebel0 inline" [ngClass]="{selected: filterObj.level0}" (click)="filterObj.level0 = !filterObj.level0"></div>
+        <div class="spicyLebel1 inline" [ngClass]="{selected: filterObj.level1}" (click)="filterObj.level1 = !filterObj.level1"></div>
+        <div class="spicyLebel2 inline" [ngClass]="{selected: filterObj.level2}" (click)="filterObj.level2 = !filterObj.level2"></div>
+        <div class="spicyLebel3 inline" [ngClass]="{selected: filterObj.level3}" (click)="filterObj.level3 = !filterObj.level3"></div>
+    </div>
+    <div class="bgTopDownpadding3">
+        <div class='grey header5 bold'>Preferences</div>
+        <div>
+            <div class="inline filterChoice" [ngClass]="{selectedfilter: filterObj.Veg}" 
+            (click)="filterObj.Veg = !filterObj.Veg">Veg</div>
+            <div class="inline filterChoice" [ngClass]="{selectedfilter: filterObj.NonVeg}" 
+            (click)="filterObj.NonVeg = !filterObj.NonVeg">NonVeg</div>
+            <div class="inline filterChoice" [ngClass]="{selectedfilter: filterObj.Jain}" 
+            (click)="filterObj.Jain = !filterObj.Jain">Jain</div>
+        </div>
+    </div>
+    <div class="bgTopDownpadding3">
+        <div class='grey header5 bold'>Others</div>
+        <div>
+            <div class="inline filterChoice" [ngClass]="{'selectedfilter': filterObj.rated4plus}" 
+            (click)="filterObj.rated4plus = !filterObj.rated4plus">Rated 4+</div>
+            <!-- <div class="inline filterChoice" [ngClass]="{'selectedfilter': filterObj.bestseller}" 
+            (click)="filterObj.bestseller = !filterObj.bestseller">bestseller</div>   -->
+        </div>
+    </div>
+    <div class="bgTopDownpadding3">
+        <div class='grey header5 bold'>Price</div>
+        <div>
+            <div class="inline filterChoice" [ngClass]="{'selectedfilter': filterObj.lowToHigh}" 
+            (click)="filterObj.lowToHigh = !filterObj.lowToHigh; filterObj.highToLow = false">Low-High</div>
+            <div class="inline filterChoice" [ngClass]="{'selectedfilter': filterObj.highToLow}" 
+            (click)="filterObj.highToLow = !filterObj.highToLow ; filterObj.lowToHigh = false">High-Low</div>
+        </div>
+    </div>
+    <div class="btnPadding center">  
+        <button (click)="dismiss()" class="savebutton">Save</button>
+        <button (click)="clear()" class="clearbutton">Clear</button>
+    </div>
+</div>    
+

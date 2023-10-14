@@ -26,6 +26,8 @@ export class OrderDetailsSubscriptionComponent implements OnInit {
   statusHistoryList: any[] = [];
   lastSubscriptionDate: any;
   mealPerdayCount = 1;
+  showOrdersComponent: boolean = false;
+  orderProps: any;
 
   constructor(private sendDataToComponent:SendDataToComponent, private chgDetRef: ChangeDetectorRef, private apiMainService:ApiMainService) { }
 
@@ -157,6 +159,8 @@ export class OrderDetailsSubscriptionComponent implements OnInit {
 
   async viewOrder(foodOrderId: any) {
     if (foodOrderId) {
+      this.showOrdersComponent = true;
+      this.orderProps = { order: { _id: foodOrderId, lastSubscriptionDate: this.lastSubscriptionDate } }
       // try {
       //   const modal = await this.modalController.create({
       //     component: OrderDetailsComponent,
@@ -173,6 +177,10 @@ export class OrderDetailsSubscriptionComponent implements OnInit {
       //   console.log('')
       // }
     }
+  }
+
+  goBack(){
+    this.showOrdersComponent = !this.showOrdersComponent
   }
 
   ngOnDestroy() {

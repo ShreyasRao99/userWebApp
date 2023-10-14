@@ -47,16 +47,6 @@ export class HomeComponent implements OnInit {
         this.checkServicability()
       }
     })
-    this.sendDataToComponent.subscribe('ADDRESS_FROM_HEADER',(address)=>{
-      if (address) {
-        (address)
-        this.showMap = false;
-        // this.toggleCanvas()
-        this.utilityService.configureCurrentLocation(address)
-        this.currentAddress = address
-        this.checkServicability()
-      }
-    })
   }
   
   async checkServicability() {

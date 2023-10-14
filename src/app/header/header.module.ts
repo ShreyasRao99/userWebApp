@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { SetDeliveryLocationModule } from '../set-delivery-location/set-delivery-location.module';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgOtpInputModule } from 'ng-otp-input';
 
 
 
@@ -13,7 +15,9 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     SetDeliveryLocationModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule,
+    NgOtpInputModule
   ],
   exports: [
     HeaderComponent

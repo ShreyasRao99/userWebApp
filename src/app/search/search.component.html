@@ -1,7 +1,8 @@
-<div class="container-fluid">
+<app-header></app-header>
+<!-- <div class="container-fluid mt-5">
     <div class="row">
-        <div class="col-12">
-            <form>
+        <div class="col-lg-8 col-sm-12 offset-lg-2">
+            <form class="mb-4">
                 <div class="form-group">
                     <input type="text" class="form-control shadow-none" id="formGroupExampleInput"
                         placeholder="Search for restaurants and food">
@@ -10,4 +11,111 @@
             <app-regional-items></app-regional-items>
         </div>
     </div>
+</div> -->
+<div class="container-fluid mt-5">
+  <!-- <div class="headerMargin">
+      <img src="assets/regional/SearchHeader.png">
+    </div>
+     -->
+  <!-- <div class="regionalLabel" (click)="goback()"> 
+      <img src="assets/regional/arrow-white.svg" class="backarrow" > 
+    </div> -->
+  <!-- <div class="searchLabel">
+        <span class="header2 white">Let's find what<br>you're looking for</span>
+    </div>  -->
+  <!-- <div class="searchbg">
+      <ion-item class="searchIOnItem">
+        <ion-input (keyup.enter)="searchApiCall(searchText)" (ionChange)="filterlookupSearch($event)" 
+        class="inputStyle" [ngClass]="{searchIcon : !showGobutton}" type="text" autofocus="true" #searchInput 
+        placeholder="Search for Kitchen Name or Dish" [(ngModel)]="searchText"></ion-input>
+        <ion-icon *ngIf="showGobutton" class="apiSearchIcon" (click)="searchApiCall(searchText)"
+          name="arrow-forward" slot="end"></ion-icon>
+      </ion-item>
+      <ion-list class="userSearchLookup" *ngIf="lookSearchList.length > 0">
+        <ion-item class="black" *ngFor="let text of lookSearchList" button (click)="searchApiCall(text)">
+         <ion-label>{{text}}</ion-label>
+        </ion-item>
+       </ion-list>
+    </div> -->
+  <div class="row">
+    <div class="col-lg-8 col-sm-12 offset-lg-2">
+      <form [formGroup]="form">
+        <div class="form-group">
+          <input type="text" (keyup.enter)="searchApiCall(searchText)" formControlName="search" name="search"
+            [(ngModel)]="searchText" class="form-control shadow-none" id="formGroupExampleInput"
+            placeholder="Search for restaurants and food">
+        </div>
+      </form>
+      <div class="userSearchLookup" *ngIf="lookSearchList.length > 0">
+        <div class="black search-list" *ngFor="let text of lookSearchList" (click)="searchApiCall(text)">
+          <label>{{text}}</label>
+        </div>
+      </div>
+      <!-- <app-regional-items></app-regional-items> -->
+      <div class="bgpadding3" *ngIf="dishSearchResult.length > 0 || kitchenSearchResult.length > 0">
+        <div class="fullDiv">
+          <div class="leftDiv inline">
+            <div class="inline searchChoice" [ngClass]="{selected: selectedSearch==='kitchen'}"
+              *ngIf="kitchenSearchResult.length > 0" (click)="setSelectedSearch('kitchen')">Kitchen</div>
+            <div class="inline searchChoice" [ngClass]="{selected: selectedSearch==='dish'}"
+              *ngIf="dishSearchResult.length > 0" (click)="setSelectedSearch('dish')">Dishes</div>
+          </div>
+          <div class="rightDiv inline">
+            <div>
+              <!-- <div class="selected filterStyle inline" (click)="showFilters($event)">
+                            <span *ngIf="filterApplied" class="filterPresent">
+                              <ion-icon name="checkmark-outline"></ion-icon>
+                          </span>
+                          <span>SORT / FILTER</span>                                            
+                      </div>                     -->
+              <div class="orderCapsule filterpopupdiv" (click)="showFilters()">
+                <span *ngIf="filterApplied" class="filterPresent inline">
+                  <!-- <ion-icon name="checkmark-outline"></ion-icon> -->
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="selectedSearch==='kitchen'" class="bgTopDownpadding5">
+          <app-kitchen-card *ngFor="let kitchen of filteredKitchenSearchResult  | sort : 'distance' "
+            [kitchen]="kitchen" [disableFav]="true"></app-kitchen-card>
+          <div *ngIf="filteredKitchenSearchResult.length === 0" class="header3 bold grey center">No result found based
+            on your filter</div>
+        </div>
+        <div *ngIf="selectedSearch==='dish'" class="bgTopDownpadding5">
+          <div *ngFor="let dish of filteredDishSearchResult  | sort : 'distance' ">
+            <app-item-card [item]="dish" [kitchenName]="dish.kitchenName" [kitchenId]="dish.kitchenId"
+              [orderType]="dish.orderType" [screenFrom]="'searchPage'"
+              (click)="goTokitchen(dish.kitchenId, dish.orderType, dish.itemName, dish.serveDaily)"></app-item-card>
+          </div>
+          <div *ngIf="filteredDishSearchResult.length === 0" class="header3 bold grey center">No result found based on
+            your filter</div>
+        </div>
+        <div #userSearchEndDiv></div>
+        <div *ngIf="showloader">
+          <!-- <app-loader-card [type]='1' *ngIf="selectedSearch==='kitchen'"></app-loader-card>
+                  <app-loader-card [type]='2' *ngIf="selectedSearch==='dish'"></app-loader-card> -->
+        </div>
+      </div>
+
+      <span>
+        <div class="noresult bgpadding5"
+          *ngIf="dishSearchResult.length === 0 && kitchenSearchResult.length === 0 && searchText && searchCompleted">
+          <div class="center header1 primary2 bold mb-2">Oops!</div>
+          <div class="center header5 grey">We couldn't find meals based <br> on your search. Try Again!</div>
+        </div>
+        <div class="bgpadding4"
+          *ngIf="dishSearchResult.length === 0 && kitchenSearchResult.length === 0 && recentSearches.length > 0">
+          <div class="header3 bold">Recent Searches </div>
+          <div *ngFor="let recent of recentSearches" class="recentSearch grey mt-2"
+            (click)="searchApiCall(recent, true)">{{recent}}</div>
+        </div>
+        <app-regional-items *ngIf="!searchText"></app-regional-items>
+      </span>
+    </div>
+  </div>
 </div>
+<ng-template #filterModal let-modal>
+  <app-search-filters [props]="filterProps" (filters)="checkFilters($event)"></app-search-filters>
+</ng-template>

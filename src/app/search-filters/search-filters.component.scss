@@ -1,0 +1,86 @@
+@import "/src/styles.scss";
+
+.popoverBG{
+    background: white;
+}
+.filterChoice{
+    padding: 2px 5px;
+    border-radius: 9px;
+    margin: 0px 2px;
+    border: 1px solid #fe8e9c;
+    color: #fe8e9c;
+    font-size: 12px;
+}
+.selectedfilter{
+    background: $primary-color3;
+    color: white;
+}
+.savebutton{
+    padding: 8px 20px;
+    border-radius: 9px;
+    font-size: 16px;
+    font-weight: bold;
+    background: $secondary-color3;
+    color: white;
+}
+.clearbutton{
+    padding: 8px 20px;
+    border-radius: 9px;
+    font-size: 16px;
+    font-weight: bold;
+    background: $primary-color1;
+    color: white;
+    margin-left: 10px;
+}
+.spicyLebel0{
+    background: url('~/src/assets/search/chili0.svg');
+    background-repeat: no-repeat !important;
+    background-size: 25px !important;
+    background-position: 0px 4px !important;
+    width: 25px;
+    height: 26px;  
+    margin-right: 10px;   
+    &.selected{
+        background: url('~/src/assets/search/chili0_selected.svg');
+    }
+}
+.spicyLebel1{
+    background: url('~/src/assets/search/chili1.svg');
+    background-repeat: no-repeat !important;
+    background-size: 25px !important;
+    background-position: 0px 4px !important;
+    width: 25px;
+    height: 26px;  
+    margin-right: 10px;  
+    &.selected{
+        background: url('~/src/assets/search/chili1_selected.svg');
+    }
+}
+.spicyLebel2{
+    background: url('~/src/assets/search/chili2.svg');
+    background-repeat: no-repeat !important;
+    background-size: 48px 26px !important;
+    background-position: 0px 3px !important;
+    width: 48px;
+    height: 27px;  
+    margin-right: 10px; 
+    &.selected{
+        background: url('~/src/assets/search/chili2_selected.svg');
+    }
+}
+.spicyLebel3{
+    background: url('~/src/assets/search/chili3.svg');
+    background-repeat: no-repeat !important;
+    background-size: 64px 23px !important;
+    background-position: 0px 7px !important;
+    width: 64px;
+    height: 30px;   
+    margin-right: 10px; 
+    &.selected{
+        background: url('~/src/assets/search/chili3_selected.svg');
+    }
+}
+.btnPadding{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
