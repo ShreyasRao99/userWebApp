@@ -162,6 +162,7 @@ export class CartComponent implements OnInit {
   selectedDates:any;
   allTimeSlotSelected!: string;
   advanceTimeSlotSelected!: string;
+  showCheckoutPage: boolean = false;
 
   constructor(private cartManagementService: CartManagementService, private datePipe:DatePipe, private toasterService: ToasterService, private alertModalService: AlertModalService, private chgDetRef: ChangeDetectorRef, private sendDataToComponent: SendDataToComponent, private userProfileService: UserProfileService, private localStorageService: LocalStorageService, private googleMapService: GoogleMapService, private confirmationModalService: ConfirmationModalService, private apiMainService: ApiMainService, private paymentGatewayService: PaymentGatewayService, private runtimeStorageService: RuntimeStorageService, private utilityService: UtilityService, private router: Router) {
     const currentDate = new Date();
@@ -922,25 +923,15 @@ export class CartComponent implements OnInit {
           orderType = orderInfo.orderType;
         }
         if (order && order.amount >= 0) {
-          if (this.useRazorpay) {
-            const checkoutDetails = await this.paymentGatewayService.startPaymentProcess(order);
-            if (checkoutDetails.amount > 0) {
-              order = checkoutDetails;
-              const res = await this.paymentGatewayService.payWithRazorpay(checkoutDetails, order);
-              resolve(res);
-            } else {
-              resolve(true);
-            }
-          } else {
-            const checkoutDetails = await this.paymentGatewayService.startPaytmPaymentProcess(order);
-            if (checkoutDetails.amount > 0) {
-              order = checkoutDetails;
-              const res = await this.paymentGatewayService.payPaytmGateway(checkoutDetails, order);
-              resolve(res);
-            } else {
-              resolve(true);
-            }
-          }
+          const checkoutDetails = await this.paymentGatewayService.startPaytmPaymentProcess(order);
+          if (checkoutDetails.amount > 0) {            
+            this.showCheckoutPage = true;
+            order = checkoutDetails;
+            const res = await this.paymentGatewayService.payPaytmGatewayWeb(checkoutDetails, order);
+            resolve(res);         
+          }else{
+            resolve(true);
+          }       
         }
       } catch (error) {
         reject(error);

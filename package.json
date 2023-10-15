@@ -30,6 +30,7 @@
     "google-places-web": "^2.0.1",
     "ng-otp-input": "^1.9.3",
     "ngx-multiple-dates": "^16.0.0",
+    "paytm-blink-checkout-angular": "^0.0.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
