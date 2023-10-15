@@ -11,11 +11,11 @@ export class MyAccountComponent implements OnInit {
   userProfile: any;
   linkList:any=[
     {label:'Orders',link:'orders'},
-    {label:'Favourites',link:'favourites'},
-    {label:'Payments',link:'payments'},
+    {label:'My Profile',link:'myProfile'},
+    {label:'Cashback',link:'cashback'},
     {label:'Addresses',link:'addresses'},
-    {label:'Settings',link:'settings'},
-    {label:'Checkout',link:'checkout'},
+    {label:'My Wallet',link:'my-wallet'},
+    {label:'Help',link:'my-help'},
   ]
 
   constructor(private localStorageService:LocalStorageService, private router:Router){}

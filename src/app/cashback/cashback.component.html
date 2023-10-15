@@ -1,0 +1,107 @@
+<div>
+    <div class="header">
+        <span (click)="goback()">
+            <div class="inline-table">
+                <!-- <ion-icon class="backIcon" name="arrow-back-outline"></ion-icon> -->
+            </div>
+            <div class="inline-table headerText">Cashback & FAQs</div>
+        </span>
+        <div class="tabButton">
+            <button class="unSelectedButton" [ngClass]="{selectedButton: selectedTab === 'cashback'}" type="button"
+                (click)="tabChange('cashback')">Cashback</button>
+            <button class="unSelectedButton" [ngClass]="{selectedButton: selectedTab === 'faq'}" type="button"
+                (click)="tabChange('faq')">FAQs</button>
+        </div>
+    </div>
+
+    <!-- Cashback Tab  -->
+    <div *ngIf="selectedTab === 'cashback'">
+        <div class="page">
+            <div class="center bgpadding4">
+                <img src="assets/images/Mealawe-cashback.svg">
+                <div>
+                    <h3 class="text1">You have</h3>
+                    <h3 class="text2">
+                        <b>{{wallet_balance}}</b> Active Mealawe Points
+                    </h3>
+                </div>
+            </div>
+            <div class="header3 bold withdrawalHistroy"
+                *ngIf="transactionHistoryList.length > 0">CashBack History</div>
+            <div *ngFor="let history of transactionHistoryList" class="gridPadding">
+                <div class="row historyDate">
+                    <div class="col-2" size="2">
+                        <div class="bold"> {{history.expiryOn | date:'LLL'}} </div>
+                        <div class="boldDate"> {{history.expiryOn | date:'dd'}}</div>
+                        <div class="bold"> {{history.expiryOn | date:'yyyy'}}</div>
+                    </div>
+                    <div class="col-7" size="7">
+                        <div class="historyTitle" [ngClass]="{cashbackexpired: history.status === 'Expired'}">{{history.title}}</div>
+                        <div class="historyRemark" *ngIf="history.status !== 'Expired'">{{history.remark}}</div>
+                        <div class="historyRemark" *ngIf="history.status === 'Expired'">Expired on {{history.expiryOn | date:'dd'}} {{history.expiryOn | date:'LLL'}}</div>
+                    </div>
+                    <div class="col-3" size="3">
+                        <div class="cashbackPoints" [ngClass]="{cashbackexpired: history.status === 'Expired'}">
+                            <img *ngIf="history.status !== 'Expired'" src="assets/icon/mealaweCoin.svg">
+                            <img *ngIf="history.status === 'Expired'" src="assets/icon/mealaweCoin_grey.svg">
+                            {{history.cashbackPoints}}
+                        </div>
+                        <div class="status" [ngClass]="{expiredText: history.status === 'Expired'}">{{history.status}}</div>                    
+                    </div>
+                </div>
+            </div>
+            <div #melaweHistoryListEndDiv>
+                <img *ngIf="showloader" class="listloader" src="assets/gif/loader.gif">
+            </div>
+        </div>
+
+        <!-- <ion-grid>
+            <ion-row>
+                <ion-col size="12">
+                    <div class="redeem" >
+                        <button class="redeemButton" type="button" (click)="goRedeem()">REDEEM NOW!!!</button>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid> -->
+        <div class="redeem">
+            <button class="redeemButton" type="button" (click)="goRedeem()">REDEEM NOW!!!</button>
+        </div>
+    </div>
+
+    <!-- FAQ's Tab  -->
+    <div *ngIf="selectedTab === 'faq'">
+        <div class="header3 bold faqlist">
+            <div class="lebaltxt">Frequently asked questions</div>
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item" *ngFor="let faq of faqList">
+                  <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#'+faq.id" aria-expanded="true" aria-controls="collapseOne">
+                        {{faq.question}}
+                    </button>
+                  </h2>
+                  <div [id]="faq.id" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      {{faq.answer}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <!-- <ion-accordion-group class="accordion" *ngFor="let faq of faqList">
+                <ion-accordion value="first">
+                    <ion-item slot="header" color="light" class="accordionitem">
+                        <div class="accordiantxt">{{faq.question}}</div>
+                    </ion-item>
+                    <div class="faqans" slot="content">
+                        {{faq.answer}}
+                        <div>
+                            <ul>
+                                <li *ngFor="let option of faq.listOptions" class="faqans">{{option}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </ion-accordion>
+            </ion-accordion-group> -->
+        </div>
+    </div>
+</div>

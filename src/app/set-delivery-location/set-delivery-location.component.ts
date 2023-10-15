@@ -5,6 +5,7 @@ import { LocalStorageService } from 'src/service/local-storage.service';
 import { GoogleStyle } from 'src/config/google.config';
 import { SendDataToComponent } from 'src/service/sendDataToComponent';
 import { ApiMainService } from 'src/service/apiService/api-main.service';
+import { UtilityService } from 'src/service/utility.service';
 
 @Component({
   selector: 'app-set-delivery-location',
@@ -16,9 +17,10 @@ export class SetDeliveryLocationComponent implements OnInit, OnChanges {
   @Input() getCurrentLocation: boolean = false;
   @Input() patchValue: any;
   @Output() closeOffCanvas = new EventEmitter<any>();
+  @Output() toggleMap = new EventEmitter<any>();
   serviceAvailable: boolean = true;
 
-  constructor(private localStorageService: LocalStorageService, private apiMainService: ApiMainService, private sendDataToComponent: SendDataToComponent, private chgDetRef: ChangeDetectorRef, private googleMapService: GoogleMapService, private geoLocationService: GeolocationService) {
+  constructor(private localStorageService: LocalStorageService, private utilityService: UtilityService, private apiMainService: ApiMainService, private sendDataToComponent: SendDataToComponent, private chgDetRef: ChangeDetectorRef, private googleMapService: GoogleMapService, private geoLocationService: GeolocationService) {
     this.mapid += Math.round(Math.random() * 1000);
   }
 
@@ -31,16 +33,16 @@ export class SetDeliveryLocationComponent implements OnInit, OnChanges {
   landmark: any;
   tagLocation = 'home';
 
-  ngOnChanges(changes: SimpleChanges){
+  ngOnChanges(changes: SimpleChanges) {
     console.log(changes)
     this.patchValue = changes['patchValue']?.currentValue
     this.address = changes['patchValue']?.currentValue.address
     this.landmark = changes['patchValue']?.currentValue.landmark;
-    if(changes['patchValue']?.currentValue){
+    if (changes['patchValue']?.currentValue) {
       this.loadCurrentSavedLocation()
     }
     // this.getCurrentLocation = changes['getCurrentLocation'].currentValue
-    
+
   }
 
   ngOnInit(): void {
@@ -160,6 +162,7 @@ export class SetDeliveryLocationComponent implements OnInit, OnChanges {
     if (address.lat && address.lng) {
       address.latlng = { lat: address.lat, lng: address.lng }
     }
+    console.log(address)
     this.selectedAddress = {
       tagLocation: address.tagLocation ? address.tagLocation : undefined,
       geolocation: address.geolocation ? address.geolocation : address.latlng,
@@ -175,13 +178,20 @@ export class SetDeliveryLocationComponent implements OnInit, OnChanges {
     if (this.serviceAvailable) {
       if (!skip) {
         this.addAddress()
-        this.sendDataToComponent.publish('ADDRESS_FROM_DELIVERY', this.selectedAddress)
+        this.addressChangeLogic()
+        return
       }
-      this.closeOffCanvas.emit(true) 
+      this.addressChangeLogic()
     }
     else {
       return;
     }
+  }
+
+  addressChangeLogic() {
+    this.sendDataToComponent.publish('ADDRESS_FROM_DELIVERY', this.selectedAddress)
+    this.utilityService.configureCurrentLocation(this.selectedAddress)
+    this.closeOffCanvas.emit(true)
   }
 
   toggleAdditionalDetails() {
@@ -230,6 +240,10 @@ export class SetDeliveryLocationComponent implements OnInit, OnChanges {
     } catch (error) {
 
     }
+  }
+
+  back() {
+    this.toggleMap.emit(true);
   }
 
 }

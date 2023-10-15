@@ -1,0 +1,90 @@
+<div>
+    <div class="headerBG">
+        <div class="inline-table headerText">My Profile</div>
+    </div>
+    <div class="pageContent">
+        <div class="center">
+            <div class="edit" (click)="editProfile()" *ngIf="!editModeOn">EDIT</div>
+            <!-- <div class="changePhoto" *ngIf="editModeOn">
+                <ion-label slot="end" for="fileInput" (click)="takePicture()">CHANGE PHOTO</ion-label>              
+            </div>
+            <img *ngIf="imageUrl" class="profileIcon"
+                [src]="imageUrl" >
+            <ion-icon *ngIf="!imageUrl" class="profileIcon" name="person-circle"></ion-icon> -->
+        </div>
+        <div>
+            <form [formGroup]="userProfileForm">
+                <div class="rowStyle">
+                    <div class="header4">Name <span
+                            *ngIf="!userProfileForm.controls['username']?.valid && userProfileForm.controls['username']?.dirty"
+                            class="validator-error">Please enter your valid name.</span></div>
+                    <div class="header5 grey valueStyle" *ngIf="!editModeOn">{{userProfile.userName || 'Please provide
+                        your name'}}</div>
+                    <div class="mb-3" *ngIf="editModeOn">
+                        <!-- <label for="userName" class="form-label">Email address</label> -->
+                        <input type="text" formControlName="userName" class="form-control" id="userName"
+                            placeholder="Enter your name">
+                    </div>
+                    <!-- <div class="header5 grey valueStyle" *ngIf="editModeOn">
+                        <ion-input formControlName="userName" placeholder="Enter your name"></ion-input>                        
+                    </div> -->
+                </div>
+                <div class="rowStyle" *ngIf="!editModeOn">
+                    <div class="header4">Phone No.</div>
+                    <div class="header5 grey valueStyle">+91-{{userProfile.phoneNo}}</div>
+                </div>
+                <div class="rowStyle">
+                    <div class="header4">Email <span
+                            *ngIf="!userProfileForm.controls['email']?.valid && userProfileForm.controls['email']?.dirty"
+                            class="validator-error">Please enter your valid email.</span></div>
+                    <div class="header5 grey valueStyle" *ngIf="!editModeOn">{{userProfile.email || 'Please provide your
+                        email'}}</div>
+                    <div class="mb-3" *ngIf="editModeOn">
+                        <!-- <label for="email" class="form-label">Email address</label> -->
+                        <input type="email" formControlName="email" class="form-control" id="email"
+                            placeholder="Enter your email">
+                    </div>
+                    <!-- <div class="header5 grey valueStyle" *ngIf="editModeOn">
+                        <ion-input formControlName="email" placeholder="Enter your email"></ion-input>
+                    </div> -->
+                </div>
+            </form>
+            <div class="rowStyle preferenceRowStyle">
+                <div class="header4">Preferences</div>
+                <div class="header5 grey valueStyle" *ngIf="!editModeOn">
+                    <div>
+                        <div class="row">
+                            <div class="col-3" *ngFor="let cuisine of slectedCuisineList">
+                                <img class="cuisineImg" [src]="cuisine.url">
+                                <div class="header5">{{cuisine.name}}</div>
+                                <div *ngIf="cuisine.checked" class="cuisinetickposition"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="header5 grey valueStyle" *ngIf="editModeOn">
+                    <div>
+                        <div class="row">
+                            <div class="col-3" *ngFor="let cuisine of slectedCuisineListEdit"
+                                (click)="cuisine.checked = !cuisine.checked">
+                                <img class="cuisineImg" [src]="cuisine.url">
+                                <div class="header5">{{cuisine.name}}</div>
+                                <div *ngIf="cuisine.checked" class="cuisinetickposition"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bgpadding2" *ngIf="editModeOn">
+                <div class="formBtnSection inline">
+                    <button (click)="cancelEdit()" class="btnDesgin cancel">Cancel</button>
+                </div>
+                <div class="formBtnSection inline">
+                    <button type="button" [disabled]="userProfileForm.status === 'INVALID'"
+                        [ngClass]="{disablebtn: userProfileForm.status === 'INVALID'}" (click)="saveProfile()"
+                        class="btnDesgin save">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

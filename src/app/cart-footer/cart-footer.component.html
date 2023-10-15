@@ -1,4 +1,4 @@
-<div class="container footerdesign" (click)="goToMainCart()" *ngIf="cartObj && cartObj.itemList && cartObj.itemList.length > 0">
+<div class="footerdesign" (click)="goToMainCart()" *ngIf="cartObj && cartObj.itemList && cartObj.itemList.length > 0">
     <div *ngIf="cartObj.orderType !== 'subscription' ">
         <div class="row flex-row">        
             <div class="col-6">
@@ -12,10 +12,10 @@
     </div>  
     <div *ngIf="cartObj.orderType === 'subscription' ">
         <div class="row flex-row">        
-            <div class="col-6 alignRight">
+            <div class="col-6">
                 <span class="header5">{{subscribeText}} | &#8377; {{getTotalSubscriptionPrice()}}</span>
             </div>
-            <div class="col-6">
+            <div class="col-6 alignRight">
                 <div class="cartIcon cartIconstyle">View Cart</div>
             </div>
         </div>

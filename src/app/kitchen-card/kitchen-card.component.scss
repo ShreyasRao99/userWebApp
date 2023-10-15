@@ -188,3 +188,20 @@ h6 {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+@media only screen and (max-width: 600px) {
+    .card{
+        display:flex;
+        flex-direction:row;
+        img{
+            height:110px !important;
+            width:125px !important;
+        }
+    }
+    .card-img-top{
+        width:40%;
+    }
+    .card-body{
+        width:60%
+    }
+  }

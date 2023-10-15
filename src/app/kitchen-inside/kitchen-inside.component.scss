@@ -3,9 +3,10 @@
         color: #5a5a5a;
         font-size: 13px;
     }
-    .kitchen-name{
-        font-size:19px;
-        margin-bottom:3%;
+
+    .kitchen-name {
+        font-size: 19px;
+        margin-bottom: 3%;
     }
 }
 
@@ -26,17 +27,19 @@
     padding: 8px 12px;
 }
 
-.togglediv{
+.togglediv {
     font-size: 12px;
     padding: 10px 5%;
-    .itemFilterdiv{
+
+    .itemFilterdiv {
         display: inline-block;
         border: 1px solid grey;
         padding: 2px 7px;
         margin-right: 8px;
         border-radius: 10px;
         color: grey;
-        .filterIcon{
+
+        .filterIcon {
             display: inline-block;
             position: relative;
             top: 1px;
@@ -47,41 +50,46 @@
             background-size: 5px !important;
             background-repeat: no-repeat !important;
         }
-        &.selected{
+
+        &.selected {
             background: #ff000033;
             border: 1px solid #ff000033;
             color: black;
         }
-        .crossIcon{
+
+        .crossIcon {
             display: none;
-            &.selectedIcon{
+
+            &.selectedIcon {
                 display: inline-block;
                 padding-left: 8px;
             }
         }
     }
 }
+
 .accordion-button:focus {
     box-shadow: none;
-    border-color: rgba(0,0,0,.125);
+    border-color: rgba(0, 0, 0, .125);
 }
 
 .accordion-button:not(.collapsed) {
     background-color: transparent !important;
     color: inherit;
-  }
+}
 
-button.accordion-button:focus{
+button.accordion-button:focus {
     box-shadow: inherit;
 }
 
-.floatingMenu{
+.floatingMenu {
     text-align: center;
-    position: sticky;
+    position: fixed;
     bottom: 5%;
     left: 45%;
     width: 70px;
-    button{
+
+    button {
         width: 145px;
         height: 40px;
         border-radius: 11%/50%;
@@ -91,6 +99,7 @@ button.accordion-button:focus{
         letter-spacing: 1px;
         box-shadow: 1px 1px 10px 2px #4a4545c2;
     }
+
     // position: fixed;
     // z-index: 11;
     // top: 80%;
@@ -102,49 +111,56 @@ button.accordion-button:focus{
     // color: white;
     // text-align: center;   
     // padding-top: 8px;
-    .menuIcon{
+    .menuIcon {
         font-size: 32px;
     }
-    .menuText{
+
+    .menuText {
         color: white;
         font-size: 12px;
     }
 }
 
-.positionBottom{
-    z-index:3;
-    left:392px;
+.positionBottom {
+    z-index: 3;
+    // left:392px;
+    // left:0;
     position: fixed;
     bottom: 0;
-    width: 735px;
+    width: 48.4% // width: 735px;
 }
 
 @import "/src/styles.scss";
 
-.kitchenHeader{
+.kitchenHeader {
     // background: linear-gradient($secondary-color1, $secondary-color3);
     padding-bottom: 15px;
 }
-.kitchenInfo{
-    padding: 45px 0px 0px 0px; 
+
+.kitchenInfo {
+    padding: 45px 0px 0px 0px;
     display: flex;
-    flex-flow: row;   
+    flex-flow: row;
 }
-.gobackDiv{
+
+.gobackDiv {
     width: 70%;
     padding-left: 20px;
 }
 
-.capsuleStyle{
+.capsuleStyle {
     padding-left: 25px;
 }
-.backarrow{
+
+.backarrow {
     width: 30px;
     margin-right: 15px;
 }
-.leftgap{
+
+.leftgap {
     padding-left: 34px;
 }
+
 // .ratingStar{
 //     font-size: 11px;
 //     height: 14px;
@@ -155,19 +171,21 @@ button.accordion-button:focus{
 //     border-radius: 6px;
 //     margin-right: 5px;
 // }
-.borderbottom{
+.borderbottom {
     border-bottom: 1px solid $secondary-color1;
     margin-bottom: 3px;
     padding-bottom: 3px;
     margin-left: 25px;
     margin-right: 25px;
 }
-.speacialInside{
+
+.speacialInside {
     font-size: 12px;
     border-bottom: 1px solid #e5e8eb;
     padding-bottom: 8px;
 }
-.capsule{
+
+.capsule {
     background: $secondary-color1;
     padding: 5px 15px;
     border-radius: 18px;
@@ -175,6 +193,7 @@ button.accordion-button:focus{
     display: inline-block;
     font-size: 12px;
 }
+
 // .shareIconDiv{
 //     width: 10%;
 // }
@@ -197,12 +216,13 @@ button.accordion-button:focus{
 //     }
 // }
 
-.selectedOrder{
-    background : #F85266;
+.selectedOrder {
+    background: #F85266;
     color: white !important;
     border: 1px solid #F85266 !important;
 }
-.orderCapsule{
+
+.orderCapsule {
     display: inline-block;
     border-radius: 17px;
     color: #808080;
@@ -212,6 +232,7 @@ button.accordion-button:focus{
     font-size: 12px;
     padding: 8px 12px;
 }
+
 // .threeCapsule{
 //     width: 28%;
 //     font-size: 3vw; 
@@ -220,7 +241,7 @@ button.accordion-button:focus{
 //     width: 43%;
 //     font-size: 3vw; 
 // }
-.lineStyle{
+.lineStyle {
     // background: linear-gradient(45deg, $primary-color1, transparent);
     width: 56%;
     height: 5px;
@@ -228,21 +249,24 @@ button.accordion-button:focus{
     margin-left: 5px;
     border-radius: 10px;
 }
-.paddingBottom{
+
+.paddingBottom {
     padding-bottom: 80px !important;
 }
+
 // .ratingPosition{
 //     position: relative;
 //     top: -1px;
 //     display: inline-block;
 //     right: -1px;
 // }
-.offer{ 
+.offer {
     display: flex;
     justify-content: flex-end;
     padding-right: 25px;
     margin-top: 5px;
-    div{
+
+    div {
         font-size: 12px;
         color: white;
         border: 1px solid white;
@@ -251,12 +275,14 @@ button.accordion-button:focus{
         border-radius: 6px;
     }
 }
-.subscriptionOffer{
+
+.subscriptionOffer {
     display: flex;
     // justify-content: flex-end;
     margin: 5px 10px;
     flex-direction: row;
-    .offerSub{
+
+    .offerSub {
         font-size: 12px;
         color: white;
         border: 1px solid white;
@@ -266,6 +292,7 @@ button.accordion-button:focus{
         width: 33%;
     }
 }
+
 // .positionBottom{
 //     position: absolute;
 //     bottom: 0;
@@ -314,13 +341,13 @@ button.accordion-button:focus{
 //         }
 //     }
 // }
-.mainSpeciality{
+.mainSpeciality {
     border: 1px solid white;
     padding-right: 2px;
     border-radius: 7px;
 }
 
-.subCapsule{
+.subCapsule {
     color: #15a292;
     padding: 5px 0px;
     border-radius: 18px;
@@ -332,7 +359,8 @@ button.accordion-button:focus{
     margin: 0px 3px;
     text-align: center;
 }
-.mealCapsule{
+
+.mealCapsule {
     color: #15a292;
     padding: 5px 0px;
     border-radius: 18px;
@@ -344,35 +372,39 @@ button.accordion-button:focus{
     margin: 0px 6px 5px 0px;
     text-align: center;
 }
-.daySelected{
+
+.daySelected {
     background: #15a292;
     color: white !important;
 }
-.sublebal{
+
+.sublebal {
     padding: 5px 3px 6px 14px;
 }
 
-.sharekitchen{
+.sharekitchen {
     font-size: 7vw;
     color: white;
 }
-.noKitchen{
+
+.noKitchen {
     padding: 50px;
     text-align: center;
     font-size: 20px;
     color: grey;
 }
-.noresult{
+
+.noresult {
     background: url('~/src/assets/search/noResults.svg');
     background-size: 300px 300px !important;
     background-repeat: no-repeat !important;
     height: 363px;
-    background-position: bottom;      
+    background-position: bottom;
 }
 
 /******new changes ******/
 
-.backAndSearch{
+.backAndSearch {
     padding: 45px 0px 0px 0px;
     position: sticky;
     top: 0;
@@ -380,16 +412,20 @@ button.accordion-button:focus{
     background: white;
     z-index: 3;
 }
-.backDiv{
+
+.backDiv {
     padding-left: 20px;
-    .backIconarrow{
+
+    .backIconarrow {
         padding-top: 10px;
     }
 }
-.filterDiv{
-    .filterFirstDiv{
+
+.filterDiv {
+    .filterFirstDiv {
         margin-right: 10px;
-        .fitlerInput{
+
+        .fitlerInput {
             border: 2px solid rgba(0, 0, 0, 0.05);
             border-radius: 100px;
             --padding-top: 5px;
@@ -400,69 +436,79 @@ button.accordion-button:focus{
             box-shadow: 0px 0px 2px rgb(16 24 40 / 5%);
             background: #FFFFFF;
         }
-        .searchIcon{
-            --padding-start: 6px !important;  
+
+        .searchIcon {
+            --padding-start: 6px !important;
             background-image: url('~/src/assets/search/magnifyglass-red.svg');
             background-repeat: no-repeat;
             background-size: 20px 20px;
             background-position: 96% 3px;
-        }       
-    }    
-    .filterSecondDiv{
+        }
+    }
+
+    .filterSecondDiv {
         width: 33%;
-        .filterStyle{
+
+        .filterStyle {
             padding: 8px 10px 8px 8px;
             font-size: 10px;
             border-radius: 5px;
-            background: url('~/src/assets/icon/filterIcon.svg');  
+            background: url('~/src/assets/icon/filterIcon.svg');
             background-size: 20px !important;
             background-repeat: no-repeat !important;
             background-position: 8px 4px;
             text-align: right;
             width: 110px;
         }
-        .selected{
+
+        .selected {
             background-color: $primary-color3 !important;
             color: white;
         }
     }
 }
 
-.kitchenDetails{
+.kitchenDetails {
     background: #EEF2F6;
     border: 0.5px solid rgba(0, 0, 0, 0.05);
     backdrop-filter: blur(10px);
     border-radius: 15px;
     margin: 10px 4% 1% 4%;
-    padding: 20px 2%;    
+    padding: 20px 2%;
 }
-.kitchenName{
+
+.kitchenName {
     font-weight: 600;
     font-size: 20px;
     padding-bottom: 6px;
 }
-.speciality{
+
+.speciality {
     padding: 2px 0px;
     font-weight: bold;
     font-size: 12px;
     letter-spacing: 0.06px;
 }
-.heartIconDiv{
+
+.heartIconDiv {
     width: 34px;
     height: 34px;
     background: white;
     border-radius: 50%;
     display: inline-block;
-    input{
+
+    input {
         visibility: hidden;
     }
-    &.favdiv{
-        background-image: url('~/src/assets/favorites/nofavheart.svg'); 
+
+    &.favdiv {
+        background-image: url('~/src/assets/favorites/nofavheart.svg');
         background-repeat: no-repeat !important;
         background-size: 20px;
         background-position: center;
     }
-    &.kitchenfav{
+
+    &.kitchenfav {
         background-image: url('~/src/assets/favorites/favheart.svg');
         background-repeat: no-repeat !important;
         background-size: 20px;
@@ -470,8 +516,8 @@ button.accordion-button:focus{
     }
 }
 
-.shareIconDiv{
-    width: 34px;    
+.shareIconDiv {
+    width: 34px;
     height: 34px;
     background: $secondary-color3;
     border-radius: 50%;
@@ -482,7 +528,7 @@ button.accordion-button:focus{
     float: right;
 }
 
-.ratingStar{
+.ratingStar {
     font-size: 11px;
     height: 24px;
     color: white;
@@ -492,7 +538,8 @@ button.accordion-button:focus{
     padding-top: 5px;
     margin-top: 10px;
 }
-.ratingPosition{
+
+.ratingPosition {
     position: relative;
     top: -1px;
     display: inline-block;
@@ -500,8 +547,9 @@ button.accordion-button:focus{
     padding: 0px 4px;
     font-size: 12px;
 }
-.deliveryTime{
-    background: url('~/src/assets/icon/distanceIcon.png'); 
+
+.deliveryTime {
+    background: url('~/src/assets/icon/distanceIcon.png');
     background-size: 10px;
     background-repeat: no-repeat;
     background-position: 0px 3px;
@@ -511,8 +559,9 @@ button.accordion-button:focus{
     padding-left: 15px;
     padding-top: 3px;
 }
-.orderbetween{
-    background: url('~/src/assets/moreimages/timelapse.png'); 
+
+.orderbetween {
+    background: url('~/src/assets/moreimages/timelapse.png');
     background-size: 10px;
     background-repeat: no-repeat;
     background-position: 0px 4px;
@@ -522,16 +571,17 @@ button.accordion-button:focus{
     padding-left: 15px;
     padding-top: 3px;
 }
-.distancediv{
+
+.distancediv {
     width: 40%;
 }
 
-.timingdiv{
+.timingdiv {
     width: 60%;
 }
 
-.filterpopupdiv{
-    background: url('~/src/assets/icon/filterIcon.png'); 
+.filterpopupdiv {
+    background: url('~/src/assets/icon/filterIcon.png');
     background-repeat: no-repeat;
     background-position: center;
     float: right;
@@ -539,28 +589,30 @@ button.accordion-button:focus{
     width: 30px;
 }
 
-.ratingshare{
+.ratingshare {
     display: flex;
     flex-direction: row;
-    .half{
+
+    .half {
         width: 50%;
     }
 }
 
-.mealrow{
+.mealrow {
     border-top: 1px solid #eef2f6;
     margin-top: 4px;
     padding-top: 12px;
     padding-bottom: 6px;
 }
-.meallebal{
+
+.meallebal {
     font-weight: 500;
     font-size: 12px;
     letter-spacing: 0.0006em;
     color: #505050;
 }
 
-.mealselect{
+.mealselect {
     height: 29px;
     background: #FFFFFF;
     border: 1px solid #808080;
@@ -572,66 +624,74 @@ button.accordion-button:focus{
     margin-top: 4px;
 }
 
-.floatingMenu{
-    text-align: center;
-    position: sticky;
-    bottom: 60px;
-    left: 47%;
-    width: 70px;
-    button{
-        width: 70px;
-        height: 70px;
-        border-radius: 50%;
-        background: black;
-        color: white;
-        font-weight: bold;
-        letter-spacing: 1px;
-        box-shadow: 1px 1px 10px 2px #4a4545c2;
-    }
-    // position: fixed;
-    // z-index: 11;
-    // top: 80%;
-    // right: 40%;
-    // width: 70px;
-    // height: 70px;
-    // border-radius: 50%;
-    // background: black;
-    // color: white;
-    // text-align: center;   
-    // padding-top: 8px;
-    .menuIcon{
-        font-size: 32px;
-    }
-    .menuText{
-        color: white;
-        font-size: 12px;
-    }
-}
+// .floatingMenu {
+//     text-align: center;
+//     position: sticky;
+//     bottom: 60px;
+//     left: 47%;
+//     width: 70px;
 
-.accordionGrp{
+//     button {
+//         width: 70px;
+//         height: 70px;
+//         border-radius: 50%;
+//         background: black;
+//         color: white;
+//         font-weight: bold;
+//         letter-spacing: 1px;
+//         box-shadow: 1px 1px 10px 2px #4a4545c2;
+//     }
+
+//     // position: fixed;
+//     // z-index: 11;
+//     // top: 80%;
+//     // right: 40%;
+//     // width: 70px;
+//     // height: 70px;
+//     // border-radius: 50%;
+//     // background: black;
+//     // color: white;
+//     // text-align: center;   
+//     // padding-top: 8px;
+//     .menuIcon {
+//         font-size: 32px;
+//     }
+
+//     .menuText {
+//         color: white;
+//         font-size: 12px;
+//     }
+// }
+
+.accordionGrp {
     background: #f4f5f8;
     border-radius: 20px;
 }
-.accordiondiv{
-    padding-bottom: 10px;   
+
+.accordiondiv {
+    padding-bottom: 10px;
 }
-.accodianHeader{
+
+.accodianHeader {
     --background: none;
     background: none;
     --padding-start: 11px;
     font-size: 14px;
 }
-.togglediv{
+
+.togglediv {
     font-size: 12px;
     padding: 10px 1%;
-    .itemFilterdiv{
+
+    .itemFilterdiv {
         display: inline-block;
         border: 1px solid grey;
         padding: 2px 7px;
         margin-right: 8px;
         border-radius: 10px;
         color: grey;
-        .filterIcon{
+
+        .filterIcon {
             display: inline-block;
             position: relative;
             top: 1px;
@@ -642,14 +702,17 @@ button.accordion-button:focus{
             background-size: 5px !important;
             background-repeat: no-repeat !important;
         }
-        &.selected{
+
+        &.selected {
             background: #ff000033;
             border: 1px solid #ff000033;
             color: black;
         }
-        .crossIcon{
+
+        .crossIcon {
             display: none;
-            &.selectedIcon{
+
+            &.selectedIcon {
                 display: inline-block;
                 padding-left: 8px;
             }
@@ -657,15 +720,27 @@ button.accordion-button:focus{
     }
 }
 
-.custaccordionGrp{
+.custaccordionGrp {
     background: #f4f5f8;
     border-radius: 20px;
 }
-.custaccodianHeader{
+
+.custaccodianHeader {
     padding: 11px;
     font-size: 14px;
     height: 40px;
 }
 
+@media only screen and (max-width: 600px) {
+    .positionBottom {
+        left: 0;
+        width: 100%;
+    }
+}
 
-
+@media only screen and (max-width: 768px) {
+    .positionBottom {
+        left: 0;
+        width: 100%;
+    }
+}

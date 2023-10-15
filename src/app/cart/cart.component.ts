@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { CartManagementService } from 'src/service/cart-management.service';
 import { orderStatusMapper } from 'src/config/order-status.config';
@@ -21,7 +21,7 @@ import { DatePipe } from '@angular/common';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss']
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, OnDestroy {
   @ViewChild('canvasAddress') canvasAddress!: ElementRef<HTMLElement>
   @ViewChild('voucherCanvas') voucherCanvas!: ElementRef<HTMLElement>
   @ViewChild("voucherContent") voucherContent: any;
@@ -35,7 +35,7 @@ export class CartComponent implements OnInit {
   deliveryCharges = 0;
   taxes = 10;
   currentLocation!: string;
-  tagLocation!: string;
+  tagLocation: string = 'home';
   saveCurrentLocation = false;
   showBackButton = false;
   // serviceAvailable = false;
@@ -150,7 +150,7 @@ export class CartComponent implements OnInit {
   couponProps: any;
   modalVoucherCode: any;
   addressSelected: any;
-  toggleSelected: boolean = false;
+  toggleSelected: boolean = true;
   mapId = 'mapid';
   showSkipButton: boolean = true
   showMap: boolean = false;
@@ -163,6 +163,8 @@ export class CartComponent implements OnInit {
   allTimeSlotSelected!: string;
   advanceTimeSlotSelected!: string;
   showCheckoutPage: boolean = false;
+  subscription: any[] = [];
+  
 
   constructor(private cartManagementService: CartManagementService, private datePipe:DatePipe, private toasterService: ToasterService, private alertModalService: AlertModalService, private chgDetRef: ChangeDetectorRef, private sendDataToComponent: SendDataToComponent, private userProfileService: UserProfileService, private localStorageService: LocalStorageService, private googleMapService: GoogleMapService, private confirmationModalService: ConfirmationModalService, private apiMainService: ApiMainService, private paymentGatewayService: PaymentGatewayService, private runtimeStorageService: RuntimeStorageService, private utilityService: UtilityService, private router: Router) {
     const currentDate = new Date();
@@ -191,9 +193,13 @@ export class CartComponent implements OnInit {
     this.autoCoupon.startDate = currentDate;
     this.autoCoupon.expiryDate = after1Day;
   }
+  ngOnDestroy(): void {
+    this.sendDataToComponent.unsubscribe('ADDRESS_FROM_DELIVERY');
+  }
 
   ngOnInit(): void {
     this.userProfile = this.localStorageService.getCacheData('USER_PROFILE');
+    console.log(this.userProfile)
     const cartObj = this.cartManagementService.getCart();
     this.checkUserLoginProfile();
     this.getDBTimeSlots();
@@ -208,15 +214,12 @@ export class CartComponent implements OnInit {
       this.userSelectedDates.push(this.allowedMinDate);
     }
     console.log(this.userProfile)
-    this.sendDataToComponent.subscribe('ADDRESS_FROM_DELIVERY', (address) => {
-      if (address) {
-        this.userProfile.addressList.push(address);
-        this.toggleAddressSelected(address);
-        this.toggleCanvas();
-        // this.setCurrentLocation()  
-      }
-    })
     // this.getCouponList()
+  }
+
+  getUserDetails(){
+    this.checkUserLoginProfile()
+    this.setCurrentLocation()
   }
 
   validateDailyTimings() {
@@ -258,9 +261,10 @@ export class CartComponent implements OnInit {
 
   async setCurrentLocation() {
     const currentStorageLocation = this.localStorageService.getCacheData('CURRENT_LOCATION');
+    console.log(currentStorageLocation)
     if (currentStorageLocation) {
       const formatedAddess = this.userProfileService.getSavedAddress(currentStorageLocation);
-      console.log(formatedAddess)
+      this.addressSelected = formatedAddess
       this.customerLocation = { ...formatedAddess };
       let address = '';
       if (formatedAddess.address) {
@@ -272,6 +276,7 @@ export class CartComponent implements OnInit {
       const landmark = formatedAddess.landmark ? `, Landmark: ${formatedAddess.landmark}, ` : '';
       this.currentLocation = formatedAddess.location ? `${address}${formatedAddess.location}${landmark}` : `${address}${landmark}`;
       this.tagLocation = formatedAddess.tagLocation;
+      console.log(this.customerLocation)
       if (this.cartObj && this.cartObj.kitchen && this.cartObj.kitchen.geolocation) {
         // this.cartObj.kitchen = await this.googleMapService.getKitchenDistance(this.cartObj.kitchen, formatedAddess.geolocation, true);
         const kitchenList = await this.googleMapService.getKitchenGoogleDistance([this.cartObj.kitchen], formatedAddess.geolocation);
@@ -312,6 +317,20 @@ export class CartComponent implements OnInit {
         this.getDBTimeSlots();
       }
     });
+
+    this.sendDataToComponent.subscribe('ADDRESS_FROM_DELIVERY', (address) => {
+      if (address.address) {
+        this.userProfile.addressList.push(address);
+        this.toggleAddressSelected(address);
+        this.toggleCanvas();
+        // this.setCurrentLocation()  
+      }
+      else{
+        this.addressSelected = address
+        this.saveCurrentLocation = false
+      }
+    })
+
     this.sendDataToComponent.subscribe('LOCATION_ADDED_UPDATE_CART_PAGE', (flag) => {
       if (flag) {
         this.updateLocationChange();
@@ -1781,12 +1800,12 @@ export class CartComponent implements OnInit {
       if (checkServicability) {
         this.addressSelected = address
         this.customerLocation = address
-        this.toggleSelected = !this.toggleSelected;
+        this.toggleSelected = true;
         this.serviceNotAvailable = false;
         if (this.cartObj.orderType !== 'subscription') {
           this.getDeliveryChargeQuote()
         }
-        console.log(this.addressSelected)
+        this.saveCurrentLocation = true
       }
       else {
         this.serviceNotAvailable = true
@@ -1794,13 +1813,13 @@ export class CartComponent implements OnInit {
       }
     }
     else {
-      this.toggleSelected = !this.toggleSelected;
+      this.toggleSelected = false;
     }
   }
 
-  toggleMap() {
-    this.showMap = true
-  }
+  // toggleMap() {
+  //   this.showMap = true
+  // }
 
   toggleCanvas() {
     let el = this.canvasAddress?.nativeElement;

@@ -1,0 +1,41 @@
+@import "/src/styles.scss";
+.bottom{
+    border-bottom: 2px solid #0000001f;
+}
+.incomeBig{
+    background: url('~/src/assets/icon/wallet_big.svg');  
+    background-size: 110px;
+    background-position: center 9px;
+    background-repeat: no-repeat;
+    padding-top: 100px;
+    padding-bottom: 5px;
+    font-size: 14px;
+    font-weight: bolder;
+}
+.withdrawalHistroy{ 
+    padding: 1% 10%;
+}
+.historyDate{    
+    color: white;
+    padding: 8px 12px;
+    font-size: 12px;
+    border-radius: 7px;
+}
+.debit{
+    background: $secondary-offset-color3;
+}
+.credit{
+    background: $secondary-color2;
+}
+
+.gridPadding{
+    padding: 1% 5%;
+}
+.payoutIdMode{
+    width: 80px;
+    display: inline-block;    
+}
+.listloader{
+    height: 34px;
+    width: 100%;
+}

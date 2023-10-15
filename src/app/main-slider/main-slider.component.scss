@@ -1,8 +1,10 @@
-.container-fluid{
-    &::-webkit-scrollbar {
-        display: none;
-      }
-    img{
-        border-radius:5%;
-    }
+img {
+    border-radius: 5%;
+}
+
+.test {
+    padding: 0;
+    margin: 0;
+    position: relative;
+    // height: 100%;
 }
