@@ -11,6 +11,14 @@
     }
 }
 
+.right-side {
+    position: relative;
+}
+
+.btn-div {
+    position: relative;
+}
+
 .search-section {
     padding: 10% 0 0 8%;
 
@@ -64,46 +72,11 @@
     }
 }
 
-.offcanvas {
-    width: 40% !important;
-
-    &.login {
-        .form-group {
-            .form-control {
-                height: 60px;
-                border-radius: 0;
-            }
-        }
-
-        .btn-primary {
-            border-radius: 0;
-            font-weight: 500;
-        }
-    }
-
-    &.sign-up {
-        .form-group {
-            .form-control {
-                height: 60px;
-                border-radius: 0;
-            }
-        }
-
-        .btn-primary {
-            background-color: #ff8c00;
-            border-color: #ff8c00;
-            border-radius: 0;
-            font-weight: 500;
-        }
-    }
-}
-
 .termNcondition {
     font-size: 11px;
     width: 100%;
     letter-spacing: 0.1em;
     font-style: italic;
-    padding-top: 5px;
 
     span {
         text-decoration: underline;
@@ -118,7 +91,7 @@
 .topBtns {
     position: absolute;
     top: 5%;
-    right: 39%;
+    left: 15%;
     font-family: 'Poppins-semiBold';
 
     .btn-light {
@@ -153,7 +126,7 @@
 
     .div-2 {
         padding-left: 9%;
-        margin-left: 1%;
+        // margin-left: 1%;
         background-image: url('~/src/assets/images/bangalore.svg');
         background-repeat: no-repeat;
         background-size: 40px;
@@ -211,11 +184,12 @@
 
 .bottom-section {
     .right-div-wrapper {
+        text-align: right;
         margin-top: 15%
     }
 
     .header-text {
-        font-size: 48px;
+        font-size: 45px;
         font-family: 'Poppins-bold';
         color: $primary-color1;
     }
@@ -233,8 +207,13 @@
     background-color: #231f20;
     color: white;
 
+    .header7 {
+        padding-bottom: 5%;
+        line-height: 15px;
+    }
+
     .footer-heading {
-        color:$secondary-color1;
+        color: $secondary-color1;
         text-transform: uppercase;
         font-size: 20px;
         font-family: 'Poppins-bold';
@@ -242,37 +221,188 @@
 
     .footer-heading:after {
         content: '';
-        width:45%;
+        margin-top: 3%;
+        width: 45%;
         display: block;
         // margin: 1% auto 2%;
         height: 3px;
         background: linear-gradient(90deg, white 50%, #e0e0e0 50%)
     }
 
-    ul{
-        margin-top:10px;
-        padding:0
+    ul {
+        margin-top: 10px;
+        padding: 0
     }
 
-    li{
-        line-height:25px;
-        font-family:'Poppins-semiBold';
+    li {
+        line-height: 25px;
+        font-family: 'Poppins-semiBold';
         list-style-type: none;
     }
 
-    .footer-qr-div{
-        font-size:20px;
-        text-transform:uppercase;
-        font-family:'Poppins-bold';
-        color:$secondary-color1;
+    .footer-qr-div {
+        font-size: 20px;
+        text-transform: uppercase;
+        font-family: 'Poppins-bold';
+        color: $secondary-color1;
     }
 
-    .header7{
-        font-family:'Poppins-semiBold'
+    .header7 {
+        font-family: 'Poppins-semiBold'
     }
 }
 
-.rights{
-    text-align:center;
-    font-family:'Poppins-bold';
+.rights {
+    text-align: center;
+    font-family: 'Poppins-bold';
+    color: $primary-color5;
+}
+
+// ---LOGIN/SIGN-UP OFFCANVAS---
+
+.offcanvas {
+    width: 40% !important;
+
+    .row{
+        padding-top:50%;
+    }
+
+    .offcanvas-body{
+        background-image: url('~/src/assets/images/login-drawer-image.svg');
+        background-repeat: no-repeat;
+        background-size:50%;
+        background-position:100% 0;
+    }
+
+    .img-fluid {
+        position: absolute;
+        height: 100%;
+        width: 50%;
+        right: 0%;
+        top: 1%;
+    }
+
+    .header2 {
+        font-family: 'Poppins-bold';
+        color: $primary-color4
+    }
+
+    .sub-header {
+        font-family:'Poppins-semiBold';
+        .create-account {
+            color: $primary-color1;
+        }
+
+        :after {
+            content: '';
+            margin-top: 1%;
+            width: 7%;
+            display: block;
+            // margin: 1% auto 2%;
+            height: 1px;
+            background-color: $primary-color1;
+        }
+    }
+
+
+    .form-group {
+        .form-control {
+            height: 50px;
+            border-radius: 20px;
+            width:50%;
+            border-color: grey;
+        }
+    }
+
+    .btn-primary {
+        width:25%;
+        border-radius: 20px;
+        font-weight: 500;
+    }
+
+    &.sign-up {
+        .form-group {
+            .form-control {
+                height: 60px;
+                border-radius: 0;
+            }
+        }
+
+        .btn-primary {
+            background-color: #ff8c00;
+            border-color: #ff8c00;
+            border-radius: 0;
+            font-weight: 500;
+        }
+    }
+}
+
+// ---RESPONSIVE----
+@media only screen and (max-width: 600px) {
+    .right-div-wrapper {
+        text-align: center !important;
+    }
+
+    .text-col,
+    .img-col {
+        padding: 0 !important;
+        text-align: center;
+    }
+
+    .mid-section {
+        .header1 {
+            margin-top: 2%;
+        }
+    }
+
+    .footer-qr-div {
+        padding-bottom: 5%;
+    }
+
+    .div-1 {
+        width: 50%;
+        padding-left: 17% !important;
+    }
+
+    .div-2 {
+        width: 50%;
+        padding-left: 17% !important;
+        margin-left: 0;
+    }
+
+    .search-section {
+        padding: 0 !important;
+    }
+
+    .form-control {
+        width: 55% !important;
+    }
+
+    .div-two {
+        width: 30% !important;
+    }
+
+    .div-three {
+        width: 15% !important;
+    }
+
+    .first-line,
+    .second-line,
+    .operational-cities {
+        text-align: center;
+    }
+}
+
+
+@media only screen and (max-width: 768px) {
+
+    .text-col,
+    .img-col {
+        padding: 0 !important;
+        text-align: center;
+    }
+
+    .search-section {
+        padding: 0 !important;
+    }
 }
