@@ -5,6 +5,7 @@ import { ToasterService } from 'src/app/toaster/toaster.service';
 import { CheckoutService } from 'paytm-blink-checkout-angular';
 import { Subscription } from 'rxjs';
 
+declare const Paytm:any;
 @Injectable({
   providedIn: 'root'
 })
@@ -164,7 +165,7 @@ async payPaytmGatewayWeb(checkoutDetails:any,order:any){
                 merchant:{
                   mid:environment.paytmMerchentId,
                   "name": "mealawe",
-                  "redirect": true
+                  "redirect": false
                 },
                 mapClientMessage: {},
                 labels: {},
@@ -187,7 +188,8 @@ async payPaytmGatewayWeb(checkoutDetails:any,order:any){
                   },
                   transactionStatus:function(data:any){
                     console.log("payment status ", data);
-                    // self.webPaymentCallback(resolve, reject,order);  
+                    Paytm.CheckoutJS.close();
+                    self.webPaymentCallback(resolve, reject,order);  
                   }
                 }            
             };           
@@ -195,15 +197,15 @@ async payPaytmGatewayWeb(checkoutDetails:any,order:any){
             this.checkoutService.init(config,
                 {
                     env: 'STAGE', // optional, possible values : STAGE, PROD; default : PROD
-                    openInPopup: false // optional; default : true
+                    openInPopup: true // optional; default : true
                 }
             );
     
-            this.subs = this.checkoutService
-            .checkoutJsInstance$
-            .subscribe((instance:any)=>{
-                console.log('instance',instance);
-            });
+            // this.subs = this.checkoutService
+            // .checkoutJsInstance$
+            // .subscribe((instance:any)=>{
+            //     console.log('instance',instance);
+            // });
         }catch(error){
             console.log('payPaytmGatewayWeb ',error);
             const res = await this.paymentSuccessPaytm(order); //Doesn't appear at all

@@ -465,7 +465,7 @@
 
 
         <div>
-          <paytm-checkout></paytm-checkout>
+          <paytm-checkout *ngIf="showCheckoutPage"></paytm-checkout>
         </div>
 
 
@@ -545,13 +545,7 @@
             </div>
           </div>
         </div>
-<<<<<<< HEAD
-
-
-        <div class="delivery-location">
-=======
         <!-- <div class="delivery-location">
->>>>>>> origin/main
           <div class="offcanvas offcanvas-start" tabindex="-1" id="addAddress" aria-labelledby="offcanvasExampleLabel">
             <button type="button" style="display:none;" #canvasAddress class="btn-close text-reset mt-3"
               data-bs-dismiss="offcanvas" aria-label="Close"></button>

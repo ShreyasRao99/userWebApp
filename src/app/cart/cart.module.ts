@@ -13,7 +13,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxMultipleDatesModule } from 'ngx-multiple-dates';
 import { MatInputModule } from '@angular/material/input';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { CheckoutModule } from 'paytm-blink-checkout-angular';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,8 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
-    NgxMultipleDatesModule
+    NgxMultipleDatesModule,
+    CheckoutModule
   ],
   providers:[DatePipe],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
