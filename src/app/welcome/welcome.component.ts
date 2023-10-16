@@ -8,6 +8,7 @@ import { LocalStorageService } from 'src/service/local-storage.service';
 import { UtilityService } from 'src/service/utility.service';
 import { GeolocationService } from 'src/service/geolocation.service';
 import { SendDataToComponent } from 'src/service/sendDataToComponent';
+import { WebPageService } from 'src/service/webpage.service';
 
 
 @Component({
@@ -33,7 +34,7 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
   userLoggedIn: any;
   fetchingCenter!: boolean;
 
-  constructor(private router: Router, private sendDataToComponent:SendDataToComponent, private chgDetRef:ChangeDetectorRef, private geoLocationService:GeolocationService, private apiMainService: ApiMainService, private utilityService:UtilityService, private favouriteManagementService: FavouriteManagementService, private googleMapService: GoogleMapService, private localStorageService: LocalStorageService, private fb: FormBuilder) {
+  constructor(private router: Router, private sendDataToComponent:SendDataToComponent, private webPageService:WebPageService, private chgDetRef:ChangeDetectorRef, private geoLocationService:GeolocationService, private apiMainService: ApiMainService, private utilityService:UtilityService, private favouriteManagementService: FavouriteManagementService, private googleMapService: GoogleMapService, private localStorageService: LocalStorageService, private fb: FormBuilder) {
     this.mapId += Math.ceil(Math.random() * 1000)
   }
   ngOnDestroy(): void {
@@ -229,4 +230,22 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }, 1000);
   }
+
+  showTermNCondition(){
+    try{
+      this.webPageService.termAndCondition();
+    }catch(e){
+     console.log('Error while saving kitchen Lead')
+    }
+  }
+
+  async resendOTP(){  
+    try{
+      await this.apiMainService.resendOTP({phoneNo : this.phoneNo});
+      this.startTimer()
+    }catch (e){
+      console.log('error while resending OTP',e);
+    }  
+  }
+  
 }

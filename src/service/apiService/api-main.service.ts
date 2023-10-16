@@ -53,6 +53,10 @@ export class ApiMainService {
     return this.apiHttpService.REQUEST(this.apiConfigService.apiEndPointObj.verifyOTP, data);
   }
 
+  resendOTP(data:any) {
+    return this.apiHttpService.REQUEST(this.apiConfigService.apiEndPointObj.resendOTP, data);
+}
+
   saveOrRetrieveUserProfile(data:any){
     return this.apiHttpService.REQUEST(this.apiConfigService.apiEndPointObj.saveCustomerProfile, data);
   }
@@ -314,6 +318,10 @@ export class ApiMainService {
   refund(data:any) {
     this.runtimeStorageService.resetCacheData('PAST_ORDER_LIST');
     return this.apiHttpService.REQUEST(this.apiConfigService.apiEndPointObj.refund, data);
+  }
+
+  termNcondition(){
+    return this.apiHttpService.REQUEST(this.apiConfigService.apiEndPointObj.termNcondition, null, {Accept:'text/html'},true);
   }
 
 }

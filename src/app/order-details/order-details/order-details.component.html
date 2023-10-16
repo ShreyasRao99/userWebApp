@@ -405,7 +405,7 @@
                             <mat-form-field>
                                 <mat-label>Enter Date</mat-label>
                                 <input readonly (click)="picker.open()" matInput [matDatepicker]="picker"
-                                    [min]="minAllowedRescheduledDate" [max]="after1DayLastSubscription"
+                                    [min]="minAllowedRescheduledDate"
                                     (dateChange)="rescheduleDateChanged($event.value)">
                                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker>

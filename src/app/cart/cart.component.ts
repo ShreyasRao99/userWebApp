@@ -267,10 +267,10 @@ export class CartComponent implements OnInit, OnDestroy {
       this.customerLocation = { ...formatedAddess };
       let address = '';
       if (formatedAddess.address) {
-        this.saveCurrentLocation = false;
+        this.saveCurrentLocation = true;
         address = formatedAddess.address
       } else {
-        this.saveCurrentLocation = true;
+        this.saveCurrentLocation = false;
       }
       const landmark = formatedAddess.landmark ? `, Landmark: ${formatedAddess.landmark}, ` : '';
       this.currentLocation = formatedAddess.location ? `${address}${formatedAddess.location}${landmark}` : `${address}${landmark}`;
@@ -329,6 +329,7 @@ export class CartComponent implements OnInit, OnDestroy {
         this.saveCurrentLocation = false
       }
     })
+    
 
     this.sendDataToComponent.subscribe('LOCATION_ADDED_UPDATE_CART_PAGE', (flag) => {
       if (flag) {

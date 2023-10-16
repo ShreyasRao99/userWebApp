@@ -45,6 +45,7 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
   constructor(private sendDataToComponent: SendDataToComponent, private modalService: NgbModal, private toasterService: ToasterService, private confirmationModalService: ConfirmationModalService, private chgDetRef: ChangeDetectorRef, private apiMainService: ApiMainService) { }
   ngOnChanges(changes: SimpleChanges): void {
     if(this.order){
+      // alert('')
       this.checkCancelStatus()
     }
   }

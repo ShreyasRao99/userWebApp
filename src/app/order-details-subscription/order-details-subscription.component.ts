@@ -108,6 +108,7 @@ export class OrderDetailsSubscriptionComponent implements OnInit {
           this.mealPerdayCount = 2;
         }
       }
+      console.log(order)
       if (order) {
         this.order = order;
         // this.checkCancelStatus();
@@ -181,6 +182,7 @@ export class OrderDetailsSubscriptionComponent implements OnInit {
 
   goBack(){
     this.showOrdersComponent = !this.showOrdersComponent
+    this.getOrderDetailsSubscription()
   }
 
   ngOnDestroy() {

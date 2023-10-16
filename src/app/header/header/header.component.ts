@@ -9,6 +9,7 @@ import { GoogleMapService } from 'src/service/google-map.service';
 import { LocalStorageService } from 'src/service/local-storage.service';
 import { SendDataToComponent } from 'src/service/sendDataToComponent';
 import { UtilityService } from 'src/service/utility.service';
+import { WebPageService } from 'src/service/webpage.service';
 
 @Component({
   selector: 'app-header',
@@ -47,7 +48,7 @@ export class HeaderComponent implements OnInit {
   loggedIn!: boolean;
   enableVerfiy!: boolean;
 
-  constructor(private localStorageService:LocalStorageService, private favouriteManagementService:FavouriteManagementService, private fb:FormBuilder, private cartManagementService:CartManagementService, private sendDataToComponent:SendDataToComponent, private router:Router, private apiMainService:ApiMainService, private googleMapService:GoogleMapService, private utilityService:UtilityService){
+  constructor(private localStorageService:LocalStorageService, private webPageService:WebPageService, private favouriteManagementService:FavouriteManagementService, private fb:FormBuilder, private cartManagementService:CartManagementService, private sendDataToComponent:SendDataToComponent, private router:Router, private apiMainService:ApiMainService, private googleMapService:GoogleMapService, private utilityService:UtilityService){
     this.mapId += Math.ceil(Math.random() * 1000)
   }
   ngOnInit(): void {
@@ -297,6 +298,23 @@ export class HeaderComponent implements OnInit {
         this.second--;
       }
     }, 1000);
+  }
+
+  showTermNCondition(){
+    try{
+      this.webPageService.termAndCondition();
+    }catch(e){
+     console.log('Error while saving kitchen Lead')
+    }
+  }
+
+  async resendOTP(){  
+    try{
+      await this.apiMainService.resendOTP({phoneNo : this.phoneNo});
+      this.startTimer()
+    }catch (e){
+      console.log('error while resending OTP',e);
+    }  
   }
 
 }

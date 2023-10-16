@@ -53,36 +53,57 @@
 //     width: 100%;
 // }
 
-$primary-color1: #e62841;
+$primary-color1: #e53043;
 $primary-color2: #b9041c;
 $primary-color3: #fe8e9c;
+$primary-color4: #57642c;
+$primary-color5: #403e3f;
 $primary-offset-color1: #ffffff;
 $primary-offset-color2: #a4a4a4;
 $primary-offset-color3: #333333;
-$secondary-color1: #88e5db;
+$secondary-color1: #b5cd6b;
 $secondary-color2: #60c8bc;
 $secondary-color3: #15a292;
 $secondary-offset-color1: #ffd674;
 $secondary-offset-color2: #ffc947;
 $secondary-offset-color3: #ffb300;
 
-:root {
-    --ion-color-rose: #15a292;
-    --ion-color-rose-rgb: 69, 123, 117;
-    --ion-color-rose-contrast: #ffffff;
-    --ion-color-rose-contrast-rgb: 255, 255, 255;
-    --ion-color-rose-shade: #15a292;
-    --ion-color-rose-tint: #15a292;
+@font-face {
+    font-family: 'Poppins-regular';
+    src: url('assets/fonts/Poppins-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Poppins-bold';
+    src: url('assets/fonts/Poppins-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Poppins-semiBold';
+    src: url('assets/fonts/Poppins-SemiBold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
 
-.ion-color-rose {
-    --ion-color-base: var(--ion-color-rose);
-    --ion-color-base-rgb: var(--ion-color-rose-rgb);
-    --ion-color-contrast: var(--ion-color-rose-contrast);
-    --ion-color-contrast-rgb: var(--ion-color-rose-contrast-rgb);
-    --ion-color-shade: var(--ion-color-rose-shade);
-    --ion-color-tint: var(--ion-color-rose-tint);
-}
+// :root {
+//     --ion-color-rose: #15a292;
+//     --ion-color-rose-rgb: 69, 123, 117;
+//     --ion-color-rose-contrast: #ffffff;
+//     --ion-color-rose-contrast-rgb: 255, 255, 255;
+//     --ion-color-rose-shade: #15a292;
+//     --ion-color-rose-tint: #15a292;
+// }
+
+// .ion-color-rose {
+//     --ion-color-base: var(--ion-color-rose);
+//     --ion-color-base-rgb: var(--ion-color-rose-rgb);
+//     --ion-color-contrast: var(--ion-color-rose-contrast);
+//     --ion-color-contrast-rgb: var(--ion-color-rose-contrast-rgb);
+//     --ion-color-shade: var(--ion-color-rose-shade);
+//     --ion-color-tint: var(--ion-color-rose-tint);
+// }
 
 .customDates {
     --background: #88e5db;
@@ -91,21 +112,15 @@ $secondary-offset-color3: #ffb300;
     box-shadow: rgba(var(--ion-color-rose-rgb), 0.3) 0px 10px 15px -3px;
 }
 
-html {
-    font-family: 'Lato', sans-serif !important;
-    --ion-font-family: 'Lato', sans-serif !important;
-    --ion-default-font: 'Lato', sans-serif !important;
-}
+// ion-list {
+//     --background: white;
+//     background: white;
 
-ion-list {
-    --background: white;
-    background: white;
-
-    ion-item {
-        --background: white;
-        background: white;
-    }
-}
+//     ion-item {
+//         --background: white;
+//         background: white;
+//     }
+// }
 
 .paddingAll-5 {
     padding: 5px;
@@ -238,6 +253,10 @@ ion-list {
 }
 
 .header7 {
+    font-size: 10px;
+}
+
+.header8 {
     font-size: 8px;
 }
 
@@ -249,12 +268,12 @@ ion-list {
     padding: 2% 5% 1% 2%;
 }
 
-ion-slides {
-    height: 100%;
-    width: 100%;
-    --bullet-background: #b9041c;
-    --bullet-background-active: #ffd674;
-}
+// ion-slides {
+//     height: 100%;
+//     width: 100%;
+//     --bullet-background: #b9041c;
+//     --bullet-background-active: #ffd674;
+// }
 
 .bgpadding {
     padding: 10%;
@@ -463,9 +482,9 @@ ion-slides {
     --border-radius: 12px;
     position: absolute;
 
-    .ion-page {
-        height: 100%;
-    }
+    // .ion-page {
+    //     height: 100%;
+    // }
 }
 
 .xshort-modal-design {
@@ -731,12 +750,12 @@ input[type='radio']:checked:after {
     left: -20px;
     color: white;
 
-    ion-icon {
-        font-size: 13px;
-        position: relative;
-        top: 3px;
-        left: 0px
-    }
+    // ion-icon {
+    //     font-size: 13px;
+    //     position: relative;
+    //     top: 3px;
+    //     left: 0px
+    // }
 }
 
 .crossPrice {
@@ -753,9 +772,9 @@ input[type='radio']:checked:after {
     --min-width: 250px;
 }
 
-ion-refresher {
-    margin-top: 10px;
-}
+// ion-refresher {
+//     margin-top: 10px;
+// }
 
 .refresher-ios .refresher-pulling-icon,
 .refresher-ios .refresher-pulling-text,
@@ -784,10 +803,10 @@ ion-refresher {
 
 
 /****ion date time*****/
-ion-datetime {
-    background: white;
-    border-radius: 10px;
-}
+// ion-datetime {
+//     background: white;
+//     border-radius: 10px;
+// }
 
 .datetime {
     --background: transparent;
@@ -931,13 +950,9 @@ input[type="text"]:focus {
 // }
 html,
 body {
-    // height: 100%;
-    font-family: 'Lato', sans-serif !important;
-}
-
-body {
+    font-family: 'Poppins-regular', 'Lato' !important;
     margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+    color: $primary-color5;
 }
 
 .pointer {
@@ -945,7 +960,11 @@ body {
 }
 
 .container-fluid {
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .cdk-overlay-container{ z-index: 1200 !important; }
+
+.offcanvas-div{
+    overflow-y:scroll;
+}

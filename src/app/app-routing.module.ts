@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { OrderPlacedComponent } from './order-placed/order-placed.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,9 @@ const routes: Routes = [
   },
   {
     path:'order-placed', component:OrderPlacedComponent
+  },
+  {
+    path:'**', component:WelcomeComponent
   }
 ];
 
