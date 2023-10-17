@@ -162,6 +162,7 @@ export class CartComponent implements OnInit, OnDestroy {
   selectedDates:any;
   allTimeSlotSelected!: string;
   advanceTimeSlotSelected!: string;
+  showCheckoutPage: boolean = false;
   subscription: any[] = [];
   
 
@@ -942,25 +943,15 @@ export class CartComponent implements OnInit, OnDestroy {
           orderType = orderInfo.orderType;
         }
         if (order && order.amount >= 0) {
-          if (this.useRazorpay) {
-            const checkoutDetails = await this.paymentGatewayService.startPaymentProcess(order);
-            if (checkoutDetails.amount > 0) {
-              order = checkoutDetails;
-              const res = await this.paymentGatewayService.payWithRazorpay(checkoutDetails, order);
-              resolve(res);
-            } else {
-              resolve(true);
-            }
-          } else {
-            const checkoutDetails = await this.paymentGatewayService.startPaytmPaymentProcess(order);
-            if (checkoutDetails.amount > 0) {
-              order = checkoutDetails;
-              const res = await this.paymentGatewayService.payPaytmGateway(checkoutDetails, order);
-              resolve(res);
-            } else {
-              resolve(true);
-            }
-          }
+          const checkoutDetails = await this.paymentGatewayService.startPaytmPaymentProcess(order);
+          if (checkoutDetails.amount > 0) {            
+            this.showCheckoutPage = true;
+            order = checkoutDetails;
+            const res = await this.paymentGatewayService.payPaytmGatewayWeb(checkoutDetails, order);
+            resolve(res);         
+          }else{
+            resolve(true);
+          }       
         }
       } catch (error) {
         reject(error);

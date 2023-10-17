@@ -2,15 +2,20 @@ import { Injectable } from '@angular/core';
 import { ApiMainService } from './apiService/api-main.service';
 import { environment } from 'src/environments/environment';
 import { ToasterService } from 'src/app/toaster/toaster.service';
+import { CheckoutService } from 'paytm-blink-checkout-angular';
+import { Subscription } from 'rxjs';
 
+declare const Paytm:any;
 @Injectable({
   providedIn: 'root'
 })
 export class PaymentGatewayService {
+    private subs: Subscription | undefined;
 
-  constructor(private apiMainService:ApiMainService, private toasterService:ToasterService) { }
+constructor(private apiMainService:ApiMainService, private toasterService:ToasterService,
+    private readonly checkoutService: CheckoutService) { }
 
-  async getValidUserCouponList(customerId:any){
+async getValidUserCouponList(customerId:any){
     return await this.apiMainService.getValidUserCouponList(customerId);
 }
 
@@ -137,6 +142,93 @@ async payPaytmGateway(checkoutDetails:any,order:any){
           resolve(res);
       }
   });        
+}
+
+async payPaytmGatewayWeb(checkoutDetails:any,order:any){
+    return new Promise(async (resolve, reject)=>{
+        try{
+            const self = this;
+            let config = {
+                flow: "DEFAULT",
+                data:{
+                  orderId: checkoutDetails.order_id,
+                  amount: `${checkoutDetails.amount}`,
+                  token: checkoutDetails.receipt,
+                  tokenType:"TXN_TOKEN",
+                  userDetail: {
+                    "mobileNumber": `${checkoutDetails.customerPhoneNo}`,
+                    "name": `${checkoutDetails.customerName}`
+                    }
+                },
+                style: {},
+                jsFile: "",
+                merchant:{
+                  mid:environment.paytmMerchentId,
+                  "name": "mealawe",
+                  "redirect": false
+                },
+                mapClientMessage: {},
+                labels: {},
+                payMode: {
+                    labels: {},
+                    filter: {
+                        exclude: []
+                    },
+                    order: [
+                        "NB",
+                        "CARD",
+                        "LOGIN"
+                    ]
+                },
+                handler: {
+                  notifyMerchant: function(eventName:any, data:any) {
+                    console.log("notifyMerchant handler function called");
+                    console.log("eventName => ", eventName);
+                    console.log("data => ", data);                    
+                  },
+                  transactionStatus:function(data:any){
+                    console.log("payment status ", data);
+                    Paytm.CheckoutJS.close();
+                    self.webPaymentCallback(resolve, reject,order);  
+                  }
+                }            
+            };           
+            console.log('config ',config);
+            this.checkoutService.init(config,
+                {
+                    env: 'STAGE', // optional, possible values : STAGE, PROD; default : PROD
+                    openInPopup: true // optional; default : true
+                }
+            );
+    
+            // this.subs = this.checkoutService
+            // .checkoutJsInstance$
+            // .subscribe((instance:any)=>{
+            //     console.log('instance',instance);
+            // });
+        }catch(error){
+            console.log('payPaytmGatewayWeb ',error);
+            const res = await this.paymentSuccessPaytm(order); //Doesn't appear at all
+            resolve(res);
+        }
+    });        
+}
+
+async webPaymentCallback(resolve:any, reject:any,order:any){
+    try{
+        const payload = {foodOrderId:order._id,orderType: order.orderType};
+        const finalStatus = await this.apiMainService.validatePaytmPaymentTransaction(payload);
+        if(finalStatus.status){
+            resolve(true);
+        }else{
+            this.toasterService.error(105);  
+            resolve(false);
+        }
+    }catch(error){
+        this.apiMainService.consoleLog(error);
+        this.toasterService.error(105);  
+        resolve(false);
+    }
 }
 
 async paymentSuccessPaytm(order:any){

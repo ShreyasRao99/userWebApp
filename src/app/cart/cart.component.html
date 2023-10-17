@@ -3,12 +3,14 @@
   <div class="cart-wrapper">
     <div class="row">
       <div class="col-10 offset-1">
+
         <div *ngIf="!cartObj || (cartObj && cartObj.itemList && cartObj.itemList.length === 0)">
           <div class="noitem"></div>
           <div class="header2 bgpadding1 center">You can almost taste this!</div>
           <div class="header5 grey center">Your cart is empty. Let's add some meals</div>
         </div>
-        <div class="container-fluid" *ngIf="cartObj && cartObj.itemList && cartObj.itemList.length > 0">
+
+        <div class="container-fluid" *ngIf="cartObj && cartObj.itemList && cartObj.itemList.length > 0 && !showCheckoutPage">
           <div class="row">
             <div class="col-8 left-section">
               <ng-container *ngIf="userProfile">
@@ -460,6 +462,13 @@
             </div>
           </div>
         </div>
+
+
+        <div>
+          <paytm-checkout *ngIf="showCheckoutPage"></paytm-checkout>
+        </div>
+
+
         <div class="offcanvas offcanvas-end sign-up" tabindex="-1" id="coupon" aria-labelledby="offcanvasExampleLabel">
           <div class="offcanvas-body">
             <button type="button" #voucherCanvas class="btn-close text-reset mt-3" data-bs-dismiss="offcanvas"

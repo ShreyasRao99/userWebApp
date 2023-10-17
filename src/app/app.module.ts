@@ -12,6 +12,7 @@ import { ConfirmationModalComponent } from './confirmation-modal/confirmation-mo
 import { AlertModalComponent } from './alert-modal/alert-modal.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OrderPlacedComponent } from './order-placed/order-placed.component';
+import { CheckoutModule } from 'paytm-blink-checkout-angular';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { OrderPlacedComponent } from './order-placed/order-placed.component';
     ReactiveFormsModule,
     CustomPipeModule,
     BrowserAnimationsModule,
+    CheckoutModule
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
   providers: [],
