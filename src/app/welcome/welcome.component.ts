@@ -33,6 +33,7 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
   loggedIn!: boolean;
   userLoggedIn: any;
   fetchingCenter!: boolean;
+  showSignUp: boolean = false;
 
   constructor(private router: Router, private sendDataToComponent:SendDataToComponent, private webPageService:WebPageService, private chgDetRef:ChangeDetectorRef, private geoLocationService:GeolocationService, private apiMainService: ApiMainService, private utilityService:UtilityService, private favouriteManagementService: FavouriteManagementService, private googleMapService: GoogleMapService, private localStorageService: LocalStorageService, private fb: FormBuilder) {
     this.mapId += Math.ceil(Math.random() * 1000)
@@ -246,6 +247,10 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
     }catch (e){
       console.log('error while resending OTP',e);
     }  
+  }
+
+  toggleForm(){
+    this.showSignUp = !this.showSignUp;
   }
   
 }

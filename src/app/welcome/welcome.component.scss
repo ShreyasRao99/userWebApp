@@ -263,15 +263,15 @@
 .offcanvas {
     width: 40% !important;
 
-    .row{
-        padding-top:50%;
+    .row {
+        padding-top: 50%;
     }
 
-    .offcanvas-body{
+    .offcanvas-body {
         background-image: url('~/src/assets/images/login-drawer-image.svg');
         background-repeat: no-repeat;
-        background-size:50%;
-        background-position:100% 0;
+        background-size: 50%;
+        background-position: 100% 0;
     }
 
     .img-fluid {
@@ -288,7 +288,8 @@
     }
 
     .sub-header {
-        font-family:'Poppins-semiBold';
+        font-family: 'Poppins-semiBold';
+
         .create-account {
             color: $primary-color1;
         }
@@ -308,14 +309,20 @@
     .form-group {
         .form-control {
             height: 50px;
-            border-radius: 20px;
-            width:50%;
+            border-radius: 25px;
+            width: 50%;
             border-color: grey;
         }
     }
 
+    .signup-form {
+        .form-control {
+            border-radius: 10px;
+        }
+    }
+
     .btn-primary {
-        width:25%;
+        width: 25%;
         border-radius: 20px;
         font-weight: 500;
     }
@@ -339,6 +346,11 @@
 
 // ---RESPONSIVE----
 @media only screen and (max-width: 600px) {
+
+    .offcanvas {
+        width: 100% !important;
+    }
+
     .right-div-wrapper {
         text-align: center !important;
     }
@@ -360,12 +372,12 @@
     }
 
     .div-1 {
-        width: 50%;
+        // width: 50%;
         padding-left: 17% !important;
     }
 
     .div-2 {
-        width: 50%;
+        // width: 50%;
         padding-left: 17% !important;
         margin-left: 0;
     }
@@ -391,11 +403,17 @@
     .operational-cities {
         text-align: center;
     }
+
+    .city-container {
+        justify-content: space-between;
+    }
 }
 
 
-@media only screen and (max-width: 768px) {
-
+@media only screen and (max-width: 820px) {
+    .offcanvas{
+        width:100% !important;
+    }
     .text-col,
     .img-col {
         padding: 0 !important;
