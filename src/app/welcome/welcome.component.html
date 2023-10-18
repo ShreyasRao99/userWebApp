@@ -11,6 +11,12 @@
         <div class="col-12">
           <p class="first-line">Maa ka banaya Khana</p>
           <p class="second-line mt-1">Get the best homemade food from neighborhood homes delivered to your doorstep.</p>
+          <div class="topBtns mobile">
+            <button type="button" class="btn btn-light bgsidemargin2" data-bs-toggle="offcanvas"
+              data-bs-target="#login" (click)="toggleForm('Login')">Login</button>
+            <button type="button" class="btn btn-light ms-3" (click)="toggleForm('Sign up')" data-bs-toggle="offcanvas" data-bs-target="#login">Sign
+              up</button>
+        </div>
           <div class="flex-div">
             <input type="text" class="form-control shadow-none" [id]="mapId" placeholder="Search Your Location"
               aria-label="Recipient's username" aria-describedby="basic-addon2">
@@ -31,14 +37,10 @@
     </div>
     <div class="col-lg-7 col-sm-12 right-side">
       <div class="topBtns">
-        <ng-container *ngIf="!loggedIn && !userLoggedIn">
           <button type="button" class="btn btn-light bgsidemargin2" data-bs-toggle="offcanvas"
-            data-bs-target="#login">Login</button>
-          <button type="button" class="btn btn-light ms-3" data-bs-toggle="offcanvas" data-bs-target="#sign-up">Sign
+            data-bs-target="#login" (click)="toggleForm('Login')">Login</button>
+          <button type="button" class="btn btn-light ms-3" (click)="toggleForm('Sign up')" data-bs-toggle="offcanvas" data-bs-target="#login">Sign
             up</button>
-        </ng-container>
-        <button type="button" class="btn btn-outline-dark ms-5" *ngIf="loggedIn || userLoggedIn">{{loggedIn?
-          userProfile.userName : userLoggedIn.userName}}</button>
       </div>
       <img class="img-fluid" src="/assets/images/welcome-section-1.png" alt="">
     </div>
@@ -103,23 +105,23 @@
   </div>
 <!--- FOOTER --->
   <footer class="row footer-section pt-4">
-    <div class="col-lg-2 col-sm-12 col-md-6">
-      <img class="img-fluid" src="assets/images/footer-logo.svg">
-      <div class="header7 mt-3">
+    <div class="col-lg-3 col-sm-12 col-md-6">
+      <img class="img-fluid" src="assets/images/mealaweLogo.png">
+      <div class="header7 mt-1">
         We at Mealawe bring in technology and solutions for building a healthy society by delivering the best homemade food from nearby home chefs.
       </div>
     </div>
     <div class="col-lg-2 col-sm-12 col-md-6">
       <strong class="footer-heading">company</strong>
-      <ul>
-        <li>About us</li>
-        <li>Why us</li>
-        <li>Join Us</li>
-        <li>Careers</li>
-        <li>Contact Us</li>
+      <ul class="company-style">
+        <li><a href="https://mealawe.com/about/" target="_blank">About us</a></li>
+        <li><a href="https://mealawe.com/why-us/" target="_blank">Why us</a></li>
+        <li><a href="https://mealawe.com/join-us/" target="_blank">Join Us</a></li>
+        <li><a href="https://mealawe.com/careers/" target="_blank">Careers</a></li>
+        <li><a href="https://mealawe.com/contact/" target="_blank">Contact Us</a></li>
       </ul>
     </div>
-    <div class="col-lg-2 col-sm-12 col-md-6">
+    <!-- <div class="col-lg-2 col-sm-12 col-md-6">
       <strong class="footer-heading">account</strong>
       <ul>
         <li>Meal Plans</li>
@@ -127,10 +129,10 @@
         <li>View Cart</li>
         <li>My Wishlist</li>
       </ul>
-    </div>
+    </div> -->
     <div class="col-lg-2 col-sm-12 col-md-6">
       <strong class="footer-heading">info</strong>
-      <ul>
+      <ul class="company-style">
         <li>Privacy Policy</li>
         <li>Terms & Conditions</li>
         <li>Cancellation & Refunds</li>
@@ -139,12 +141,12 @@
     </div>
     <div class="col-lg-2 col-sm-12 col-md-6">
       <strong class="footer-heading">contact us</strong>
-      <ul>
+      <ul class="company-style">
         <li>+91 8275572863</li>
         <li>+91 7276619483</li>
       </ul>
     </div>
-    <div class="col-lg-2 col-sm-12 col-md-6 footer-qr-div alignRight">
+    <div class="col-lg-3 col-sm-12 col-md-6 footer-qr-div alignRight">
       <div>free delivery</div>
       <div>order now</div>
       <img class="img-fluid footer-qr mt-1" src="/assets/images/footer-qr.svg" alt="">
@@ -160,11 +162,11 @@
       <!-- <div class="login-image-div">
         <img class="img-fluid" src="/assets/images/login-drawer-image.svg" alt="">
       </div> -->
-    <div class="row">
+    <div class="row form-section">
       <div class="col-12">
-        <div class="header2">Login</div>
-        <div class="sub-header mt-2">or <span class="create-account pointer" (click)="toggleForm()">{{showSignUp ? 'Login to your account' : 'create an account'}}</span></div>
-        <form class="mt-3" [formGroup]="LoginForm" *ngIf="!showOTPscreen && !showSignUp">
+        <div class="header2">{{formToShow}}</div>
+        <div class="sub-header mt-2">or <span class="create-account pointer" (click)="toggleForm(formToShow == 'Login' ? 'Sign up' : 'Login')">{{formToShow != 'Login' ? 'Login to your account' : 'create an account'}}</span></div>
+        <form class="mt-3" [formGroup]="LoginForm" *ngIf="!showOTPscreen && formToShow == 'Login'">
           <div class="form-group">
             <input type="text" class="form-control shadow-none" formControlName="phoneNo" id="formGroupExampleInput"
               placeholder="Your Mobile Number">
@@ -173,37 +175,42 @@
             </div>
             <button class="btn btn-primary mt-3 mb-1 py-2 yesbtn" type="button" [disabled]="LoginForm.invalid"
               (click)="registerMobileNumer()">Login</button>
-            <div class="termNcondition">By login, I agree to mealawe's <span (click)="showTermNCondition()">terms &
-                conditions</span></div>
+              <div class="termNcondition">{{formToShow == 'Login' ? "By logging in, I accept mealawe's" : "By creating an account,"}} <span (click)="showTermNCondition()">terms &
+                conditions</span>
+            </div>
           </div>
         </form>
-        <form class="signup-form" [formGroup]="LoginForm" *ngIf="showSignUp">
+        <form class="signup-form" [formGroup]="LoginForm" *ngIf="!showOTPscreen && formToShow == 'Sign up'">
           <div class="form-group mt-3">
-            <input type="text" class="form-control shadow-none" id="login" placeholder="Phone Number">
+            <input type="text" class="form-control shadow-none" formControlName="phoneNo" id="login" placeholder="Phone Number">
           </div>
           <div class="form-group mt-2">
-            <input type="text" class="form-control shadow-none" id="name" placeholder="Name">
+            <input type="text" class="form-control shadow-none" formControlName="userName" id="name" placeholder="Name">
           </div>
           <div class="form-group mt-2">
-            <input type="email" class="form-control shadow-none" id="email" aria-describedby="emailHelp"
+            <input type="email" class="form-control shadow-none" formControlName="email" id="email" aria-describedby="emailHelp"
               placeholder="Email">
           </div>
-          <button class="btn btn-primary mt-3 py-2 yesbtn">CONTINUE</button>
+          <div class="account-exists" *ngIf="accountExistsMsg">{{accountExistsMsg}}</div>
+          <button class="btn btn-primary mt-3 mb-1 py-2 yesbtn" [disabled]="LoginForm.invalid" (click)="verifySignUP()">CONTINUE</button>
+          <div class="termNcondition">{{formToShow == 'Login' ? "By logging in, I accept Mealawe's" : "By creating an account, I accept Mealawe's"}} <span (click)="showTermNCondition()">terms &
+            conditions</span>
+        </div>
         </form>
         <div *ngIf="showOTPscreen">
-          <h2 class="mt-3">Verify the OTP</h2>
-          <h3 class="mt-3">Sent to</h3>
-          <p class="mt-3">+91 {{phoneNo}}</p>
-          <div class="mt-3">
+          <div class="mt-4 header3">Verify the OTP</div>
+          <div class="mt-1 header4">Sent to</div>
+          <p class="mt-1 header5">+91 {{phoneNo}}</p>
+          <div class="mt-2">
             <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{length:6,allowNumbersOnly:true}">
             </ng-otp-input>
           </div>
           <div class="row flex-row">
-            <div class="col-6">
+            <div class="col-3">
               <button class="btn btn-primary yesbtn mt-2" (click)="verifyOTP()"
                 [disabled]="!enableVerfiy">Verify</button>
             </div>
-            <div class="col-6">
+            <div class="col-3">
               <div class="second">
                 <div *ngIf="showResendOTP" (click)="resendOTP()" class="resendLink">Resend OTP</div>
                 <div *ngIf="!showResendOTP" class="otpTime">
@@ -218,7 +225,7 @@
       </div>
     </div>
   </div>
-  <div class="offcanvas offcanvas-end sign-up" tabindex="-1" id="sign-up" aria-labelledby="offcanvasExampleLabel">
+  <!-- <div class="offcanvas offcanvas-end sign-up" tabindex="-1" id="sign-up" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
       <h5 class="offcanvas-title header1" id="offcanvasExampleLabel">Sign Up</h5>
     </div>
@@ -242,4 +249,4 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->

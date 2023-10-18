@@ -159,14 +159,14 @@ export class CartComponent implements OnInit, OnDestroy {
   subMessage: string = '';
   serviceNotAvailable: boolean = false;
   selectedAddressIndex: any;
-  selectedDates:any;
+  selectedDates: any;
   allTimeSlotSelected!: string;
   advanceTimeSlotSelected!: string;
   showCheckoutPage: boolean = false;
   subscription: any[] = [];
-  
 
-  constructor(private cartManagementService: CartManagementService, private datePipe:DatePipe, private toasterService: ToasterService, private alertModalService: AlertModalService, private chgDetRef: ChangeDetectorRef, private sendDataToComponent: SendDataToComponent, private userProfileService: UserProfileService, private localStorageService: LocalStorageService, private googleMapService: GoogleMapService, private confirmationModalService: ConfirmationModalService, private apiMainService: ApiMainService, private paymentGatewayService: PaymentGatewayService, private runtimeStorageService: RuntimeStorageService, private utilityService: UtilityService, private router: Router) {
+
+  constructor(private cartManagementService: CartManagementService, private datePipe: DatePipe, private toasterService: ToasterService, private alertModalService: AlertModalService, private chgDetRef: ChangeDetectorRef, private sendDataToComponent: SendDataToComponent, private userProfileService: UserProfileService, private localStorageService: LocalStorageService, private googleMapService: GoogleMapService, private confirmationModalService: ConfirmationModalService, private apiMainService: ApiMainService, private paymentGatewayService: PaymentGatewayService, private runtimeStorageService: RuntimeStorageService, private utilityService: UtilityService, private router: Router) {
     const currentDate = new Date();
     const after1Day = new Date((new Date()).setDate(currentDate.getDate() + 1));
     const after2Day = new Date((new Date()).setDate(currentDate.getDate() + 2));
@@ -217,7 +217,7 @@ export class CartComponent implements OnInit, OnDestroy {
     // this.getCouponList()
   }
 
-  getUserDetails(){
+  getUserDetails() {
     this.checkUserLoginProfile()
     this.setCurrentLocation()
   }
@@ -325,12 +325,12 @@ export class CartComponent implements OnInit, OnDestroy {
         this.toggleCanvas();
         // this.setCurrentLocation()  
       }
-      else{
+      else {
         this.addressSelected = address
         this.saveCurrentLocation = false
       }
     })
-    
+
 
     this.sendDataToComponent.subscribe('LOCATION_ADDED_UPDATE_CART_PAGE', (flag) => {
       if (flag) {
@@ -944,14 +944,14 @@ export class CartComponent implements OnInit, OnDestroy {
         }
         if (order && order.amount >= 0) {
           const checkoutDetails = await this.paymentGatewayService.startPaytmPaymentProcess(order);
-          if (checkoutDetails.amount > 0) {            
+          if (checkoutDetails.amount > 0) {
             this.showCheckoutPage = true;
             order = checkoutDetails;
             const res = await this.paymentGatewayService.payPaytmGatewayWeb(checkoutDetails, order);
-            resolve(res);         
-          }else{
+            resolve(res);
+          } else {
             resolve(true);
-          }       
+          }
         }
       } catch (error) {
         reject(error);
@@ -1016,7 +1016,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   async openOrderPlaced(orderType: any, success: any) {
     this.runtimeStorageService.resetCacheData('OPEN_ORDERS');
-    this.router.navigate(['/order-placed'],{queryParams:{success}})
+    this.router.navigate(['/order-placed'], { queryParams: { success } })
     // const modal = await this.modalController.create({
     //   component: OrderPlacedComponent,
     //   componentProps: {paymentSucess: success},
@@ -1780,7 +1780,8 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   showAlert() {
-    alert('kitchen more than 5kms away')
+    this.confirmationModalService.modal(`You are ordering from kitchen which is more than 5kms distance, extra delivery time and charges are applicable.`,
+      () => '', this);
   }
 
   isWeekday = (dateString: any) => {
@@ -1850,7 +1851,7 @@ export class CartComponent implements OnInit, OnDestroy {
       if (this.selectedDates.length > subscriptionDays) {
         this.toasterService.error(`You must select ${subscriptionDays} Delivery Dates.`);
       }
-      this.userSelectedDates = this.selectedDates.map((el:any)=>{
+      this.userSelectedDates = this.selectedDates.map((el: any) => {
         let date = new Date(el.getTime() - el.getTimezoneOffset() * 60000).toISOString()
         return date
       });
@@ -1859,16 +1860,16 @@ export class CartComponent implements OnInit, OnDestroy {
     }
   }
 
-  showAllDayTimeSlot(slot:any){
-    let x = this.datePipe.transform(slot.start,'shortTime')
-    let y = this.datePipe.transform(slot.end,'shortTime')
-    this.allTimeSlotSelected = x+' - '+y
+  showAllDayTimeSlot(slot: any) {
+    let x = this.datePipe.transform(slot.start, 'shortTime')
+    let y = this.datePipe.transform(slot.end, 'shortTime')
+    this.allTimeSlotSelected = x + ' - ' + y
   }
 
-  showAdvanceTimeSlot(slot:any){
-    let x = this.datePipe.transform(slot.start,'shortTime')
-    let y = this.datePipe.transform(slot.end,'shortTime')
-    this.advanceTimeSlotSelected = x+' - '+y
+  showAdvanceTimeSlot(slot: any) {
+    let x = this.datePipe.transform(slot.start, 'shortTime')
+    let y = this.datePipe.transform(slot.end, 'shortTime')
+    this.advanceTimeSlotSelected = x + ' - ' + y
   }
 
 
@@ -2029,7 +2030,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
 
-  test(){
+  test() {
     alert('')
   }
 

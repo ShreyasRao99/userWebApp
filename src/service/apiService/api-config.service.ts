@@ -16,6 +16,7 @@ export class ApiConfigService {
       registerPhoneNo: {url: `${this.baseUrl}/authuser/registerPhoneNo`, method: 'POST'},
       resendOTP: {url: `${this.baseUrl}/authuser/resendOTP`, method: 'POST'},
       verifyOTP: {url: `${this.baseUrl}/authuser/verifyOTP`, method: 'POST'},
+      signupUser: {url: `${this.baseUrl}/authuser/signupUser`, method: 'POST'},
       logout: {url: `${this.baseUrl}/authuser/logout`, method: 'GET'},
       getBannerList: {url: `${this.baseUrl}/api/bannerlist`, method: 'GET'},
       getRegionalInfoList: {url: `${this.baseUrl}/api/regionalInfoList`, method: 'GET'},

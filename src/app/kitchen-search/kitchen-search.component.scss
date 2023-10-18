@@ -1,0 +1,80 @@
+@import "/src/styles.scss";
+
+.regionalLabel{
+    position: absolute;
+    z-index: 1;
+    top: 52px;
+    left: 25px;
+}
+.headerMargin{
+    text-align:center;
+    padding: 1%;
+}
+.backarrow{
+    width: 25px;
+    margin-right: 10px;
+    position: relative;
+    bottom: -15px;
+    left: 5px;
+}
+.selected{
+    background-color: $primary-color3 !important;
+    color: white;
+}
+.filterStyle{
+    padding: 7px 10px 8px 10px;
+    font-size: 10px;
+    border-radius: 15px;
+    background: url('~/src/assets/icon/filterIcon.svg');  
+    background-size: 20px !important;
+    background-repeat: no-repeat !important;
+    background-position: 8px 4px;
+    width: 110px;
+    text-align: right;
+}
+.preparingheader{
+    display: flex;
+    flex-direction: row;
+    .first{
+        width: 60%;
+        .mainheader{
+            font-size: 30px;
+        }
+    }
+    .second{
+        width: 40%;
+        margin-top:3%;
+        text-align: center;
+    }
+}
+
+.specialHeader{
+    padding-right: 58px;
+}
+.specialtext{
+    font-size: 25px;
+    color: white;
+    position: relative;
+    top: -55px;
+    text-align: center;
+    text-shadow: 0px 5px 3px #000000;
+}
+
+.filterpopupdiv{
+    background: url('~/src/assets/icon/filterIcon.png'); 
+    background-repeat: no-repeat;
+    background-position: center;
+    float: right;
+    height: 29px;
+    width: 30px;
+}
+.orderCapsule{
+    display: inline-block;
+    border-radius: 17px;
+    color: #808080;
+    margin: 0px 6px 5px 0px;
+    text-align: center;
+    border: 1px solid #808080;
+    font-size: 12px;
+    padding: 8px 12px;
+}

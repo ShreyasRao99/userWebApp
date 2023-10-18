@@ -1,28 +1,47 @@
 div[scrollx=true] {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: scroll;
-    &::-webkit-scrollbar {
-       display: none;
-    }
-     .itemStyle {
-       flex: 0 0 auto;
-      //  margin:0 1%;
-    }
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
   }
 
-  .imageRegionalStyle{
-    width: 140px;
-    height: 140px;
+  .itemStyle {
+    flex: 0 0 auto;
+    margin: 0 5% 0 0;
+  }
+}
+
+.imageRegionalStyle {
+  width: 140px;
+  height: 140px;
+}
+
+.scrollBtns {
+  button {
+    width: 7%;
+    border: none;
+    border-radius: 15px;
   }
 
-  .itemName{
-    font-size: 13px;
-    color: #364152;
-    text-align: center;
+  i {
+    font-size: 15px;
   }
+}
 
-  .container{
-    padding:0;
+.itemName {
+  font-size: 13px;
+  color: #364152;
+  text-align: center;
+}
+
+.container {
+  padding: 0;
+}
+
+@media only screen and (max-width: 820px) {
+  .scrollBtns {
+    display: none;
   }
-  
+}

@@ -33,9 +33,10 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
   loggedIn!: boolean;
   userLoggedIn: any;
   fetchingCenter!: boolean;
-  showSignUp: boolean = false;
+  formToShow: any = 'Login';
+  accountExistsMsg: any = '';
 
-  constructor(private router: Router, private sendDataToComponent:SendDataToComponent, private webPageService:WebPageService, private chgDetRef:ChangeDetectorRef, private geoLocationService:GeolocationService, private apiMainService: ApiMainService, private utilityService:UtilityService, private favouriteManagementService: FavouriteManagementService, private googleMapService: GoogleMapService, private localStorageService: LocalStorageService, private fb: FormBuilder) {
+  constructor(private router: Router, private sendDataToComponent: SendDataToComponent, private webPageService: WebPageService, private chgDetRef: ChangeDetectorRef, private geoLocationService: GeolocationService, private apiMainService: ApiMainService, private utilityService: UtilityService, private favouriteManagementService: FavouriteManagementService, private googleMapService: GoogleMapService, private localStorageService: LocalStorageService, private fb: FormBuilder) {
     this.mapId += Math.ceil(Math.random() * 1000)
   }
   ngOnDestroy(): void {
@@ -52,16 +53,34 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     this.userLoggedIn = this.localStorageService.getCacheData('USER_PROFILE')
-    console.log(this.userLoggedIn)
+    if (this.userLoggedIn) {
+      this.router.navigate(['/home'])
+    }
     this.createLoginForm();
   }
 
   createLoginForm() {
     this.LoginForm = this.fb.group({
-      phoneNo: ['', [Validators.required, Validators.pattern("^[0-9]{10}$")]]
+      phoneNo: ['', [Validators.required, Validators.pattern("^[0-9]{10}$")]],
+      userName: [''],
+      email: ['']
     })
   }
-  
+
+  setFormValidators(){
+    let formControl = this.LoginForm.controls
+    if(this.formToShow == 'Login'){
+      formControl.userName.clearValidators();
+      formControl.email.clearValidators();
+      this.LoginForm.updateValueAndValidity();
+    }
+    else{
+      formControl.userName.setValidators(Validators.required)
+      formControl.email.setValidators([Validators.required, Validators.email])
+      this.LoginForm.updateValueAndValidity();
+    }
+  }
+
   async loadSelectedLocation(selectedCenter: any) {
     try {
       this.fetchingCenter = true;
@@ -102,7 +121,6 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   configureCurrentLocation(address: any) {
-    console.log(address)
     if (address.lat && address.lng) {
       address.latlng = { lat: address.lat, lng: address.lng }
     }
@@ -117,8 +135,8 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.goToHome(selectedAddress)
   }
 
-  goToHome(address:any){
-    this.sendDataToComponent.publish('ADDRESS_FROM_DELIVERY',address)
+  goToHome(address: any) {
+    this.sendDataToComponent.publish('ADDRESS_FROM_DELIVERY', address)
     this.router.navigate(['/home'])
   }
 
@@ -168,16 +186,37 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }
   }
-  
+
+  async verifySignUP() {
+    try {
+      this.phoneNo = this.LoginForm.value.phoneNo;
+      const res = await this.apiMainService.signupUser(this.LoginForm.value);
+      console.log(res)
+      if (res.msg) {
+        this.accountExistsMsg = res.msg
+      }
+      else if (res._id) {
+        this.localStorageService.setCacheData('USER_MOBILE', this.phoneNo);
+        this.showOTPscreen = true;
+        this.startTimer()
+      }
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
+
 
   async verifyOTP() {
     const finalOTP = this.OTPprovided;
     try {
       const loginObj = await this.apiMainService.verifyOTP({ phoneNo: this.phoneNo, password: finalOTP, userType: 'customer' });
+      console.log(loginObj)
       if (loginObj) {
         let el: HTMLElement = this.loginCanvas.nativeElement;
         el.click();
       }
+      this.loadSelectedLocation(null)
       this.localStorageService.setCacheData('OTP_VERIFIED', true);
       this.localStorageService.setCacheData('TOKEN', loginObj.token);
       this.userProfile = await this.apiMainService.saveOrRetrieveUserProfile(loginObj.loginInfo);
@@ -205,6 +244,7 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
           // this.navCntrl.navigateRoot('/favcuisine');
         }
       }
+      this.router.navigate(['/home'])
     } catch (e) {
       console.log(e);
     }
@@ -232,25 +272,26 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
     }, 1000);
   }
 
-  showTermNCondition(){
-    try{
+  showTermNCondition() {
+    try {
       this.webPageService.termAndCondition();
-    }catch(e){
-     console.log('Error while saving kitchen Lead')
+    } catch (e) {
+      console.log('Error while saving kitchen Lead')
     }
   }
 
-  async resendOTP(){  
-    try{
-      await this.apiMainService.resendOTP({phoneNo : this.phoneNo});
+  async resendOTP() {
+    try {
+      await this.apiMainService.resendOTP({ phoneNo: this.phoneNo });
       this.startTimer()
-    }catch (e){
-      console.log('error while resending OTP',e);
-    }  
+    } catch (e) {
+      console.log('error while resending OTP', e);
+    }
   }
 
-  toggleForm(){
-    this.showSignUp = !this.showSignUp;
+  toggleForm(name: any) {
+    this.formToShow = name;
+    this.setFormValidators();
   }
-  
+
 }

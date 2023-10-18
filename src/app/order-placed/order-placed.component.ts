@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-order-placed',
@@ -8,17 +8,22 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class OrderPlacedComponent implements OnInit {
 
-  constructor(private router:Router, private acivatedRoute:ActivatedRoute){}
+  constructor(private router: Router, private acivatedRoute: ActivatedRoute) { }
 
-  paymentSucess!:boolean
-  
+  paymentSucess: boolean = false
+// -- use contructor--
   ngOnInit(): void {
-    this.acivatedRoute.queryParams.subscribe((res:any)=>{
-      this.paymentSucess = res.success
+    this.router.events.subscribe(res => {
+      if (res instanceof NavigationEnd) {
+        this.acivatedRoute.queryParams.subscribe((res: any) => {
+          this.paymentSucess = res.success
+          console.log(res)
+        })
+      }
     })
   }
 
-  GoToOrders(){
+  GoToOrders() {
     this.router.navigate(['/my-account/orders/pastOrder'])
   }
 
