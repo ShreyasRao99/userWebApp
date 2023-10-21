@@ -15,6 +15,7 @@ import { SendDataToComponent } from 'src/service/sendDataToComponent';
 import { AlertModalService } from '../alert-modal/alert-modal.service';
 import { ToasterService } from '../toaster/toaster.service';
 import { DatePipe } from '@angular/common';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-cart',
@@ -24,6 +25,8 @@ import { DatePipe } from '@angular/common';
 export class CartComponent implements OnInit, OnDestroy {
   @ViewChild('canvasAddress') canvasAddress!: ElementRef<HTMLElement>
   @ViewChild('voucherCanvas') voucherCanvas!: ElementRef<HTMLElement>
+  @ViewChild('completeProfile') completeProfile!: ElementRef<HTMLElement>
+  @ViewChild('closeProfile') closeProfile!: ElementRef<HTMLElement>
   @ViewChild("voucherContent") voucherContent: any;
   @ViewChild("lottieModal") lottieModal: any;
   imageUrl = environment.imageUrl;
@@ -164,9 +167,15 @@ export class CartComponent implements OnInit, OnDestroy {
   advanceTimeSlotSelected!: string;
   showCheckoutPage: boolean = false;
   subscription: any[] = [];
+  profileForm: any;
+  referralCodeValid: boolean = false;
+  validationCompleted: boolean = false;
+  showSpinner: boolean = false;
+  codeValidationCounter: any;
+  installReferrer: any;
 
 
-  constructor(private cartManagementService: CartManagementService, private datePipe: DatePipe, private toasterService: ToasterService, private alertModalService: AlertModalService, private chgDetRef: ChangeDetectorRef, private sendDataToComponent: SendDataToComponent, private userProfileService: UserProfileService, private localStorageService: LocalStorageService, private googleMapService: GoogleMapService, private confirmationModalService: ConfirmationModalService, private apiMainService: ApiMainService, private paymentGatewayService: PaymentGatewayService, private runtimeStorageService: RuntimeStorageService, private utilityService: UtilityService, private router: Router) {
+  constructor(private cartManagementService: CartManagementService, private fb: FormBuilder, private datePipe: DatePipe, private toasterService: ToasterService, private alertModalService: AlertModalService, private chgDetRef: ChangeDetectorRef, private sendDataToComponent: SendDataToComponent, private userProfileService: UserProfileService, private localStorageService: LocalStorageService, private googleMapService: GoogleMapService, private confirmationModalService: ConfirmationModalService, private apiMainService: ApiMainService, private paymentGatewayService: PaymentGatewayService, private runtimeStorageService: RuntimeStorageService, private utilityService: UtilityService, private router: Router) {
     const currentDate = new Date();
     const after1Day = new Date((new Date()).setDate(currentDate.getDate() + 1));
     const after2Day = new Date((new Date()).setDate(currentDate.getDate() + 2));
@@ -206,6 +215,8 @@ export class CartComponent implements OnInit, OnDestroy {
     this.validateDailyTimings();
     this.updateCart(cartObj);
     this.setCurrentLocation();
+    this.createProfileForm();
+    this.referralCodeVerify();
     if (this.userProfile) {
       this.getMoneyWalletBalance(true);
       this.getMealaweWalletBalance(true);
@@ -216,10 +227,81 @@ export class CartComponent implements OnInit, OnDestroy {
     // this.getCouponList()
   }
 
+  referralCodeVerify() {
+    this.profileForm.controls.code.valueChanges.subscribe((res: any) => {
+      if (res) {
+        this.installReferrer = true;
+        this.validateInstallReferrer(res)
+      }
+    })
+  }
+
+  async validateInstallReferrer($event: any) {
+    let searchText = $event;
+    this.referralCodeValid = false;
+    this.validationCompleted = false;
+    if (searchText) {
+      clearTimeout(this.codeValidationCounter);
+      this.codeValidationCounter = setTimeout(async () => {
+        try {
+          searchText = searchText.toUpperCase();
+          this.showSpinner = true;
+          const { referralCodeValid } = await this.apiMainService.validateReferralCode(searchText);
+          this.referralCodeValid = referralCodeValid;
+          this.validationCompleted = true;
+          this.showSpinner = false;
+        } catch (e) {
+          this.showSpinner = false;
+        }
+      }, 1000)
+    }
+  };
+
   getUserDetails() {
     this.checkUserLoginProfile()
     this.setCurrentLocation()
   }
+
+  createProfileForm() {
+    this.profileForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30), Validators.pattern(/^(\s+\S+\s*)*(?!\s).*$/)]],
+      email: ['', [Validators.required,Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9]+(\\.[a-zA-Z]{2,4})+(\\.[a-zA-Z]{2,4})*$")]],
+      code: ['']
+    })
+  }
+
+  async submitCompletedProfile(){
+    // const selectedList = this.favcuisinelist.filter( (item: any) => item.checked).map(ele => ele.name);
+    // const preferences = selectedList.join(',');
+    let form = this.profileForm.controls
+    const userProfile = this.localStorageService.getCacheData('USER_PROFILE');
+    if(this.profileForm && this.profileForm.value){
+      // this.username = this.favCusineForm.value.username;
+      // this.email = this.favCusineForm.value.email;
+      // if(this.profileForm.email){
+      //   this.email = this.email.toLowerCase();
+      // }
+    }
+    if (userProfile){
+      userProfile.userName = form.name.value.trim();
+      userProfile.email = form.email.value.toLowerCase();
+      // userProfile.preferences = preferences;
+      if(this.installReferrer && this.referralCodeValid){
+        userProfile.installReferrer = this.installReferrer.toUpperCase();
+      }
+      try{
+        const updatedUserProfile = await this.apiMainService.updateUserProfile(userProfile._id, userProfile);
+        this.userProfile = updatedUserProfile
+        this.localStorageService.setCacheData('USER_PROFILE', updatedUserProfile);
+        this.localStorageService.setCacheData('PREFERENCE_SET', true);
+        let el = this.closeProfile.nativeElement
+        el.click();
+        // this.mixpanelservice.signup('Sign_Up',{id:userProfile._id});
+      }catch (e){
+        console.log('error while updating user address');
+      }
+  }
+}
 
   validateDailyTimings() {
     if (this.cartObj && this.cartObj.orderType === 'daily') {
@@ -734,28 +816,34 @@ export class CartComponent implements OnInit, OnDestroy {
         this.toasterService.warning(111);
       }
     }
-    // else{
-    //   try{
-    //     const alert = await this.alertController.create({
-    //       cssClass: 'my-alert-class',
-    //       header: 'Set Your Profile',
-    //       backdropDismiss: false,
-    //       message: 'You have not set your profile yet, kindly set your profile. ',
-    //       buttons: [
-    //           {
-    //             text: 'Ok',
-    //             cssClass: 'secondary-color3 bold',
-    //             handler: () => {
-    //               this.openProfileModel()           
-    //             }
-    //           }
-    //         ]
-    //     });  
-    //     await alert.present();
-    //     }catch(error){
-    //       console.log('error while showing alert ',error);
-    //     }
-    // }
+    else {
+      try {
+        this.confirmationModalService.modal(`You have not set up your profile yet, Kindly set your profile?`,
+          () => {
+            let el = this.completeProfile.nativeElement;
+            el.click()
+          }, this);
+
+        // const alert = await this.alertController.create({
+        //   cssClass: 'my-alert-class',
+        //   header: 'Set Your Profile',
+        //   backdropDismiss: false,
+        //   message: 'You have not set your profile yet, kindly set your profile. ',
+        //   buttons: [
+        //       {
+        //         text: 'Ok',
+        //         cssClass: 'secondary-color3 bold',
+        //         handler: () => {
+        //           this.openProfileModel()           
+        //         }
+        //       }
+        //     ]
+        // });  
+        // await alert.present();
+      } catch (error) {
+        console.log('error while showing alert ', error);
+      }
+    }
   }
 
 
@@ -1003,7 +1091,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   async openOrderPlaced(orderType: any, success: any) {
     this.runtimeStorageService.resetCacheData('OPEN_ORDERS');
-    this.router.navigate(['/order-placed'], { queryParams: { success,orderType } })
+    this.router.navigate(['/order-placed'], { queryParams: { success, orderType } })
     // const modal = await this.modalController.create({
     //   component: OrderPlacedComponent,
     //   componentProps: {paymentSucess: success},

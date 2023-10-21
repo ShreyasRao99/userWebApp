@@ -352,4 +352,9 @@ export class ApiMainService {
      method: urlObj.method},data,null,pageNumber>1?true:false);  
   }
 
+  validateReferralCode(code: any){
+    const urlObj = this.apiConfigService.apiEndPointObj.validateReferralCode;
+    return this.apiHttpService.REQUEST({url: urlObj.url + `/${code}`, method: urlObj.method},null,null,true);
+  }
+
 }

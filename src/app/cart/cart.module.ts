@@ -34,7 +34,8 @@ import { CheckoutModule } from 'paytm-blink-checkout-angular';
     MatInputModule,
     NgxMultipleDatesModule,
     CheckoutModule,
-    SetDeliveryLocationModule
+    SetDeliveryLocationModule,
+    ReactiveFormsModule
   ],
   providers:[DatePipe],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]

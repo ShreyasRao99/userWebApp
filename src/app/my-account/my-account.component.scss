@@ -1,3 +1,13 @@
+@import "/src/styles.scss";
+
+
 .options-container{
     padding:2% 5% 0 8%;
+}
+
+.left-div{
+    padding:3%;
+    background-color:$primary-color5;
+    color:white;
+    position:sticky;
 }

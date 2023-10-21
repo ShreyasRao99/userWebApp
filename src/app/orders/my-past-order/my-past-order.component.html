@@ -11,11 +11,11 @@
         <div button class="listOrderStyle" *ngFor="let order of pastOrderList" (click)="goToOrderPage(order)">
             <div class="row">
                 <div class="col-12">
-                    <div class="header5 grey right bgsidepadding2">{{order.orderDate | date: 'mediumDate'}}
+                    <div class="header5  right bgsidepadding2">{{order.orderDate | date: 'mediumDate'}}
                     </div>
-                    <div class="header5 grey">Order No: {{order.orderNo}}</div>
-                    <div class="header5 grey">Order Status: {{orderStatusMapper[order.orderstatus]}}</div>
-                    <div class="header5 grey capitalize">Order Type:
+                    <div class="header5">Order No: {{order.orderNo}}</div>
+                    <div class="header5">Order Status: {{orderStatusMapper[order.orderstatus]}}</div>
+                    <div class="header5 capitalize">Order Type:
                         <span>{{orderStatusMapper[order.orderType]}}</span>
                     </div>
                 </div>
@@ -26,10 +26,10 @@
                         order.kitchenName}}</div>
                 </div>
                 <div class="col-6 alignRight">
-                    <div class="grey header4 bgsidepadding2">&#8377;{{order.amount}}</div>
+                    <div class="header4 bgsidepadding2">&#8377;{{order.amount}}</div>
                 </div>
             </div>
-            <div class="row" class="header5 grey">
+            <div class="row" class="header5">
                 <div class="col-12">
                     <span *ngFor="let item of order.itemList; index as i">
                         {{item.itemName}} x {{item.count}}{{order.itemList.length > i+1 ? ',&nbsp;':''}}
@@ -41,7 +41,7 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="pastOrderList.length === 0" class="header3 bold grey center bgpadding">
+        <div *ngIf="pastOrderList.length === 0" class="header3 bold center bgpadding">
             No Order Found
         </div>
         <div #pastOrdersListEndDiv>

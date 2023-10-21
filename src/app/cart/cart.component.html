@@ -294,9 +294,11 @@
                   </div>
                 </div>
               </div>
-              <div class="coupons-div mt-3 p-3" (click)="openVoucherSection()" data-bs-toggle="offcanvas"
+              <div class="coupondivstyle mt-3" (click)="openVoucherSection()" data-bs-toggle="offcanvas"
                 data-bs-target="#coupon">
-                Apply Coupon
+                <div class="coupondiv">
+                  <div class="couponText">Apply Coupon</div>
+                </div>
               </div>
               <div *ngIf="couponCode && cartObj.orderType !== 'subscription'" class="couponSelected">
                 <div class="right remove" (click)="removeCoupon(true)">REMOVE</div>
@@ -559,6 +561,33 @@
                   <app-set-delivery-location *ngIf="showMap"
                     [showSkipButton]="showSkipButton"></app-set-delivery-location>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button style="display:none;" data-bs-toggle="offcanvas" #completeProfile data-bs-target="#completeProfile"></button>
+        <div class="complete-profile">
+          <div class="offcanvas offcanvas-start" tabindex="-1" id="completeProfile" aria-labelledby="offcanvasExampleLabel">
+            <button type="button" #closeProfile class="btn-close text-reset mt-3"
+              data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <div class="offcanvas-div">
+              <div class="offcanvas-body">
+                <form [formGroup]="profileForm">
+                  <div class="form-group">
+                    <label for="name">Name*</label>
+                    <input type="text" formControlName="name" class="form-control shadow-none" id="name" aria-describedby="emailHelp" placeholder="Your Name">
+                  </div>
+                  <div class="form-group mt-2">
+                    <label for="email">Email ID*</label>
+                    <input type="text" formControlName="email" class="form-control shadow-none" id="email" aria-describedby="emailHelp" placeholder="Email Id">
+                  </div>
+                  <div class="form-group mt-2">
+                    <label for="referral">Referral Code (Optional)</label>
+                    <input type="text" formControlName="code" class="form-control shadow-none" id="referral" aria-describedby="emailHelp" placeholder="Referral Code">
+                  </div>
+                  <div class="errorText" *ngIf="installReferrer && !referralCodeValid && validationCompleted">Invalid Referral Code</div>
+                  <button class="btn btn-danger mt-2" (click)="submitCompletedProfile()" [disabled]="!profileForm.valid">Confirm</button>
+                </form>
               </div>
             </div>
           </div>

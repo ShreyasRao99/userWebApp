@@ -122,6 +122,7 @@
 .tabButton {
   display: flex;
   align-items: center;
+  padding-top:3%;
 }
 
 .selectedButton {
@@ -138,10 +139,7 @@
   border: 1px solid;
   border-radius: 18px;
   margin: 5px;
-}
-
-.header {
-//   margin-top: 10%;
+  font-size:15px;
 }
 
 .question {

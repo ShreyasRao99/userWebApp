@@ -54,7 +54,7 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this.userLoggedIn = this.localStorageService.getCacheData('USER_PROFILE')
     if (this.userLoggedIn) {
-      this.router.navigate(['/home'])
+      // this.router.navigate(['/home'])
     }
     this.createLoginForm();
   }

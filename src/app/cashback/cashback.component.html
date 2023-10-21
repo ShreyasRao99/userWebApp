@@ -1,5 +1,5 @@
 <div>
-    <div class="header">
+    <div class="headerBG">
         <span (click)="goback()">
             <div class="inline-table">
                 <!-- <ion-icon class="backIcon" name="arrow-back-outline"></ion-icon> -->
@@ -79,7 +79,7 @@
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#'+faq.id" aria-expanded="true" aria-controls="collapseOne">
                         {{faq.question}}
                     </button>
-                  </h2>
+                  </h2>{{faq.id}}
                   <div [id]="faq.id" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
                       {{faq.answer}}

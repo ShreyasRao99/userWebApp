@@ -30,6 +30,6 @@ export class AppComponent implements OnInit {
   }
 
   routeConditions() {
-    this.router.navigate(['/welcome'])
+    // this.router.navigate(['/welcome'])
   }
 }
