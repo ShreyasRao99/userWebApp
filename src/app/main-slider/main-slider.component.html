@@ -1,5 +1,6 @@
-<div class="container pointer">
-    <swiper-container autoplay="true" pagination="true" speed="700" css-mode="true">
+<div class="slider-container pointer">
+    <div class="sectionHeader col-6 mt-4">What we offer</div>
+    <swiper-container class="mt-4" autoplay="true" pagination="true" speed="700" css-mode="true">
         <swiper-slide *ngFor="let banner of bannerList">
                 <img class="card-img-top" [src]="banner.imageUrl" alt="Card image cap" (click)="gotoSubscription(banner)">
         </swiper-slide>

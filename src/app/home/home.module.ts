@@ -12,10 +12,11 @@ import { KitchenCardModule } from '../kitchen-card/kitchen-card.module';
 import { KitchenNearModule } from '../kitchen-near/kitchen-near.module';
 import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderModule } from '../header/header.module';
+import { FooterModule } from '../footer/footer.module';
 
 @NgModule({
   declarations: [
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     CommonModule,
@@ -29,7 +30,8 @@ import { HeaderModule } from '../header/header.module';
     KitchenCardModule,
     KitchenNearModule,
     NgbPopoverModule,
-    HeaderModule
+    HeaderModule,
+    FooterModule
   ]
 })
 export class HomeModule { }

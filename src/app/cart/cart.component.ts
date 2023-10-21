@@ -35,7 +35,7 @@ export class CartComponent implements OnInit, OnDestroy {
   deliveryCharges = 0;
   taxes = 10;
   currentLocation!: string;
-  tagLocation: string = 'home';
+  tagLocation: string = '';
   saveCurrentLocation = false;
   showBackButton = false;
   // serviceAvailable = false;
@@ -213,7 +213,6 @@ export class CartComponent implements OnInit, OnDestroy {
     if (this.userSelectedDates.length === 0) {
       this.userSelectedDates.push(this.allowedMinDate);
     }
-    console.log(this.userProfile)
     // this.getCouponList()
   }
 
@@ -267,7 +266,7 @@ export class CartComponent implements OnInit, OnDestroy {
       this.addressSelected = formatedAddess
       this.customerLocation = { ...formatedAddess };
       let address = '';
-      if (formatedAddess.address) {
+      if (formatedAddess.address && formatedAddess.landmark) {
         this.saveCurrentLocation = true;
         address = formatedAddess.address
       } else {
@@ -320,7 +319,8 @@ export class CartComponent implements OnInit, OnDestroy {
 
     this.sendDataToComponent.subscribe('ADDRESS_FROM_DELIVERY', (address) => {
       if (address.address) {
-        this.userProfile.addressList.push(address);
+        this.userProfile.addressList ? this.userProfile.addressList.push(address) : this.userProfile.addressList = [address];
+        console.log(this.userProfile)
         this.toggleAddressSelected(address);
         this.toggleCanvas();
         // this.setCurrentLocation()  
@@ -1000,23 +1000,10 @@ export class CartComponent implements OnInit, OnDestroy {
     // return await modal.present();  
   }
 
-  async changeLocation() {
-    // const modal = await this.modalController.create({
-    //   component: SelectCurrentAddressComponent,
-    //   id: 'confirmAddress'
-    // });
-    // modal.onDidDismiss().then(async (event: any) => {
-    //   const data = event.data;
-    //   if (data && data.back){
-    //     this.updateLocationChange();  
-    //   }
-    // });
-    // return await modal.present();
-  }
 
   async openOrderPlaced(orderType: any, success: any) {
     this.runtimeStorageService.resetCacheData('OPEN_ORDERS');
-    this.router.navigate(['/order-placed'], { queryParams: { success } })
+    this.router.navigate(['/order-placed'], { queryParams: { success,orderType } })
     // const modal = await this.modalController.create({
     //   component: OrderPlacedComponent,
     //   componentProps: {paymentSucess: success},
@@ -1153,7 +1140,6 @@ export class CartComponent implements OnInit, OnDestroy {
     if (this.subscriptionObj.dinnerSubscription && this.subscriptionObj.lunchSubscription) {
       this.mealPerdayCount = 2;
     }
-    console.log(this.cartObj)
     this.cartObj.itemList.forEach((ele: any) => {
       let totalDays = ele.days;
       mealaweTotalAmt = ele.packagePrice * ele.count * this.mealPerdayCount;
@@ -1606,7 +1592,6 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   changePackageAddons(item: any) {
-    console.log(item)
     this.cartManagementService.updateItemToCart(item);
     this.getPayAmt();
   }
@@ -1780,7 +1765,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   showAlert() {
-    this.confirmationModalService.modal(`You are ordering from kitchen which is more than 5kms distance, extra delivery time and charges are applicable.`,
+    this.confirmationModalService.modal(`You are ordering from a kitchen which is more than 5kms away. Extra delivery time and charges are applicable.`,
       () => '', this);
   }
 
@@ -1825,7 +1810,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   toggleCanvas() {
     let el = this.canvasAddress?.nativeElement;
-    el.click();
+    el?.click();
   }
 
   mealTimeSelected(prop: any) {
@@ -1837,14 +1822,12 @@ export class CartComponent implements OnInit, OnDestroy {
   }
   advOrderDateChanged(value: any) {
     this.orderComplitionDate = new Date(value.getTime() - value.getTimezoneOffset() * 60000).toISOString();
-    console.log(this.orderComplitionDate)
   }
   advOrderTimeChanged(value: any) {
     this.orderComplitionTime = new Date(value);
   }
   subOrderDateChanged(value: any) {
     this.subscriptionStartDate = new Date(value.getTime() - value.getTimezoneOffset() * 60000).toISOString();
-    console.log(this.subscriptionStartDate)
   }
   multiSubOrderDateChanged(subscriptionDays: any) {
     if (this.selectedDates) {
@@ -1855,7 +1838,6 @@ export class CartComponent implements OnInit, OnDestroy {
         let date = new Date(el.getTime() - el.getTimezoneOffset() * 60000).toISOString()
         return date
       });
-      console.log(this.userSelectedDates)
       // this.chgDetRef.detectChanges();
     }
   }

@@ -33,7 +33,8 @@ import { CheckoutModule } from 'paytm-blink-checkout-angular';
     MatNativeDateModule,
     MatInputModule,
     NgxMultipleDatesModule,
-    CheckoutModule
+    CheckoutModule,
+    SetDeliveryLocationModule
   ],
   providers:[DatePipe],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]

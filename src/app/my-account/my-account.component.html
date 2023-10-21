@@ -1,9 +1,10 @@
+<app-header></app-header>
 <div class="container-fluid">
-    <app-header></app-header>
     <div class="options-container">
         <div class="row">
             <div class="col-2">
-                <div *ngFor="let item of linkList" class="mt-5" [routerLink]="item.link">{{item.label}}</div>
+                <div *ngFor="let item of linkList" class="mt-5"  [routerLink]="item.link">{{item.label}}</div>
+                <div class="mt-5" (click)="logoutPopup()">Log Out</div>
             </div>
             <div class="col-10">
                 <router-outlet></router-outlet>

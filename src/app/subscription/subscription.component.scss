@@ -305,9 +305,7 @@ div[scrollx=true] {
 }
 
 .mealCapsuleDiv {
-    padding-top: 5px;
-    padding-bottom: 10px;
-    padding-left: 10px;
+    padding: 3% 3% 0 3%;
 }
 
 .radiogrp {
@@ -446,11 +444,27 @@ div[scrollx=true] {
 }
 
 .accordiondiv {
-    padding: 10px;
+    padding: 3% 3% 0 3%;
+    ;
+}
+
+.scrollBtns {
+    button {
+        width: 5%;
+        border: none;
+        border-radius: 15px;
+        background-color: $primary-color1;
+    }
+
+    i {
+        color: white;
+        font-size: 15px;
+    }
 }
 
 .custaccordionGrp {
     background: #f4f5f8;
+    padding: 2%;
     border-radius: 0px;
 }
 

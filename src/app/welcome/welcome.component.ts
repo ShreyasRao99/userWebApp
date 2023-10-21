@@ -67,14 +67,14 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
     })
   }
 
-  setFormValidators(){
+  setFormValidators() {
     let formControl = this.LoginForm.controls
-    if(this.formToShow == 'Login'){
+    if (this.formToShow == 'Login') {
       formControl.userName.clearValidators();
       formControl.email.clearValidators();
       this.LoginForm.updateValueAndValidity();
     }
-    else{
+    else {
       formControl.userName.setValidators(Validators.required)
       formControl.email.setValidators([Validators.required, Validators.email])
       this.LoginForm.updateValueAndValidity();
@@ -136,8 +136,11 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   goToHome(address: any) {
-    this.sendDataToComponent.publish('ADDRESS_FROM_DELIVERY', address)
-    this.router.navigate(['/home'])
+    // this.sendDataToComponent.publish('ADDRESS_FROM_DELIVERY', address)
+    this.utilityService.configureCurrentLocation(address);
+    // setTimeout(() => {
+      this.router.navigate(['/home'])
+    // }, 300);
   }
 
   findMyAddress(input: HTMLInputElement) {
@@ -216,7 +219,6 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
         let el: HTMLElement = this.loginCanvas.nativeElement;
         el.click();
       }
-      this.loadSelectedLocation(null)
       this.localStorageService.setCacheData('OTP_VERIFIED', true);
       this.localStorageService.setCacheData('TOKEN', loginObj.token);
       this.userProfile = await this.apiMainService.saveOrRetrieveUserProfile(loginObj.loginInfo);
@@ -232,19 +234,23 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
         this.localStorageService.setCacheData('PREFERENCE_SET', true);
         this.localStorageService.setCacheData('LOCATION_SET', true);
         this.favouriteManagementService.getUserFavKitchenList();
+        this.loadSelectedLocation(null)
         // this.router.navigate(['home'])
         // this.navCntrl.navigateRoot('/tabs');
       } else {
         if (this.userProfile.userName && this.userProfile.email) {
           this.localStorageService.setCacheData('PREFERENCE_SET', true);
+          this.loadSelectedLocation(null)
           // this.router.navigate(['home'])
           // this.navCntrl.navigateRoot('/location');
           // this.navCntrl.navigateRoot('/tabs');
         } else {
+          this.loadSelectedLocation(null)
+          // this.router.navigate(['/home'])
           // this.navCntrl.navigateRoot('/favcuisine');
         }
+
       }
-      this.router.navigate(['/home'])
     } catch (e) {
       console.log(e);
     }

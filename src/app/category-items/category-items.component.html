@@ -1,16 +1,19 @@
-<div class="d-flex flex-row mt-4">
-    <div class="sectionHeader col-6">Whats your crave</div>
-    <div class="col-6 alignRight scrollBtns">
-        <button [disabled]="leftDisabled" (click)="scrollRight()" class="me-2"><i class="bi bi-arrow-left"></i></button>
-        <button [disabled]="rightDisabled" (click)="scrollLeft()"><i class="bi bi-arrow-right"></i></button>
-    </div>
-</div>
-<div class="container bgBottompadding2">
-    <div class="scroll" scrollX="true" #scrollableContent>
-        <div *ngFor="let item of categorylist" class="itemStyle" (click)="lookForCategory(item.category)"
-            (click)="lookForCategory(item.category)">
-           <img [src]="item.url" class="imageRegionalStyle"/>
-           <div class="itemName">{{item.name}}</div>
+
+<div class="category-container">
+    <div class="d-flex flex-row mt-4">
+        <div class="sectionHeader col-lg-6 col-12 col-md-12">Whats your crave</div>
+        <div class="col-lg-6 col-12 col-md-12 alignRight scrollBtns">
+            <button [disabled]="leftDisabled" (click)="scrollRight()" class="me-2"><i class="bi bi-arrow-left"></i></button>
+            <button [disabled]="rightDisabled" (click)="scrollLeft()"><i class="bi bi-arrow-right"></i></button>
         </div>
     </div>
-</div> 
+    <div class="container bgBottompadding2">
+        <div class="scroll" scrollX="true" #scrollableContent>
+            <div *ngFor="let item of categorylist" class="itemStyle" (click)="lookForCategory(item.category)"
+                (click)="lookForCategory(item.category)">
+               <img [src]="item.url" class="imageRegionalStyle"/>
+               <div class="itemName">{{item.name}}</div>
+            </div>
+        </div>
+    </div> 
+</div>
