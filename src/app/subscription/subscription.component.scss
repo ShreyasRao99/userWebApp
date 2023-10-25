@@ -122,6 +122,7 @@ div[scrollx=true] {
     background: transparent;
     color: white;
     height: 100%;
+    line-height:25px;
     padding: 0;
     margin: 0px;
     border: none;
@@ -259,6 +260,7 @@ div[scrollx=true] {
 }
 
 .readmorestyle {
+    cursor:pointer;
     color: #15a292;
 }
 
@@ -305,9 +307,7 @@ div[scrollx=true] {
 }
 
 .mealCapsuleDiv {
-    padding-top: 5px;
-    padding-bottom: 10px;
-    padding-left: 10px;
+    padding: 3% 3% 0 3%;
 }
 
 .radiogrp {
@@ -317,11 +317,6 @@ div[scrollx=true] {
 }
 
 .radiobtn {
-    --color: #8E95A5;
-    --color-checked: #f85266;
-    --border-width: 3px;
-    --border-style: solid;
-    --border-radius: 50%;
     width: 20px;
     height: 0px;
     top: -10px;
@@ -386,6 +381,7 @@ div[scrollx=true] {
 }
 
 .readmorestyle {
+    cursor:pointer;
     color: #15a292;
 }
 
@@ -446,11 +442,25 @@ div[scrollx=true] {
 }
 
 .accordiondiv {
-    padding: 10px;
+    padding: 3% 3% 0 3%;
+    ;
+}
+
+.scrollBtns {
+    button {
+        width: 5%;
+        border: none;
+        border-radius: 15px;
+    }
+
+    i {
+        font-size: 15px;
+    }
 }
 
 .custaccordionGrp {
     background: #f4f5f8;
+    padding: 2%;
     border-radius: 0px;
 }
 
@@ -545,30 +555,29 @@ div[scrollx=true] {
 .cartIconstyle {
     background-size: 36px 67px !important;
     background-repeat: no-repeat !important;
-    background-position: 86% -23px;
-    padding-left: 31px;
+    background-position: 59% -23px;
 }
 
 .positionBottom {
     z-index: 3;
-    left: 275px;
+    left: 287px;
     position: fixed;
     bottom: 0;
-    width: 969px;
+    width: 945px;
 
-    .cartParent {
-        display: flex;
-        flex-direction: row;
+    // .cartParent {
+    //     display: flex;
+    //     flex-direction: row;
 
-        .left-div {
-            width: 50%;
-        }
+    //     .left-div {
+    //         width: 50%;
+    //     }
 
-        .right-div {
-            width: 50%;
-            text-align: right;
-        }
-    }
+    //     .right-div {
+    //         width: 50%;
+    //         text-align: right;
+    //     }
+    // }
 }
 
 @media only screen and (max-width: 600px) {
@@ -588,6 +597,17 @@ div[scrollx=true] {
     }
 
     .cartIconstyle {
-        background-position: 56% -24px;
+        background-position: 45% -24px !important;
     }
 }
+
+@media only screen and (max-width: 820px) {
+    .positionBottom {
+        left: 0px;
+        width: 100%;
+    }
+    .cartIconstyle {
+        background-position: 40% -24px;
+    }
+}
+

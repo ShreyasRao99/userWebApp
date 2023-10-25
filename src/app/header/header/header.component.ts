@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
@@ -9,17 +9,19 @@ import { GoogleMapService } from 'src/service/google-map.service';
 import { LocalStorageService } from 'src/service/local-storage.service';
 import { SendDataToComponent } from 'src/service/sendDataToComponent';
 import { UtilityService } from 'src/service/utility.service';
+import { WebPageService } from 'src/service/webpage.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, AfterViewInit {
   @ViewChild('canvasAddress') canvasAddress!: ElementRef<HTMLElement>
   @ViewChild('loginCanvas') loginCanvas!: ElementRef<HTMLElement>;
-  @Output() isLoggedIn:EventEmitter<any> = new EventEmitter<any>();;
+  @Output() isLoggedIn:EventEmitter<any> = new EventEmitter<any>();
 
+  itemCount: any = 0;
   currentGeoLocation: any;
   serviceAvailable!: boolean;
   kitchenList: any[] = [];
@@ -46,22 +48,35 @@ export class HeaderComponent implements OnInit {
   OTPprovided: any;
   loggedIn!: boolean;
   enableVerfiy!: boolean;
+  formToShow: any = 'Login';
+  accountExistsMsg: any = '';
 
-  constructor(private localStorageService:LocalStorageService, private favouriteManagementService:FavouriteManagementService, private fb:FormBuilder, private cartManagementService:CartManagementService, private sendDataToComponent:SendDataToComponent, private router:Router, private apiMainService:ApiMainService, private googleMapService:GoogleMapService, private utilityService:UtilityService){
+  constructor(private localStorageService:LocalStorageService, private webPageService:WebPageService, private favouriteManagementService:FavouriteManagementService, private fb:FormBuilder, private cartManagementService:CartManagementService, private sendDataToComponent:SendDataToComponent, private router:Router, private apiMainService:ApiMainService, private googleMapService:GoogleMapService, private utilityService:UtilityService){
     this.mapId += Math.ceil(Math.random() * 1000)
+  }
+  ngAfterViewInit(): void {
+    this.callFindMyAddress()
   }
   ngOnInit(): void {
     this.recentSearch = this.localStorageService.getCacheData('RECENT_LOCATION_SEARCH');
     this.userProfile = this.localStorageService.getCacheData('USER_PROFILE');
-    console.log(this.userProfile)
     this.currentAddress = this.localStorageService.getCacheData('CURRENT_LOCATION');
     this.LoginForm = this.fb.group({
-      phoneNo: ['', [Validators.required, Validators.pattern("^[0-9]{10}$")]]
+      phoneNo: ['', [Validators.required, Validators.pattern("^[0-9]{10}$")]],
+      userName: [''],
+      email: ['']
     })
     this.subscribeEvents();
   }
 
   subscribeEvents(){
+
+    this.sendDataToComponent.subscribe('UPDATE_CART_TABS', (cartObj) => {
+      if(cartObj){
+        this.itemCount = this.cartManagementService.getItemCount();
+      }       
+    });
+
     this.sendDataToComponent.subscribe('ADDRESS_FROM_DELIVERY', (address:any)=>{
       this.currentAddress = address
     })
@@ -127,17 +142,19 @@ export class HeaderComponent implements OnInit {
       // this.localStorageService.setCacheData('CURRENT_LOCATION', address);
       // if (this.userProfile) {
       // this.goToSetGeoLocationPage(address);
-      this.goToSetGeoLocationPage(address)
+      // this.goToSetGeoLocationPage(address)
+      this.utilityService.configureCurrentLocation(address);
+      this.getCurrentLocation(false)
       // }
       // this.checkServicability()
     });
   }
 
-  goToSetGeoLocationPage(address: any) {
-    (address)
-    this.utilityService.configureCurrentLocation(address);
-    this.showMap = true
-  }
+  // goToSetGeoLocationPage(address: any) {
+  //   console.log(address)
+  //   this.utilityService.configureCurrentLocation(address);
+  //   this.showMap = true
+  // }
 
   formatAddress(place: { name: any; formatted_address: any; geometry: { location: { lat: () => any; lng: () => any; }; }; }) {
     return {
@@ -148,8 +165,8 @@ export class HeaderComponent implements OnInit {
     };
   }
 
-  getCurrentLocation() {
-    this.showCurrentLocation = true
+  getCurrentLocation(showcurrentLoc:any) {
+    this.showCurrentLocation = showcurrentLoc
     this.toggleMap()
     console.log(this.showMap)
   }
@@ -198,9 +215,48 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/my-account/orders/pastOrder'])
   }
 
+  async verifySignUP() {
+    try {
+      this.phoneNo = this.LoginForm.value.phoneNo;
+      const res = await this.apiMainService.signupUser(this.LoginForm.value);
+      console.log(res)
+      if (res.msg) {
+        this.accountExistsMsg = res.msg
+      }
+      else if (res._id) {
+        this.localStorageService.setCacheData('USER_MOBILE', this.phoneNo);
+        this.showOTPscreen = true;
+        this.startTimer()
+      }
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
+
+  toggleForm(name: any) {
+    this.formToShow = name;
+    this.setFormValidators();
+  }
+
+  setFormValidators(){
+    let formControl = this.LoginForm.controls
+    if(this.formToShow == 'Login'){
+      formControl.userName.clearValidators();
+      formControl.email.clearValidators();
+      this.LoginForm.updateValueAndValidity();
+    }
+    else{
+      formControl.userName.setValidators(Validators.required)
+      formControl.email.setValidators([Validators.required, Validators.email])
+      this.LoginForm.updateValueAndValidity();
+    }
+  }
+
   toggleMap() {
+    this.showMap = !this.showMap;
     setTimeout(() => {
-      this.showMap = !this.showMap;
+      this.callFindMyAddress();
     }, 300);
   }
 
@@ -275,17 +331,6 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  async logOut(){
-    try{
-      await this.apiMainService.logout();
-      // this.mixpanelservice.track('logout',{});
-      this.cartManagementService.resetCart();
-      this.apiMainService.afterLogout();
-    }catch(error){
-      console.log('Error while logging out', error)
-    }
-  }
-
   startTimer() {
     this.showResendOTP = false;
     this.second = 30;
@@ -297,6 +342,23 @@ export class HeaderComponent implements OnInit {
         this.second--;
       }
     }, 1000);
+  }
+
+  showTermNCondition(){
+    try{
+      this.webPageService.termAndCondition();
+    }catch(e){
+     console.log('Error while saving kitchen Lead')
+    }
+  }
+
+  async resendOTP(){  
+    try{
+      await this.apiMainService.resendOTP({phoneNo : this.phoneNo});
+      this.startTimer()
+    }catch (e){
+      console.log('error while resending OTP',e);
+    }  
   }
 
 }

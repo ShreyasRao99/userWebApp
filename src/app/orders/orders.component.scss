@@ -1,3 +1,23 @@
+@import "/src/styles.scss";
 .activeTab{
-    color:red
+    background-color:$primary-color1 !important;
+    color:white !important;
+}
+.outlet-div{
+    padding:0 0 0 2%;
+}
+
+.headerBG{
+    color:red;
+    background-color:white;
+    border:1px solid red;
+}
+
+@media only screen and (max-width: 600px) {
+    .orders-div{
+        padding: 0 4%;
+    }
+    .outlet-div{
+        padding:1% 0;
+    }
 }

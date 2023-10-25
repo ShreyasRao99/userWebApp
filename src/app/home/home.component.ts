@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { ApiMainService } from 'src/service/apiService/api-main.service';
@@ -14,6 +14,7 @@ import { mainBannerList } from 'src/config/banners.config';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  @ViewChild('scrollableContent', { read: ElementRef }) public scrollableContent!: ElementRef<any>;
   currentGeoLocation: any;
   serviceAvailable!: boolean;
   kitchenList: any[] = [];
@@ -39,7 +40,6 @@ export class HomeComponent implements OnInit {
     this.sendDataToComponent.subscribe('ADDRESS_FROM_DELIVERY', (address) => {
       console.log(address)
       if (address) {
-        (address)
         this.showMap = false;
         // this.toggleCanvas()
         this.utilityService.configureCurrentLocation(address)
@@ -109,5 +109,16 @@ export class HomeComponent implements OnInit {
       console.log('error while fetching kitchen list');
     }
   }
+
+  scrollLeft(){
+    console.log(this.scrollableContent.nativeElement.scrollLeft)
+    this.scrollableContent.nativeElement.scrollTo({ left: (this.scrollableContent.nativeElement.scrollLeft + 500), behavior: 'smooth' });
+  }
+
+  scrollRight(){
+    console.log(this.scrollableContent.nativeElement.scrollLeft)
+    this.scrollableContent.nativeElement.scrollTo({ left: (this.scrollableContent.nativeElement.scrollLeft - 500), behavior: 'smooth' });
+  }
+  
 
 }

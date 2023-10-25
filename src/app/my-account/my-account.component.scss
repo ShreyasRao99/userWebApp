@@ -1,3 +1,43 @@
-.options-container{
-    padding:2% 5% 0 8%;
+@import "/src/styles.scss";
+
+
+.popoverSelection {
+    color: white;
+    background-color: $primary-color1;
+}
+
+.left-section {
+    // padding:3%;
+    background-color: #7f7f7f;
+    color: white;
+    position: sticky;
+
+    .left-section-div {
+        padding: 15% 5%;
+        position: sticky;
+    }
+}
+
+.mobile-selection {
+    display: none;
+
+}
+
+.activatedDiv {
+    background-color: $primary-color5;
+}
+
+@media only screen and (max-width: 600px) {
+    .left-section {
+        display: none;
+    }
+
+    .options-container {
+        padding: 1%;
+    }
+
+    .mobile-selection {
+        display: block;
+        padding:1%;
+    }
 }

@@ -1,44 +1,59 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" routerLink="/home">
-        <img src="assets/images/mealawe.jpeg" width="30" height="30" class="d-inline-block align-top" alt="">
-        <span class="company-name inline"> Mealawe</span>
+        <img src="assets/images/mealaweLogo.png" width="200" height="50" class="d-inline-block align-top" alt="">
+        <!-- <span class="company-name inline"> Mealawe</span> -->
     </a>
     <span role="button" #canvasAddress data-bs-toggle="offcanvas" data-bs-target="#location" class="location"
         (click)="callFindMyAddress()">{{currentAddress?.location ? currentAddress?.location :
-        currentAddress.address}}</span>
-    <i class="mt-1 pointer bi bi-chevron-down" data-bs-toggle="offcanvas" data-bs-target="#location"
+        currentAddress?.address}}</span>
+    <i class="mt-1 location-chevron pointer bi bi-chevron-down" data-bs-toggle="offcanvas" data-bs-target="#location"
         (click)="callFindMyAddress()"></i>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-            <li class="nav-item active">
-                <a class="nav-link" routerLink="/search">Search</a>
-            </li>
+        <ul class="navbar-nav mx-auto">
             <li class="nav-item">
+                <a class="nav-link" routerLinkActive="active-link" routerLink="/search">Search</a>
+            </li>
+            <!-- <li class="nav-item">
                 <a class="nav-link" routerLink="/cart">Offers</a>
+            </li> -->
+            <li class="nav-item">
+                <a class="nav-link" routerLinkActive="active-link" routerLink="/subscription">MealPlan</a>
+            </li>
+            <li class="nav-item" *ngIf="!userProfile">
+                <!-- <a *ngIf="userProfile" class="nav-link" (click)="goToMyAccount()">{{userProfile.userName}} </a> -->
+                <a class="nav-link" data-bs-toggle="offcanvas" data-bs-target="#login">Sign In</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" routerLink="/subscription">MealPlan</a>
+                <a class="nav-link" routerLinkActive="active-link" routerLink="/bulk-order">BulkOrder</a>
             </li>
-            <li class="nav-item">
-                <a *ngIf="userProfile" class="nav-link" (click)="goToMyAccount()">{{userProfile.userName}} </a>
-                <a *ngIf="!userProfile" class="nav-link" data-bs-toggle="offcanvas" data-bs-target="#login">Sign In</a>
+            <li class="nav-item cart">
+                <a class="nav-link" routerLinkActive="active-link" routerLink="/cart">Cart</a>
+                <div class="cartCount" *ngIf="itemCount>0">{{itemCount}}</div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/bulk-order">BulkOrder</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/cart">Cart</a>
-            </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item" *ngIf="userProfile">
                 <a class="nav-link" (click)="logOut()">Log Out</a>
+            </li> -->
+        </ul>
+        <ul class="profile-list ms-auto">
+            <li *ngIf="userProfile" (click)="goToMyAccount()">
+                <img class="profileImg img-fluid mr-2"
+                    [src]="userProfile.imageUrl?imageUrl+userProfile.imageUrl:'assets/images/dummyUpload.png'">
             </li>
         </ul>
     </div>
 </nav>
+<div class="mobileLocationWrapper">
+    <span role="button" #canvasAddress data-bs-toggle="offcanvas" data-bs-target="#location" class="mobileLocation"
+    (click)="callFindMyAddress()">{{currentAddress?.location ? currentAddress?.location :
+    currentAddress?.address}}</span>
+<!-- <i class="mt-1 pointer bi bi-chevron-down" data-bs-toggle="offcanvas" data-bs-target="#location"
+    (click)="callFindMyAddress()"></i> -->
+</div>
+
 <div class="delivery-location">
     <div class="offcanvas offcanvas-start" tabindex="-1" id="location" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-div">
@@ -55,7 +70,7 @@
                                             placeholder="Search Your Location" aria-label="Recipient's username"
                                             aria-describedby="basic-addon2">
                                     </div>
-                                    <div class="getLocation" (click)="getCurrentLocation()">
+                                    <div class="getLocation" (click)="getCurrentLocation(true)">
                                         <div class="d-flex flex-row">
                                             <i class="bi bi-crosshair"></i>
                                             <div class="flex-content">
@@ -64,7 +79,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="savedAddresses" *ngIf="userProfile">
+                                    <div class="savedAddresses" *ngIf="userProfile?.addressList?.length > 0">
                                         <h6>SAVED ADDRESSES</h6>
                                         <div class="mt-3 d-flex flex-row"
                                             *ngFor="let address of userProfile.addressList">
@@ -75,7 +90,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="recentSearches" *ngIf="recentSearch.length>0">
+                                    <div class="recentSearches" *ngIf="recentSearch">
                                         <h6>RECENT SEARCHES</h6>
                                         <div class="mt-3 d-flex flex-row"
                                             *ngFor="let recent of recentSearch | slice:0:1">
@@ -102,37 +117,85 @@
         </div>
     </div>
 </div>
+
 <div class="offcanvas offcanvas-end login" tabindex="-1" id="login" aria-labelledby="offcanvasExampleLabel">
-    <div class="offcanvas-body">
+    <div class="offcanvas-body login-offcanvas">
         <button type="button" #loginCanvas class="btn-close text-reset" data-bs-dismiss="offcanvas"
             aria-label="Close"></button>
-        <h5 class="offcanvas-title header1 mt-3" id="offcanvasExampleLabel">Login</h5>
-        <div>or <span style="color:#e62841;">create an account</span></div>
-        <div class="row mt-5">
-            <div class="col-8">
-                <form [formGroup]="LoginForm" *ngIf="!showOTPscreen">
+        <!-- <div class="login-image-div">
+          <img class="img-fluid" src="/assets/images/login-drawer-image.svg" alt="">
+        </div> -->
+        <div class="row form-section">
+            <div class="col-12">
+                <div class="header2">{{formToShow}}</div>
+                <div class="sub-header mt-2">or <span class="create-account pointer"
+                        (click)="toggleForm(formToShow == 'Login' ? 'Sign up' : 'Login')">{{formToShow != 'Login' ?
+                        'Login to your
+                        account' : 'create an account'}}</span></div>
+                <form class="mt-3" [formGroup]="LoginForm" *ngIf="!showOTPscreen && formToShow == 'Login'">
                     <div class="form-group">
-                        <input type="number" class="form-control shadow-none" formControlName="phoneNo"
-                            id="formGroupExampleInput" placeholder="Phone Number">
+                        <input type="text" class="form-control shadow-none" formControlName="phoneNo"
+                            id="formGroupExampleInput" placeholder="Your Mobile Number">
                         <div *ngIf="LoginForm.controls.phoneNo.invalid && LoginForm.controls.phoneNo.dirty">
                             Please enter a valid phone number
                         </div>
-                        <button class="btn btn-primary fullwidth my-4 py-3 yesbtn" type="button"
-                            [disabled]="LoginForm.invalid" (click)="registerMobileNumer()">CONFIRM</button>
+                        <button class="btn btn-primary mt-3 mb-1 py-2 yesbtn" type="button"
+                            [disabled]="LoginForm.invalid" (click)="registerMobileNumer()">Login</button>
+                        <div class="termNcondition">{{formToShow == 'Login' ? "By logging in, I accept mealawe's" : "By
+                            creating an
+                            account,"}} <span (click)="showTermNCondition()">terms &
+                                conditions</span>
+                        </div>
+                    </div>
+                </form>
+                <form class="signup-form" [formGroup]="LoginForm" *ngIf="!showOTPscreen && formToShow == 'Sign up'">
+                    <div class="form-group mt-3">
+                        <input type="text" class="form-control shadow-none" formControlName="phoneNo" id="login"
+                            placeholder="Phone Number">
+                    </div>
+                    <div class="form-group mt-2">
+                        <input type="text" class="form-control shadow-none" formControlName="userName" id="name"
+                            placeholder="Name">
+                    </div>
+                    <div class="form-group mt-2">
+                        <input type="email" class="form-control shadow-none" formControlName="email" id="email"
+                            aria-describedby="emailHelp" placeholder="Email">
+                    </div>
+                    <div class="account-exists" *ngIf="accountExistsMsg">{{accountExistsMsg}}</div>
+                    <button class="btn btn-primary mt-3 mb-1 py-2 yesbtn" [disabled]="LoginForm.invalid"
+                        (click)="verifySignUP()">CONTINUE</button>
+                    <div class="termNcondition">{{formToShow == 'Login' ? "By logging in, I accept Mealawe's" : "By
+                        creating an
+                        account, I accept Mealawe's"}} <span (click)="showTermNCondition()">terms &
+                            conditions</span>
                     </div>
                 </form>
                 <div *ngIf="showOTPscreen">
-                    <h2 class="mt-3">Verify the OTP</h2>
-                    <h3 class="mt-3">Sent to</h3>
-                    <p class="mt-3">+91 {{phoneNo}}</p>
-                    <div class="mt-3">
-                        <ng-otp-input (onInputChange)="onOtpChange($event)"
-                            [config]="{length:6,allowNumbersOnly:true}"></ng-otp-input>
-                        <button class="btn btn-primary yesbtn mt-2" (click)="verifyOTP()"
-                            [disabled]="!enableVerfiy">Verify</button>
+                    <div class="mt-4 header3">Verify the OTP</div>
+                    <div class="mt-1 header4">Sent to</div>
+                    <p class="mt-1 header5">+91 {{phoneNo}}</p>
+                    <div class="mt-2">
+                        <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{length:6,allowNumbersOnly:true}">
+                        </ng-otp-input>
+                    </div>
+                    <div class="row flex-row">
+                        <div class="col-3">
+                            <button class="btn btn-primary yesbtn mt-2" (click)="verifyOTP()"
+                                [disabled]="!enableVerfiy">Verify</button>
+                        </div>
+                        <div class="col-3">
+                            <div class="second">
+                                <div *ngIf="showResendOTP" (click)="resendOTP()" class="resendLink">Resend OTP
+                                </div>
+                                <div *ngIf="!showResendOTP" class="otpTime">
+                                    <!-- <ion-icon name="alarm-outline"></ion-icon> -->
+                                    <i class="bi bi-alarm"></i>
+                                    00:{{second < 10 ? '0' +second : second }} </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>

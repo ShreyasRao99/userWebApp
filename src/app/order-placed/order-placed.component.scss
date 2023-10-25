@@ -5,14 +5,21 @@
     // background-size: cover !important;
     background-position:50%;
     background-repeat: no-repeat !important;
-    height: 400px;
+    height: 300px;
+}
+
+.backarroworders {
+    width: 30px;
+    // position: relative;
+    top: 5px;
+    left: 5px;
 }
 
 .orderFailed{
     background: url('~/src/assets/images/cancelled_order.svg');
-    background-size: 60% !important;
+    // background-size: 60% !important;
     background-repeat: no-repeat !important;
-    height: 400px;
+    height: 300px;
     background-position: center;
 }
 

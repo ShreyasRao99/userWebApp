@@ -53,36 +53,59 @@
 //     width: 100%;
 // }
 
-$primary-color1: #e62841;
+$primary-color1: #e53043;
 $primary-color2: #b9041c;
 $primary-color3: #fe8e9c;
+$primary-color4: #57642c;
+$primary-color5: #403e3f;
 $primary-offset-color1: #ffffff;
 $primary-offset-color2: #a4a4a4;
 $primary-offset-color3: #333333;
-$secondary-color1: #88e5db;
+$secondary-color1: #b5cd6b;
 $secondary-color2: #60c8bc;
 $secondary-color3: #15a292;
 $secondary-offset-color1: #ffd674;
 $secondary-offset-color2: #ffc947;
 $secondary-offset-color3: #ffb300;
 
-:root {
-    --ion-color-rose: #15a292;
-    --ion-color-rose-rgb: 69, 123, 117;
-    --ion-color-rose-contrast: #ffffff;
-    --ion-color-rose-contrast-rgb: 255, 255, 255;
-    --ion-color-rose-shade: #15a292;
-    --ion-color-rose-tint: #15a292;
+@font-face {
+    font-family: 'Poppins-regular';
+    src: url('assets/fonts/Poppins-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
 
-.ion-color-rose {
-    --ion-color-base: var(--ion-color-rose);
-    --ion-color-base-rgb: var(--ion-color-rose-rgb);
-    --ion-color-contrast: var(--ion-color-rose-contrast);
-    --ion-color-contrast-rgb: var(--ion-color-rose-contrast-rgb);
-    --ion-color-shade: var(--ion-color-rose-shade);
-    --ion-color-tint: var(--ion-color-rose-tint);
+@font-face {
+    font-family: 'Poppins-bold';
+    src: url('assets/fonts/Poppins-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
+
+@font-face {
+    font-family: 'Poppins-semiBold';
+    src: url('assets/fonts/Poppins-SemiBold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+// :root {
+//     --ion-color-rose: #15a292;
+//     --ion-color-rose-rgb: 69, 123, 117;
+//     --ion-color-rose-contrast: #ffffff;
+//     --ion-color-rose-contrast-rgb: 255, 255, 255;
+//     --ion-color-rose-shade: #15a292;
+//     --ion-color-rose-tint: #15a292;
+// }
+
+// .ion-color-rose {
+//     --ion-color-base: var(--ion-color-rose);
+//     --ion-color-base-rgb: var(--ion-color-rose-rgb);
+//     --ion-color-contrast: var(--ion-color-rose-contrast);
+//     --ion-color-contrast-rgb: var(--ion-color-rose-contrast-rgb);
+//     --ion-color-shade: var(--ion-color-rose-shade);
+//     --ion-color-tint: var(--ion-color-rose-tint);
+// }
 
 .customDates {
     --background: #88e5db;
@@ -91,21 +114,15 @@ $secondary-offset-color3: #ffb300;
     box-shadow: rgba(var(--ion-color-rose-rgb), 0.3) 0px 10px 15px -3px;
 }
 
-html {
-    font-family: 'Lato', sans-serif !important;
-    --ion-font-family: 'Lato', sans-serif !important;
-    --ion-default-font: 'Lato', sans-serif !important;
-}
+// ion-list {
+//     --background: white;
+//     background: white;
 
-ion-list {
-    --background: white;
-    background: white;
-
-    ion-item {
-        --background: white;
-        background: white;
-    }
-}
+//     ion-item {
+//         --background: white;
+//         background: white;
+//     }
+// }
 
 .paddingAll-5 {
     padding: 5px;
@@ -238,23 +255,28 @@ ion-list {
 }
 
 .header7 {
+    font-size: 10px;
+}
+
+.header8 {
     font-size: 8px;
 }
 
 .sectionHeader {
-    font-weight: 600;
-    font-size: 14px;
+    // font-weight: 600;
+    font-family: 'Poppins-semiBold';
+    font-size: 18px;
     line-height: 15.43px;
     color: #101828;
-    padding: 2% 5% 1% 2%;
+    padding: 0% 5% 0% 0%;
 }
 
-ion-slides {
-    height: 100%;
-    width: 100%;
-    --bullet-background: #b9041c;
-    --bullet-background-active: #ffd674;
-}
+// ion-slides {
+//     height: 100%;
+//     width: 100%;
+//     --bullet-background: #b9041c;
+//     --bullet-background-active: #ffd674;
+// }
 
 .bgpadding {
     padding: 10%;
@@ -403,15 +425,18 @@ ion-slides {
 }
 
 .jainIcon {
-    // background: url('~/src/assets/icon/jain.svg');
-    // background-size: 10px !important;
-    width: 26px;
+    background: url('~/src/assets/icon/jain.svg');
+    background-size: 10px !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 22px;
+    height: 16px;
     text-align: center;
     font-size: 8px;
-    border: 1px solid #BBC0D0;
-    border-radius: 2px;
+    border: none;
+    // border-radius: 2px;
     padding: 2px 0px;
-    // vertical-align: top;
+    vertical-align: top;
 }
 
 
@@ -419,14 +444,14 @@ ion-slides {
 
 .headerBG {
     background: $primary-color1;
-    height: 85px;
+    height: 87px;
     // box-shadow: 0px 3px 9px 0px #9e6c73;
     margin-bottom: 1%;
     color: white;
     font-size: 17px;
     padding: 3% 1% 1% 1%;
     // position: fixed;
-    width: 100%;
+    // width: 100%;
     // z-index: 1;
 }
 
@@ -463,9 +488,9 @@ ion-slides {
     --border-radius: 12px;
     position: absolute;
 
-    .ion-page {
-        height: 100%;
-    }
+    // .ion-page {
+    //     height: 100%;
+    // }
 }
 
 .xshort-modal-design {
@@ -665,6 +690,7 @@ ion-slides {
     color: white !important;
     background: $primary-color1 !important;
     border: 0px !important;
+    font-family: 'Poppins-regular'
 }
 
 .swiper-pagination {
@@ -731,12 +757,12 @@ input[type='radio']:checked:after {
     left: -20px;
     color: white;
 
-    ion-icon {
-        font-size: 13px;
-        position: relative;
-        top: 3px;
-        left: 0px
-    }
+    // ion-icon {
+    //     font-size: 13px;
+    //     position: relative;
+    //     top: 3px;
+    //     left: 0px
+    // }
 }
 
 .crossPrice {
@@ -753,9 +779,9 @@ input[type='radio']:checked:after {
     --min-width: 250px;
 }
 
-ion-refresher {
-    margin-top: 10px;
-}
+// ion-refresher {
+//     margin-top: 10px;
+// }
 
 .refresher-ios .refresher-pulling-icon,
 .refresher-ios .refresher-pulling-text,
@@ -784,10 +810,10 @@ ion-refresher {
 
 
 /****ion date time*****/
-ion-datetime {
-    background: white;
-    border-radius: 10px;
-}
+// ion-datetime {
+//     background: white;
+//     border-radius: 10px;
+// }
 
 .datetime {
     --background: transparent;
@@ -895,49 +921,49 @@ input[type="text"]:focus {
 
 .menuModel {
     .modal-dialog {
-        position: absolute;
+        position: relative;
         top: 60%;
-        left: 33%;
-        width: 50%;
+        transform: translateY(-50%);
     }
 
     .modal-content {
         padding: 5%;
     }
-}
 
-.addonsModel {
-    .modal-dialog {
-        position: absolute;
-        top: 10%;
-        left: 33%;
-        width: 65%;
+    .modal-open {
+        overflow: scroll;
     }
 }
 
-
-// .menuModel{
-//     .modal-dialog{
-//         height: 100%;
-//         .modal-content{
-//             height: 100%;
-//             .modal-body{
-//                 overflow-y: scroll;
-//                 height: 100%;
-//             }
-//         }
-
+// .addonsModel {
+//     .modal-dialog {
+//         position: absolute;
+//         top: 10%;
+//         left: 33%;
+//         width: 65%;
 //     }
 // }
-html,
-body {
-    // height: 100%;
-    font-family: 'Lato', sans-serif !important;
+
+.modal-content{
+    border-radius:20px !important;
 }
 
+html {
+    overflow-y: scroll !important;
+}
+
+.modal-open {
+    overflow: hidden;
+    overflow-y: scroll;
+    padding-right: 0 !important;
+}
+
+html,
 body {
+    // -webkit-tap-highlight-color: $primary-color1;
+    font-family: 'Poppins-regular', 'Lato' !important;
     margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+    color: $primary-color5 !important;
 }
 
 .pointer {
@@ -945,7 +971,40 @@ body {
 }
 
 .container-fluid {
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
-.cdk-overlay-container{ z-index: 1200 !important; }
+.cdk-overlay-container {
+    z-index: 1200 !important;
+}
+
+.offcanvas-div {
+    overflow-y: scroll;
+}
+
+input[type=checkbox]:checked {
+    background-color: $primary-color1 !important;
+}
+
+.form-check-input:focus {
+    border-color: $primary-color1;
+    box-shadow: none;
+}
+
+.form-check-input:checked {
+    border-color: $primary-color1;
+    // box-shadow:none;
+}
+
+.dropdown-item:active {
+    color: $primary-color1;
+    background-color: white;
+}
+
+input[type=radio]:after {
+    border: 2px solid #adadad !important;
+}
+
+input[type=radio]:checked:after {
+    border: 2px solid white !important;
+}

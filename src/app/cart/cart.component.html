@@ -14,7 +14,7 @@
           <div class="row">
             <div class="col-8 left-section">
               <ng-container *ngIf="userProfile">
-                <i class="bi bi-arrow-left" *ngIf="!toggleSelected && addressSelected" (click)="goBack()"></i>
+                <i class="bi bi-arrow-left pointer" *ngIf="!toggleSelected && addressSelected" (click)="goBack()"></i>
                 <div class="d-flex flex-row mt-2">
                   <div class="cartGrayHead">{{!toggleSelected ? 'Select Delivery Address' : 'Delivery address'}}</div>
                   <div class="buttonDiv">
@@ -34,8 +34,8 @@
                     </div>
                     <div class="col-6 mt-4">
                       <div class="taglocationdiv">
-                        <div class="taglocation2" (click)="changeLocation()">Add new address</div>
-                        <div class="completeAdd">{{currentLocation}}</div>
+                        <div class="taglocation2">Add new address</div>
+                        <!-- <div class="completeAdd">{{currentLocation}}</div> -->
                         <button class="btn btn-outline-danger mt-3" data-bs-toggle="offcanvas"
                           data-bs-target="#location">ADD NEW</button>
                       </div>
@@ -44,7 +44,7 @@
                   <ng-container *ngIf="toggleSelected">
                     <div class="col-8 mb-2 mt-3">
                       <div class="taglocationdiv">
-                        <div class="taglocation2">{{addressSelected?.tagLocation ? addressSelected?.tagLocation : 'home'}}</div>
+                        <div class="taglocation2">{{addressSelected?.tagLocation ? addressSelected?.tagLocation : 'Location'}}</div>
                         <div class="completeAdd">{{addressSelected?.location ? addressSelected?.location : addressSelected.address}}</div>
                         <!-- <button class="btn btn-outline-danger mt-3">Add New</button> -->
                       </div>
@@ -53,7 +53,7 @@
                       <button class="btn btn-danger mt-4" (click)="toggleAddressSelected(null)">SELECT ADDRESS</button>
                     </div>
                     <div class="col-6 mt-5 payment" *ngIf="!saveCurrentLocation">
-                      <button class="btn btn-danger mt-4" data-bs-toggle="offcanvas" data-bs-target="#location"
+                      <button class="btn btn-danger mt-4" (click)="showMap = !showMap" data-bs-toggle="offcanvas" data-bs-target="#addAddress"
                         >ADD ADDRESS</button>
                     </div>
                     <div class="col-12 mt-5 payment" *ngIf="saveCurrentLocation">
@@ -93,11 +93,11 @@
                       <div>
                         <div class="right quantitydiv">
                           <div *ngIf="item.count" class="white cartitemStyle">
-                            <div class="cartincbutton quantity" (click)="decreaseCount(item)">
+                            <div class="cartincbutton quantity pointer" (click)="decreaseCount(item)">
                               <span class="dec">-</span>
                             </div>
                             <div class="cartincbuttoncenter count">{{item.count}}</div>
-                            <div class="cartincbutton quantity" (click)="increaseCount(item)">
+                            <div class="cartincbutton quantity pointer" (click)="increaseCount(item)">
                               <span class="plus">+</span>
                             </div>
                           </div>
@@ -122,11 +122,11 @@
                     <div>
                       <div class="header5 mt-2 bgsidepadding1 quantitydiv">
                         <div *ngIf="addon.count" class="white cartitemStyle">
-                          <div class="cartincbutton quantity" (click)="decreaseAddOnCount(addon)">
+                          <div class="cartincbutton quantity pointer" (click)="decreaseAddOnCount(addon)">
                             <span class="dec">-</span>
                           </div>
-                          <div class="cartincbuttoncenter count">{{addon.count}}</div>
-                          <div class="cartincbutton quantity" (click)="increaseAddOnCount(addon)">
+                          <div class="cartincbuttoncenter count pointer">{{addon.count}}</div>
+                          <div class="cartincbutton quantity pointer" (click)="increaseAddOnCount(addon)">
                             <span class="plus">+</span>
                           </div>
                         </div>
@@ -151,11 +151,11 @@
                         <div class="col-6">
                           <div class="inline header5 bgsidepadding2 right quantitydiv">
                             <div *ngIf="item.count" class=" cartitemStyle">
-                              <div class="cartincbutton quantity" (click)="decreaseCount(item)">
+                              <div class="cartincbutton quantity pointer" (click)="decreaseCount(item)">
                                 <span class="dec">-</span>
                               </div>
                               <div class="cartincbuttoncenter count white">{{item.count}}</div>
-                              <div class="cartincbutton quantity" (click)="increaseCount(item)">
+                              <div class="cartincbutton quantity pointer" (click)="increaseCount(item)">
                                 <span class="plus">+</span>
                               </div>
                             </div>
@@ -168,7 +168,7 @@
                       <div class="row" *ngFor="let addon of item.addonsList">
                         <div class="col-12 checkbox" [ngClass]="{selected: addon.selected}"
                           (click)="addon.selected = !addon.selected;changePackageAddons(item)">
-                          <div class="inline-table">
+                          <div class="inline-table pointer">
                             <input type="checkbox" class="checkboxStyle" [(ngModel)]="addon.selected">
                           </div>
                           <div class="inline-table">
@@ -266,7 +266,7 @@
                     aria-describedby="basic-addon2">
                 </div>
               </form>
-              <div class="no-contact mt-3">
+              <!-- <div class="no-contact mt-3">
                 <div class="d-flex flex-row">
                   <input class="inline" type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
                   <div class="flex-content">
@@ -275,7 +275,7 @@
                       will safely place the order outside your door.</div>
                   </div>
                 </div>
-              </div>
+              </div> -->
               <div class="slotDropdown mt-3"
                 *ngIf="cartObj.orderType === 'allDay' || (cartObj.orderType === 'subscription' && subscriptionObj.subscriptionDays === 1)">
                 <div ngbDropdown class="d-inline-block">
@@ -294,22 +294,24 @@
                   </div>
                 </div>
               </div>
-              <div class="coupons-div mt-3 p-3" (click)="openVoucherSection()" data-bs-toggle="offcanvas"
+              <div class="coupondivstyle mt-3" (click)="openVoucherSection()" data-bs-toggle="offcanvas"
                 data-bs-target="#coupon">
-                Apply Coupon
+                <div class="coupondiv pointer">
+                  <div class="couponText">Apply Coupon</div>
+                </div>
               </div>
               <div *ngIf="couponCode && cartObj.orderType !== 'subscription'" class="couponSelected">
-                <div class="right remove" (click)="removeCoupon(true)">REMOVE</div>
+                <div class="right remove pointer" (click)="removeCoupon(true)">REMOVE</div>
                 <div>{{couponCode}} applied</div>
               </div>
               <div class="bgTopDownpadding2"
                 *ngIf="mealaweWalletPoinstAvailable && cartObj.orderType !== 'subscription'">
                 <div class="checkbox" (click)="mealaweWalletApplied()" [ngClass]="{selected: applyMealaweWalletPoints}">
-                  <div class="inline-table">
+                  <div class="inline-table pointer">
                     <input type="checkbox" class="checkboxStyle" [(ngModel)]="applyMealaweWalletPoints"
                       (ngModelChange)="getPayAmt()">
                   </div>
-                  <div class="inline-table">
+                  <div class="inline-table pointer">
                     <div class="header5 bold secondary-color3">Redeem your Cashback points</div>
                     <div class="header5 grey">You can redeem {{maxMealaweWalletPointsAllowed}} cashback points on this
                       order
@@ -319,11 +321,11 @@
               </div>
               <div *ngIf="moneyWalletPoinstAvailable">
                 <label class="checkbox" for="applyMoneyWalletPoints" [ngClass]="{selected: applyMoneyWalletPoints}">
-                  <div class="inline-table">
+                  <div class="inline-table pointer">
                     <input id="applyMoneyWalletPoints" type="checkbox" class="checkboxStyle"
                       [(ngModel)]="applyMoneyWalletPoints" (ngModelChange)="getPayAmt()">
                   </div>
-                  <div class="inline-table">
+                  <div class="inline-table pointer">
                     <div class="header5 bold secondary-color3">Redeem your money wallet's points</div>
                     <div class="header5 grey">You can redeem {{maxMoneyWalletPointsAllowed}} points on this order</div>
                   </div>
@@ -487,7 +489,7 @@
                       </ion-item> -->
                     <div class="voucherStyle">
                       <input [(ngModel)]="modalVoucherCode" class="voucherInput" placeholder="Enter voucher code here">
-                      <div class="voucherbtn" (click)="validateVoucher()">APPLY</div>
+                      <div class="voucherbtn pointer" (click)="validateVoucher()">APPLY</div>
                     </div>
                   </div>
                   <div class="couponParent">
@@ -513,17 +515,17 @@
                             <div class="couponHeader">{{offer.couponHeader}}</div>
                           </div>
                           <div class="rightSide">
-                            <div class="apply" (click)="showConfirmationAlert(offer)">APPLY</div>
+                            <div class="apply pointer" (click)="showConfirmationAlert(offer)">APPLY</div>
                             <div class="couponCode">{{offer.couponCode}}</div>
                             <div class="coupontext">
                               <div class="description">{{offer.description}}</div>
                             </div>
                             <div class="subdescription">{{offer.subDescription}}</div>
                             <div class="showMore" (click)="offer.showMore = true" *ngIf="!offer.showMore">
-                              <span class="sign">+</span> MORE
+                              <span class="sign pointer">+</span> MORE
                             </div>
                             <div class="showMore" (click)="offer.showMore = false" *ngIf="offer.showMore">
-                              <span class="sign">-</span> LESS
+                              <span class="sign pointer">-</span> LESS
                             </div>
                           </div>
                         </div>
@@ -545,12 +547,14 @@
             </div>
           </div>
         </div>
-        <!-- <div class="delivery-location">
+        <div class="delivery-location">
           <div class="offcanvas offcanvas-start" tabindex="-1" id="addAddress" aria-labelledby="offcanvasExampleLabel">
             <button type="button" style="display:none;" #canvasAddress class="btn-close text-reset mt-3"
               data-bs-dismiss="offcanvas" aria-label="Close"></button>
             <div class="offcanvas-div">
               <div class="offcanvas-body">
+                <!-- <div class="container" *ngIf="!showMap"> -->
+                <!-- <div class="select-address" *ngIf="showMap"> -->
                 <div class="select-address">
                   <button type="button" style="display:none;" class="btn-close text-reset" #mapCanvas
                     data-bs-dismiss="offcanvas"></button>
@@ -560,7 +564,34 @@
               </div>
             </div>
           </div>
-        </div> -->
+        </div>
+        <button style="display:none;" data-bs-toggle="offcanvas" #completeProfile data-bs-target="#completeProfile"></button>
+        <div class="complete-profile">
+          <div class="offcanvas offcanvas-start" tabindex="-1" id="completeProfile" aria-labelledby="offcanvasExampleLabel">
+            <button type="button" #closeProfile class="btn-close text-reset mt-3"
+              data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <div class="offcanvas-div">
+              <div class="offcanvas-body">
+                <form [formGroup]="profileForm">
+                  <div class="form-group">
+                    <label for="name">Name*</label>
+                    <input type="text" formControlName="name" class="form-control shadow-none" id="name" aria-describedby="emailHelp" placeholder="Your Name">
+                  </div>
+                  <div class="form-group mt-2">
+                    <label for="email">Email ID*</label>
+                    <input type="text" formControlName="email" class="form-control shadow-none" id="email" aria-describedby="emailHelp" placeholder="Email Id">
+                  </div>
+                  <div class="form-group mt-2">
+                    <label for="referral">Referral Code (Optional)</label>
+                    <input type="text" formControlName="code" class="form-control shadow-none" id="referral" aria-describedby="emailHelp" placeholder="Referral Code">
+                  </div>
+                  <div class="errorText" *ngIf="installReferrer && !referralCodeValid && validationCompleted">Invalid Referral Code</div>
+                  <button class="btn btn-danger mt-2" (click)="submitCompletedProfile()" [disabled]="!profileForm.valid">Confirm</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { OrderPlacedComponent } from './order-placed/order-placed.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { KitchenSearchComponent } from './kitchen-search/kitchen-search.component';
 
 const routes: Routes = [
   {
@@ -35,6 +37,16 @@ const routes: Routes = [
   },
   {
     path:'order-placed', component:OrderPlacedComponent
+  },
+  {
+    path:'kitchenSearch', component:KitchenSearchComponent
+  },
+  {
+    path: 'categorySearch',
+    loadChildren: () => import('./category-search/category-search.module').then(m => m.CategorySearchModule)
+  },
+  {
+    path:'**', component:WelcomeComponent
   }
 ];
 

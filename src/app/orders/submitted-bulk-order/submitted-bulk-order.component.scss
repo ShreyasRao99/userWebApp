@@ -3,3 +3,13 @@
     margin-top:1%;
     padding:1%;
 }
+
+.pageContent{
+    padding:0 1%;
+}
+
+@media only screen and (max-width: 600px) {
+    .pageContent{
+        padding: 1% 3%;
+    }
+}

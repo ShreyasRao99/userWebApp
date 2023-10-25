@@ -43,7 +43,7 @@
         </div>
         <div class="col-5 text-center pt-4">
             <img [src]="imageUrl + item.imageUrl" class="itemImage" *ngIf="item.imageUrl" />
-            <div class="addPosition" [ngClass]="{noImage:!item.imageUrl }" *ngIf="!(screenFrom ==='searchPage' || 
+            <div class="addPosition pointer" [ngClass]="{noImage:!item.imageUrl }" *ngIf="!(screenFrom ==='searchPage' || 
                 screenFrom === 'categoryPage'|| missed 
                 || comingnext 
                 || (orderType==='advance' && !item.itemAvailable) 

@@ -53,6 +53,14 @@ export class ApiMainService {
     return this.apiHttpService.REQUEST(this.apiConfigService.apiEndPointObj.verifyOTP, data);
   }
 
+  signupUser(data:any){
+    return this.apiHttpService.REQUEST(this.apiConfigService.apiEndPointObj.signupUser, data);
+  }
+
+  resendOTP(data:any) {
+    return this.apiHttpService.REQUEST(this.apiConfigService.apiEndPointObj.resendOTP, data);
+}
+
   saveOrRetrieveUserProfile(data:any){
     return this.apiHttpService.REQUEST(this.apiConfigService.apiEndPointObj.saveCustomerProfile, data);
   }
@@ -314,6 +322,39 @@ export class ApiMainService {
   refund(data:any) {
     this.runtimeStorageService.resetCacheData('PAST_ORDER_LIST');
     return this.apiHttpService.REQUEST(this.apiConfigService.apiEndPointObj.refund, data);
+  }
+
+  termNcondition(){
+    return this.apiHttpService.REQUEST(this.apiConfigService.apiEndPointObj.termNcondition, null, {Accept:'text/html'},true);
+  }
+
+  searchNearkitchenFromMeal(text: string, pageNumber:any,geolocation:any,data:any){
+    const urlObj = this.apiConfigService.apiEndPointObj.searchNearkitchenFromMeal;
+    return this.runTimeCacheInterceptor(`SEARCH_NEAR_MEAL_${text}_${pageNumber}`,
+    // return this.apiHttpService.REQUEST(
+    {url: urlObj.url + `/${text}/${this.getTodayStartDate()}/${pageNumber}/${geolocation.lng}/${geolocation.lat}`,
+     method: urlObj.method},data,null,pageNumber>1?true:false);  
+  }
+
+  searchNearkitchen(text: string, pageNumber:any,geolocation:any,data:any){
+    const urlObj = this.apiConfigService.apiEndPointObj.searchNearkitchen;
+    return this.runTimeCacheInterceptor(`SEARCH_NEAR_KITCHEN_${text}_${pageNumber}`,
+    // return this.apiHttpService.REQUEST(
+    {url: urlObj.url + `/${text}/${pageNumber}/${geolocation.lng}/${geolocation.lat}`,
+    method: urlObj.method},data,null,pageNumber>1?true:false);  
+  }
+
+  categoryNearItems(text: string, pageNumber:any,geolocation:any,data:any){
+    const urlObj = this.apiConfigService.apiEndPointObj.categoryNearItems;
+    return this.runTimeCacheInterceptor(`CATEGORY_NEAR_ITEM_${text}_${pageNumber}`,
+    // return this.apiHttpService.REQUEST(
+    {url: urlObj.url + `/${text}/${this.getTodayStartDate()}/${pageNumber}/${geolocation.lng}/${geolocation.lat}`,
+     method: urlObj.method},data,null,pageNumber>1?true:false);  
+  }
+
+  validateReferralCode(code: any){
+    const urlObj = this.apiConfigService.apiEndPointObj.validateReferralCode;
+    return this.apiHttpService.REQUEST({url: urlObj.url + `/${code}`, method: urlObj.method},null,null,true);
   }
 
 }

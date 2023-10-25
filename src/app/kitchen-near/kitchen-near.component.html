@@ -1,10 +1,10 @@
-<div class="col-lg-3 col-sm-12" *ngFor="let kitchen of kitchenList" (click)="goInsideKitchen(kitchen)">
+<div class="col-lg-3 col-sm-12 pointer" *ngFor="let kitchen of kitchenList" (click)="goInsideKitchen(kitchen)">
     <div class="card mb-5 bg-white rounded">
         <img class="card-img-top img-fluid" [src]="imageUrl + kitchen.imageUrl"
             alt="Card image cap">
             <div class="card-body">
                 <div class="lowerpart">
-                    <div class="kitchenName">{{kitchen.kitchenName}}</div>
+                    <div class="kitchenName bold">{{kitchen.kitchenName}}</div>
                     <div class="specialdiv">
                         <span class="speacial"><span class="speciality">{{kitchen.mainSpeciality}}</span>, </span>
                         <span class="speacial">{{kitchen.specialityList}}</span>

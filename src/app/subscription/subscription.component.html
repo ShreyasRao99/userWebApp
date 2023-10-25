@@ -4,9 +4,9 @@
         <div class="row">
             <div class="col-sm-12 col-lg-8 offset-lg-2">
                 <app-main-slider *ngIf="showSlider" [bannerList]="subBannerList"></app-main-slider>
-                <div class="mealCapsuleDiv center">
+                <div class="mealCapsuleDiv center pointer">
                     <div class="scroll center-capsule" scrollX="true">
-                    <!-- <div> -->
+                        <!-- <div> -->
                         <div *ngFor="let category of packageCategoryList" class="orderCapsule"
                             [ngClass]="{'selectedOrder': packageCategory === category}"
                             (click)="selectPackageCategory(category)">
@@ -16,7 +16,7 @@
                 </div>
                 <div *ngFor="let group of filteredSubCategoryGroupList" [id]="group.groupName" class="accordiondiv">
                     <div class="custaccordionGrp">
-                        <div class="custaccodianHeader" (click)="group.closediv = !group.closediv">
+                        <div class="custaccodianHeader pointer" (click)="group.closediv = !group.closediv">
                             <i class="bi bi-chevron-down right header2" *ngIf="group.closediv"></i>
                             <i class="bi bi-chevron-up right header2" *ngIf="!group.closediv"></i>
                             <div>{{group.subCategory}}</div>
@@ -25,10 +25,10 @@
                             <div *ngFor="let package of group.mealList; index as i " class="cardbackground">
                                 <div class="insideCardBackground">
                                     <div class="row justify-content-between">
-                                        <div class="col-7" (click)="selectedPackage = package._id">
+                                        <div class="col-7 col-md-9 col-lg-9" (click)="selectedPackage = package._id">
                                             <div class="radiogrp">
                                                 <input class="form-check-input" [(ngModel)]="selectedPackage"
-                                                    class="radiobtn" type="radio" [value]="package._id">
+                                                    class="radiobtn pointer" type="radio" [value]="package._id">
                                             </div>
                                             <!-- <ion-radio-group [(ngModel)]="selectedPackage" class="radiogrp">
                                                 <ion-radio [value]="package._id" mode="md" class="radiobtn"></ion-radio>
@@ -49,13 +49,13 @@
                                             </div>
                                             <div class="description">{{package.packageInfo}}</div>
                                         </div>
-                                        <div class="col-5 right">
+                                        <div class="col-5 col-md-3 col-lg-3 right">
                                             <div *ngIf="package.offerText" class="offerTextDiv"
                                                 [ngClass]="{offerRedbg: package.offerColor === 'red', offerYellowbg: package.offerColor === 'yellow',offerGreenbg: package.offerColor === 'green'}">
                                                 {{package.offerText}}</div>
                                             <img [src]="imageUrl + package.imageUrl" class="itemImage"
                                                 *ngIf="package.imageUrl" />
-                                            <div class="addPosition" [ngClass]="{noImage:!package.imageUrl }">
+                                            <div class="addPosition pointer" [ngClass]="{noImage:!package.imageUrl }">
                                                 <div *ngIf="!package.count && selectedPackage === package._id"
                                                     class="addButton white" (click)="addToCart(package)">ADD</div>
                                                 <div *ngIf="package.count" class="white addeditemStyle">
@@ -70,11 +70,18 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="offtextdiv">
-                                        <div class="discountImg1"></div>
+                                    <div class="offtextdiv d-flex flex-row" *ngIf="!group.closediv">
+                                        <div class="discountImg1 alignRight scrollBtns">
+                                            <ng-container *ngIf="selectedPackage === package._id">
+                                                <button (click)="scrollRight()" class="me-2"><i
+                                                        class="bi bi-arrow-left"></i></button>
+                                                <button (click)="scrollLeft()"><i
+                                                        class="bi bi-arrow-right"></i></button>
+                                            </ng-container>
+                                        </div>
                                     </div>
                                     <div *ngIf="selectedPackage === package._id">
-                                        <div class="scroll" scrollX="true">
+                                        <div class="scroll" scrollX="true" #scrollableContent>
                                             <div *ngFor="let menu of package.menuList" class="mealPlanDisplay">
                                                 <div class="mealPlanCard">
                                                     <div class="firstline">{{menu.dayText}}</div>
@@ -92,24 +99,23 @@
                 <div *ngIf="packageCategoryList && packageCategoryList.length === 0">
                     <div class="noMealPlan header3 bold grey center">No Meal Plan found in your selected location</div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="positionBottom">
-        <div class="container footerdesign" (click)="goToMainCart()"
-            *ngIf="cartObj && cartObj.itemList && cartObj.itemList.length > 0">
-            <div>
-                <div class="cartParent">
-                    <div class="left-div">
-                        <span>{{cartObj.itemList.length + cartObj.addOns.length}}
-                            {{(cartObj.itemList.length + cartObj.addOns.length) === 1 ? 'Item' : 'Items'}} | &#8377;
-                            {{getTotalPrice()}}</span>
-                    </div>
-                    <div class="right-div">
-                        <div class="cartIcon cartIconstyle" (click)="goToMainCart()">View Cart</div>
+                <div class="positionBottom">
+                    <div class="container footerdesign pointer" (click)="goToMainCart()"
+                        *ngIf="cartObj && cartObj.itemList && cartObj.itemList.length > 0">
+                            <div class="row">
+                                <div class="col-6 col-lg-9 col-md-9">
+                                    <span>{{cartObj.itemList.length + cartObj.addOns.length}}
+                                        {{(cartObj.itemList.length + cartObj.addOns.length) === 1 ? 'Item' : 'Items'}} | &#8377;
+                                        {{getTotalPrice()}}</span>
+                                </div>
+                                <div class="col-6 col-lg-3 col-md-3 alignRight">
+                                    <div class="cartIcon cartIconstyle" (click)="goToMainCart()">View Cart</div>
+                                </div>
+                            </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+<!-- <app-footer></app-footer> -->
 </div>

@@ -9,13 +9,12 @@ import { CustomPipeModule } from 'src/pipes/pipe.module';
 import { ItemCardModule } from '../item-card/item-card.module';
 import { KitchenCardModule } from '../kitchen-card/kitchen-card.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SearchFiltersComponent } from '../search-filters/search-filters.component';
+import { SearchFiltersModule } from '../search-filters/search-filters.module.component';
 
 
 @NgModule({
   declarations: [
     SearchComponent,
-    SearchFiltersComponent
   ],
   imports: [
     CommonModule,
@@ -27,6 +26,7 @@ import { SearchFiltersComponent } from '../search-filters/search-filters.compone
     KitchenCardModule,
     FormsModule,
     ReactiveFormsModule,
+    SearchFiltersModule
   ]
 })
 export class SearchModule { }

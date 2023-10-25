@@ -5,6 +5,7 @@ import { WelcomeComponent } from './welcome.component';
 import { WelcomeRoutingModule } from './welcome.routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgOtpInputModule } from 'ng-otp-input';
+import { FooterModule } from '../footer/footer.module';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { NgOtpInputModule } from 'ng-otp-input';
     WelcomeRoutingModule,
     ReactiveFormsModule,
     NgOtpInputModule,
+    FooterModule
   ]
 })
 export class WelcomeModule { }

@@ -1,26 +1,37 @@
-<div class="container-fluid px-0">
-    <app-header></app-header>
+<app-header></app-header>
+<div class="container-fluid">
     <!-- <app-kitchen-card [kitchen]="kitchen"></app-kitchen-card> -->
     <ng-container *ngIf="serviceAvailable">
         <div class="row">
-            <div class="col-lg-8 col-sm-12 offset-lg-2">
+            <div class="col-lg-8 col-sm-12 offset-lg-2 p-0">
                 <app-main-slider [bannerList]="mainBannerList"></app-main-slider>
+                <div class="scrollable-kitchen">
+                    <div class="near-kitchen-list">
+                        <div class="d-flex flex-row mt-4">
+                            <div class="sectionHeader col-8">Restaurants with online food delivery in Pune</div>
+                            <div class="col-4 alignRight scrollBtns">
+                                <button (click)="scrollRight()" class="me-2"><i class="bi bi-arrow-left"></i></button>
+                                <button (click)="scrollLeft()"><i class="bi bi-arrow-right"></i></button>
+                            </div>
+                        </div>
+                        <!-- <div class="header3 left">Restaurants with online food delivery in Pune</div> -->
+                        <div class="row mt-4">
+                            <div class="scroll" scrollX="true" #scrollableContent>
+                                <div class="col-lg-3 col-10 col-md-4 itemStyle" *ngFor="let kitchen of nearKitchenList">
+                                    <app-kitchen-card [kitchen]="kitchen"></app-kitchen-card>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="banner-section">
                     <app-regional-items></app-regional-items>
                     <app-category-items></app-category-items>
                     <!-- <app-meal-time></app-meal-time> -->
                 </div>
-                <div class="kitchen-section bgpadding3 mt-4" *ngIf="kitchenList.length>0">
-                    <div class="near-kitchen-list">
-                        <h4 class="left">Restaurants with online food delivery in Pune</h4>
-                        <div class="row mt-4">
-                            <div class="col-lg-3 col-sm-12" *ngFor="let kitchen of nearKitchenList">
-                                <app-kitchen-card [kitchen]="kitchen"></app-kitchen-card>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="kitchen-list">
-                        <h4 class="left">Restaurants Nearby</h4>
+                <div class="kitchen-section mt-4" *ngIf="kitchenList.length>0">
+                    <div class="kitchen-list bgpadding3">
+                        <div class="left sectionHeader">Restaurants Nearby</div>
                         <div class="row mt-4">
                             <app-kitchen-near [kitchenList]="kitchenList"></app-kitchen-near>
                         </div>
@@ -30,5 +41,7 @@
             
         </div>
     </ng-container>
+<app-footer class="mt-5"></app-footer>
+
 </div>
 <app-no-service *ngIf="serviceAvailable === false"></app-no-service>

@@ -41,6 +41,7 @@ export class SetDeliveryLocationComponent implements OnInit, OnChanges {
     if (changes['patchValue']?.currentValue) {
       this.loadCurrentSavedLocation()
     }
+    console.log(this.getCurrentLocation)
     // this.getCurrentLocation = changes['getCurrentLocation'].currentValue
 
   }
@@ -60,6 +61,7 @@ export class SetDeliveryLocationComponent implements OnInit, OnChanges {
     }
     this.loadSelectedLocation(null);
   }
+
 
   loadCurrentSavedLocation() {
     const currentLocation = this.localStorageService.getCacheData('CURRENT_LOCATION');

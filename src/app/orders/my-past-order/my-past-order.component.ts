@@ -11,6 +11,7 @@ import { ApiMainService } from 'src/service/apiService/api-main.service';
 })
 export class MyPastOrderComponent implements OnInit {
   @ViewChild('pastOrdersListEndDiv') pastOrdersListEndDiv!: ElementRef;
+  @ViewChild('orderDetails') orderDetails!: ElementRef;
   imageUrl = environment.imageUrl;
   pastOrderList: any = [];
   userProfile: any = {};
@@ -66,8 +67,9 @@ export class MyPastOrderComponent implements OnInit {
     }
   }
 
-  goback(){
-
+  toggleCanvas(){
+    let el = this.orderDetails.nativeElement;
+    el.click();
   }
 
   goToOrderPage(val:any){

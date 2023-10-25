@@ -1,35 +1,31 @@
-<div>   
-    <div>
-        <span (click)="goback()">
-            <!-- <div class="inline-table" >
-            <ion-icon class="backIcon" name="arrow-back-outline"></ion-icon>
-        </div> -->
-        <!-- <div class="inline-table headerText">Money Wallet</div> -->
-        </span>
-    </div> 
-  <div class="pageContent">
-    <div class="center bgpadding4 incomeBig">
-        <div class="header2">Your Total Wallet Balance Is</div> 
-        <div class="bgTopDownpadding3"><span class="bold header1">{{wallet_balance}}</span><span class="grey"> points</span></div>
-    </div>
-    <div class="header3 bold center withdrawalHistroy grey" *ngIf="transactionHistoryList.length > 0">Wallet Transaction History:</div> 
-    <div *ngFor="let history of transactionHistoryList" class="gridPadding">
-        <div class="row historyDate" [ngClass]="{debit: history.transactionType === 'Debit', credit: history.transactionType === 'Credit'}">
-            <div class="col-12 header5">
-                <div class="right">{{history.transactionType}}</div>
-                Date : <span class="bold"> {{history.created_at | date:'mediumDate'}}</span>
-            </div>
+<div>
+    <div class="headerBG">My Wallet</div>
+    <div class="pageContent">
+        <div class="center bgpadding4 incomeBig">
+            <div class="header2">Your Total Wallet Balance Is</div>
+            <div class="bgTopDownpadding3"><span class="bold header1">{{wallet_balance|number : '1.2-2'}}</span><span class="grey">
+                    points</span></div>
         </div>
-        <div class="row bottom bgpadding2">
-            <div class="col-9 header5">
-                <div *ngIf="history.remark" class="grey">{{history.remark}}</div>
+        <div class="header3 bold center withdrawalHistroy grey" *ngIf="transactionHistoryList.length > 0">Wallet
+            Transaction History:</div>
+        <div *ngFor="let history of transactionHistoryList" class="gridPadding">
+            <div class="row historyDate"
+                [ngClass]="{debit: history.transactionType === 'Debit', credit: history.transactionType === 'Credit'}">
+                <div class="col-12 header5">
+                    <div class="right">{{history.transactionType}}</div>
+                    Date : <span class="bold"> {{history.created_at | date:'mediumDate'}}</span>
+                </div>
             </div>
-            <div class="col-3 alignRight" ><span class="bold" >{{history.transaction_points}}</span> Points</div>
+            <div class="row bottom bgpadding2">
+                <div class="col-9 header5">
+                    <div *ngIf="history.remark" class="grey">{{history.remark}}</div>
+                </div>
+                <div class="col-3 alignRight"><span class="bold">{{history.transaction_points}}</span> Points</div>
+            </div>
+
         </div>
-        
-    </div> 
-    <div  #historyListEndDiv>
-        <img *ngIf="showloader" class="listloader" src="assets/gif/loader.gif">
+        <div #historyListEndDiv>
+            <img *ngIf="showloader" class="listloader" src="assets/gif/loader.gif">
+        </div>
     </div>
-  </div>
-</div>  
+</div>

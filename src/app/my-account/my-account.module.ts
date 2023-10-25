@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MyAccountRoutingModule } from './my-account-routing.module';
 import { MyAccountComponent } from './my-account.component';
 import { HeaderModule } from '../header/header.module';
+import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { HeaderModule } from '../header/header.module';
   imports: [
     CommonModule,
     MyAccountRoutingModule,
-    HeaderModule
+    HeaderModule,
+    NgbPopoverModule
   ]
 })
 export class MyAccountModule { }

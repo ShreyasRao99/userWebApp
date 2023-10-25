@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { GoogleMapService } from 'src/service/google-map.service';
 import { LocalStorageService } from 'src/service/local-storage.service';
 import { RuntimeStorageService } from 'src/service/runtime-storage.service';
@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./subscription.component.scss']
 })
 export class SubscriptionComponent implements OnInit {
+  @ViewChild('scrollableContent', { read: ElementRef }) public scrollableContent!: ElementRef<any>;
   imageUrl = environment.imageUrl;
   packageCategory:any;
   cartPackageCategory:any; 
@@ -279,6 +280,16 @@ export class SubscriptionComponent implements OnInit {
     pacakge.count--;
     this.cartManagementService.updateItemToCart(pacakge);
     this.updateCartAndPackage();
+  }
+
+  scrollLeft(){
+    console.log(this.scrollableContent.nativeElement.scrollLeft)
+    this.scrollableContent.nativeElement.scrollTo({ left: (this.scrollableContent.nativeElement.scrollLeft + 500), behavior: 'smooth' });
+  }
+
+  scrollRight(){
+    console.log(this.scrollableContent.nativeElement.scrollLeft)
+    this.scrollableContent.nativeElement.scrollTo({ left: (this.scrollableContent.nativeElement.scrollLeft - 500), behavior: 'smooth' });
   }
 
 }

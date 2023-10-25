@@ -26,7 +26,7 @@
     z-index: 2;
     width: 100%;
     bottom: 19px;
-    left: 110px;
+    left: 42%;
     &.noImage{
         top: 42px !important;  
     }
@@ -81,6 +81,7 @@
     border:0px;
     color: white;
     height: 100%;
+    line-height:25px;
     padding: 0;
     margin: 0px;
     .indicator{
@@ -207,6 +208,7 @@
     height: 25px;
 }
 .readmorestyle{
+    cursor:pointer;
     color: #15a292;
 }
 

@@ -1,11 +1,17 @@
-<div>
-    <div class="sectionHeader">Whats Cooking</div>    
-    <div class="container">
-        <div class="scroll" scrollX="true">
-            <div *ngFor="let item of regionalList" class="itemStyle" 
+<div class="regional-container">
+    <div class="d-flex flex-row mt-4">
+        <div class="sectionHeader col-6">Whats Cooking</div>
+        <div class="col-6 mt-3 alignRight scrollBtns">
+            <button [disabled]="leftDisabled" (click)="scrollRight()" class="me-2"><i class="bi bi-arrow-left"></i></button>
+            <button [disabled]="rightDisabled" (click)="scrollLeft()"><i class="bi bi-arrow-right"></i></button>
+        </div>
+    </div>
+    <div class="container pointer">
+        <div class="scroll" scrollX="true" #scrollableContent>
+            <div *ngFor="let item of regionalList" class="itemStyle" (click)="lookForRegional(item.name)"
                 (click)="lookForRegional(item.name)">
-               <img [src]="item.url" class="itemImageStyle"/>
-               <div class="itemName center">{{item.name}}</div>
+                <img [src]="item.url" class="itemImageStyle" />
+                <div class="itemName center">{{item.name}}</div>
             </div>
         </div>
     </div>

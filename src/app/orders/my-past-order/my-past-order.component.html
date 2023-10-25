@@ -1,21 +1,15 @@
 <div class="orders-wrapper">
     <div class="mt-2 center">
-        <span (click)="goback()">
-            <!-- <div class="inline-table">
-                <i class="bi bi-arrow-return-left"></i>
-            </div> -->
-            <!-- <div class="inline-table headerText">My Orders</div> -->
-        </span>
     </div>
     <div class="pageContent" data-bs-toggle="offcanvas" data-bs-target="#orders">
         <div button class="listOrderStyle" *ngFor="let order of pastOrderList" (click)="goToOrderPage(order)">
             <div class="row">
                 <div class="col-12">
-                    <div class="header5 grey right bgsidepadding2">{{order.orderDate | date: 'mediumDate'}}
+                    <div class="header5  right bgsidepadding2">{{order.orderDate | date: 'mediumDate'}}
                     </div>
-                    <div class="header5 grey">Order No: {{order.orderNo}}</div>
-                    <div class="header5 grey">Order Status: {{orderStatusMapper[order.orderstatus]}}</div>
-                    <div class="header5 grey capitalize">Order Type:
+                    <div class="header5">Order No: {{order.orderNo}}</div>
+                    <div class="header5">Order Status: {{orderStatusMapper[order.orderstatus]}}</div>
+                    <div class="header5 capitalize">Order Type:
                         <span>{{orderStatusMapper[order.orderType]}}</span>
                     </div>
                 </div>
@@ -26,10 +20,10 @@
                         order.kitchenName}}</div>
                 </div>
                 <div class="col-6 alignRight">
-                    <div class="grey header4 bgsidepadding2">&#8377;{{order.amount}}</div>
+                    <div class="header4 bgsidepadding2">&#8377;{{order.amount}}</div>
                 </div>
             </div>
-            <div class="row" class="header5 grey">
+            <div class="row" class="header5">
                 <div class="col-12">
                     <span *ngFor="let item of order.itemList; index as i">
                         {{item.itemName}} x {{item.count}}{{order.itemList.length > i+1 ? ',&nbsp;':''}}
@@ -41,14 +35,11 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="pastOrderList.length === 0" class="header3 bold grey center bgpadding">
+        <div *ngIf="pastOrderList.length === 0" class="header3 bold center bgpadding">
             No Order Found
         </div>
         <div #pastOrdersListEndDiv>
             <img *ngIf="showloader" class="listloader" src="assets/gif/loader.gif">
-        </div>
-        <div>
-            Load More
         </div>
     </div>
 </div>
@@ -61,9 +52,9 @@
                 <!-- <div class="container" *ngIf="!showMap"> -->
                 <!-- <div class="select-address" *ngIf="showMap"> -->
                 <div class="select-address">
-                    <button type="button" style="display:none;" class="btn-close text-reset" #mapCanvas
+                    <button type="button" style="display:none;" class="btn-close text-reset" #orderDetails
                         data-bs-dismiss="offcanvas"></button>
-                    <app-order-details  [order]="order"></app-order-details>
+                    <app-order-details (back)="toggleCanvas()" [order]="order"></app-order-details>
                     <!-- <app-set-delivery-location *ngIf="showMap"
               [showSkipButton]="showSkipButton"></app-set-delivery-location> -->
                 </div>

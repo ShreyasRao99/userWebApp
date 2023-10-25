@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CashbackRoutingModule } from './cashback-routing.module';
 import { CashbackComponent } from './cashback.component';
-
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -11,7 +11,8 @@ import { CashbackComponent } from './cashback.component';
   ],
   imports: [
     CommonModule,
-    CashbackRoutingModule
+    CashbackRoutingModule,
+    NgbAccordionModule
   ]
 })
 export class CashbackModule { }

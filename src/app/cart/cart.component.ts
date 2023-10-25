@@ -15,6 +15,7 @@ import { SendDataToComponent } from 'src/service/sendDataToComponent';
 import { AlertModalService } from '../alert-modal/alert-modal.service';
 import { ToasterService } from '../toaster/toaster.service';
 import { DatePipe } from '@angular/common';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-cart',
@@ -24,6 +25,8 @@ import { DatePipe } from '@angular/common';
 export class CartComponent implements OnInit, OnDestroy {
   @ViewChild('canvasAddress') canvasAddress!: ElementRef<HTMLElement>
   @ViewChild('voucherCanvas') voucherCanvas!: ElementRef<HTMLElement>
+  @ViewChild('completeProfile') completeProfile!: ElementRef<HTMLElement>
+  @ViewChild('closeProfile') closeProfile!: ElementRef<HTMLElement>
   @ViewChild("voucherContent") voucherContent: any;
   @ViewChild("lottieModal") lottieModal: any;
   imageUrl = environment.imageUrl;
@@ -35,7 +38,7 @@ export class CartComponent implements OnInit, OnDestroy {
   deliveryCharges = 0;
   taxes = 10;
   currentLocation!: string;
-  tagLocation: string = 'home';
+  tagLocation: string = '';
   saveCurrentLocation = false;
   showBackButton = false;
   // serviceAvailable = false;
@@ -159,14 +162,20 @@ export class CartComponent implements OnInit, OnDestroy {
   subMessage: string = '';
   serviceNotAvailable: boolean = false;
   selectedAddressIndex: any;
-  selectedDates:any;
+  selectedDates: any;
   allTimeSlotSelected!: string;
   advanceTimeSlotSelected!: string;
   showCheckoutPage: boolean = false;
   subscription: any[] = [];
-  
+  profileForm: any;
+  referralCodeValid: boolean = false;
+  validationCompleted: boolean = false;
+  showSpinner: boolean = false;
+  codeValidationCounter: any;
+  installReferrer: any;
 
-  constructor(private cartManagementService: CartManagementService, private datePipe:DatePipe, private toasterService: ToasterService, private alertModalService: AlertModalService, private chgDetRef: ChangeDetectorRef, private sendDataToComponent: SendDataToComponent, private userProfileService: UserProfileService, private localStorageService: LocalStorageService, private googleMapService: GoogleMapService, private confirmationModalService: ConfirmationModalService, private apiMainService: ApiMainService, private paymentGatewayService: PaymentGatewayService, private runtimeStorageService: RuntimeStorageService, private utilityService: UtilityService, private router: Router) {
+
+  constructor(private cartManagementService: CartManagementService, private fb: FormBuilder, private datePipe: DatePipe, private toasterService: ToasterService, private alertModalService: AlertModalService, private chgDetRef: ChangeDetectorRef, private sendDataToComponent: SendDataToComponent, private userProfileService: UserProfileService, private localStorageService: LocalStorageService, private googleMapService: GoogleMapService, private confirmationModalService: ConfirmationModalService, private apiMainService: ApiMainService, private paymentGatewayService: PaymentGatewayService, private runtimeStorageService: RuntimeStorageService, private utilityService: UtilityService, private router: Router) {
     const currentDate = new Date();
     const after1Day = new Date((new Date()).setDate(currentDate.getDate() + 1));
     const after2Day = new Date((new Date()).setDate(currentDate.getDate() + 2));
@@ -206,6 +215,8 @@ export class CartComponent implements OnInit, OnDestroy {
     this.validateDailyTimings();
     this.updateCart(cartObj);
     this.setCurrentLocation();
+    this.createProfileForm();
+    this.referralCodeVerify();
     if (this.userProfile) {
       this.getMoneyWalletBalance(true);
       this.getMealaweWalletBalance(true);
@@ -213,14 +224,84 @@ export class CartComponent implements OnInit, OnDestroy {
     if (this.userSelectedDates.length === 0) {
       this.userSelectedDates.push(this.allowedMinDate);
     }
-    console.log(this.userProfile)
     // this.getCouponList()
   }
 
-  getUserDetails(){
+  referralCodeVerify() {
+    this.profileForm.controls.code.valueChanges.subscribe((res: any) => {
+      if (res) {
+        this.installReferrer = true;
+        this.validateInstallReferrer(res)
+      }
+    })
+  }
+
+  async validateInstallReferrer($event: any) {
+    let searchText = $event;
+    this.referralCodeValid = false;
+    this.validationCompleted = false;
+    if (searchText) {
+      clearTimeout(this.codeValidationCounter);
+      this.codeValidationCounter = setTimeout(async () => {
+        try {
+          searchText = searchText.toUpperCase();
+          this.showSpinner = true;
+          const { referralCodeValid } = await this.apiMainService.validateReferralCode(searchText);
+          this.referralCodeValid = referralCodeValid;
+          this.validationCompleted = true;
+          this.showSpinner = false;
+        } catch (e) {
+          this.showSpinner = false;
+        }
+      }, 1000)
+    }
+  };
+
+  getUserDetails() {
     this.checkUserLoginProfile()
     this.setCurrentLocation()
   }
+
+  createProfileForm() {
+    this.profileForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30), Validators.pattern(/^(\s+\S+\s*)*(?!\s).*$/)]],
+      email: ['', [Validators.required,Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9]+(\\.[a-zA-Z]{2,4})+(\\.[a-zA-Z]{2,4})*$")]],
+      code: ['']
+    })
+  }
+
+  async submitCompletedProfile(){
+    // const selectedList = this.favcuisinelist.filter( (item: any) => item.checked).map(ele => ele.name);
+    // const preferences = selectedList.join(',');
+    let form = this.profileForm.controls
+    const userProfile = this.localStorageService.getCacheData('USER_PROFILE');
+    if(this.profileForm && this.profileForm.value){
+      // this.username = this.favCusineForm.value.username;
+      // this.email = this.favCusineForm.value.email;
+      // if(this.profileForm.email){
+      //   this.email = this.email.toLowerCase();
+      // }
+    }
+    if (userProfile){
+      userProfile.userName = form.name.value.trim();
+      userProfile.email = form.email.value.toLowerCase();
+      // userProfile.preferences = preferences;
+      if(this.installReferrer && this.referralCodeValid){
+        userProfile.installReferrer = this.installReferrer.toUpperCase();
+      }
+      try{
+        const updatedUserProfile = await this.apiMainService.updateUserProfile(userProfile._id, userProfile);
+        this.userProfile = updatedUserProfile
+        this.localStorageService.setCacheData('USER_PROFILE', updatedUserProfile);
+        this.localStorageService.setCacheData('PREFERENCE_SET', true);
+        let el = this.closeProfile.nativeElement
+        el.click();
+        // this.mixpanelservice.signup('Sign_Up',{id:userProfile._id});
+      }catch (e){
+        console.log('error while updating user address');
+      }
+  }
+}
 
   validateDailyTimings() {
     if (this.cartObj && this.cartObj.orderType === 'daily') {
@@ -267,11 +348,11 @@ export class CartComponent implements OnInit, OnDestroy {
       this.addressSelected = formatedAddess
       this.customerLocation = { ...formatedAddess };
       let address = '';
-      if (formatedAddess.address) {
-        this.saveCurrentLocation = false;
+      if (formatedAddess.address && formatedAddess.landmark) {
+        this.saveCurrentLocation = true;
         address = formatedAddess.address
       } else {
-        this.saveCurrentLocation = true;
+        this.saveCurrentLocation = false;
       }
       const landmark = formatedAddess.landmark ? `, Landmark: ${formatedAddess.landmark}, ` : '';
       this.currentLocation = formatedAddess.location ? `${address}${formatedAddess.location}${landmark}` : `${address}${landmark}`;
@@ -320,16 +401,18 @@ export class CartComponent implements OnInit, OnDestroy {
 
     this.sendDataToComponent.subscribe('ADDRESS_FROM_DELIVERY', (address) => {
       if (address.address) {
-        this.userProfile.addressList.push(address);
+        this.userProfile.addressList ? this.userProfile.addressList.push(address) : this.userProfile.addressList = [address];
+        console.log(this.userProfile)
         this.toggleAddressSelected(address);
         this.toggleCanvas();
         // this.setCurrentLocation()  
       }
-      else{
+      else {
         this.addressSelected = address
         this.saveCurrentLocation = false
       }
     })
+
 
     this.sendDataToComponent.subscribe('LOCATION_ADDED_UPDATE_CART_PAGE', (flag) => {
       if (flag) {
@@ -733,28 +816,34 @@ export class CartComponent implements OnInit, OnDestroy {
         this.toasterService.warning(111);
       }
     }
-    // else{
-    //   try{
-    //     const alert = await this.alertController.create({
-    //       cssClass: 'my-alert-class',
-    //       header: 'Set Your Profile',
-    //       backdropDismiss: false,
-    //       message: 'You have not set your profile yet, kindly set your profile. ',
-    //       buttons: [
-    //           {
-    //             text: 'Ok',
-    //             cssClass: 'secondary-color3 bold',
-    //             handler: () => {
-    //               this.openProfileModel()           
-    //             }
-    //           }
-    //         ]
-    //     });  
-    //     await alert.present();
-    //     }catch(error){
-    //       console.log('error while showing alert ',error);
-    //     }
-    // }
+    else {
+      try {
+        this.confirmationModalService.modal(`You have not set up your profile yet, Kindly set your profile?`,
+          () => {
+            let el = this.completeProfile.nativeElement;
+            el.click()
+          }, this);
+
+        // const alert = await this.alertController.create({
+        //   cssClass: 'my-alert-class',
+        //   header: 'Set Your Profile',
+        //   backdropDismiss: false,
+        //   message: 'You have not set your profile yet, kindly set your profile. ',
+        //   buttons: [
+        //       {
+        //         text: 'Ok',
+        //         cssClass: 'secondary-color3 bold',
+        //         handler: () => {
+        //           this.openProfileModel()           
+        //         }
+        //       }
+        //     ]
+        // });  
+        // await alert.present();
+      } catch (error) {
+        console.log('error while showing alert ', error);
+      }
+    }
   }
 
 
@@ -943,14 +1032,14 @@ export class CartComponent implements OnInit, OnDestroy {
         }
         if (order && order.amount >= 0) {
           const checkoutDetails = await this.paymentGatewayService.startPaytmPaymentProcess(order);
-          if (checkoutDetails.amount > 0) {            
+          if (checkoutDetails.amount > 0) {
             this.showCheckoutPage = true;
             order = checkoutDetails;
             const res = await this.paymentGatewayService.payPaytmGatewayWeb(checkoutDetails, order);
-            resolve(res);         
-          }else{
+            resolve(res);
+          } else {
             resolve(true);
-          }       
+          }
         }
       } catch (error) {
         reject(error);
@@ -999,23 +1088,10 @@ export class CartComponent implements OnInit, OnDestroy {
     // return await modal.present();  
   }
 
-  async changeLocation() {
-    // const modal = await this.modalController.create({
-    //   component: SelectCurrentAddressComponent,
-    //   id: 'confirmAddress'
-    // });
-    // modal.onDidDismiss().then(async (event: any) => {
-    //   const data = event.data;
-    //   if (data && data.back){
-    //     this.updateLocationChange();  
-    //   }
-    // });
-    // return await modal.present();
-  }
 
   async openOrderPlaced(orderType: any, success: any) {
     this.runtimeStorageService.resetCacheData('OPEN_ORDERS');
-    this.router.navigate(['/order-placed'],{queryParams:{success}})
+    this.router.navigate(['/order-placed'], { queryParams: { success, orderType } })
     // const modal = await this.modalController.create({
     //   component: OrderPlacedComponent,
     //   componentProps: {paymentSucess: success},
@@ -1152,7 +1228,6 @@ export class CartComponent implements OnInit, OnDestroy {
     if (this.subscriptionObj.dinnerSubscription && this.subscriptionObj.lunchSubscription) {
       this.mealPerdayCount = 2;
     }
-    console.log(this.cartObj)
     this.cartObj.itemList.forEach((ele: any) => {
       let totalDays = ele.days;
       mealaweTotalAmt = ele.packagePrice * ele.count * this.mealPerdayCount;
@@ -1605,7 +1680,6 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   changePackageAddons(item: any) {
-    console.log(item)
     this.cartManagementService.updateItemToCart(item);
     this.getPayAmt();
   }
@@ -1779,7 +1853,8 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   showAlert() {
-    alert('kitchen more than 5kms away')
+    this.confirmationModalService.modal(`You are ordering from a kitchen which is more than 5kms away. Extra delivery time and charges are applicable.`,
+      () => '', this);
   }
 
   isWeekday = (dateString: any) => {
@@ -1823,7 +1898,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   toggleCanvas() {
     let el = this.canvasAddress?.nativeElement;
-    el.click();
+    el?.click();
   }
 
   mealTimeSelected(prop: any) {
@@ -1835,39 +1910,36 @@ export class CartComponent implements OnInit, OnDestroy {
   }
   advOrderDateChanged(value: any) {
     this.orderComplitionDate = new Date(value.getTime() - value.getTimezoneOffset() * 60000).toISOString();
-    console.log(this.orderComplitionDate)
   }
   advOrderTimeChanged(value: any) {
     this.orderComplitionTime = new Date(value);
   }
   subOrderDateChanged(value: any) {
     this.subscriptionStartDate = new Date(value.getTime() - value.getTimezoneOffset() * 60000).toISOString();
-    console.log(this.subscriptionStartDate)
   }
   multiSubOrderDateChanged(subscriptionDays: any) {
     if (this.selectedDates) {
       if (this.selectedDates.length > subscriptionDays) {
         this.toasterService.error(`You must select ${subscriptionDays} Delivery Dates.`);
       }
-      this.userSelectedDates = this.selectedDates.map((el:any)=>{
+      this.userSelectedDates = this.selectedDates.map((el: any) => {
         let date = new Date(el.getTime() - el.getTimezoneOffset() * 60000).toISOString()
         return date
       });
-      console.log(this.userSelectedDates)
       // this.chgDetRef.detectChanges();
     }
   }
 
-  showAllDayTimeSlot(slot:any){
-    let x = this.datePipe.transform(slot.start,'shortTime')
-    let y = this.datePipe.transform(slot.end,'shortTime')
-    this.allTimeSlotSelected = x+' - '+y
+  showAllDayTimeSlot(slot: any) {
+    let x = this.datePipe.transform(slot.start, 'shortTime')
+    let y = this.datePipe.transform(slot.end, 'shortTime')
+    this.allTimeSlotSelected = x + ' - ' + y
   }
 
-  showAdvanceTimeSlot(slot:any){
-    let x = this.datePipe.transform(slot.start,'shortTime')
-    let y = this.datePipe.transform(slot.end,'shortTime')
-    this.advanceTimeSlotSelected = x+' - '+y
+  showAdvanceTimeSlot(slot: any) {
+    let x = this.datePipe.transform(slot.start, 'shortTime')
+    let y = this.datePipe.transform(slot.end, 'shortTime')
+    this.advanceTimeSlotSelected = x + ' - ' + y
   }
 
 
@@ -2028,7 +2100,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
 
-  test(){
+  test() {
     alert('')
   }
 
