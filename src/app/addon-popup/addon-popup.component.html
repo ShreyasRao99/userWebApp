@@ -5,13 +5,13 @@
         <!-- <ion-icon class="closePopup" name="close-circle-outline"></ion-icon> -->
     </div>
     <div class="listStyle mt-4 mb-4">
-        <div class="px-4">
-            <span class="" *ngFor="let addon of addOns.addOnList">
-                <div class="row" *ngIf="addon.addOnAvailable">
-                    <div class="col-3">
+        <div class="px-1">
+            <span *ngFor="let addon of addOns.addOnList">
+                <div class="row addons-wrapper" *ngIf="addon.addOnAvailable">
+                    <div class="col-4">
                         <img *ngIf="addon.imageUrl" [src]="imageUrl+addon.imageUrl" class="addonImg">
                     </div>
-                    <div class="col-7">
+                    <div class="col-5">
                         <div class="header4">{{addon.addOnName}} | &#8377;
                             <!-- <span class="crossPrice" 
                             *ngIf="addon.addOnMaxPrice && addon.addOnMaxPrice > addon.addOnPrice">{{addon.addOnMaxPrice}}</span> -->
@@ -19,7 +19,7 @@
                         </div>
                         <div class="header5 grey">{{addon.addOnDescription}}</div>
                     </div>
-                    <div class="col-2">
+                    <div class="col-3">
                         <div *ngIf="!addon.count" class="addAddonButton white pointer" (click)="addToCart(addon)">ADD</div>
                         <div *ngIf="addon.count" class="white addedAddonStyle">
                             <div class="inline incAddonbutton pointer" (click)="decreaseCount(addon)">-</div>

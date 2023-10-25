@@ -935,17 +935,17 @@ input[type="text"]:focus {
     }
 }
 
-.addonsModel {
-    .modal-dialog {
-        position: absolute;
-        top: 10%;
-        left: 33%;
-        width: 65%;
-    }
-}
+// .addonsModel {
+//     .modal-dialog {
+//         position: absolute;
+//         top: 10%;
+//         left: 33%;
+//         width: 65%;
+//     }
+// }
 
 .modal-content{
-    border-radius:5%;
+    border-radius:20px !important;
 }
 
 html {

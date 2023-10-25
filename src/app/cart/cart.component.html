@@ -168,7 +168,7 @@
                       <div class="row" *ngFor="let addon of item.addonsList">
                         <div class="col-12 checkbox" [ngClass]="{selected: addon.selected}"
                           (click)="addon.selected = !addon.selected;changePackageAddons(item)">
-                          <div class="inline-table">
+                          <div class="inline-table pointer">
                             <input type="checkbox" class="checkboxStyle" [(ngModel)]="addon.selected">
                           </div>
                           <div class="inline-table">
@@ -307,11 +307,11 @@
               <div class="bgTopDownpadding2"
                 *ngIf="mealaweWalletPoinstAvailable && cartObj.orderType !== 'subscription'">
                 <div class="checkbox" (click)="mealaweWalletApplied()" [ngClass]="{selected: applyMealaweWalletPoints}">
-                  <div class="inline-table">
+                  <div class="inline-table pointer">
                     <input type="checkbox" class="checkboxStyle" [(ngModel)]="applyMealaweWalletPoints"
                       (ngModelChange)="getPayAmt()">
                   </div>
-                  <div class="inline-table">
+                  <div class="inline-table pointer">
                     <div class="header5 bold secondary-color3">Redeem your Cashback points</div>
                     <div class="header5 grey">You can redeem {{maxMealaweWalletPointsAllowed}} cashback points on this
                       order
@@ -321,11 +321,11 @@
               </div>
               <div *ngIf="moneyWalletPoinstAvailable">
                 <label class="checkbox" for="applyMoneyWalletPoints" [ngClass]="{selected: applyMoneyWalletPoints}">
-                  <div class="inline-table">
+                  <div class="inline-table pointer">
                     <input id="applyMoneyWalletPoints" type="checkbox" class="checkboxStyle"
                       [(ngModel)]="applyMoneyWalletPoints" (ngModelChange)="getPayAmt()">
                   </div>
-                  <div class="inline-table">
+                  <div class="inline-table pointer">
                     <div class="header5 bold secondary-color3">Redeem your money wallet's points</div>
                     <div class="header5 grey">You can redeem {{maxMoneyWalletPointsAllowed}} points on this order</div>
                   </div>

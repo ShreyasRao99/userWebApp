@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div class="container-fluid">
-    <div class="col-8 offset-2">
+    <div class="col-10 col-lg-8 offset-lg-2 offset-md-2 offset-1">
         <div class="headerMargin">
             <img class="img-fluid" [src]="regionalItem.url">
             <div class="regionalLabel" [ngClass]="{'specialHeader': category==='special'}">
@@ -30,8 +30,8 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <app-kitchen-card class="col-3" *ngFor="let kitchen of filteredList | sort : 'distance'" [kitchen]="kitchen"
+            <div class="row mt-2">
+                <app-kitchen-card class="col-12 col-md-6 col-lg-3" *ngFor="let kitchen of filteredList | sort : 'distance'" [kitchen]="kitchen"
                     [hideFav]="true" [gotoDailyPage]="category === 'mealTime'"
                     [gotoSubscriptionPage]=" text === 'subscription'" [gotoAlldayPage]="text === 'allDay' "
                     [gotoAdvance]="text === 'advance' " [showSpecial]="category === 'special'"></app-kitchen-card>
