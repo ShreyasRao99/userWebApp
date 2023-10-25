@@ -20,11 +20,11 @@
                         <div class="header5 grey">{{addon.addOnDescription}}</div>
                     </div>
                     <div class="col-2">
-                        <div *ngIf="!addon.count" class="addAddonButton white" (click)="addToCart(addon)">ADD</div>
+                        <div *ngIf="!addon.count" class="addAddonButton white pointer" (click)="addToCart(addon)">ADD</div>
                         <div *ngIf="addon.count" class="white addedAddonStyle">
-                            <div class="inline incAddonbutton" (click)="decreaseCount(addon)">-</div>
+                            <div class="inline incAddonbutton pointer" (click)="decreaseCount(addon)">-</div>
                             <div class="inline incAddonbutton">{{addon.count}}</div>
-                            <div class="inline incAddonbutton" (click)="increaseCount(addon)">+</div>
+                            <div class="inline incAddonbutton pointer" (click)="increaseCount(addon)">+</div>
                         </div>
                     </div>
                 </div>
@@ -32,5 +32,5 @@
         </div>
         
     </div>
-    <div class="goToCart" (click)="goToCart()">Go To Cart</div>
+    <div class="goToCart pointer" (click)="goToCart()">Go To Cart</div>
 </div>

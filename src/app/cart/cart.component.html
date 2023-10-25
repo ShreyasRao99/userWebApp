@@ -14,7 +14,7 @@
           <div class="row">
             <div class="col-8 left-section">
               <ng-container *ngIf="userProfile">
-                <i class="bi bi-arrow-left" *ngIf="!toggleSelected && addressSelected" (click)="goBack()"></i>
+                <i class="bi bi-arrow-left pointer" *ngIf="!toggleSelected && addressSelected" (click)="goBack()"></i>
                 <div class="d-flex flex-row mt-2">
                   <div class="cartGrayHead">{{!toggleSelected ? 'Select Delivery Address' : 'Delivery address'}}</div>
                   <div class="buttonDiv">
@@ -93,11 +93,11 @@
                       <div>
                         <div class="right quantitydiv">
                           <div *ngIf="item.count" class="white cartitemStyle">
-                            <div class="cartincbutton quantity" (click)="decreaseCount(item)">
+                            <div class="cartincbutton quantity pointer" (click)="decreaseCount(item)">
                               <span class="dec">-</span>
                             </div>
                             <div class="cartincbuttoncenter count">{{item.count}}</div>
-                            <div class="cartincbutton quantity" (click)="increaseCount(item)">
+                            <div class="cartincbutton quantity pointer" (click)="increaseCount(item)">
                               <span class="plus">+</span>
                             </div>
                           </div>
@@ -122,11 +122,11 @@
                     <div>
                       <div class="header5 mt-2 bgsidepadding1 quantitydiv">
                         <div *ngIf="addon.count" class="white cartitemStyle">
-                          <div class="cartincbutton quantity" (click)="decreaseAddOnCount(addon)">
+                          <div class="cartincbutton quantity pointer" (click)="decreaseAddOnCount(addon)">
                             <span class="dec">-</span>
                           </div>
-                          <div class="cartincbuttoncenter count">{{addon.count}}</div>
-                          <div class="cartincbutton quantity" (click)="increaseAddOnCount(addon)">
+                          <div class="cartincbuttoncenter count pointer">{{addon.count}}</div>
+                          <div class="cartincbutton quantity pointer" (click)="increaseAddOnCount(addon)">
                             <span class="plus">+</span>
                           </div>
                         </div>
@@ -151,11 +151,11 @@
                         <div class="col-6">
                           <div class="inline header5 bgsidepadding2 right quantitydiv">
                             <div *ngIf="item.count" class=" cartitemStyle">
-                              <div class="cartincbutton quantity" (click)="decreaseCount(item)">
+                              <div class="cartincbutton quantity pointer" (click)="decreaseCount(item)">
                                 <span class="dec">-</span>
                               </div>
                               <div class="cartincbuttoncenter count white">{{item.count}}</div>
-                              <div class="cartincbutton quantity" (click)="increaseCount(item)">
+                              <div class="cartincbutton quantity pointer" (click)="increaseCount(item)">
                                 <span class="plus">+</span>
                               </div>
                             </div>
@@ -296,12 +296,12 @@
               </div>
               <div class="coupondivstyle mt-3" (click)="openVoucherSection()" data-bs-toggle="offcanvas"
                 data-bs-target="#coupon">
-                <div class="coupondiv">
+                <div class="coupondiv pointer">
                   <div class="couponText">Apply Coupon</div>
                 </div>
               </div>
               <div *ngIf="couponCode && cartObj.orderType !== 'subscription'" class="couponSelected">
-                <div class="right remove" (click)="removeCoupon(true)">REMOVE</div>
+                <div class="right remove pointer" (click)="removeCoupon(true)">REMOVE</div>
                 <div>{{couponCode}} applied</div>
               </div>
               <div class="bgTopDownpadding2"
@@ -489,7 +489,7 @@
                       </ion-item> -->
                     <div class="voucherStyle">
                       <input [(ngModel)]="modalVoucherCode" class="voucherInput" placeholder="Enter voucher code here">
-                      <div class="voucherbtn" (click)="validateVoucher()">APPLY</div>
+                      <div class="voucherbtn pointer" (click)="validateVoucher()">APPLY</div>
                     </div>
                   </div>
                   <div class="couponParent">
@@ -515,17 +515,17 @@
                             <div class="couponHeader">{{offer.couponHeader}}</div>
                           </div>
                           <div class="rightSide">
-                            <div class="apply" (click)="showConfirmationAlert(offer)">APPLY</div>
+                            <div class="apply pointer" (click)="showConfirmationAlert(offer)">APPLY</div>
                             <div class="couponCode">{{offer.couponCode}}</div>
                             <div class="coupontext">
                               <div class="description">{{offer.description}}</div>
                             </div>
                             <div class="subdescription">{{offer.subDescription}}</div>
                             <div class="showMore" (click)="offer.showMore = true" *ngIf="!offer.showMore">
-                              <span class="sign">+</span> MORE
+                              <span class="sign pointer">+</span> MORE
                             </div>
                             <div class="showMore" (click)="offer.showMore = false" *ngIf="offer.showMore">
-                              <span class="sign">-</span> LESS
+                              <span class="sign pointer">-</span> LESS
                             </div>
                           </div>
                         </div>

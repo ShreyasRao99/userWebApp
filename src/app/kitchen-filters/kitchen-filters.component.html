@@ -1,7 +1,7 @@
 <div class="modalCntrlparentHeight">
     <div class="filterheader">
         <!-- <ion-icon (click)="goBack()" class="filtercrossIcon" name="close"></ion-icon> -->
-        <i class="bi bi-x-circle filtercrossIcon"></i>
+        <i class="bi bi-x-circle filtercrossIcon pointer" (click)="goBack()"></i>
         <div class="headerfilterStyle">Filters</div>
     </div>
     <div class="modalCntrlmodalscrollbody modalCntrlparentHeight">
@@ -11,7 +11,7 @@
                 <div>
                     <div class="container">
                         <div class="row">  
-                            <div class="form-check col-4">
+                            <div class="form-check col-4 pointer">
                                 <input class="form-check-input" (click)="filterObj.Veg = !filterObj.Veg" value="Veg" type="radio" name="Veg" id="Veg">
                                 <label class="form-check-label" [ngClass]="{radioselected: orderType === 'Veg'}" for="Veg">
                                   Veg
@@ -67,7 +67,7 @@
                 </div>
             </div>
             <div *ngIf="type === 2 || type === 3">
-                <div class="bgTopDownpadding4">
+                <div class="bgTopDownpadding4 pointer">
                     <div class="headinglebel">Spice Level</div>
                     <div class="spicyLebel0 inline" [ngClass]="{selected: filterObj.level0}" (click)="filterObj.level0 = !filterObj.level0"></div>
                     <div class="spicyLebel1 inline" [ngClass]="{selected: filterObj.level1}" (click)="filterObj.level1 = !filterObj.level1"></div>
@@ -77,9 +77,9 @@
                 <div class="bgTopDownpadding1" *ngIf="type === 3">
                     <div class='headinglebel'>Price</div>
                     <div>
-                        <div class="inline filterChoice" [ngClass]="{'selectedfilter': filterObj.lowToHigh}" 
+                        <div class="inline filterChoice pointer" [ngClass]="{'selectedfilter': filterObj.lowToHigh}" 
                         (click)="filterObj.lowToHigh = !filterObj.lowToHigh; filterObj.highToLow = false">Low-High</div>
-                        <div class="inline filterChoice" [ngClass]="{'selectedfilter': filterObj.highToLow}" 
+                        <div class="inline filterChoice pointer" [ngClass]="{'selectedfilter': filterObj.highToLow}" 
                         (click)="filterObj.highToLow = !filterObj.highToLow ; filterObj.lowToHigh = false">High-Low</div>
                     </div>
                 </div>
@@ -88,16 +88,16 @@
                 <div class="headinglebel bgBottompadding2">Category</div>
                 <div class="row">                          
                     <div class="col-6">
-                        <div class="form-check">
-                            <input class="form-check-input" [(ngModel)]="filterObj.Combo" type="checkbox">
+                        <div class="form-check custom-checkbox custom-control">
+                            <input class="form-check-input pointer" [(ngModel)]="filterObj.Combo" type="checkbox">
                             <label class="filteRadioLebel form-check-label" [ngClass]="{radioselected: filterObj.Combo}">Combo</label>
                         </div>
                         <!-- <ion-checkbox mode="md" [(ngModel)]="filterObj.Combo"></ion-checkbox>
                         <ion-label class="filteRadioLebel" [ngClass]="{radioselected: filterObj.Combo}">Combo</ion-label> -->
                     </div>                      
                     <div class="col-6">
-                        <div class="form-check">
-                            <input class="form-check-input" [(ngModel)]="filterObj.Bakery" type="checkbox">
+                        <div class="form-check custom-checkbox custom-control">
+                            <input class="form-check-input pointer" [(ngModel)]="filterObj.Bakery" type="checkbox">
                             <label class="filteRadioLebel form-check-label" [ngClass]="{radioselected: filterObj.Bakery}">Bakery</label>
                         </div>                                
                         <!-- <ion-checkbox mode="md" [(ngModel)]="filterObj.Bakery"></ion-checkbox>
@@ -106,16 +106,16 @@
                 </div>
                 <div class="row">                        
                     <div class="col-6"> 
-                        <div class="form-check">
-                            <input class="form-check-input" [(ngModel)]="filterObj.Snacks" type="checkbox">
+                        <div class="form-check custom-checkbox custom-control">
+                            <input class="form-check-input pointer" [(ngModel)]="filterObj.Snacks" type="checkbox">
                             <label class="filteRadioLebel form-check-label" [ngClass]="{radioselected: filterObj.Snacks}">Snacks</label>
                         </div>                               
                         <!-- <ion-checkbox mode="md" [(ngModel)]="filterObj.Snacks"></ion-checkbox>
                         <ion-label class="filteRadioLebel" [ngClass]="{radioselected: filterObj.Snacks}">Snacks</ion-label> -->
                     </div>      
                     <div class="col-6">
-                        <div class="form-check">
-                            <input class="form-check-input" [(ngModel)]="filterObj.Sweet" type="checkbox">
+                        <div class="form-check custom-checkbox custom-control">
+                            <input class="form-check-input pointer" [(ngModel)]="filterObj.Sweet" type="checkbox">
                             <label class="filteRadioLebel form-check-label" [ngClass]="{radioselected: filterObj.Sweet}">Sweet</label>
                         </div>
                         <!-- <ion-checkbox mode="md" [(ngModel)]="filterObj.Sweet"></ion-checkbox>
@@ -125,16 +125,16 @@
                 
                 <div class="row">                        
                     <div class="col-6"> 
-                        <div class="form-check">
-                            <input class="form-check-input" [(ngModel)]="filterObj.Spices" type="checkbox">
+                        <div class="form-check custom-checkbox custom-control">
+                            <input class="form-check-input pointer" [(ngModel)]="filterObj.Spices" type="checkbox">
                             <label class="filteRadioLebel form-check-label" [ngClass]="{radioselected: filterObj.Spices}">Spices</label>
                         </div>                               
                         <!-- <ion-checkbox mode="md" [(ngModel)]="filterObj.Spices"></ion-checkbox>
                         <ion-label class="filteRadioLebel" [ngClass]="{radioselected: filterObj.Spices}">Spices</ion-label> -->
                     </div>      
                     <div class="col-6">
-                        <div class="form-check">
-                            <input class="form-check-input" [(ngModel)]="filterObj.Barbecue" type="checkbox">
+                        <div class="form-check custom-checkbox custom-control">
+                            <input class="form-check-input pointer" [(ngModel)]="filterObj.Barbecue" type="checkbox">
                             <label class="filteRadioLebel form-check-label" [ngClass]="{radioselected: filterObj.Barbecue}">Barbecue</label>
                         </div>
                         <!-- <ion-checkbox mode="md" [(ngModel)]="filterObj.Barbecue"></ion-checkbox>
@@ -143,8 +143,8 @@
                 </div>
                 <div class="row">     
                     <div class="col-6">
-                        <div class="form-check">
-                            <input class="form-check-input" [(ngModel)]="filterObj.Pickle" type="checkbox">
+                        <div class="form-check custom-checkbox custom-control">
+                            <input class="form-check-input pointer" [(ngModel)]="filterObj.Pickle" type="checkbox">
                             <label class="filteRadioLebel form-check-label" [ngClass]="{radioselected: filterObj.Pickle}">Pickle</label>
                         </div>
                         <!-- <ion-checkbox mode="md" [(ngModel)]="filterObj.Pickle"></ion-checkbox>

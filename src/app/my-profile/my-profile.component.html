@@ -54,7 +54,7 @@
                 <div class="header5 grey valueStyle" *ngIf="!editModeOn">
                     <div>
                         <div class="row">
-                            <div class="col-3" *ngFor="let cuisine of slectedCuisineList">
+                            <div class="col-3 cuisine-wrapper" *ngFor="let cuisine of slectedCuisineList">
                                 <img class="cuisineImg" [src]="cuisine.url">
                                 <div class="header5">{{cuisine.name}}</div>
                                 <div *ngIf="cuisine.checked" class="cuisinetickposition"></div>
@@ -65,7 +65,7 @@
                 <div class="header5 grey valueStyle" *ngIf="editModeOn">
                     <div>
                         <div class="row">
-                            <div class="col-3" *ngFor="let cuisine of slectedCuisineListEdit"
+                            <div class="col-3 cuisine-wrapper" *ngFor="let cuisine of slectedCuisineListEdit"
                                 (click)="cuisine.checked = !cuisine.checked">
                                 <img class="cuisineImg" [src]="cuisine.url">
                                 <div class="header5">{{cuisine.name}}</div>

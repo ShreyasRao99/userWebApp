@@ -5,6 +5,7 @@ import { SubscriptionRoutingModule } from './subscription-routing.module';
 import { MainSliderModule } from '../main-slider/main-slider.module';
 import { HeaderModule } from '../header/header.module';
 import { FormsModule } from '@angular/forms';
+import { FooterModule } from '../footer/footer.module';
 
 
 
@@ -17,7 +18,8 @@ import { FormsModule } from '@angular/forms';
     SubscriptionRoutingModule,
     MainSliderModule,
     HeaderModule,
-    FormsModule
+    FormsModule,
+    FooterModule
   ]
 })
 export class SubscriptionModule { }

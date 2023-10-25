@@ -42,7 +42,7 @@
 .searchChoice{
     padding: 5px 13px;
     border-radius: 9px;
-    margin: 0px 2%;   
+    margin: 0px 0;   
     border: 2px solid $primary-color3;
     color: $primary-color3;
 }
@@ -78,8 +78,8 @@
 }
 
 .userSearchLookup{
-    padding:1%;
-    width: 65%;
+    padding:1% 0;
+    width: inherit;
     z-index: 1;
     position: absolute;
     background: #fff !important;

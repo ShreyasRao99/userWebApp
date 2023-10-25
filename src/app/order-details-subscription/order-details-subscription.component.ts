@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { orderStatusMapper } from 'src/config/order-status.config';
 import { SendDataToComponent } from 'src/service/sendDataToComponent';
@@ -12,6 +12,7 @@ import { ApiMainService } from 'src/service/apiService/api-main.service';
 })
 export class OrderDetailsSubscriptionComponent implements OnInit {
   @Input() order: any;
+  @Output() back:EventEmitter<any> = new EventEmitter<any>;
   imageUrl = environment.imageUrl;
   orderStatusMapper: any = orderStatusMapper;
   showCancel = false;
@@ -178,6 +179,10 @@ export class OrderDetailsSubscriptionComponent implements OnInit {
       //   console.log('')
       // }
     }
+  }
+
+  goBackArrow(){
+    this.back.emit()
   }
 
   goBack(){

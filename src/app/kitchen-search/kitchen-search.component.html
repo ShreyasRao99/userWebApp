@@ -1,50 +1,53 @@
 <app-header></app-header>
 <div class="container-fluid">
-    <div class="headerMargin">
-        <img class="img-fluid" [src]="regionalItem.url">
-        <div class="regionalLabel" [ngClass]="{'specialHeader': category==='special'}">
-            <img [src]="regionalItem.backTick" class="backarrow">
-            <!-- <span class="header2 bold white" *ngIf="category!=='special'">{{headerName}}</span> -->
-        </div>
-        <div *ngIf="category==='special'" class="specialtext">Mealawe Food Festival</div>
-    </div>
-    <div>
-        <div class="preparingheader">
-            <div class="first">
-                <div class="bold mainheader">Kitchens near by</div>
-                <div class="header4 mt-2 grey">Checkout what's cooking right now!</div>
+    <div class="col-8 offset-2">
+        <div class="headerMargin">
+            <img class="img-fluid" [src]="regionalItem.url">
+            <div class="regionalLabel" [ngClass]="{'specialHeader': category==='special'}">
+                <img [src]="regionalItem.backTick" class="backarrow">
+                <!-- <span class="header2 bold white" *ngIf="category!=='special'">{{headerName}}</span> -->
             </div>
-            <div class="second" *ngIf="showFilter">
-                <!-- <div class="selected filterStyle inline" (click)="showFilters()">
-                    <span *ngIf="filterApplied" class="filterPresent">
-                        <ion-icon name="checkmark-outline"></ion-icon>
-                    </span>
-                    <span>SORT / FILTER</span>                                            
-                </div>                     -->
-                <div class="orderCapsule filterpopupdiv" (click)="showFilters()">
-                    <span *ngIf="filterApplied" class="filterPresent">
-                        <i class="bi bi-check"></i>
-                        <!-- <ion-icon name="checkmark-outline"></ion-icon> -->
-                    </span>
+            <div *ngIf="category==='special'" class="specialtext">Mealawe Food Festival</div>
+        </div>
+        <div>
+            <div class="preparingheader mt-3">
+                <div class="first">
+                    <div class="bold header2">Kitchens near by</div>
+                    <div class="header4 mt-2 grey">Checkout what's cooking right now!</div>
+                </div>
+                <div class="second" *ngIf="showFilter">
+                    <!-- <div class="selected filterStyle inline" (click)="showFilters()">
+                        <span *ngIf="filterApplied" class="filterPresent">
+                            <ion-icon name="checkmark-outline"></ion-icon>
+                        </span>
+                        <span>SORT / FILTER</span>                                            
+                    </div>                     -->
+                    <div class="orderCapsule filterpopupdiv" (click)="showFilters()">
+                        <span *ngIf="filterApplied" class="filterPresent">
+                            <i class="bi bi-check"></i>
+                            <!-- <ion-icon name="checkmark-outline"></ion-icon> -->
+                        </span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <app-kitchen-card class="col-3" *ngFor="let kitchen of filteredList | sort : 'distance'" [kitchen]="kitchen"
-                [hideFav]="true" [gotoDailyPage]="category === 'mealTime'"
-                [gotoSubscriptionPage]=" text === 'subscription'" [gotoAlldayPage]="text === 'allDay' "
-                [gotoAdvance]="text === 'advance' " [showSpecial]="category === 'special'"></app-kitchen-card>
-        </div>
-        <!-- <div  #kitchenSearchEndDiv>
-            <img *ngIf="showloader" class="listloader" src="assets/gif/loader.gif">
-        </div>  -->
-        <div *ngIf="showloader">
-            <app-loader-card [type]='1'></app-loader-card>
-        </div>
-        <div *ngIf="filteredList.length === 0">
-            <div class="bgToppadding5 header3 bold grey center">No result found based on your search</div>
+            <div class="row">
+                <app-kitchen-card class="col-3" *ngFor="let kitchen of filteredList | sort : 'distance'" [kitchen]="kitchen"
+                    [hideFav]="true" [gotoDailyPage]="category === 'mealTime'"
+                    [gotoSubscriptionPage]=" text === 'subscription'" [gotoAlldayPage]="text === 'allDay' "
+                    [gotoAdvance]="text === 'advance' " [showSpecial]="category === 'special'"></app-kitchen-card>
+            </div>
+            <!-- <div  #kitchenSearchEndDiv>
+                <img *ngIf="showloader" class="listloader" src="assets/gif/loader.gif">
+            </div>  -->
+            <div *ngIf="showloader">
+                <app-loader-card [type]='1'></app-loader-card>
+            </div>
+            <div *ngIf="filteredList.length === 0">
+                <div class="bgToppadding5 header3 bold grey center">No result found based on your search</div>
+            </div>
         </div>
     </div>
+    
 </div>
 <ng-template #filterModal let-modal>
     <app-kitchen-filters [props]="filterProps" (filters)="checkFilters($event)"></app-kitchen-filters>

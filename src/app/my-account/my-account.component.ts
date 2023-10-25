@@ -21,6 +21,7 @@ export class MyAccountComponent implements OnInit {
     { label: 'Help', link: 'my-help' }
     // { label: 'Log Out', link: 'logout' }
   ]
+  selectedDiv: any = 'Orders';
 
   constructor(private localStorageService: LocalStorageService, private confirmationModalService: ConfirmationModalService, private apiMainService: ApiMainService, private cartManagementService: CartManagementService, private router: Router) { }
 
@@ -44,5 +45,9 @@ export class MyAccountComponent implements OnInit {
     } catch (error) {
       console.log('Error while logging out', error)
     }
+  }
+
+  selectedSection(item:any){
+    this.selectedDiv = item.label; 
   }
 }

@@ -1,5 +1,5 @@
 <app-header></app-header>
-<div>
+<div class="col-8 offset-2">
     <div class="center">
         <img [src]="categoryItem.headerUrl">
         <div class="regionalLabel" (click)="goback()">
@@ -7,8 +7,7 @@
             <!-- <span class="header2 bold white">{{categoryItem.name}}</span> -->
         </div>
     </div>
-    <div class="bgsidepadding5">
-        <div>
+    <div class="bgsidepadding5 mt-4">
             <div class="filterDiv" *ngIf="dishSearchResult && dishSearchResult.length > 0">
                 <div class="filterFirstDiv">
                     <div class="form-group mt-3">
@@ -28,7 +27,6 @@
                     </div>
                 </div>
             </div>
-        </div>
         <div class="bgToppadding2" *ngIf="showComponentPage">
             <div *ngFor="let dish of filteredList  | filter : searchText : 'itemName' ">
                 <app-item-card [item]="dish" [kitchenName]="dish.kitchenName" [kitchenId]="dish.kitchenId"

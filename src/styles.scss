@@ -74,12 +74,14 @@ $secondary-offset-color3: #ffb300;
     font-weight: normal;
     font-style: normal;
 }
+
 @font-face {
     font-family: 'Poppins-bold';
     src: url('assets/fonts/Poppins-Bold.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
+
 @font-face {
     font-family: 'Poppins-semiBold';
     src: url('assets/fonts/Poppins-SemiBold.ttf') format('truetype');
@@ -262,7 +264,7 @@ $secondary-offset-color3: #ffb300;
 
 .sectionHeader {
     // font-weight: 600;
-    font-family:'Poppins-semiBold';
+    font-family: 'Poppins-semiBold';
     font-size: 18px;
     line-height: 15.43px;
     color: #101828;
@@ -426,9 +428,9 @@ $secondary-offset-color3: #ffb300;
     background: url('~/src/assets/icon/jain.svg');
     background-size: 10px !important;
     background-repeat: no-repeat;
-    background-position:center;
+    background-position: center;
     width: 22px;
-    height:16px;
+    height: 16px;
     text-align: center;
     font-size: 8px;
     border: none;
@@ -442,7 +444,7 @@ $secondary-offset-color3: #ffb300;
 
 .headerBG {
     background: $primary-color1;
-    height: 85px;
+    height: 87px;
     // box-shadow: 0px 3px 9px 0px #9e6c73;
     margin-bottom: 1%;
     color: white;
@@ -688,7 +690,7 @@ $secondary-offset-color3: #ffb300;
     color: white !important;
     background: $primary-color1 !important;
     border: 0px !important;
-    font-family:'Poppins-regular'
+    font-family: 'Poppins-regular'
 }
 
 .swiper-pagination {
@@ -919,14 +921,17 @@ input[type="text"]:focus {
 
 .menuModel {
     .modal-dialog {
-        position: absolute;
+        position: relative;
         top: 60%;
-        left: 33%;
-        width: 50%;
+        transform: translateY(-50%);
     }
 
     .modal-content {
         padding: 5%;
+    }
+
+    .modal-open {
+        overflow: scroll;
     }
 }
 
@@ -939,25 +944,26 @@ input[type="text"]:focus {
     }
 }
 
+.modal-content{
+    border-radius:5%;
+}
 
-// .menuModel{
-//     .modal-dialog{
-//         height: 100%;
-//         .modal-content{
-//             height: 100%;
-//             .modal-body{
-//                 overflow-y: scroll;
-//                 height: 100%;
-//             }
-//         }
+html {
+    overflow-y: scroll !important;
+}
 
-//     }
-// }
+.modal-open {
+    overflow: hidden;
+    overflow-y: scroll;
+    padding-right: 0 !important;
+}
+
 html,
 body {
+    // -webkit-tap-highlight-color: $primary-color1;
     font-family: 'Poppins-regular', 'Lato' !important;
     margin: 0;
-    color: $primary-color5;
+    color: $primary-color5 !important;
 }
 
 .pointer {
@@ -968,8 +974,37 @@ body {
     overflow-x: hidden;
 }
 
-.cdk-overlay-container{ z-index: 1200 !important; }
+.cdk-overlay-container {
+    z-index: 1200 !important;
+}
 
-.offcanvas-div{
-    overflow-y:scroll;
+.offcanvas-div {
+    overflow-y: scroll;
+}
+
+input[type=checkbox]:checked {
+    background-color: $primary-color1 !important;
+}
+
+.form-check-input:focus {
+    border-color: $primary-color1;
+    box-shadow: none;
+}
+
+.form-check-input:checked {
+    border-color: $primary-color1;
+    // box-shadow:none;
+}
+
+.dropdown-item:active {
+    color: $primary-color1;
+    background-color: white;
+}
+
+input[type=radio]:after {
+    border: 2px solid #adadad !important;
+}
+
+input[type=radio]:checked:after {
+    border: 2px solid white !important;
 }

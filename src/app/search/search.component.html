@@ -52,7 +52,7 @@
         </div>
       </div>
       <!-- <app-regional-items></app-regional-items> -->
-      <div class="bgpadding3" *ngIf="dishSearchResult.length > 0 || kitchenSearchResult.length > 0">
+      <div *ngIf="dishSearchResult.length > 0 || kitchenSearchResult.length > 0">
         <div class="fullDiv">
           <div class="leftDiv inline">
             <div class="inline searchChoice" [ngClass]="{selected: selectedSearch==='kitchen'}"
@@ -103,10 +103,10 @@
       <span>
         <div class="noresult bgpadding5"
           *ngIf="dishSearchResult.length === 0 && kitchenSearchResult.length === 0 && searchText && searchCompleted">
-          <div class="center header1 primary2 bold mb-2">Oops!</div>
+          <div class="center header1 primary2 bold mt-2 mb-2">Oops!</div>
           <div class="center header5 grey">We couldn't find meals based <br> on your search. Try Again!</div>
         </div>
-        <div class="bgpadding4"
+        <div class="padding-10"
           *ngIf="dishSearchResult.length === 0 && kitchenSearchResult.length === 0 && recentSearches.length > 0">
           <div class="header3 bold">Recent Searches </div>
           <div *ngFor="let recent of recentSearches" class="recentSearch grey mt-2"

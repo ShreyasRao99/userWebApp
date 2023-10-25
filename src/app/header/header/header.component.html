@@ -6,7 +6,7 @@
     <span role="button" #canvasAddress data-bs-toggle="offcanvas" data-bs-target="#location" class="location"
         (click)="callFindMyAddress()">{{currentAddress?.location ? currentAddress?.location :
         currentAddress?.address}}</span>
-    <i class="mt-1 pointer bi bi-chevron-down" data-bs-toggle="offcanvas" data-bs-target="#location"
+    <i class="mt-1 location-chevron pointer bi bi-chevron-down" data-bs-toggle="offcanvas" data-bs-target="#location"
         (click)="callFindMyAddress()"></i>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,6 +46,14 @@
         </ul>
     </div>
 </nav>
+<div class="mobileLocationWrapper">
+    <span role="button" #canvasAddress data-bs-toggle="offcanvas" data-bs-target="#location" class="mobileLocation"
+    (click)="callFindMyAddress()">{{currentAddress?.location ? currentAddress?.location :
+    currentAddress?.address}}</span>
+<!-- <i class="mt-1 pointer bi bi-chevron-down" data-bs-toggle="offcanvas" data-bs-target="#location"
+    (click)="callFindMyAddress()"></i> -->
+</div>
+
 <div class="delivery-location">
     <div class="offcanvas offcanvas-start" tabindex="-1" id="location" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-div">

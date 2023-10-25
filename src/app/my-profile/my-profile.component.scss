@@ -21,6 +21,11 @@
         --padding-bottom: 0px;
     }
 }
+
+.cuisine-wrapper{
+    position:relative;
+}
+
 .edit{
     font-weight: bold;
     text-align:end;
@@ -41,11 +46,11 @@
     width: 90px;
 }
 .cuisinetickposition{
-    // position: absolute;
+    position: absolute;
     // top: 37px;
     // left: 37px;
-    bottom:248px;
-    left:410px;
+    bottom:40%;
+    left:20%;
     background: url('~/src/assets/images/tick.svg');
     background-size: cover !important;;
     background-repeat: no-repeat !important;
@@ -78,8 +83,4 @@
     color: $primary-color2;
     font-size: 10px;
     padding-left: 20px;
-}
-
-.checked-cuisine-div{
-
 }

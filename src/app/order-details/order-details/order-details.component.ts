@@ -429,6 +429,10 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
     console.log(this.rescheduelDate)
   }
 
+  goBack(){
+    this.back.emit(true)
+  }
+
 
   ngOnDestroy() {
     clearTimeout(this.apiTimeoutCounter);

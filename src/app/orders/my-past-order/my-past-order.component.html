@@ -1,11 +1,5 @@
 <div class="orders-wrapper">
     <div class="mt-2 center">
-        <span (click)="goback()">
-            <!-- <div class="inline-table">
-                <i class="bi bi-arrow-return-left"></i>
-            </div> -->
-            <!-- <div class="inline-table headerText">My Orders</div> -->
-        </span>
     </div>
     <div class="pageContent" data-bs-toggle="offcanvas" data-bs-target="#orders">
         <div button class="listOrderStyle" *ngFor="let order of pastOrderList" (click)="goToOrderPage(order)">
@@ -47,9 +41,6 @@
         <div #pastOrdersListEndDiv>
             <img *ngIf="showloader" class="listloader" src="assets/gif/loader.gif">
         </div>
-        <div>
-            Load More
-        </div>
     </div>
 </div>
 <div class="show-orders">
@@ -61,9 +52,9 @@
                 <!-- <div class="container" *ngIf="!showMap"> -->
                 <!-- <div class="select-address" *ngIf="showMap"> -->
                 <div class="select-address">
-                    <button type="button" style="display:none;" class="btn-close text-reset" #mapCanvas
+                    <button type="button" style="display:none;" class="btn-close text-reset" #orderDetails
                         data-bs-dismiss="offcanvas"></button>
-                    <app-order-details  [order]="order"></app-order-details>
+                    <app-order-details (back)="toggleCanvas()" [order]="order"></app-order-details>
                     <!-- <app-set-delivery-location *ngIf="showMap"
               [showSkipButton]="showSkipButton"></app-set-delivery-location> -->
                 </div>

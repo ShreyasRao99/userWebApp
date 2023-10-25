@@ -1,8 +1,8 @@
-<div class="row">
+<div class="row orders-div">
     <div class="col-4 center headerBG" [ngClass]="{activeTab: tabSelected === list.label}" *ngFor="let list of linkList" (click)="navigateToOrders(list)">
         {{list.label}}
     </div>
-    <div class="px-4">
+    <div class="outlet-div">
         <router-outlet></router-outlet>
     </div>
 </div>

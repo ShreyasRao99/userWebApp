@@ -1,7 +1,7 @@
 <app-header></app-header>
 <div class="container-fluid">
     <div class="row mt-5">
-        <div class="col-lg-6 offset-sm-0 offset-md-0 offset-lg-3">
+        <div class="col-sm-12 col-lg-8 offset-lg-2 offset-md-0">
             <div *ngIf="!kitchenNotFound">
                 <div class="restaurant-info">
                     <div class="row flex-row">
@@ -31,15 +31,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="">
                     <!-- <app-coupon-display [kitchenCoupon]="subscriptionOfferText" [orderType]="orderType"
                         [offerText]="offerText"></app-coupon-display> -->
                     <div class="col-12 mt-4">
-                        <div class="orderCapsule twoCapsule" (click)="selectOrderType('allDay')" *ngIf="!noAlldayMenu"
+                        <div class="orderCapsule twoCapsule pointer" (click)="selectOrderType('allDay')" *ngIf="!noAlldayMenu"
                             [ngClass]="{'selectedOrder': orderType === 'allDay'}">All Day</div>
-                        <div class="orderCapsule" (click)="selectOrderType('advance')"
+                        <div class="orderCapsule pointer" (click)="selectOrderType('advance')"
                             [ngClass]="{'selectedOrder twoCapsule': orderType === 'advance'}">Advance Order</div>
-                        <span class="col-6 mt-3 togglediv">
+                        <span class="col-6 mt-3 togglediv pointer">
                             <div class="itemFilterdiv" (click)="changeItemFilter('Veg')"
                                 [ngClass]="{selected: itemTypeFilter.Veg}">
                                 <div class="vegIcon filterIcon"></div>Veg<span class="crossIcon"
@@ -59,7 +59,7 @@
                 </div>
                 <div class="col-12" *ngIf="kitchen.kitchenOpened">
                     <div class="bgsidepadding5">
-                        <div class="orderCapsule filterpopupdiv" (click)="showFilters()">
+                        <div class="orderCapsule filterpopupdiv pointer" (click)="showFilters()">
                             <span *ngIf="filterApplied" class="filterPresent">
                                 <i class="bi bi-check"></i>
                             </span>
@@ -109,7 +109,7 @@
                                         </ion-item>
                                         <div slot="content"> -->
                                     <div class="custaccordionGrp">
-                                        <div class="custaccodianHeader" (click)="group.closediv = !group.closediv">
+                                        <div class="custaccodianHeader pointer" (click)="group.closediv = !group.closediv">
                                             <i class="right header2 bi bi-chevron-up" *ngIf="group.closediv"></i>
                                             <i class="right header2 bi bi-chevron-down" *ngIf="!group.closediv"></i>
                                             <div>{{group.groupName}} ({{group.count}})</div>
@@ -175,7 +175,7 @@
                                     </ion-item>
                                     <div slot="content"> -->
                                 <div class="custaccordionGrp">
-                                    <div class="custaccodianHeader" (click)="group.closediv = !group.closediv">
+                                    <div class="custaccodianHeader pointer" (click)="group.closediv = !group.closediv">
                                         <i class="right header2 bi bi-chevron-up" *ngIf="group.closediv"></i>
                                         <i class="right header2 bi bi-chevron-down" *ngIf="!group.closediv"></i>
                                         <div>{{group.groupName}} ({{group.count}})</div>
@@ -223,7 +223,7 @@
                                             </ion-item>
                                             <div slot="content"> -->
                                         <div class="custaccordionGrp">
-                                            <div class="custaccodianHeader" [id]="group.groupName"
+                                            <div class="custaccodianHeader pointer" [id]="group.groupName"
                                                 (click)="group.closediv = !group.closediv">
                                                 <i class="right header2 bi bi-chevron-up" *ngIf="group.closediv"></i>
                                                 <i class="right header2 bi bi-chevron-down" *ngIf="!group.closediv"></i>
@@ -278,6 +278,7 @@
             <app-cart-footer class="positionBottom" (viewCart)="addAddons()" [insideKitchenId]="kitchen._id"></app-cart-footer>
         </div>
     </div>
+<!-- <app-footer></app-footer> -->
 </div>
 <!-- <app-cart-footer class="positionBottom" (viewCart)="addAddons()" [insideKitchenId]="kitchen._id"></app-cart-footer> -->
 <ng-template #menuModal let-modal>

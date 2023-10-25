@@ -444,7 +444,7 @@ export class KitchenInsideComponent implements OnInit {
   }
 
   async showFilters() {
-    this.modalReference = this.modalService.open(this.filterModal, { ariaLabelledBy: 'modal-basic-title', size: 'md', windowClass: 'addonsModel' });
+    this.modalReference = this.modalService.open(this.filterModal, { ariaLabelledBy: 'modal-basic-title', size: 'md', windowClass: 'modal-dialog-centered' });
     this.filterProps = {data: this.filterObj, type:3}
     console.log(this.filterObj)
     // try{

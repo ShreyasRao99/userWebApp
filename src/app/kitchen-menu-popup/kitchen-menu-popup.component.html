@@ -4,7 +4,7 @@
         <!-- <ion-icon class="closePopup"(click)="dismiss(false)" name="close-circle-outline"></ion-icon>  -->
         <span>Select Menu</span>
     </div>
-    <div class="listStyle">
+    <div class="listStyle pointer">
         <span *ngFor="let group of groupList.groupList">
             <div (click)="selectGroup(group)" class="groupStyle">
                 <div class="left-div">{{group.groupName}}</div>

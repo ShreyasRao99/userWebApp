@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { orderStatusMapper } from 'src/config/order-status.config';
 import { environment } from 'src/environments/environment';
 import { ApiMainService } from 'src/service/apiService/api-main.service';
@@ -10,6 +10,7 @@ import { LocalStorageService } from 'src/service/local-storage.service';
   styleUrls: ['./subscription-order.component.scss']
 })
 export class SubscriptionOrderComponent implements OnInit {
+  @ViewChild('subscriptionOrders') subscriptionOrders!:ElementRef<any>;
   imageUrl = environment.imageUrl;
   pastOrderList:any = [];
   userProfile:any = {};
@@ -94,5 +95,10 @@ export class SubscriptionOrderComponent implements OnInit {
     //       this.getPastOrder();
     //     }        
     // }
+  }
+
+  toggleCanvas(){
+    let el = this.subscriptionOrders.nativeElement;
+    el.click();
   }
 }

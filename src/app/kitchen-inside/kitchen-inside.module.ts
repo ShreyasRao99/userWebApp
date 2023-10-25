@@ -11,6 +11,7 @@ import { KitchenMenuPopupComponent } from '../kitchen-menu-popup/kitchen-menu-po
 import { HeaderModule } from '../header/header.module';
 import { AddonPopupComponent } from '../addon-popup/addon-popup.component';
 import { KitchenFiltersModule } from '../kitchen-filters/kitchen-filters.module';
+import { FooterModule } from '../footer/footer.module';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { KitchenFiltersModule } from '../kitchen-filters/kitchen-filters.module'
     ItemCardModule,
     CartFooterModule,
     HeaderModule,
+    FooterModule,
     KitchenFiltersModule
   ]
 })
