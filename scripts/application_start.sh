@@ -18,7 +18,7 @@ nvm install 14.15.5
 nvm use --delete-prefix v14.15.5
 
 #install node modules
-npm install
+npm install --force
 
 #start our node app in the background
 npm run startaws > app.out.log 2> app.err.log < /dev/null & 
