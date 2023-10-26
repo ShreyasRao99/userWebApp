@@ -1973,8 +1973,8 @@ export class CartComponent implements OnInit, OnDestroy {
 
   validateVoucher() {
     try {
-      if (this.voucherCode) {
-        this.validateAndApplyModalVoucher(this.voucherCode);
+      if (this.modalVoucherCode) {
+        this.validateAndApplyModalVoucher(this.modalVoucherCode);
       }
     } catch (error) {
       console.log('error while validating voucher ', error);
@@ -1983,7 +1983,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   async validateAndApplyModalVoucher(voucherCode: any) {
     try {
-      const { status, msg, voucher }: any = await this.apiMainService.validateVoucherCode(voucherCode, this.couponProps.userId);
+      const { status, msg, voucher }: any = await this.apiMainService.validateVoucherCode(voucherCode, this.couponProps.userId, this.cartObj.orderType);
       if (status === 'VALID_OFFER') {
         this.showConfirmationAlert({ ...voucher, type: 'voucher' });
       } else {

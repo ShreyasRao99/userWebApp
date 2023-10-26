@@ -1,44 +1,8 @@
 <app-header></app-header>
-<!-- <div class="container-fluid mt-5">
-    <div class="row">
-        <div class="col-lg-8 col-sm-12 offset-lg-2">
-            <form class="mb-4">
-                <div class="form-group">
-                    <input type="text" class="form-control shadow-none" id="formGroupExampleInput"
-                        placeholder="Search for restaurants and food">
-                </div>
-            </form>
-            <app-regional-items></app-regional-items>
-        </div>
-    </div>
-</div> -->
 <div class="container-fluid mt-5">
-  <!-- <div class="headerMargin">
-      <img src="assets/regional/SearchHeader.png">
-    </div>
-     -->
-  <!-- <div class="regionalLabel" (click)="goback()"> 
-      <img src="assets/regional/arrow-white.svg" class="backarrow" > 
-    </div> -->
-  <!-- <div class="searchLabel">
-        <span class="header2 white">Let's find what<br>you're looking for</span>
-    </div>  -->
-  <!-- <div class="searchbg">
-      <ion-item class="searchIOnItem">
-        <ion-input (keyup.enter)="searchApiCall(searchText)" (ionChange)="filterlookupSearch($event)" 
-        class="inputStyle" [ngClass]="{searchIcon : !showGobutton}" type="text" autofocus="true" #searchInput 
-        placeholder="Search for Kitchen Name or Dish" [(ngModel)]="searchText"></ion-input>
-        <ion-icon *ngIf="showGobutton" class="apiSearchIcon" (click)="searchApiCall(searchText)"
-          name="arrow-forward" slot="end"></ion-icon>
-      </ion-item>
-      <ion-list class="userSearchLookup" *ngIf="lookSearchList.length > 0">
-        <ion-item class="black" *ngFor="let text of lookSearchList" button (click)="searchApiCall(text)">
-         <ion-label>{{text}}</ion-label>
-        </ion-item>
-       </ion-list>
-    </div> -->
   <div class="row">
     <div class="col-lg-8 col-sm-12 offset-lg-2">
+      <img class="arrowback pointer mt-2" src="assets/regional/arrow-redpink.svg" (click)="goBack()">
       <form [formGroup]="form">
         <div class="form-group">
           <input type="text" (keyup.enter)="searchApiCall(searchText)" formControlName="search" name="search"

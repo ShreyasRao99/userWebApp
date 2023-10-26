@@ -10,12 +10,9 @@
     text-align:center;
     // padding: 1%;
 }
-.backarrow{
+.arrowback {
+    margin-bottom:2%;
     width: 25px;
-    margin-right: 10px;
-    position: relative;
-    bottom: -15px;
-    left: 5px;
 }
 .selected{
     background-color: $primary-color3 !important;

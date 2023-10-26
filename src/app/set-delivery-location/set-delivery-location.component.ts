@@ -31,7 +31,7 @@ export class SetDeliveryLocationComponent implements OnInit, OnChanges {
   mapid = 'map1234';
   address: any;
   landmark: any;
-  tagLocation = 'home';
+  tagLocation = '';
 
   ngOnChanges(changes: SimpleChanges) {
     console.log(changes)
@@ -47,15 +47,6 @@ export class SetDeliveryLocationComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    console.log(this.getCurrentLocation)
-    console.log(this.showSkipButton)
-    console.log(this.patchValue)
-    // let a = document.getElementById('mapid123');
-    // console.log(a)
-    // if (this.patchValue) {
-    //   this.address = this.patchValue.address
-    //   this.landmark = this.patchValue.landmark;
-    // }
     if (!this.getCurrentLocation) {
       this.loadCurrentSavedLocation()
     }

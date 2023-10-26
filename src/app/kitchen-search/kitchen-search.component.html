@@ -1,6 +1,7 @@
 <app-header></app-header>
 <div class="container-fluid">
     <div class="col-10 col-lg-8 offset-lg-2 offset-md-2 offset-1">
+        <img class="arrowback pointer mt-2" src="assets/regional/arrow-redpink.svg" (click)="goBack()">
         <div class="headerMargin">
             <img class="img-fluid" [src]="regionalItem.url">
             <div class="regionalLabel" [ngClass]="{'specialHeader': category==='special'}">

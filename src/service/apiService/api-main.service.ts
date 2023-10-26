@@ -172,9 +172,9 @@ export class ApiMainService {
       {url: urlObj.url + `/${id}`, method: urlObj.method},null,null,true);
   }
 
-  validateVoucherCode(voucherCode:any,id:any){
+  validateVoucherCode(voucherCode: any,id: null,orderType: null){
     const urlObj = this.apiConfigService.apiEndPointObj.validateVoucherCode;
-    return this.apiHttpService.REQUEST({url: urlObj.url + `/${voucherCode}/${id}`, method: urlObj.method});
+    return this.apiHttpService.REQUEST({url: urlObj.url + `/${voucherCode}/${id}/${orderType}`, method: urlObj.method});
   }
 
   getdeliveryAmount(data:any){

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, Output, EventEmitter, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
@@ -51,7 +51,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   formToShow: any = 'Login';
   accountExistsMsg: any = '';
 
-  constructor(private localStorageService:LocalStorageService, private webPageService:WebPageService, private favouriteManagementService:FavouriteManagementService, private fb:FormBuilder, private cartManagementService:CartManagementService, private sendDataToComponent:SendDataToComponent, private router:Router, private apiMainService:ApiMainService, private googleMapService:GoogleMapService, private utilityService:UtilityService){
+  constructor(private localStorageService:LocalStorageService, private cdRef:ChangeDetectorRef, private webPageService:WebPageService, private favouriteManagementService:FavouriteManagementService, private fb:FormBuilder, private cartManagementService:CartManagementService, private sendDataToComponent:SendDataToComponent, private router:Router, private apiMainService:ApiMainService, private googleMapService:GoogleMapService, private utilityService:UtilityService){
     this.mapId += Math.ceil(Math.random() * 1000)
   }
   ngAfterViewInit(): void {
@@ -139,22 +139,13 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       const address = this.formatAddress(place);
       this.currentAddress = address
       this.localStorageService.insertNewDataInArray('RECENT_LOCATION_SEARCH', address, 5);
-      // this.localStorageService.setCacheData('CURRENT_LOCATION', address);
-      // if (this.userProfile) {
-      // this.goToSetGeoLocationPage(address);
-      // this.goToSetGeoLocationPage(address)
       this.utilityService.configureCurrentLocation(address);
+      // this.showMap = true
       this.getCurrentLocation(false)
-      // }
-      // this.checkServicability()
+      console.log(this.showMap)
+      // this.getCurrentLocation(false)
     });
   }
-
-  // goToSetGeoLocationPage(address: any) {
-  //   console.log(address)
-  //   this.utilityService.configureCurrentLocation(address);
-  //   this.showMap = true
-  // }
 
   formatAddress(place: { name: any; formatted_address: any; geometry: { location: { lat: () => any; lng: () => any; }; }; }) {
     return {
@@ -255,14 +246,15 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   toggleMap() {
     this.showMap = !this.showMap;
+    this.cdRef.detectChanges();
     setTimeout(() => {
       this.callFindMyAddress();
     }, 300);
   }
 
   toggleCanvas() {
-    let el = this.canvasAddress.nativeElement;
-    el.click();
+    let el = this.canvasAddress?.nativeElement;
+    el?.click();
   }  
 
   async registerMobileNumer() {

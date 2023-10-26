@@ -1,5 +1,4 @@
-import { Component, OnInit,ViewChild, ElementRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ApiMainService } from 'src/service/apiService/api-main.service';
 import { GoogleMapService } from 'src/service/google-map.service';
@@ -15,10 +14,22 @@ import { mainBannerList } from 'src/config/banners.config';
 })
 export class HomeComponent implements OnInit {
   @ViewChild('scrollableContent', { read: ElementRef }) public scrollableContent!: ElementRef<any>;
+  @HostListener("window:scroll", [])
+  onScroll(): void {
+    if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight * .90)) {
+      if (!this.scrolled) {
+        this.scrolled = true;
+        if (!this.paginationOver && this.serviceAvailable) {
+          this.pageNumber++;
+          this.getKitchenList(this.clusterList);
+        }
+      };
+    }
+  }
   currentGeoLocation: any;
   serviceAvailable!: boolean;
   kitchenList: any[] = [];
-  paginationOver!: boolean;
+  paginationOver: boolean = false;
   pageNumber!: number;
   nearKitchenList!: any[];
   clusterList: any;
@@ -26,17 +37,20 @@ export class HomeComponent implements OnInit {
   google: any;
   showMap: boolean = false;
   currentAddress: any;
-  mainBannerList=mainBannerList;
+  mainBannerList = mainBannerList;
+  showloader: boolean = true;
+  scrolled = false;
 
-  constructor(private apiMainService: ApiMainService, private utilityService:UtilityService, private sendDataToComponent:SendDataToComponent, private localStorageService: LocalStorageService, private googleMapService: GoogleMapService) {
+  constructor(private apiMainService: ApiMainService, private utilityService: UtilityService, private sendDataToComponent: SendDataToComponent, private localStorageService: LocalStorageService, private googleMapService: GoogleMapService) {
   }
 
   ngOnInit(): void {
+    this.utilityService.getMealStdEndTime();
     this.susbcribeEvents()
     this.checkServicability()
   }
 
-  susbcribeEvents(){
+  susbcribeEvents() {
     this.sendDataToComponent.subscribe('ADDRESS_FROM_DELIVERY', (address) => {
       console.log(address)
       if (address) {
@@ -48,7 +62,7 @@ export class HomeComponent implements OnInit {
       }
     })
   }
-  
+
   async checkServicability() {
     try {
       this.currentGeoLocation = this.localStorageService.getCacheData('CURRENT_LOCATION')
@@ -100,25 +114,27 @@ export class HomeComponent implements OnInit {
           this.nearKitchenList = this.kitchenList.splice(0, 5);
         }
         // });           
-        // this.showloader = true;                  
+        this.showloader = true;
+        this.scrolled = false;
       } else {
         this.paginationOver = true;
-        // this.showloader = false;
+        this.showloader = false;
+        this.scrolled = false;
       }
     } catch (e) {
       console.log('error while fetching kitchen list');
     }
   }
 
-  scrollLeft(){
+  scrollLeft() {
     console.log(this.scrollableContent.nativeElement.scrollLeft)
     this.scrollableContent.nativeElement.scrollTo({ left: (this.scrollableContent.nativeElement.scrollLeft + 500), behavior: 'smooth' });
   }
 
-  scrollRight(){
+  scrollRight() {
     console.log(this.scrollableContent.nativeElement.scrollLeft)
     this.scrollableContent.nativeElement.scrollTo({ left: (this.scrollableContent.nativeElement.scrollLeft - 500), behavior: 'smooth' });
   }
-  
+
 
 }

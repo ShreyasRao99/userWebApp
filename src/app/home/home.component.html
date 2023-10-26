@@ -32,16 +32,14 @@
                 <div class="kitchen-section mt-4" *ngIf="kitchenList.length>0">
                     <div class="kitchen-list bgpadding3">
                         <div class="left sectionHeader">Restaurants Nearby</div>
-                        <div class="row mt-4">
-                            <app-kitchen-near [kitchenList]="kitchenList"></app-kitchen-near>
-                        </div>
+                        <app-kitchen-near [kitchenList]="kitchenList"></app-kitchen-near>
                     </div>
                 </div>
             </div>
-            
         </div>
     </ng-container>
-<app-footer class="mt-5"></app-footer>
-
+    <ng-container *ngIf="serviceAvailable === false">
+        <app-no-service></app-no-service>
+    </ng-container>
+    <app-footer></app-footer>
 </div>
-<app-no-service *ngIf="serviceAvailable === false"></app-no-service>
