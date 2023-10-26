@@ -1,10 +1,10 @@
 #!/bin/bash
 
-#give permission for everything in the mealaweadmin directory
-sudo chmod -R 777 /home/ec2-user/mealaweadmin
+#give permission for everything in the mealawewebapp directory
+sudo chmod -R 777 /home/ec2-user/mealawewebapp
 
 #navigate into our working directory where we have all our github files
-cd /home/ec2-user/mealaweadmin
+cd /home/ec2-user/mealawewebapp
 
 #download node and npm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
