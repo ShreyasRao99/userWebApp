@@ -6,6 +6,7 @@ import { MainSliderModule } from '../main-slider/main-slider.module';
 import { HeaderModule } from '../header/header.module';
 import { FormsModule } from '@angular/forms';
 import { FooterModule } from '../footer/footer.module';
+import { MobileTabsModule } from '../mobile-header/mobile-tabs.module';
 
 
 
@@ -19,7 +20,8 @@ import { FooterModule } from '../footer/footer.module';
     MainSliderModule,
     HeaderModule,
     FormsModule,
-    FooterModule
+    FooterModule,
+    MobileTabsModule
   ]
 })
 export class SubscriptionModule { }

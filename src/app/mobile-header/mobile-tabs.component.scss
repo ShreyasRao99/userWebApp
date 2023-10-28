@@ -1,0 +1,83 @@
+@import '/src/styles.scss';
+
+.tabParent{
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+    background-color:white;
+    // height:50px;
+    padding-top:1%;
+}
+
+.tabChild{
+    text-align:center;
+    width:25%;
+}
+
+
+.navbarIcon {
+    height: 25px;
+    width: 100%;
+    background-size: 22px !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+}
+
+.navbarIcon1 {
+    background: url('~src/assets/navbar/Food_Icon.svg');
+}
+
+.navbarIcon2 {
+    background: url('~src/assets/navbar/Eathomely_Icon.svg');
+    background-size:30px !important;
+}
+
+.navbarIcon3 {
+    // background: url('~src/assets/navbar/Eathomely_Icon.svg');
+    background: url('~src/assets/navbar/MealPlan.svg');
+    height: 31px;
+    width: 100%;
+    background-size: 100px !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+}
+
+.navbarIcon4 {
+    background: url('~src/assets/navbar/SearchIcon.svg');
+}
+
+.navbarIcon5 {
+    background: url('~src/assets/navbar/Cart_Icon.svg');
+}
+
+.activenavbarIcon1{
+    background: url('~src/assets/navbar/Food_Icon_selected.svg');
+}
+
+
+.activenavbarIcon2{
+    // background: url('~src/assets/navbar/Cart_Icon_selected.svg');
+    background: url('~src/assets/navbar/Eathomely_Icon_selected.svg');
+    background-size:30px !important;
+}
+
+.activenavbarIcon3 {
+    background: url('~src/assets/navbar/MealPlan_selected.svg');
+    height: 31px;
+    width: 100%;
+    background-size: 100px !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+}
+
+.activenavbarIcon4{
+    background: url('~src/assets/navbar/SearchIconSelected.svg');
+}
+
+.activenavbarIcon5{
+    background: url('~src/assets/navbar/Cart_Icon_selected.svg');
+}
+
+.activeIconDiv{
+    color:$primary-color1
+}

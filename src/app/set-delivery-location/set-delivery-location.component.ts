@@ -19,6 +19,7 @@ export class SetDeliveryLocationComponent implements OnInit, OnChanges {
   @Output() closeOffCanvas = new EventEmitter<any>();
   @Output() toggleMap = new EventEmitter<any>();
   serviceAvailable: boolean = true;
+  userProfile: any;
 
   constructor(private localStorageService: LocalStorageService, private utilityService: UtilityService, private apiMainService: ApiMainService, private sendDataToComponent: SendDataToComponent, private chgDetRef: ChangeDetectorRef, private googleMapService: GoogleMapService, private geoLocationService: GeolocationService) {
     this.mapid += Math.round(Math.random() * 1000);
@@ -171,8 +172,8 @@ export class SetDeliveryLocationComponent implements OnInit, OnChanges {
     if (this.serviceAvailable) {
       if (!skip) {
         this.addAddress()
-        this.addressChangeLogic()
-        return
+        // this.addressChangeLogic()
+        // return
       }
       this.addressChangeLogic()
     }
@@ -197,9 +198,9 @@ export class SetDeliveryLocationComponent implements OnInit, OnChanges {
 
   addAddress() {
     if (this.serviceAvailable) {
-      const userProfile = this.localStorageService.getCacheData('USER_PROFILE');
-      if (userProfile) {
-        userProfile.addressList = userProfile.addressList ? userProfile.addressList : [];
+      this.userProfile = this.localStorageService.getCacheData('USER_PROFILE');
+      if (this.userProfile) {
+        this.userProfile.addressList = this.userProfile.addressList ? this.userProfile.addressList : [];
         const currentLocation = {
           tagLocation: this.tagLocation,
           geolocation: this.selectedAddress.geolocation,
@@ -208,8 +209,8 @@ export class SetDeliveryLocationComponent implements OnInit, OnChanges {
           landmark: this.landmark
         };
         this.selectedAddress = currentLocation;
-        userProfile.addressList.push(currentLocation);
-        this.updateUserProfile(userProfile, currentLocation);
+        this.userProfile.addressList.push(currentLocation);
+        this.updateUserProfile(this.userProfile, currentLocation);
       }
     }
   }

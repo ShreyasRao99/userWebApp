@@ -4,18 +4,19 @@
     position: absolute;
     z-index: 1;
     top: 52px;
-    left: 25px;
+    // left: 25px;
 }
 .headerMargin{
     margin-top: 30px;
     padding: 5%;
 }
 .backarrow{
+    z-index:6;
     width: 25px;
     margin-right: 10px;
     position: relative;
-    bottom: -11px;
-    left: 5px;
+    top: 55px;
+    left: 10px;
 }
 .selected{
     background-color: $primary-color3 !important;
@@ -42,6 +43,10 @@
     .filterSecondDiv{
         width: 20%;
         text-align: right;
+    }
+    .form-control{
+        border-radius:20px;
+        font-size:13px;
     }
 }
 .fitlerInput{

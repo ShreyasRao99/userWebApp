@@ -1,5 +1,9 @@
 <app-header></app-header>
 <div class="container-fluid">
+    <div class="form-group searchBar mobileView mt-3">
+        <input type="text" class="form-control searchIcon shadow-none" (click)="goToSearch()"
+            placeholder="Search For Kitchen Name or Dish">
+    </div>
     <!-- <app-kitchen-card [kitchen]="kitchen"></app-kitchen-card> -->
     <ng-container *ngIf="serviceAvailable">
         <div class="row">
@@ -17,7 +21,7 @@
                         <!-- <div class="header3 left">Restaurants with online food delivery in Pune</div> -->
                         <div class="row mt-4">
                             <div class="scroll" scrollX="true" #scrollableContent>
-                                <div class="col-lg-3 col-10 col-md-4 itemStyle" *ngFor="let kitchen of nearKitchenList">
+                                <div class="col-lg-3 col-4 col-md-4 itemStyle" *ngFor="let kitchen of nearKitchenList">
                                     <app-kitchen-card [kitchen]="kitchen"></app-kitchen-card>
                                 </div>
                             </div>
@@ -27,7 +31,7 @@
                 <div class="banner-section">
                     <app-regional-items></app-regional-items>
                     <app-category-items></app-category-items>
-                    <!-- <app-meal-time></app-meal-time> -->
+                    <app-meal-time class="meal-time"></app-meal-time>
                 </div>
                 <div class="kitchen-section mt-4" *ngIf="kitchenList.length>0">
                     <div class="kitchen-list bgpadding3">
@@ -41,5 +45,6 @@
     <ng-container *ngIf="serviceAvailable === false">
         <app-no-service></app-no-service>
     </ng-container>
-    <app-footer></app-footer>
+    <app-footer class="desktopView"></app-footer>
 </div>
+    <app-mobile-tabs class="mobile-tabs mobileView"></app-mobile-tabs>

@@ -14,6 +14,7 @@ import { NgxMultipleDatesModule } from 'ngx-multiple-dates';
 import { MatInputModule } from '@angular/material/input';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { CheckoutModule } from 'paytm-blink-checkout-angular';
+import { MobileTabsModule } from '../mobile-header/mobile-tabs.module';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { CheckoutModule } from 'paytm-blink-checkout-angular';
     NgxMultipleDatesModule,
     CheckoutModule,
     SetDeliveryLocationModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MobileTabsModule
   ],
   providers:[DatePipe],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]

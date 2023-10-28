@@ -4,6 +4,10 @@
     height: 100%;
 }
 
+.mobile-view{
+    display:none;
+}
+
 .logo {
     .img-fluid {
         height: 100%;
@@ -310,12 +314,26 @@
     }
 }
 
+.skip {
+    color: $secondary-offset-color3;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
 // ---RESPONSIVE----
 @media only screen and (max-width: 600px) {
 
+    .desktop-view{
+        display:none;
+    }
+
+    .mobile-view{
+        display:block;
+        padding:0;
+    }
+
     .offcanvas {
         width: 100% !important;
-
         .btn-primary {
             width: 30%;
         }

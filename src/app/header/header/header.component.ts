@@ -8,6 +8,7 @@ import { FavouriteManagementService } from 'src/service/favourite-management.ser
 import { GoogleMapService } from 'src/service/google-map.service';
 import { LocalStorageService } from 'src/service/local-storage.service';
 import { SendDataToComponent } from 'src/service/sendDataToComponent';
+import { UserProfileService } from 'src/service/user-profile.service';
 import { UtilityService } from 'src/service/utility.service';
 import { WebPageService } from 'src/service/webpage.service';
 
@@ -19,7 +20,7 @@ import { WebPageService } from 'src/service/webpage.service';
 export class HeaderComponent implements OnInit, AfterViewInit {
   @ViewChild('canvasAddress') canvasAddress!: ElementRef<HTMLElement>
   @ViewChild('loginCanvas') loginCanvas!: ElementRef<HTMLElement>;
-  @Output() isLoggedIn:EventEmitter<any> = new EventEmitter<any>();
+  @Output() isLoggedIn: EventEmitter<any> = new EventEmitter<any>();
 
   itemCount: any = 0;
   currentGeoLocation: any;
@@ -39,8 +40,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   recentSearch: any[] = [];
   showCurrentLocation: boolean = false;
   getLocation!: boolean;
-  LoginForm:any;
-  phoneNo:any;
+  LoginForm: any;
+  phoneNo: any;
   showOTPscreen!: boolean;
   showResendOTP!: boolean;
   second!: number;
@@ -50,8 +51,10 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   enableVerfiy!: boolean;
   formToShow: any = 'Login';
   accountExistsMsg: any = '';
+  tagLocation: any = '';
+  cashbackBalance: any = 0;
 
-  constructor(private localStorageService:LocalStorageService, private cdRef:ChangeDetectorRef, private webPageService:WebPageService, private favouriteManagementService:FavouriteManagementService, private fb:FormBuilder, private cartManagementService:CartManagementService, private sendDataToComponent:SendDataToComponent, private router:Router, private apiMainService:ApiMainService, private googleMapService:GoogleMapService, private utilityService:UtilityService){
+  constructor(private localStorageService: LocalStorageService, private userProfileService: UserProfileService, private cdRef: ChangeDetectorRef, private webPageService: WebPageService, private favouriteManagementService: FavouriteManagementService, private fb: FormBuilder, private cartManagementService: CartManagementService, private sendDataToComponent: SendDataToComponent, private router: Router, private apiMainService: ApiMainService, private googleMapService: GoogleMapService, private utilityService: UtilityService) {
     this.mapId += Math.ceil(Math.random() * 1000)
   }
   ngAfterViewInit(): void {
@@ -66,37 +69,59 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       userName: [''],
       email: ['']
     })
+    this.getMealaweWalletBalance(); 
     this.subscribeEvents();
   }
 
-  subscribeEvents(){
+  subscribeEvents() {
 
     this.sendDataToComponent.subscribe('UPDATE_CART_TABS', (cartObj) => {
-      if(cartObj){
+      if (cartObj) {
         this.itemCount = this.cartManagementService.getItemCount();
-      }       
+      }
     });
 
-    this.sendDataToComponent.subscribe('ADDRESS_FROM_DELIVERY', (address:any)=>{
+    this.sendDataToComponent.subscribe('ADDRESS_FROM_DELIVERY', (address: any) => {
       this.currentAddress = address
     })
-    this.sendDataToComponent.subscribe('TOGGLE_MAP_OFFCANVAS',(val)=>{
-      if(val){
+    this.sendDataToComponent.subscribe('TOGGLE_MAP_OFFCANVAS', (val) => {
+      if (val) {
         this.toggleCanvas()
       }
     })
   }
 
+  async getMealaweWalletBalance(){
+    try{
+      if(this.userProfile && this.userProfile._id && this.userProfile.phoneNo && this.userProfile.email){
+        const cashBack:any = await this.apiMainService.getCashbackBalance(this.userProfile._id);
+        if(cashBack && cashBack.length > 0){
+          this.cashbackBalance = cashBack[0].totalCashbackBalance;
+        }
+      }
+    }catch(error){
+      console.log('error while fetching wallet')
+    }
+  }; 
+
+  goToCashBackTab(){
+    this.router.navigate(['/my-account/cashback'])
+  }
+
   setAddress(address: any) {
     console.log(address)
     this.currentAddress = address
-    this.sendDataToComponent.publish('ADDRESS_FROM_DELIVERY',address)
+    this.sendDataToComponent.publish('ADDRESS_FROM_DELIVERY', address)
     this.toggleCanvas()
   }
 
   async checkServicability() {
     try {
       this.currentGeoLocation = this.localStorageService.getCacheData('CURRENT_LOCATION')
+      if (this.currentGeoLocation && this.currentGeoLocation.geolocation) {
+        const formatedAddess: any = this.userProfileService.getSavedAddress(this.currentGeoLocation);
+        this.tagLocation = formatedAddess.tagLocation;
+      }
       const clusterList: any = await this.googleMapService.getClusterName(this.currentGeoLocation.geolocation);
       if (clusterList && clusterList.length > 0) {
         this.serviceAvailable = true;
@@ -156,7 +181,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     };
   }
 
-  getCurrentLocation(showcurrentLoc:any) {
+  getCurrentLocation(showcurrentLoc: any) {
     this.showCurrentLocation = showcurrentLoc
     this.toggleMap()
     console.log(this.showMap)
@@ -230,14 +255,14 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.setFormValidators();
   }
 
-  setFormValidators(){
+  setFormValidators() {
     let formControl = this.LoginForm.controls
-    if(this.formToShow == 'Login'){
+    if (this.formToShow == 'Login') {
       formControl.userName.clearValidators();
       formControl.email.clearValidators();
       this.LoginForm.updateValueAndValidity();
     }
-    else{
+    else {
       formControl.userName.setValidators(Validators.required)
       formControl.email.setValidators([Validators.required, Validators.email])
       this.LoginForm.updateValueAndValidity();
@@ -255,7 +280,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   toggleCanvas() {
     let el = this.canvasAddress?.nativeElement;
     el?.click();
-  }  
+  }
 
   async registerMobileNumer() {
     if (this.LoginForm.value) {
@@ -336,21 +361,25 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     }, 1000);
   }
 
-  showTermNCondition(){
-    try{
+  showTermNCondition() {
+    try {
       this.webPageService.termAndCondition();
-    }catch(e){
-     console.log('Error while saving kitchen Lead')
+    } catch (e) {
+      console.log('Error while saving kitchen Lead')
     }
   }
 
-  async resendOTP(){  
-    try{
-      await this.apiMainService.resendOTP({phoneNo : this.phoneNo});
+  async resendOTP() {
+    try {
+      await this.apiMainService.resendOTP({ phoneNo: this.phoneNo });
       this.startTimer()
-    }catch (e){
-      console.log('error while resending OTP',e);
-    }  
+    } catch (e) {
+      console.log('error while resending OTP', e);
+    }
+  }
+
+  goToAccount() {
+    this.router.navigate(['my-account/orders/pastOrder'])
   }
 
 }

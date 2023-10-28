@@ -172,21 +172,22 @@
 }
 
 .paymentFooter {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    bottom: 0;
+    height: 8%;
+    position: fixed;
+    /* top: 0; */
+    bottom: 7%;
+    right: 1%;
     display: inline-flex;
     flex-direction: row;
-    width: 100%;
-    z-index: 3;
+    width: 98%;
+    /* z-index: 3; */
     padding: 10px 10px 10px 10px;
-    background: white;
+    // background: white;
 
     .itemDetail {
         background: #15a292;
         width: 60%;
-        padding: 14px 0px;
+        padding: 12px 0px;
         text-align: center;
         border-radius: 15px 0px 0px 15px;
         border-right: 1px solid white;
@@ -813,7 +814,7 @@
 
 .mealTimingTxt {
     font-size: 11px;
-    padding-left: 14px;
+    padding-left: 2px;
     color: #15a292;
 }
 
@@ -1215,6 +1216,28 @@
 
 }
 
+.mobileView{
+    display:none;
+}
+
 mat-form-field {
     width: 100%;
+}
+
+@media only screen and (max-width:600px){
+    .offcanvas{
+        width:100%;
+    }
+    .left-section{
+        display:none;
+    }
+    .mobileView{
+        display:block;
+    }
+    .right-section{
+        border:none;
+    }
+    .cart-wrapper{
+        margin-bottom:150px;
+    }
 }

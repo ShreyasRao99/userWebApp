@@ -35,7 +35,7 @@
                             <input type="radio" (click)="selectTag('other')" class="btn-check"  name="otherbtn" id="otherbtn" autocomplete="off">
                             <label class="btn btn-outline-danger" for="otherbtn">Other</label>
                         </div>
-                        <button type="button" class="btn btn-primary mt-3 p-3" [disabled]="!(tagLocation && address && landmark)" (click)="sendCurrentLocation()">SAVE
+                        <button type="button" class="btn btn-primary mt-3 p-3" [disabled]="!(tagLocation && address && landmark)" (click)="sendCurrentLocation(false)">SAVE
                             ADDRESS AND PROCEED</button>
                             <div *ngIf="!serviceAvailable">Service not available at this location</div>
                     </form>

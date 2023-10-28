@@ -139,6 +139,10 @@
     display: none;
 }
 
+.mobile-header{
+    display:none;
+}
+
 
 
 .getLocation {
@@ -243,6 +247,10 @@
 }
 
 @media only screen and (max-width: 600px) {
+
+    .mobile-header{
+        display:block;
+    }
     .navbar {
         padding: 3% 2%;
 
@@ -278,6 +286,91 @@
 
     .offcanvas {
         width: 100% !important;
+    }
+}
+
+.homeHeader{ 
+    display: flex;
+    flex-direction: row;
+    padding: 40px 16px 5px 16px;
+}
+.changeStyle{
+    position: absolute;
+    right: 30px;
+    top: 85px;
+    color: $primary-color1;
+}
+.addressStyle{
+    width: 68%;
+}
+
+.deliverText{
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.currentLocation{
+    text-overflow: ellipsis;
+    width: 90%;
+    padding-right: 8px;
+    overflow: hidden;
+    word-break: break-all;
+    white-space: nowrap;
+    color: black;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 18px;
+    background: url('~src/assets/moreimages/deliverIcon.png');
+    background-size: 8px !important;
+    background-repeat: no-repeat !important;
+    background-position: 100%;
+}
+
+.cashback{
+    width: 64px;
+    border: 1px solid #697586;
+    border-radius: 18px;
+    margin: 0px 8px 5px 0px;
+    .mcoin{
+        background: url('~src/assets/moreimages/mcoin.png');
+        background-size: 27px;
+        background-repeat: no-repeat;
+        background-position: 1px center;
+        height: 100%;
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 13px;
+        padding-left: 27px;
+        padding-top: 9px;
+        color: #697586;
+        text-align: center;
+    }
+}
+
+.profileImage{
+    font-size:25px;
+}
+
+.img-span{
+    text-align: center;
+    display: inline-block;
+    border: 1px solid grey;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    background-color:rgba(97, 82, 82, 0.5882352941);
+    i{
+        font-size:25px;
+        color:white;
+        line-height:30px;
+    }
+}
+
+@media only screen and (max-width:600px){
+    .desktop-header{
+        display:none;
     }
 }
 

@@ -1,0 +1,34 @@
+<swiper-container class="swiper-container" (slidechange)="slideChange($event)" #swiper autoplay="true" pagination="false" speed="500">
+    <swiper-slide>
+        <img class="card-img-top" src="assets/moreimages/slide1.png" alt="Card image cap">
+    </swiper-slide>
+    <swiper-slide>
+        <img class="card-img-top" src="assets/moreimages/slide2.png" alt="Card image cap">
+    </swiper-slide>
+    <swiper-slide>
+        <img class="card-img-top" src="assets/moreimages/slide3.png" alt="Card image cap">
+    </swiper-slide>
+</swiper-container>
+<div class="welcomediv">
+    <div class="bottomsection">
+      <div class="mealaweLogo">
+        <img src="assets/moreimages/mealaweLogo.png">
+      </div>
+      <div class="circlePosition">
+        <div class="circleStyle" [ngClass]="{circleSelected: sliderCount  === 0 }"></div>
+        <div class="circleStyle" [ngClass]="{circleSelected: sliderCount  === 1 }"></div>
+        <div class="circleStyle" [ngClass]="{circleSelected: sliderCount  === 2 }"></div>
+      </div>
+      <div class="mt-1">
+        <div *ngFor="let types of orderTypes; index as i">
+          <div *ngIf="i === sliderCount ">
+            <div class="textdiv">{{types.text}}</div>
+            <div class="subtextdiv">{{types.subtext}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="buttondiv">
+        <button class="buttonPosition" type="button"(click)="gotoMobileRegistry()">Get Started</button>
+      </div> 
+    </div>
+  </div>

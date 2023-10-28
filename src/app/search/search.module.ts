@@ -10,6 +10,8 @@ import { ItemCardModule } from '../item-card/item-card.module';
 import { KitchenCardModule } from '../kitchen-card/kitchen-card.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchFiltersModule } from '../search-filters/search-filters.module.component';
+import { KitchenNearModule } from '../kitchen-near/kitchen-near.module';
+import { MobileTabsModule } from '../mobile-header/mobile-tabs.module';
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import { SearchFiltersModule } from '../search-filters/search-filters.module.com
     KitchenCardModule,
     FormsModule,
     ReactiveFormsModule,
-    SearchFiltersModule
+    SearchFiltersModule,
+    KitchenNearModule,
+    MobileTabsModule
   ]
 })
 export class SearchModule { }

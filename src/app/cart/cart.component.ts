@@ -345,7 +345,6 @@ export class CartComponent implements OnInit, OnDestroy {
     console.log(currentStorageLocation)
     if (currentStorageLocation) {
       const formatedAddess = this.userProfileService.getSavedAddress(currentStorageLocation);
-      this.addressSelected = formatedAddess
       this.customerLocation = { ...formatedAddess };
       let address = '';
       if (formatedAddess.address && formatedAddess.landmark) {
@@ -355,7 +354,7 @@ export class CartComponent implements OnInit, OnDestroy {
         this.saveCurrentLocation = false;
       }
       const landmark = formatedAddess.landmark ? `, Landmark: ${formatedAddess.landmark}, ` : '';
-      this.currentLocation = formatedAddess.location ? `${address}${formatedAddess.location}${landmark}` : `${address}${landmark}`;
+      this.addressSelected = formatedAddess.location ? `${address}${formatedAddess.location}${landmark}` : `${address}${landmark}`;
       this.tagLocation = formatedAddess.tagLocation;
       console.log(this.customerLocation)
       if (this.cartObj && this.cartObj.kitchen && this.cartObj.kitchen.geolocation) {
@@ -408,7 +407,9 @@ export class CartComponent implements OnInit, OnDestroy {
         // this.setCurrentLocation()  
       }
       else {
-        this.addressSelected = address
+        const landmark = address.landmark ? `, Landmark: ${address.landmark}, ` :'';
+        this.addressSelected = `${address.location}${landmark}`;
+        this.toggleSelected = true;
         this.saveCurrentLocation = false
       }
     })
@@ -1873,7 +1874,9 @@ export class CartComponent implements OnInit, OnDestroy {
     if (address) {
       const checkServicability = await this.checkServicability(address.geolocation);
       if (checkServicability) {
-        this.addressSelected = address
+        const landmark = address.landmark ? `, Landmark: ${address.landmark}, ` :'';
+        this.addressSelected = `${address.address} ${address.location}${landmark}`;
+        this.tagLocation = address.tagLocation
         this.customerLocation = address
         this.toggleSelected = true;
         this.serviceNotAvailable = false;
@@ -1886,7 +1889,9 @@ export class CartComponent implements OnInit, OnDestroy {
         this.serviceNotAvailable = true
         this.selectedAddressIndex = index
       }
+      // this.chgDetRef.detectChanges();
     }
+    
     else {
       this.toggleSelected = false;
     }

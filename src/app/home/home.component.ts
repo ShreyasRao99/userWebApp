@@ -6,6 +6,7 @@ import { LocalStorageService } from 'src/service/local-storage.service';
 import { SendDataToComponent } from 'src/service/sendDataToComponent';
 import { UtilityService } from 'src/service/utility.service';
 import { mainBannerList } from 'src/config/banners.config';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -41,7 +42,7 @@ export class HomeComponent implements OnInit {
   showloader: boolean = true;
   scrolled = false;
 
-  constructor(private apiMainService: ApiMainService, private utilityService: UtilityService, private sendDataToComponent: SendDataToComponent, private localStorageService: LocalStorageService, private googleMapService: GoogleMapService) {
+  constructor(private apiMainService: ApiMainService, private router:Router, private utilityService: UtilityService, private sendDataToComponent: SendDataToComponent, private localStorageService: LocalStorageService, private googleMapService: GoogleMapService) {
   }
 
   ngOnInit(): void {
@@ -124,6 +125,10 @@ export class HomeComponent implements OnInit {
     } catch (e) {
       console.log('error while fetching kitchen list');
     }
+  }
+
+  goToSearch(){
+    this.router.navigate(['/search'])
   }
 
   scrollLeft() {

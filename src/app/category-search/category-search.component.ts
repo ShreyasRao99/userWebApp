@@ -153,8 +153,8 @@ export class CategorySearchComponent implements OnInit {
     }
   }
 
-  goback(){
-
+  goBack(){
+    this.router.navigate(['/home'])
   }
 
 }

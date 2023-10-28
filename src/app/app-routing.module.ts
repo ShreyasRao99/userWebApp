@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { OrderPlacedComponent } from './order-placed/order-placed.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { KitchenSearchComponent } from './kitchen-search/kitchen-search.component';
+import { EatHealthyComponent } from './eat-healthy/eat-healthy.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,9 @@ const routes: Routes = [
   },
   {
     path: 'bulk-order', loadChildren: () => import('./bulk-order/bulk-order.module').then(m => m.BulkOrderModule)
+  },
+  {
+    path:'eatHealthy',loadChildren: () => import('./eat-healthy/eat-healthy-module').then(m => m.EatHealthyModule)
   },
   {
     path: 'kitchenInside/:orderType/:kitchenId', loadChildren: () => import('./kitchen-inside/kitchen-inside.module').then(m => m.KitchenInsideModule)
