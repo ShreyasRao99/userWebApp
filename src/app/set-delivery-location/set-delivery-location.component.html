@@ -14,9 +14,9 @@
                         </div>
                     </div>
                     <div class="buttons" *ngIf="!showSkipButton">
-                        <button class="btn btn-primary" (click)="toggleAdditionalDetails()">ADD MORE DETAILS</button>
-                        <button class="btn btn-secondary" (click)="sendCurrentLocation('skip')">SKIP & ADD LATER</button>
-                        <div *ngIf="!serviceAvailable">Service not available at this location</div>
+                        <button class="btn btn-primary" [disabled]="!serviceAvailable" (click)="toggleAdditionalDetails()">ADD MORE DETAILS</button>
+                        <button class="btn btn-secondary" [disabled]="!serviceAvailable" (click)="sendCurrentLocation('skip')">SKIP & ADD LATER</button>
+                        <div class="mt-2" *ngIf="!serviceAvailable">Service not available at this location</div>
                     </div>
                     <form class="moreDetails" *ngIf="showSkipButton">
                         <div class="form-group">
@@ -35,7 +35,7 @@
                             <input type="radio" (click)="selectTag('other')" class="btn-check"  name="otherbtn" id="otherbtn" autocomplete="off">
                             <label class="btn btn-outline-danger" for="otherbtn">Other</label>
                         </div>
-                        <button type="button" class="btn btn-primary mt-3 p-3" (click)="sendCurrentLocation()">SAVE
+                        <button type="button" class="btn btn-primary mt-3 p-3" [disabled]="!(tagLocation && address && landmark)" (click)="sendCurrentLocation(false)">SAVE
                             ADDRESS AND PROCEED</button>
                             <div *ngIf="!serviceAvailable">Service not available at this location</div>
                     </form>

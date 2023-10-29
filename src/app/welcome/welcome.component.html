@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid desktop-view">
   <!--- TOP SECTION --->
   <div class="row top-section">
     <div class="col-lg-5 col-sm-12 top-section">
@@ -12,7 +12,7 @@
           <p class="first-line">Maa ka banaya Khana</p>
           <p class="second-line mt-1">Get the best homemade food from neighborhood homes delivered to your doorstep.</p>
           <div class="topBtns mobile">
-            <button type="button" class="btn btn-light bgsidemargin2" data-bs-toggle="offcanvas" data-bs-target="#login"
+            <button #loginCanvasButton type="button" class="btn btn-light bgsidemargin2" data-bs-toggle="offcanvas" data-bs-target="#login"
               (click)="toggleForm('Login')">Login</button>
             <button type="button" class="btn btn-light ms-3" (click)="toggleForm('Sign up')" data-bs-toggle="offcanvas"
               data-bs-target="#login">Sign
@@ -109,13 +109,16 @@
   <app-footer></app-footer>
 </div>
 
+<div class="container-fluid mobile-view">
+  <app-mobile-welcome (goToLogin)="openLoginCanvas()"></app-mobile-welcome>
+</div>
+
+<!--- OFFCANVAS --->
 <div class="offcanvas offcanvas-end login" tabindex="-1" id="login" aria-labelledby="offcanvasExampleLabel">
   <div class="offcanvas-body">
     <button type="button" #loginCanvas class="btn-close text-reset" data-bs-dismiss="offcanvas"
       aria-label="Close"></button>
-    <!-- <div class="login-image-div">
-        <img class="img-fluid" src="/assets/images/login-drawer-image.svg" alt="">
-      </div> -->
+      <div class="skip mt-3" (click)="loadSelectedLocation(null)">Skip</div>
     <div class="row form-section">
       <div class="col-12">
         <div class="header2">{{formToShow}}</div>
@@ -185,28 +188,3 @@
       </div>
     </div>
   </div>
-  <!-- <div class="offcanvas offcanvas-end sign-up" tabindex="-1" id="sign-up" aria-labelledby="offcanvasExampleLabel">
-    <div class="offcanvas-header">
-      <h5 class="offcanvas-title header1" id="offcanvasExampleLabel">Sign Up</h5>
-    </div>
-    <div class="bgsidepadding3">or <span style="color:#e62841;">log into your account</span></div>
-    <div class="offcanvas-body">
-      <div class="row">
-        <div class="col-8">
-          <form>
-            <div class="form-group">
-              <input type="text" class="form-control shadow-none" id="login" placeholder="Phone Number">
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control shadow-none" id="name" placeholder="Phone Number">
-            </div>
-            <div class="form-group">
-              <input type="email" class="form-control shadow-none" id="email" aria-describedby="emailHelp"
-                placeholder="Email">
-            </div>
-            <button class="btn btn-primary fullwidth my-4 py-3 yesbtn">CONTINUE</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div> -->

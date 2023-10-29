@@ -1,47 +1,48 @@
 <app-header></app-header>
-<div class="col-8 offset-2">
-    <div class="center">
-        <img [src]="categoryItem.headerUrl">
-        <div class="regionalLabel" (click)="goback()">
-            <!-- <img [src]="categoryItem.backTick" class="backarrow"> -->
-            <!-- <span class="header2 bold white">{{categoryItem.name}}</span> -->
-        </div>
-    </div>
-    <div class="bgsidepadding5 mt-4">
-            <div class="filterDiv" *ngIf="dishSearchResult && dishSearchResult.length > 0">
-                <div class="filterFirstDiv">
-                    <div class="form-group mt-3">
-                        <input type="text" class="form-control shadow-none" [(ngModel)]="searchText"
-                            placeholder="Search">
-                    </div>
-                    <!-- <ion-input class="fitlerInput" type="text" 
-                        placeholder="Search" [(ngModel)]="searchText">
-                    </ion-input> -->
-                </div>
-                <div class="filterSecondDiv">
-                    <div class="orderCapsule filterpopupdiv" (click)="showFilters()">
-                        <span *ngIf="filterApplied" class="filterPresent">
-                            <i class="bi bi-check"></i>
-                            <!-- <ion-icon name="checkmark-outline"></ion-icon> -->
-                        </span>
-                    </div>
-                </div>
-            </div>
-        <div class="bgToppadding2" *ngIf="showComponentPage">
-            <div *ngFor="let dish of filteredList  | filter : searchText : 'itemName' ">
-                <app-item-card [item]="dish" [kitchenName]="dish.kitchenName" [kitchenId]="dish.kitchenId"
-                    [orderType]="dish.orderType" [screenFrom]="'categoryPage'"
-                    (click)="goTokitchen(dish.kitchenId, dish.orderType, dish.itemName, dish.serveDaily || dish.showInAllDay)"></app-item-card>
+<div class="container-fluid">
+    <div class="col-12 offset-0 col-lg-8 offset-lg-2 mt-3">
+        <div class="center">
+            <img class="img-fluid" [src]="categoryItem.headerUrl">
+            <div class="regionalLabel" [ngClass]="{'specialHeader': category==='special'}" (click)="goBack()">
+                <img [src]="categoryItem.backTick" class="backarrow">
             </div>
         </div>
-        <!-- <div  #favCategoryEndDiv>
-            <img *ngIf="showloader" class="listloader" src="assets/gif/loader.gif">
-        </div> -->
-        <!-- <div>
-            <app-loader-card *ngIf="showloader" [type]='2'></app-loader-card>
-        </div>  -->
-        <div *ngIf="filteredList.length === 0">
-            <div class="bgToppadding5 header3 bold grey center">No result found based on your search</div>
+        <div class="mt-4">
+                <div class="filterDiv" *ngIf="dishSearchResult && dishSearchResult.length > 0">
+                    <div class="filterFirstDiv">
+                        <div class="form-group">
+                            <input type="text" class="form-control shadow-none" [(ngModel)]="searchText"
+                                placeholder="Search">
+                        </div>
+                        <!-- <ion-input class="fitlerInput" type="text" 
+                            placeholder="Search" [(ngModel)]="searchText">
+                        </ion-input> -->
+                    </div>
+                    <div class="filterSecondDiv">
+                        <div class="orderCapsule filterpopupdiv" (click)="showFilters()">
+                            <span *ngIf="filterApplied" class="filterPresent">
+                                <i class="bi bi-check"></i>
+                                <!-- <ion-icon name="checkmark-outline"></ion-icon> -->
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            <div class="bgToppadding2" *ngIf="showComponentPage">
+                <div *ngFor="let dish of filteredList  | filter : searchText : 'itemName' ">
+                    <app-item-card [item]="dish" [kitchenName]="dish.kitchenName" [kitchenId]="dish.kitchenId"
+                        [orderType]="dish.orderType" [screenFrom]="'categoryPage'"
+                        (click)="goTokitchen(dish.kitchenId, dish.orderType, dish.itemName, dish.serveDaily || dish.showInAllDay)"></app-item-card>
+                </div>
+            </div>
+            <!-- <div  #favCategoryEndDiv>
+                <img *ngIf="showloader" class="listloader" src="assets/gif/loader.gif">
+            </div> -->
+            <!-- <div>
+                <app-loader-card *ngIf="showloader" [type]='2'></app-loader-card>
+            </div>  -->
+            <div *ngIf="filteredList.length === 0">
+                <div class="bgToppadding5 header3 bold grey center">No result found based on your search</div>
+            </div>
         </div>
     </div>
 </div>

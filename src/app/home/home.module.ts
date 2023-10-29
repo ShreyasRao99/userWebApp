@@ -13,6 +13,7 @@ import { KitchenNearModule } from '../kitchen-near/kitchen-near.module';
 import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderModule } from '../header/header.module';
 import { FooterModule } from '../footer/footer.module';
+import { MobileTabsModule } from '../mobile-header/mobile-tabs.module';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { FooterModule } from '../footer/footer.module';
     KitchenNearModule,
     NgbPopoverModule,
     HeaderModule,
-    FooterModule
+    FooterModule,
+    MobileTabsModule
   ]
 })
 export class HomeModule { }

@@ -1,57 +1,87 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" routerLink="/home">
-        <img src="assets/images/mealaweLogo.png" width="200" height="50" class="d-inline-block align-top" alt="">
-        <!-- <span class="company-name inline"> Mealawe</span> -->
-    </a>
-    <span role="button" #canvasAddress data-bs-toggle="offcanvas" data-bs-target="#location" class="location"
+<div class="desktop-header">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" routerLink="/home">
+            <img src="assets/images/mealaweLogo.png" width="200" height="50" class="d-inline-block align-top" alt="">
+            <!-- <span class="company-name inline"> Mealawe</span> -->
+        </a>
+        <span role="button" #canvasAddress data-bs-toggle="offcanvas" data-bs-target="#location" class="location"
+            (click)="callFindMyAddress()">{{currentAddress?.location ? currentAddress?.location :
+            currentAddress?.address}}</span>
+        <i class="mt-1 location-chevron pointer bi bi-chevron-down" data-bs-toggle="offcanvas" data-bs-target="#location"
+            (click)="callFindMyAddress()"></i>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" routerLinkActive="active-link" routerLink="/search">Search</a>
+                </li>
+                <!-- <li class="nav-item">
+                    <a class="nav-link" routerLink="/cart">Offers</a>
+                </li> -->
+                <li class="nav-item">
+                    <a class="nav-link" routerLinkActive="active-link" routerLink="/subscription">MealPlan</a>
+                </li>
+                <li class="nav-item" *ngIf="!userProfile">
+                    <!-- <a *ngIf="userProfile" class="nav-link" (click)="goToMyAccount()">{{userProfile.userName}} </a> -->
+                    <a class="nav-link" data-bs-toggle="offcanvas" data-bs-target="#login">Sign In</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLinkActive="active-link" routerLink="/bulk-order">BulkOrder</a>
+                </li>
+                <li class="nav-item cart">
+                    <a class="nav-link" routerLinkActive="active-link" routerLink="/cart">Cart</a>
+                    <div class="cartCount" *ngIf="itemCount>0">{{itemCount}}</div>
+                </li>
+                <!-- <li class="nav-item" *ngIf="userProfile">
+                    <a class="nav-link" (click)="logOut()">Log Out</a>
+                </li> -->
+            </ul>
+            <ul class="profile-list ms-auto">
+                <li *ngIf="userProfile" (click)="goToMyAccount()">
+                    <img class="profileImg img-fluid mr-2"
+                        [src]="userProfile.imageUrl?imageUrl+userProfile.imageUrl:'assets/images/dummyUpload.png'">
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="mobileLocationWrapper">
+        <span role="button" #canvasAddress data-bs-toggle="offcanvas" data-bs-target="#location" class="mobileLocation"
         (click)="callFindMyAddress()">{{currentAddress?.location ? currentAddress?.location :
         currentAddress?.address}}</span>
-    <i class="mt-1 location-chevron pointer bi bi-chevron-down" data-bs-toggle="offcanvas" data-bs-target="#location"
-        (click)="callFindMyAddress()"></i>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mx-auto">
-            <li class="nav-item">
-                <a class="nav-link" routerLinkActive="active-link" routerLink="/search">Search</a>
-            </li>
-            <!-- <li class="nav-item">
-                <a class="nav-link" routerLink="/cart">Offers</a>
-            </li> -->
-            <li class="nav-item">
-                <a class="nav-link" routerLinkActive="active-link" routerLink="/subscription">MealPlan</a>
-            </li>
-            <li class="nav-item" *ngIf="!userProfile">
-                <!-- <a *ngIf="userProfile" class="nav-link" (click)="goToMyAccount()">{{userProfile.userName}} </a> -->
-                <a class="nav-link" data-bs-toggle="offcanvas" data-bs-target="#login">Sign In</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLinkActive="active-link" routerLink="/bulk-order">BulkOrder</a>
-            </li>
-            <li class="nav-item cart">
-                <a class="nav-link" routerLinkActive="active-link" routerLink="/cart">Cart</a>
-                <div class="cartCount" *ngIf="itemCount>0">{{itemCount}}</div>
-            </li>
-            <!-- <li class="nav-item" *ngIf="userProfile">
-                <a class="nav-link" (click)="logOut()">Log Out</a>
-            </li> -->
-        </ul>
-        <ul class="profile-list ms-auto">
-            <li *ngIf="userProfile" (click)="goToMyAccount()">
-                <img class="profileImg img-fluid mr-2"
-                    [src]="userProfile.imageUrl?imageUrl+userProfile.imageUrl:'assets/images/dummyUpload.png'">
-            </li>
-        </ul>
+    <!-- <i class="mt-1 pointer bi bi-chevron-down" data-bs-toggle="offcanvas" data-bs-target="#location"
+        (click)="callFindMyAddress()"></i> -->
     </div>
-</nav>
-<div class="mobileLocationWrapper">
-    <span role="button" #canvasAddress data-bs-toggle="offcanvas" data-bs-target="#location" class="mobileLocation"
-    (click)="callFindMyAddress()">{{currentAddress?.location ? currentAddress?.location :
-    currentAddress?.address}}</span>
-<!-- <i class="mt-1 pointer bi bi-chevron-down" data-bs-toggle="offcanvas" data-bs-target="#location"
-    (click)="callFindMyAddress()"></i> -->
+</div>
+
+<div class="mobile-header">
+    <div class="homeHeader">
+        <div class="addressStyle">
+          <div class="deliverText">Deliver to </div>
+          <div class="header5 currentLocation">
+            <span class="taglocation" #canvasAddress data-bs-toggle="offcanvas" data-bs-target="#location">
+                <i class="bi bi-house" *ngIf="tagLocation === 'home' "></i>
+                <i class="bi bi-briefcase" *ngIf="tagLocation === 'work' "></i>
+                <i class="bi bi-tag" *ngIf="tagLocation === 'other' "></i>
+                {{currentAddress?.location ? currentAddress?.location :
+                    currentAddress?.address}}
+            </span>
+          </div>
+        </div>
+        <div class="cashback" (click)="goToCashBackTab()">
+          <div class="mcoin">{{cashbackBalance}}</div>
+        </div>
+        <div class="profilePic" (click)="goToAccount()">
+          <div>
+            <img *ngIf="userProfile && userProfile.imageUrl" class="profileImage" 
+            [src]="imageUrl + userProfile.imageUrl">
+            <span class="img-span"><i class="bi bi-person" *ngIf="!userProfile || !userProfile.imageUrl"></i></span>
+          </div>
+        </div>
+        <!-- <div class="changeStyle bold header5" (click)="showLocationOnMap(false)">CHANGE</div> -->
+      </div>
 </div>
 
 <div class="delivery-location">

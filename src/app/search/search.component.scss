@@ -136,7 +136,7 @@
     width: 25px;
     margin-right: 10px;
     position: relative;
-    bottom: -15px;
+    top: 90px;
     left: 15px;
 }
 
@@ -155,4 +155,30 @@
 .search-list{
     padding: 1% 0% 1% 0%;
     border-bottom: 1px solid #afafaf;
+}
+
+.arrowback {
+    margin-bottom:2%;
+    width: 25px;
+}
+
+.searchIcon {
+    background-color: #EEF2F6;
+    height: 40px;
+    padding-left: 50px;
+    font-size: 15px;
+    background-image: url('~src/assets/search/magnifyglass-red.svg');
+    background-repeat: no-repeat;
+    background-size: 5% 20px;
+    background-position: 5px;
+}
+
+.mobileView{
+    display:none;
+}
+
+@media only screen and (max-width:600px){
+    .mobileView{
+        display:block;
+    }
 }

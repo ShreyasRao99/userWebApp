@@ -248,10 +248,10 @@ $secondary-offset-color3: #ffb300;
 
 .header6 {
     font-size: 10px;
-    line-height: 15px;
-    display: flex;
-    align-items: center;
-    color: #BBC0D0;
+    // line-height: 15px;
+    // display: flex;
+    // align-items: center;
+    // color: #BBC0D0;
 }
 
 .header7 {
@@ -913,6 +913,15 @@ app-offers-coupon {
     }
 }
 
+.mobile-tabs {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
 textarea:focus,
 input[type="text"]:focus {
     border-color: #e62841;
@@ -922,7 +931,7 @@ input[type="text"]:focus {
 .menuModel {
     .modal-dialog {
         position: relative;
-        top: 60%;
+        top: 40%;
         transform: translateY(-50%);
     }
 
@@ -944,8 +953,8 @@ input[type="text"]:focus {
 //     }
 // }
 
-.modal-content{
-    border-radius:20px !important;
+.modal-content {
+    border-radius: 20px !important;
 }
 
 html {
@@ -963,7 +972,9 @@ body {
     // -webkit-tap-highlight-color: $primary-color1;
     font-family: 'Poppins-regular', 'Lato' !important;
     margin: 0;
+    padding-right:0 !important;
     color: $primary-color5 !important;
+    // overflow-y:scroll !important;
 }
 
 .pointer {
@@ -972,6 +983,7 @@ body {
 
 .container-fluid {
     overflow-x: hidden;
+    // overflow-y:scroll !important;
 }
 
 .cdk-overlay-container {
@@ -980,6 +992,10 @@ body {
 
 .offcanvas-div {
     overflow-y: scroll;
+}
+
+.btn-close:focus {
+    box-shadow: none;
 }
 
 input[type=checkbox]:checked {
@@ -1008,3 +1024,15 @@ input[type=radio]:after {
 input[type=radio]:checked:after {
     border: 2px solid white !important;
 }
+
+::-moz-selection {
+    /* Code for Firefox */
+    color: white;
+    background: $primary-color1;
+}
+
+::selection {
+    color: white;
+    background: $primary-color1;
+}
+

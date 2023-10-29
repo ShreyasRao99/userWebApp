@@ -11,10 +11,12 @@ import { RuntimeStorageService } from 'src/service/runtime-storage.service';
 export class KitchenNearComponent implements OnInit {
   imageUrl = environment.imageUrl;
   @Input() kitchenList: any = [];
+  
 
   constructor(private runtimeStorageService: RuntimeStorageService, private router:Router) { }
 
   ngOnInit() {
+    console.log(this.kitchenList)
     this.kitchenList = [...this.kitchenList].map(kitchen => {
       this.checkSpeciality(kitchen);
       this.checkForOffers(kitchen);

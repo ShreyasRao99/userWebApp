@@ -80,4 +80,8 @@ img:before {
     .closePopup {
         left:5%; 
     }
+    .modalCntrlmodalscrollbody{
+        overflow-y:scroll;
+        height:500px;
+    }
 }

@@ -19,6 +19,7 @@ import { WebPageService } from 'src/service/webpage.service';
 
 export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('loginCanvas') loginCanvas!: ElementRef<HTMLElement>;
+  @ViewChild('loginCanvasButton') loginCanvasButton!: ElementRef<HTMLElement>;
   google: any;
   mapId = 'mapid';
   LoginForm: any;
@@ -54,7 +55,7 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this.userLoggedIn = this.localStorageService.getCacheData('USER_PROFILE')
     if (this.userLoggedIn) {
-      // this.router.navigate(['/home'])
+      this.router.navigate(['/home'])
     }
     this.createLoginForm();
   }
@@ -298,6 +299,11 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
   toggleForm(name: any) {
     this.formToShow = name;
     this.setFormValidators();
+  }
+
+  openLoginCanvas(){
+    let el = this.loginCanvasButton.nativeElement;
+    el.click();
   }
 
 }

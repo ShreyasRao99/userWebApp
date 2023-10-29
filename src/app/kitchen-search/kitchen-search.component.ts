@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { regionalCuisinelist } from './../../config/regional.config';
 import { SendDataToComponent } from 'src/service/sendDataToComponent';
 import { LocalStorageService } from 'src/service/local-storage.service';
@@ -14,10 +14,26 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class KitchenSearchComponent implements OnInit {
   @ViewChild('filterModal') filterModal: any;
+  @HostListener("window:scroll", [])
+  onScroll(): void {
+    if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight * .90)) {
+      if (!this.scrolled) {
+        this.scrolled = true;
+        if (!this.paginationOver && !this.filterApplied) {
+          this.showloader = true;
+          this.pageNumber++;
+          this.searchForKitchen(this.text, this.category);  
+        }
+      }else if(!this.paginationOver){        
+        this.showloader = true;
+      };
+    }
+  }
   filterProps: any;
   modalReference: any;
+  scrolled = false;
 
-  constructor(private activatedRoute: ActivatedRoute, private modalService: NgbModal, private userSearchService: UserSearchService, private apiMainService: ApiMainService, private localStorageService: LocalStorageService, private sendDataToComponent: SendDataToComponent) { }
+  constructor(private activatedRoute: ActivatedRoute, private router:Router, private modalService: NgbModal, private userSearchService: UserSearchService, private apiMainService: ApiMainService, private localStorageService: LocalStorageService, private sendDataToComponent: SendDataToComponent) { }
 
   regionalItem: any = {};
   headerName: any = '';
@@ -74,9 +90,11 @@ export class KitchenSearchComponent implements OnInit {
         this.showFilter = true;
         this.kitchenList = [...this.kitchenList, ...sortedkitchenList];
         this.filteredList = [...this.kitchenList];
+        this.scrolled = false;
       } else {
         this.paginationOver = true;
         this.showloader = false;
+        this.scrolled = false;
       }
     } catch (e) {
       console.log('error while searching kithcen for ', text, e);
@@ -89,31 +107,6 @@ export class KitchenSearchComponent implements OnInit {
     this.filterProps = {
       data: this.filterObj, type: 1
     }
-    // const modal = await this.modalController.create({
-    //   component: KitchenFiltersComponent,
-    //   cssClass: 'xtrashort-filter-modal-design',
-    //   componentProps: {data: this.filterObj, type:1},
-    //   backdropDismiss: true,
-    //   breakpoints: [0,1],
-    //   initialBreakpoint: 1,
-    //   handle: false
-    // });
-    // modal.onDidDismiss().then((event: any) => {
-    //   const data = event.data;
-    //   if (data && data.back){
-    //     this.filterObj = data.filterObj;   
-    //     const values = Object.values(this.filterObj);
-    //       if(values.indexOf(true)>-1){
-    //         this.filterApplied = true;
-    //         this.showloader = false;
-    //       }else{
-    //         this.filterApplied = false;
-    //       }     
-    //     const filteredList = this.userSearchService.filterkitchenSearchResult(this.kitchenList, data.filterObj);
-    //     this.filteredList = filteredList;
-    //   }
-    // });
-    // return await modal.present();
   }
 
   checkFilters(data: any) {
@@ -147,5 +140,9 @@ export class KitchenSearchComponent implements OnInit {
         console.log('error while reload ', error)
       }
     });
+  }
+
+  goBack(){
+    this.router.navigate(['/home'])
   }
 }

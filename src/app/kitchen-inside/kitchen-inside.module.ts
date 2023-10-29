@@ -12,6 +12,7 @@ import { HeaderModule } from '../header/header.module';
 import { AddonPopupComponent } from '../addon-popup/addon-popup.component';
 import { KitchenFiltersModule } from '../kitchen-filters/kitchen-filters.module';
 import { FooterModule } from '../footer/footer.module';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { FooterModule } from '../footer/footer.module';
     CartFooterModule,
     HeaderModule,
     FooterModule,
-    KitchenFiltersModule
+    KitchenFiltersModule,
+    FormsModule
   ]
 })
 export class KitchenInsideModule { }

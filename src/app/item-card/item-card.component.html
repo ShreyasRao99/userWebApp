@@ -1,6 +1,6 @@
 <div class="container-fluid noBottomPadding" [ngClass]="{'specialMenu': item.isSpecialMenu}">
     <div class="row">
-        <div class="col-7 itemLeftTopPadding">
+        <div class="col-6 col-md-7 col-lg-7 itemLeftTopPadding">
             <div>
                 <div *ngIf="item.itemType === 'Veg'" class="vegIcon typeIcon inlineMargin"></div>
                 <div *ngIf="item.itemType === 'NonVeg'" class="nonvegIcon typeIcon inlineMargin"></div>
@@ -41,7 +41,7 @@
                 <span class="capsule" *ngIf="item.distance">{{item.distance}} {{item.distance > 1 ? 'Kms' :'Km'}}</span>
             </div> -->
         </div>
-        <div class="col-5 text-center pt-4">
+        <div class="col-6 col-md-5 col-lg-5 text-center pt-4">
             <img [src]="imageUrl + item.imageUrl" class="itemImage" *ngIf="item.imageUrl" />
             <div class="addPosition pointer" [ngClass]="{noImage:!item.imageUrl }" *ngIf="!(screenFrom ==='searchPage' || 
                 screenFrom === 'categoryPage'|| missed 

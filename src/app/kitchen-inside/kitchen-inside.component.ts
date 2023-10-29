@@ -116,6 +116,15 @@ export class KitchenInsideComponent implements OnInit {
     this.filterComboList = this.userSearchService.filterSubscriptionGroupResult(this.comboList, this.filterObj, this.subscriptionObj.subscriptionTime, this.searchText);
   }
 
+  searchTextInList(){
+    if(this.searchText){
+      clearTimeout(this.textSearchCounter);
+      this.textSearchCounter = setTimeout(()=>{
+        this.filterAllList();
+      },1000);
+    }
+  }
+
   selectOrderType(type: string) {
     this.orderType = type;
     if (type === 'subscription') {
@@ -573,6 +582,6 @@ export class KitchenInsideComponent implements OnInit {
   }
 
   goback() {
-    console.log('')
+    this.router.navigate(['/home'])
   }
 }

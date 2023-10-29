@@ -1,33 +1,59 @@
-<app-header></app-header>
+<app-header class="desktopView"></app-header>
 <div class="container-fluid">
-    <div class="row mt-5">
+    <div class="mobileView">
+        <div class="row backAndSearch">
+            <div class="col-1"><img src="assets/moreimages/backIcon.png" class="backIconarrow" (click)="goback()"></div>
+            <div class="col-11 form-group searchBar mobileView">
+                <input type="text" class="form-control searchIcon shadow-none" (change)="searchTextInList()"
+                    [(ngModel)]="searchText" placeholder="Search">
+            </div>
+        </div>
+    </div>
+
+    <div class="row kitchen-wrapper mt-5">
         <div class="col-sm-12 col-lg-8 offset-lg-2 offset-md-0">
             <div *ngIf="!kitchenNotFound">
                 <div class="restaurant-info">
                     <div class="row flex-row">
-                        <div class="col-6">
-                            <div class="kitchen-name"><b>{{kitchen.kitchenName}}</b></div>
-                            <div class="speciality-list">
+                        <div class="col-lg-10 col-8">
+                            <div class="kitchenName">{{kitchen.kitchenName}}</div>
+                            <div class="speacialInside">
                                 <span *ngFor="let speciality of specialityList">
                                     <span [ngClass]="{speciality: speciality === kitchen.mainSpeciality}">
                                         {{speciality}}</span>
                                 </span>
-                                <div class="d-flex justify-content-row">
-                                    <div class="location-div">
-                                        Location
-                                        <div>{{kitchen.distance}} {{kitchen.distance > 1 ? 'Kms' :'Km'}}</div>
+                            </div>
+                            <div class="bgToppadding4 inline-flex">
+                                <div class="distancediv">
+                                    <div class="header5">Location</div>
+                                    <div class="deliveryTime">
+                                        <!-- {{kitchen.deliveryTime}} mins -->
+                                        <span>{{kitchen.distance}} {{kitchen.distance > 1 ? 'Kms' :'Km'}}</span>
                                     </div>
-                                    <div class="ms-2 order-div">
-                                        Order Between
-                                        <div>{{ALLDAY_ORDER_START_TIME | date : 'shortTime'}} - {{ALLDAY_ORDER_END_TIME
-                                            |
-                                            date : 'shortTime'}}</div>
-                                    </div>
+                                </div>
+                                <div class="timingdiv">
+                                    <div class="header5">Order Between</div>
+                                    <div class="orderbetween">{{ALLDAY_ORDER_START_TIME | date : 'shortTime'}} -
+                                        {{ALLDAY_ORDER_END_TIME | date : 'shortTime'}}</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6 center">
-                            Rating: {{kitchen.rating}}*
+                        <div class="col-lg-2 col-4 center">
+                            <div class="ratingshare">
+                                <div class="half">
+                                    <label for="favcheckbox" class="heartIconDiv  favdiv"
+                                        [ngClass]="{'kitchenfav': favKitchen}">
+                                        <input id="favcheckbox" type="checkbox" [(ngModel)]="favKitchen" />
+                                    </label>
+                                </div>
+                                <div class="half">
+                                    <div class="shareIconDiv"></div>
+                                </div>
+                            </div>
+                            <div class="ratingStar">
+                                <i class="bi bi-star"></i>
+                                <div class="ratingPosition">{{kitchen.rating}}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -35,8 +61,8 @@
                     <!-- <app-coupon-display [kitchenCoupon]="subscriptionOfferText" [orderType]="orderType"
                         [offerText]="offerText"></app-coupon-display> -->
                     <div class="col-12 mt-4">
-                        <div class="orderCapsule twoCapsule pointer" (click)="selectOrderType('allDay')" *ngIf="!noAlldayMenu"
-                            [ngClass]="{'selectedOrder': orderType === 'allDay'}">All Day</div>
+                        <div class="orderCapsule twoCapsule pointer" (click)="selectOrderType('allDay')"
+                            *ngIf="!noAlldayMenu" [ngClass]="{'selectedOrder': orderType === 'allDay'}">All Day</div>
                         <div class="orderCapsule pointer" (click)="selectOrderType('advance')"
                             [ngClass]="{'selectedOrder twoCapsule': orderType === 'advance'}">Advance Order</div>
                         <span class="col-6 mt-3 togglediv pointer">
@@ -109,7 +135,8 @@
                                         </ion-item>
                                         <div slot="content"> -->
                                     <div class="custaccordionGrp">
-                                        <div class="custaccodianHeader pointer" (click)="group.closediv = !group.closediv">
+                                        <div class="custaccodianHeader pointer"
+                                            (click)="group.closediv = !group.closediv">
                                             <i class="right header2 bi bi-chevron-up" *ngIf="group.closediv"></i>
                                             <i class="right header2 bi bi-chevron-down" *ngIf="!group.closediv"></i>
                                             <div>{{group.groupName}} ({{group.count}})</div>
@@ -275,10 +302,11 @@
                     <div class="center header3 grey">No Kitchen Found</div>
                 </div>
             </div>
-            <app-cart-footer class="positionBottom" (viewCart)="addAddons()" [insideKitchenId]="kitchen._id"></app-cart-footer>
+            <app-cart-footer class="positionBottom" (viewCart)="addAddons()"
+                [insideKitchenId]="kitchen._id"></app-cart-footer>
         </div>
     </div>
-<!-- <app-footer></app-footer> -->
+    <!-- <app-footer></app-footer> -->
 </div>
 <!-- <app-cart-footer class="positionBottom" (viewCart)="addAddons()" [insideKitchenId]="kitchen._id"></app-cart-footer> -->
 <ng-template #menuModal let-modal>

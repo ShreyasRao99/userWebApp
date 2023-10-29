@@ -2,7 +2,7 @@
   <app-header (isLoggedIn)="getUserDetails()"></app-header>
   <div class="cart-wrapper">
     <div class="row">
-      <div class="col-10 offset-1">
+      <div class="col-12 col-lg-10 offset-0 offset-lg-1">
 
         <div *ngIf="!cartObj || (cartObj && cartObj.itemList && cartObj.itemList.length === 0)">
           <div class="noitem"></div>
@@ -10,7 +10,8 @@
           <div class="header5 grey center">Your cart is empty. Let's add some meals</div>
         </div>
 
-        <div class="container-fluid" *ngIf="cartObj && cartObj.itemList && cartObj.itemList.length > 0 && !showCheckoutPage">
+        <div class="container-fluid"
+          *ngIf="cartObj && cartObj.itemList && cartObj.itemList.length > 0 && !showCheckoutPage">
           <div class="row">
             <div class="col-8 left-section">
               <ng-container *ngIf="userProfile">
@@ -28,7 +29,8 @@
                       <div class="taglocationdiv mt-2">
                         <div class="taglocation2">{{address.tagLocation}}</div>
                         <div class="completeAdd">{{address.location}}</div>
-                        <button class="btn btn-danger mt-3" (click)="toggleAddressSelected(address,i)">DELIVER HERE</button>
+                        <button class="btn btn-danger mt-3" (click)="toggleAddressSelected(address,i)">DELIVER
+                          HERE</button>
                         <div *ngIf="serviceNotAvailable  && selectedAddressIndex == i">No service at this location</div>
                       </div>
                     </div>
@@ -44,8 +46,8 @@
                   <ng-container *ngIf="toggleSelected">
                     <div class="col-8 mb-2 mt-3">
                       <div class="taglocationdiv">
-                        <div class="taglocation2">{{addressSelected?.tagLocation ? addressSelected?.tagLocation : 'Location'}}</div>
-                        <div class="completeAdd">{{addressSelected?.location ? addressSelected?.location : addressSelected.address}}</div>
+                        <div class="taglocation2">{{tagLocation ? tagLocation : 'Location'}}</div>
+                        <div class="completeAdd">{{addressSelected}}</div>
                         <!-- <button class="btn btn-outline-danger mt-3">Add New</button> -->
                       </div>
                     </div>
@@ -53,8 +55,8 @@
                       <button class="btn btn-danger mt-4" (click)="toggleAddressSelected(null)">SELECT ADDRESS</button>
                     </div>
                     <div class="col-6 mt-5 payment" *ngIf="!saveCurrentLocation">
-                      <button class="btn btn-danger mt-4" (click)="showMap = !showMap" data-bs-toggle="offcanvas" data-bs-target="#addAddress"
-                        >ADD ADDRESS</button>
+                      <button class="btn btn-danger mt-4" (click)="showMap = true" data-bs-toggle="offcanvas"
+                        data-bs-target="#addAddress">ADD ADDRESS</button>
                     </div>
                     <div class="col-12 mt-5 payment" *ngIf="saveCurrentLocation">
                       <div class="cartGrayHead">Choose payment method</div>
@@ -70,7 +72,7 @@
                 </div>
               </ng-container>
             </div>
-            <div class="col-4 right-section">
+            <div class="col-12 col-lg-4 right-section">
               <div *ngIf="cartObj.orderType !== 'subscription'">
                 <div class="cartKitchenCard">
                   <app-cart-kitchen-cart [orderType]="cartObj.orderType" [showsubOffer]="true" [disableNav]="false"
@@ -109,7 +111,7 @@
                   </div>
                   <div class="d-flex flex-row" *ngFor="let addon of cartObj.addOns">
                     <span>
-                      <div class="vegIcon typeIcon inline"></div>
+                      <!-- <div class="vegIcon typeIcon inline"></div> -->
                       <!-- <div *ngIf="item.itemType==='NonVeg'" class="nonvegIcon typeIcon inline"></div>
                       <div *ngIf="item.itemType==='Jain'" class="jainIcon inline">Jain</div> -->
                     </span>
@@ -201,19 +203,15 @@
                     9pm</div>
                 </div>
                 <div>
-                  <div class="col-6" *ngIf="!subscriptionObj.multiDateAllowed">
-                    <div class="cartGrayHead">Pick Subscription Date</div>
-                    <div>
-                      <div>
-                        <mat-form-field (click)="picker.open()">
-                          <mat-label>Enter Date</mat-label>
-                          <input readonly matInput [matDatepicker]="picker" [min]="allowedMinDate"
-                            [max]="allowedMaxDateSub" (dateChange)="subOrderDateChanged($event.value)">
-                          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                          <mat-datepicker #picker></mat-datepicker>
-                        </mat-form-field>
-                      </div>
-                    </div>
+                  <div class="col-12" *ngIf="!subscriptionObj.multiDateAllowed">
+                    <div class="cartGrayHead my-2">Pick Subscription Date</div>
+                    <mat-form-field (click)="picker.open()">
+                      <mat-label>Enter Date</mat-label>
+                      <input readonly matInput [matDatepicker]="picker" [min]="allowedMinDate" [max]="allowedMaxDateSub"
+                        (dateChange)="subOrderDateChanged($event.value)">
+                      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
                   </div>
                   <div class="col-12" *ngIf="subscriptionObj.multiDateAllowed">
                     <span slot="title">Select your {{cartObj.subscriptionObj.subscriptionDays}} Delivery Dates</span>
@@ -226,6 +224,14 @@
                       <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
                       <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
+                  </div>
+                </div>
+                <div class="mt-3 mobileView">
+                  <div class="cartGrayHead">Delivery Address</div>
+                  <div class="taglocationdiv" (click)="showMap = true"
+                  data-bs-toggle="offcanvas" data-bs-target="#addAddress">
+                    <div class="taglocation2">{{tagLocation}} <img src="assets/cart/editAddress.png"></div>
+                    <div class="completeAdd">{{addressSelected}}</div>
                   </div>
                 </div>
               </div>
@@ -242,30 +248,40 @@
                   <div class="cartGrayHead">Time Slot</div>
                   <div class="dateslottext">
                     <div ngbDropdown class="time-slot-dropdown d-inline-block">
-                      <button type="button" [disabled]="notInTimeSlot" class="time-slot-dropdown btn btn-outline-danger"
+                      <button type="button" [disabled]="notInTimeSlot" class="btn btn-outline-danger"
                         id="dropdownBasic1" ngbDropdownToggle>
                         {{advanceTimeSlotSelected ? advanceTimeSlotSelected : 'Delivery Slot'}}
                       </button>
-                      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                        <button ngbDropdownItem [value]="i+1"
+                      <div class="slotDropdown" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                        <button [ngClass]="{'dropdown-img':i>=2}" ngbDropdownItem [value]="i+1"
                           (click)="applyExtraDiscount(advSlotArray,i);showAdvanceTimeSlot(slot)"
-                          *ngFor="let slot of advSlotArray; let i = index"><span class="happyHours" style="color:red"
-                            *ngIf="i>=2">Extra 5%
-                            Discount</span>
+                          *ngFor="let slot of advSlotArray; let i = index">
+                          <div class="happyHours" *ngIf="i>=2">Extra
+                            5%
+                            Discount</div>
                           {{slot.start |
-                          date: 'shortTime'}} - {{slot.end | date: 'shortTime'}}</button>
+                          date: 'shortTime'}} - {{slot.end | date: 'shortTime'}}
+                        </button>
                       </div>
+                    </div>
+                  </div>
+                  <div class="mt-3 mobileView">
+                    <div class="cartGrayHead">Delivery Address</div>
+                    <div class="taglocationdiv" (click)="showMap = true"
+                    data-bs-toggle="offcanvas" data-bs-target="#addAddress">
+                      <div class="taglocation2">{{tagLocation}} <img src="assets/cart/editAddress.png"></div>
+                      <div class="completeAdd">{{addressSelected}}</div>
                     </div>
                   </div>
                 </div>
               </div>
-              <form class="suggestion-form mt-3">
+              <!-- <form class="suggestion-form mt-3">
                 <div>
                   <input type="text" class="form-control shadow-none" id="suggestion"
                     placeholder="Any suggestions? we will pass it on..." aria-label="Recipient's username"
                     aria-describedby="basic-addon2">
                 </div>
-              </form>
+              </form> -->
               <!-- <div class="no-contact mt-3">
                 <div class="d-flex flex-row">
                   <input class="inline" type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
@@ -278,22 +294,32 @@
               </div> -->
               <div class="slotDropdown mt-3"
                 *ngIf="cartObj.orderType === 'allDay' || (cartObj.orderType === 'subscription' && subscriptionObj.subscriptionDays === 1)">
-                <div ngbDropdown class="d-inline-block">
+                <div ngbDropdown class="time-slot-dropdown d-inline-block">
                   <button type="button" [disabled]="notInTimeSlotAllDay" class="btn btn-outline-danger"
                     id="dropdownBasic1" ngbDropdownToggle>
                     {{allTimeSlotSelected ? allTimeSlotSelected : 'Delivery Slot'}}
                   </button>
-                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                    <button ngbDropdownItem [value]="i+1"
+                  <div class="slotDropdown" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button [ngClass]="{'dropdown-img':i>=2}" ngbDropdownItem [value]="i+1"
                       (click)="applyExtraDiscount(allDaySlotArray,i);showAllDayTimeSlot(slot)"
-                      *ngFor="let slot of allDaySlotArray; let i = index"><span class="happyHours" style="color:red"
-                        *ngIf="i>=2">Extra 5%
-                        Discount</span>
+                      *ngFor="let slot of allDaySlotArray; let i = index">
+                      <div class="happyHours" *ngIf="i>=2">Extra 5%
+                        Discount</div>
                       {{slot.start |
-                      date: 'shortTime'}} - {{slot.end | date: 'shortTime'}}</button>
+                      date: 'shortTime'}} - {{slot.end | date: 'shortTime'}}
+                    </button>
+                  </div>
+                </div>
+                <div class="mt-3 mobileView">
+                  <div class="cartGrayHead">Delivery Address</div>
+                  <div class="taglocationdiv" (click)="showMap = true"
+                  data-bs-toggle="offcanvas" data-bs-target="#addAddress">
+                    <div class="taglocation2">{{tagLocation}} <img src="assets/cart/editAddress.png"></div>
+                    <div class="completeAdd">{{addressSelected}}</div>
                   </div>
                 </div>
               </div>
+              
               <div class="coupondivstyle mt-3" (click)="openVoucherSection()" data-bs-toggle="offcanvas"
                 data-bs-target="#coupon">
                 <div class="coupondiv pointer">
@@ -401,6 +427,17 @@
                     </div>
                   </div>
                 </div>
+                <div class="savings header4" *ngIf="mealaweDeliveryDiscount || mealaweItemDiscount || discount || mealaweKitchenDiscount ||
+            moneyWalletPointsUsed || voucherDiscount || extraDiscount">
+                  Total Saving: &#8377;{{mealaweDeliveryDiscount + mealaweItemDiscount + discount +
+                  mealaweKitchenDiscount +
+                  moneyWalletPointsUsed + voucherDiscount + extraDiscount}}
+                </div>
+                <div class="bgTopDownpadding2 deliveryError" *ngIf="deliveryServiceError && (cartObj.orderType === 'allDay' || 
+                (this.cartObj.orderType === 'subscription' && this.cartObj.subscriptionObj.subscriptionDays === 1))">
+                  We are unable to provide delivery service right now due to bad weather condition, kindly try after
+                  sometime..
+                </div>
               </div>
               <div *ngIf="cartObj.orderType === 'subscription'">
                 <div class="bgTopDownpadding2 mt-1">
@@ -463,12 +500,37 @@
               </div>
             </div>
           </div>
+          <div class="paymentFooterWrapper mobileView">
+            <div class="paymentFooter">
+              <div *ngIf="saveCurrentLocation || !userProfile" class="header6 white bold itemDetail center">
+                <span *ngIf="cartObj.orderType !== 'subscription' ">
+                  {{cartObj.itemList.length + cartObj.addOns.length}}
+                  {{(cartObj.itemList.length + cartObj.addOns.length)>1?'ITEMS':'ITEM'}} | &#8377; {{payAmt}}
+                </span>
+                <span *ngIf="cartObj.orderType === 'subscription' ">
+                  {{subscribeFooterText}} | &#8377; {{payAmt}}
+                </span>
+              </div>
+              <div *ngIf="(!saveCurrentLocation && userProfile)" class="header5 white bold itemDetail center" data-bs-toggle="offcanvas"
+                data-bs-target="#location">
+                SELECT ADDRESS
+              </div>
+              <div *ngIf="!userProfile" class="header5 white bold makePayment" data-bs-toggle="offcanvas" data-bs-target="#login">LOGIN</div>
+              <div *ngIf="(!saveCurrentLocation && userProfile)" class="header5 white bold makePayment" (click)="showMap = true"
+                data-bs-toggle="offcanvas" data-bs-target="#addAddress">ADD
+                ADDRESS</div>
+              <div *ngIf="saveCurrentLocation" class="header5 white bold makePayment" (click)="checkUserProfile()">MAKE PAYMENT</div>
+            </div>
+          </div>
+          
         </div>
-
+        
 
         <div>
           <paytm-checkout *ngIf="showCheckoutPage"></paytm-checkout>
         </div>
+
+        <app-mobile-tabs class="mobile-tabs mobileView"></app-mobile-tabs>
 
 
         <div class="offcanvas offcanvas-end sign-up" tabindex="-1" id="coupon" aria-labelledby="offcanvasExampleLabel">
@@ -558,35 +620,42 @@
                 <div class="select-address">
                   <button type="button" style="display:none;" class="btn-close text-reset" #mapCanvas
                     data-bs-dismiss="offcanvas"></button>
-                  <app-set-delivery-location *ngIf="showMap"
-                    [showSkipButton]="showSkipButton"></app-set-delivery-location>
+                  <app-set-delivery-location *ngIf="showMap" [showSkipButton]="showSkipButton"
+                    (toggleMap)="toggleCanvas()"></app-set-delivery-location>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <button style="display:none;" data-bs-toggle="offcanvas" #completeProfile data-bs-target="#completeProfile"></button>
+        <button style="display:none;" data-bs-toggle="offcanvas" #completeProfile
+          data-bs-target="#completeProfile"></button>
         <div class="complete-profile">
-          <div class="offcanvas offcanvas-start" tabindex="-1" id="completeProfile" aria-labelledby="offcanvasExampleLabel">
-            <button type="button" #closeProfile class="btn-close text-reset mt-3"
-              data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          <div class="offcanvas offcanvas-start" tabindex="-1" id="completeProfile"
+            aria-labelledby="offcanvasExampleLabel">
+            <button type="button" #closeProfile class="btn-close text-reset mt-3" data-bs-dismiss="offcanvas"
+              aria-label="Close"></button>
             <div class="offcanvas-div">
               <div class="offcanvas-body">
                 <form [formGroup]="profileForm">
                   <div class="form-group">
                     <label for="name">Name*</label>
-                    <input type="text" formControlName="name" class="form-control shadow-none" id="name" aria-describedby="emailHelp" placeholder="Your Name">
+                    <input type="text" formControlName="name" class="form-control shadow-none" id="name"
+                      aria-describedby="emailHelp" placeholder="Your Name">
                   </div>
                   <div class="form-group mt-2">
                     <label for="email">Email ID*</label>
-                    <input type="text" formControlName="email" class="form-control shadow-none" id="email" aria-describedby="emailHelp" placeholder="Email Id">
+                    <input type="text" formControlName="email" class="form-control shadow-none" id="email"
+                      aria-describedby="emailHelp" placeholder="Email Id">
                   </div>
                   <div class="form-group mt-2">
                     <label for="referral">Referral Code (Optional)</label>
-                    <input type="text" formControlName="code" class="form-control shadow-none" id="referral" aria-describedby="emailHelp" placeholder="Referral Code">
+                    <input type="text" formControlName="code" class="form-control shadow-none" id="referral"
+                      aria-describedby="emailHelp" placeholder="Referral Code">
                   </div>
-                  <div class="errorText" *ngIf="installReferrer && !referralCodeValid && validationCompleted">Invalid Referral Code</div>
-                  <button class="btn btn-danger mt-2" (click)="submitCompletedProfile()" [disabled]="!profileForm.valid">Confirm</button>
+                  <div class="errorText" *ngIf="installReferrer && !referralCodeValid && validationCompleted">Invalid
+                    Referral Code</div>
+                  <button class="btn btn-danger mt-2" (click)="submitCompletedProfile()"
+                    [disabled]="!profileForm.valid">Confirm</button>
                 </form>
               </div>
             </div>
@@ -596,3 +665,4 @@
     </div>
   </div>
 </div>
+<!-- air84314 -->

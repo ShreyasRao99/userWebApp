@@ -209,4 +209,8 @@ export class SearchComponent implements OnInit {
     }
   }
 
+  goBack(){
+    this.router.navigate(['/home'])
+  }
+
 }

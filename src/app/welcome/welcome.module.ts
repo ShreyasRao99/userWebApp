@@ -6,18 +6,20 @@ import { WelcomeRoutingModule } from './welcome.routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { FooterModule } from '../footer/footer.module';
+import { MobileWelcomeModule } from '../mobile-welcome/mobile-welcome.module';
 
 
 @NgModule({
   declarations: [
-    WelcomeComponent
+    WelcomeComponent,
   ],
   imports: [
     CommonModule,
     WelcomeRoutingModule,
     ReactiveFormsModule,
     NgOtpInputModule,
-    FooterModule
+    FooterModule,
+    MobileWelcomeModule,
   ]
 })
 export class WelcomeModule { }

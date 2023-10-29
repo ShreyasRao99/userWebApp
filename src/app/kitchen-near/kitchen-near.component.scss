@@ -48,7 +48,7 @@ h6 {
     background: url('~/src/assets/icon/starIcon.png');  
     background-size: 13px;
     background-repeat: no-repeat;
-    background-position: 0px 0px;
+    background-position: 0px 2px;
     padding-left: 12px;
     padding-right: 5px;
     font-size: 12px;
@@ -57,7 +57,7 @@ h6 {
     background: url('~/src/assets/icon/distanceIcon.png'); 
     background-size: 10px;
     background-repeat: no-repeat;
-    background-position: 0px 0px;
+    background-position: 1px 4px;
     padding-left: 12px;
     padding-right: 5px;
     font-size: 12px;
@@ -184,4 +184,35 @@ h6 {
 .kitchenName{
     font-size: 17px;
     padding: 4px 0px;
+}
+.mobileView{
+    display:none;
+}
+
+@media only screen and (max-width:600px){
+    .mobileView{
+        display:block;
+    }
+
+    .card-body{
+        margin-left:5%;
+    }
+
+    .desktopView{
+        display:none;
+    }
+    .card{
+        display:flex;
+        flex-direction:row;
+        img{
+            height:110px !important;
+            width:110px !important;
+        }
+    }
+    .card-img-top{
+        width:50%;
+    }
+    .card-body{
+        width:50%
+    }
 }
