@@ -1,5 +1,5 @@
-<app-header></app-header>
-<div class="container-fluid mt-3">
+<app-header class="mobileView"></app-header>
+<div class="container-fluid">
     <div class="row">
         <div class="col-lg-8 col-12 col-md-10 offset-0 offset-md-1 offset-lg-2">
             <div class="options-container">
@@ -11,7 +11,10 @@
                         <div class="left-section-div pointer" (click)="logoutPopup()">Log Out</div>
                     </div>
                     <div class="mobile-selection">
-                        <div class="mb-2 left-div">
+                        <div class="left-div desktopView">
+                            <img class="arrowback pointer mt-2" src="assets/regional/arrow-redpink.svg" (click)="goBack()">
+                        </div>
+                        <div class="mb-2 right-div alignRight desktopView">
                             <button type="button" class="btn btn-outline-danger" [ngbPopover]="popContent">
                                 Menu
                             </button>

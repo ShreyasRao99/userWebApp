@@ -17,6 +17,8 @@ import { KitchenSearchComponent } from './kitchen-search/kitchen-search.componen
 import { KitchenCardModule } from './kitchen-card/kitchen-card.module';
 import { HeaderModule } from './header/header.module';
 import { KitchenFiltersModule } from './kitchen-filters/kitchen-filters.module';
+import { AccountComponent } from './account/account.component';
+import { NgOtpInputModule } from 'ng-otp-input';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { KitchenFiltersModule } from './kitchen-filters/kitchen-filters.module';
     AlertModalComponent,
     OrderPlacedComponent,
     KitchenSearchComponent,
+    AccountComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +42,8 @@ import { KitchenFiltersModule } from './kitchen-filters/kitchen-filters.module';
     CheckoutModule,
     KitchenCardModule,
     HeaderModule,
-    KitchenFiltersModule
+    KitchenFiltersModule,
+    NgOtpInputModule
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
   providers: [],

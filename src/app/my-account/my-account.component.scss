@@ -18,16 +18,31 @@
     }
 }
 
+.arrowback {
+    // margin-bottom:2%;
+    width: 25px;
+}
+
 .mobile-selection {
     display: none;
-
 }
 
 .activatedDiv {
     background-color: $primary-color5;
 }
 
+.mobileView{
+    display:block;
+}
+
 @media only screen and (max-width: 600px) {
+    .mobileView{
+        display:none;
+    }
+    .desktopView{
+        display:none;
+    }
+    
     .left-section {
         display: none;
     }
@@ -37,7 +52,14 @@
     }
 
     .mobile-selection {
-        display: block;
+        display: flex;
+        flex-direction: row;
+        .left-div{
+            width:50%;
+        }
+        .right-div{
+            width:50%;
+        }
         padding:1%;
     }
 }

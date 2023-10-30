@@ -1,0 +1,39 @@
+<div class="feedbackPageBG">  
+    <div class="headerBG">
+        <span (click)="goback()"><div class="inline-table">
+            <i class="bi bi-arrow-left"></i>
+            <!-- <ion-icon class="backIcon" name="arrow-back-outline"></ion-icon> -->
+        </div>
+        <div class="inline-table headerText">Your Valuable feedback</div>
+        </span>
+    </div> 
+  <div class="pageContent bgpadding3">
+    <div class="bgTopDownpadding3">
+        <div class="row">
+            <div class="col-4 center">
+                <input type="radio" id="suggestion" name="feedbackType" [(ngModel)]="feedbackObj.feedbackType" value="suggestion"/>
+                <label class="types" for="suggestion">Suggestion</label>
+            </div>      
+            <div class="col-4 center">
+                <input type="radio" id="praise" name="feedbackType" [(ngModel)]="feedbackObj.feedbackType" value="praise"/>
+                <label class="types" for="praise">Praise</label>
+            </div>   
+            <div class="col-4 center">
+                <input type="radio" id="complaint" name="feedbackType" [(ngModel)]="feedbackObj.feedbackType" value="complaint"/>
+                <label class="types" for="complaint">Complaint</label>
+            </div>
+        </div >
+    </div>
+    <div class="bgpadding1">
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Example textarea</label>
+            <textarea class="form-control feedbackText" [(ngModel)]="feedbackObj.feedbackComment" id="exampleFormControlTextarea1" rows="12"></textarea>
+        </div>
+        <!-- <ion-textarea class="feedbackText" rows="12"></ion-textarea> -->
+    </div>
+    <div class="bgTopDownpadding3 center">
+        <button class="submit" [disabled]="!feedbackObj.feedbackComment" [ngClass]="{disablebtn: !feedbackObj.feedbackComment}"
+        (click)="saveGenericFeedback()">Submit Your Feedback</button>
+    </div>
+  </div>
+</div> 

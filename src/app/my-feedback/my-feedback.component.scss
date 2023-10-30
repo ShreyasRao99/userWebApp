@@ -1,0 +1,31 @@
+@import "/src/styles.scss";
+
+.feedbackPageBG{
+    height: 100%;
+    width: 100%;
+    background: white;
+}
+
+.feedbackText{
+    border-radius: 18px;
+    border: 2px solid $primary-color1;
+    padding: 10px;
+    --margin: 10px;
+}
+
+.submit{
+    padding: 15px 40px;
+    background: $primary-color1;
+    color: white;
+    font-size: 18px;
+    border-radius: 15px;
+}
+
+.types{
+    padding-left: 10px;
+    font-size: 3.5vw;
+}
+
+.form-control:focus{
+    box-shadow: none;
+}

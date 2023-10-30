@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ApiMainService } from 'src/service/apiService/api-main.service';
 import { LocalStorageService } from 'src/service/local-storage.service';
 
@@ -12,7 +13,7 @@ export class MyHelpComponent implements OnInit {
   userProfile: any = {};
   selectedTab: string = 'faq';
 
-  constructor(private apiMainService: ApiMainService, private localStorageService: LocalStorageService) { }
+  constructor(private apiMainService: ApiMainService, private router:Router, private localStorageService: LocalStorageService) { }
 
   ngOnInit(): void {
     this.userProfile = this.localStorageService.getCacheData('USER_PROFILE');
@@ -43,4 +44,7 @@ export class MyHelpComponent implements OnInit {
     }
   }
 
+  goBack(){
+    this.router.navigate(['/account'])
+  }
 }

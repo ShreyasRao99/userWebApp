@@ -1,0 +1,135 @@
+<div>   
+    <div class="profilepadding">
+        <div class="inline backDiv" (click)="goback()">
+            <img src="assets/moreimages/backIconred.png" class="backIconarrow" > 
+            <span class="pageheader">My Account</span>
+        </div>        
+    </div>
+    <div>
+        <div class="center">
+            <img *ngIf="userProfile && userProfile.imageUrl" class="profileImage" 
+            [src]="imageUrl + userProfile.imageUrl" >
+            <span class="img-span" *ngIf="!userProfile || !userProfile.imageUrl"><i class="bi bi-person"></i></span>
+        </div>
+        <div class="center middle">
+            <div class="username">Hi {{userProfile && userProfile.userName ? userProfile.userName : 'User'}}</div>
+            <div class="userphone" *ngIf="userProfile && userProfile.phoneNo">+91-{{userProfile.phoneNo}}</div>
+            <div class="useremail" *ngIf="userProfile && userProfile.email">{{userProfile.email}}</div>
+        </div>
+    </div>
+    <div class="shareDiv" *ngIf="showShareLink">
+        <div class="innerDiv" (click)="shareApp()">
+            <div class="inline">
+                <div class="sharetxt">Share With Friends!</div>
+                <div class="sublebel">Win &#8377;50 reward points</div>
+            </div>
+            <i class="bi bi-share ps-2"></i>
+        </div>
+    </div>
+    <div class="list-wrapper">
+        <div class="listStyle" *ngFor="let link of linkList" (click)="goToPage(link.routeUrl)">
+            <div class="bgsidepadding5 listIconBG" [ngClass]="link.iconClass">
+                <div class="links">{{link.label}}</div>
+                <!-- <div class="header5 grey">{{link.subLabel}}</div> -->
+            </div>
+        </div>
+        <div class="listStyle" *ngIf="userProfile" (click)="logoutPopup()">
+            <div class="bgsidepadding5 listIconBG signout">
+                <div class="links">Sign Out</div>
+            </div>
+        </div>
+        <div class="listStyle" *ngIf="!userProfile" data-bs-toggle="offcanvas" data-bs-target="#login">
+            <div class="bgsidepadding5 listIconBG login">
+                <div class="links">Login</div>
+            </div>
+        </div>
+    </div>  
+    <!-- <div class="bgpadding" *ngIf="userProfile">
+        <button class="logoutBtn" (click)="logoutpopup()">LOGOUT</button>
+    </div>   
+    <div class="bgpadding" *ngIf="!userProfile">
+        <button class="buttonstyle1 login" (click)="login()">LOGIN</button>
+    </div>   -->
+    <div class="version">v{{appVersion}}</div>
+</div>
+<div class="offcanvas offcanvas-end" tabindex="-1" id="login" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-body login-offcanvas">
+        <button type="button" #loginCanvas class="btn-close text-reset" data-bs-dismiss="offcanvas"
+            aria-label="Close"></button>
+        <!-- <div class="login-image-div">
+          <img class="img-fluid" src="/assets/images/login-drawer-image.svg" alt="">
+        </div> -->
+        <div class="row form-section">
+            <div class="col-12">
+                <div class="header2">{{formToShow}}</div>
+                <div class="sub-header mt-2">or <span class="create-account pointer"
+                        (click)="toggleForm(formToShow == 'Login' ? 'Sign up' : 'Login')">{{formToShow != 'Login' ?
+                        'Login to your
+                        account' : 'create an account'}}</span></div>
+                <form class="mt-3" [formGroup]="LoginForm" *ngIf="!showOTPscreen && formToShow == 'Login'">
+                    <div class="form-group">
+                        <input type="text" class="form-control shadow-none" name="phone" formControlName="phoneNo"
+                            id="formGroupExampleInput" placeholder="Your Mobile Number">
+                        <div *ngIf="LoginForm.controls.phoneNo.invalid && LoginForm.controls.phoneNo.dirty">
+                            Please enter a valid phone number
+                        </div>
+                        <button class="btn btn-primary mt-3 mb-1 py-2 yesbtn" type="button"
+                            [disabled]="LoginForm.invalid" (click)="registerMobileNumer()">Login</button>
+                        <div class="termNcondition">{{formToShow == 'Login' ? "By logging in, I accept mealawe's" : "By
+                            creating an
+                            account,"}} <span (click)="showTermNCondition()">terms &
+                                conditions</span>
+                        </div>
+                    </div>
+                </form>
+                <form class="signup-form" [formGroup]="LoginForm" *ngIf="!showOTPscreen && formToShow == 'Sign up'">
+                    <div class="form-group mt-3">
+                        <input type="text" class="form-control shadow-none" formControlName="phoneNo" id="login"
+                            placeholder="Phone Number">
+                    </div>
+                    <div class="form-group mt-2">
+                        <input type="text" class="form-control shadow-none" formControlName="userName" id="name"
+                            placeholder="Name">
+                    </div>
+                    <div class="form-group mt-2">
+                        <input type="email" class="form-control shadow-none" formControlName="email" id="email"
+                            aria-describedby="emailHelp" placeholder="Email">
+                    </div>
+                    <div class="account-exists" *ngIf="accountExistsMsg">{{accountExistsMsg}}</div>
+                    <button class="btn btn-primary mt-3 mb-1 py-2 yesbtn" [disabled]="LoginForm.invalid"
+                        (click)="verifySignUP()">Continue</button>
+                    <div class="termNcondition">{{formToShow == 'Login' ? "By logging in, I accept Mealawe's" : "By
+                        creating an
+                        account, I accept Mealawe's"}} <span (click)="showTermNCondition()">terms &
+                            conditions</span>
+                    </div>
+                </form>
+                <div *ngIf="showOTPscreen">
+                    <div class="mt-4 header3">Verify the OTP</div>
+                    <div class="mt-1 header4">Sent to</div>
+                    <p class="mt-1 header5">+91 {{phoneNo}}</p>
+                    <div class="mt-2">
+                        <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{length:6,allowNumbersOnly:true}">
+                        </ng-otp-input>
+                    </div>
+                    <div class="row flex-row">
+                        <div class="col-3">
+                            <button class="btn btn-primary yesbtn mt-2" (click)="verifyOTP()"
+                                [disabled]="!enableVerfiy">Verify</button>
+                        </div>
+                        <div class="col-3">
+                            <div class="second">
+                                <div *ngIf="showResendOTP" (click)="resendOTP()" class="resendLink">Resend OTP
+                                </div>
+                                <div *ngIf="!showResendOTP" class="otpTime">
+                                    <!-- <ion-icon name="alarm-outline"></ion-icon> -->
+                                    <i class="bi bi-alarm"></i>
+                                    00:{{second < 10 ? '0' +second : second }} </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

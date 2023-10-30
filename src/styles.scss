@@ -1002,6 +1002,10 @@ input[type=checkbox]:checked {
     background-color: $primary-color1 !important;
 }
 
+// textarea:focus{
+
+// }
+
 .form-check-input:focus {
     border-color: $primary-color1;
     box-shadow: none;

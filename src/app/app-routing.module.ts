@@ -4,6 +4,7 @@ import { OrderPlacedComponent } from './order-placed/order-placed.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { KitchenSearchComponent } from './kitchen-search/kitchen-search.component';
 import { EatHealthyComponent } from './eat-healthy/eat-healthy.component';
+import { AccountComponent } from './account/account.component';
 
 const routes: Routes = [
   {
@@ -37,7 +38,13 @@ const routes: Routes = [
     path:'eatHealthy',loadChildren: () => import('./eat-healthy/eat-healthy-module').then(m => m.EatHealthyModule)
   },
   {
+    path:'my-feedback',loadChildren: () => import('./my-feedback/my-feedback.module').then(m => m.MyFeedbackModule)
+  },
+  {
     path: 'kitchenInside/:orderType/:kitchenId', loadChildren: () => import('./kitchen-inside/kitchen-inside.module').then(m => m.KitchenInsideModule)
+  },
+  {
+    path:'account', component:AccountComponent
   },
   {
     path:'order-placed', component:OrderPlacedComponent

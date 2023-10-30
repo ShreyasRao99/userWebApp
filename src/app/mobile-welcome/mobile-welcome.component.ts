@@ -33,7 +33,7 @@ export class MobileWelcomeComponent implements OnInit {
 
   slideChange(event:any){
     this.sliderCount = event.detail[0].activeIndex;
-    console.log(this.sliderCount)
+    // console.log(this.sliderCount)
   }
 
 }

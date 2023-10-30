@@ -30,7 +30,8 @@ const routes: Routes = [
       {
         path: 'myProfile',
         loadChildren: () => import('../my-profile/my-profile.module').then(m => m.MyProfileModule)
-      }
+      },
+      
     ]
   }
 ];

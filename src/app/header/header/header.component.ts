@@ -83,6 +83,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
     this.sendDataToComponent.subscribe('ADDRESS_FROM_DELIVERY', (address: any) => {
       this.currentAddress = address
+      this.tagLocation = address.tagLocation;
     })
     this.sendDataToComponent.subscribe('TOGGLE_MAP_OFFCANVAS', (val) => {
       if (val) {
@@ -379,7 +380,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   goToAccount() {
-    this.router.navigate(['my-account/orders/pastOrder'])
+    this.router.navigate(['/account'])
   }
 
 }

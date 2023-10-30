@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 })
 export class OrdersComponent implements OnInit {
   tabSelected: any = 'Past Orders';
+  hideTabs: boolean = false;
   
   constructor(private router:Router){}
 
@@ -29,7 +30,7 @@ export class OrdersComponent implements OnInit {
     }]
 
   ngOnInit(): void {
-    this.router.navigate(['/my-account/orders/pastOrder'])
+    // this.router.navigate(['/my-account/orders/pastOrder'])
   }
 
   navigateToOrders(type:any){
@@ -37,6 +38,16 @@ export class OrdersComponent implements OnInit {
     console.log(type.routeUrl)
     this.router.navigate([`/my-account/orders/${type.routeUrl}`])
     // this.router.navigate(''type.routeUrl)
+  }
+
+  goToPage(type:any){
+    this.hideTabs = true;
+    this.router.navigate([`/my-account/orders/${type.routeUrl}`])
+  }
+
+  goToOrders(){
+    this.hideTabs = !this.hideTabs
+    this.router.navigate(['/my-account/orders'])
   }
 
 }

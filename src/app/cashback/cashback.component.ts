@@ -88,4 +88,8 @@ export class CashbackComponent implements OnInit {
     // this.navCtrl.navigateForward(['/tabs/tabOrder']);
   }
 
+  goBack(){
+    this.router.navigate(['/account'])
+  }
+
 }

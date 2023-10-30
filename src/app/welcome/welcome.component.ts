@@ -20,8 +20,11 @@ import { WebPageService } from 'src/service/webpage.service';
 export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('loginCanvas') loginCanvas!: ElementRef<HTMLElement>;
   @ViewChild('loginCanvasButton') loginCanvasButton!: ElementRef<HTMLElement>;
+  @ViewChild('locationCanvas') locationCanvas!: ElementRef<HTMLElement>;
+  @ViewChild('locationCanvasButton') locationCanvasButton!: ElementRef<HTMLElement>;
   google: any;
   mapId = 'mapid';
+  mapId2 = 'mapid';
   LoginForm: any;
   phoneNo: any;
   showOTPscreen!: boolean;
@@ -36,9 +39,11 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
   fetchingCenter!: boolean;
   formToShow: any = 'Login';
   accountExistsMsg: any = '';
+  recentSearch: any[] = [];
 
   constructor(private router: Router, private sendDataToComponent: SendDataToComponent, private webPageService: WebPageService, private chgDetRef: ChangeDetectorRef, private geoLocationService: GeolocationService, private apiMainService: ApiMainService, private utilityService: UtilityService, private favouriteManagementService: FavouriteManagementService, private googleMapService: GoogleMapService, private localStorageService: LocalStorageService, private fb: FormBuilder) {
     this.mapId += Math.ceil(Math.random() * 1000)
+    this.mapId2 += Math.ceil(Math.random() * 1000)
   }
   ngOnDestroy(): void {
     clearInterval(this.intervalCounter);
@@ -47,15 +52,19 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
   async ngAfterViewInit() {
     this.google = await this.googleMapService.getGoogle();
     const input = document.querySelector(`#${this.mapId}`) as HTMLInputElement;
+    const input2 = document.querySelector(`#${this.mapId2}`) as HTMLInputElement;
     if (input) {
       this.findMyAddress(input);
+    }
+     if (input2) {
+      this.findMyAddress(input2);
     }
   }
 
   ngOnInit(): void {
     this.userLoggedIn = this.localStorageService.getCacheData('USER_PROFILE')
     if (this.userLoggedIn) {
-      this.router.navigate(['/home'])
+      // this.router.navigate(['/home'])
     }
     this.createLoginForm();
   }
@@ -136,6 +145,23 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.goToHome(selectedAddress)
   }
 
+  setAddress(address: any) {
+    console.log(address)
+    // this.currentAddress = address
+    this.sendDataToComponent.publish('ADDRESS_FROM_DELIVERY', address)
+    this.toggleCanvasClose()
+  }
+
+  toggleCanvasClose() {
+    let el = this.locationCanvas?.nativeElement;
+    el?.click();
+  }
+
+  toggleCanvasOpen(){
+    let el = this.locationCanvasButton?.nativeElement;
+    el?.click();
+  }
+
   goToHome(address: any) {
     // this.sendDataToComponent.publish('ADDRESS_FROM_DELIVERY', address)
     this.utilityService.configureCurrentLocation(address);
@@ -210,6 +236,50 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   }
 
+  async verifyMobileOTP(){
+    const finalOTP = this.OTPprovided;
+    try {
+      const loginObj = await this.apiMainService.verifyOTP({ phoneNo: this.phoneNo, password: finalOTP, userType: 'customer' });
+      console.log(loginObj)
+      if (loginObj) {
+        let el: HTMLElement = this.loginCanvas.nativeElement;
+        el.click();
+      }
+      this.localStorageService.setCacheData('OTP_VERIFIED', true);
+      this.localStorageService.setCacheData('TOKEN', loginObj.token);
+      this.userProfile = await this.apiMainService.saveOrRetrieveUserProfile(loginObj.loginInfo);
+      console.log(this.userProfile)
+      this.localStorageService.setCacheData('USER_PROFILE', this.userProfile);
+      this.loggedIn = true
+      const fcmToken = this.localStorageService.getCacheData('FCM_TOKEN');
+      // this.mixpanelservice.track('login',{});
+      if (fcmToken) {
+        this.apiMainService.saveFcmToken({ profileId: this.userProfile._id, fcmToken });
+      }
+      if (this.userProfile.addressList && this.userProfile.addressList.length > 0) {
+        this.localStorageService.setCacheData('PREFERENCE_SET', true);
+        this.localStorageService.setCacheData('LOCATION_SET', true);
+        this.favouriteManagementService.getUserFavKitchenList();
+        this.toggleCanvasOpen();
+        // this.toggleCanvasClose()
+        // this.loadSelectedLocation(null)
+      } else {
+        if (this.userProfile.userName && this.userProfile.email) {
+          this.localStorageService.setCacheData('PREFERENCE_SET', true);
+          this.toggleCanvasOpen();
+          // this.toggleCanvasClose()
+          // this.loadSelectedLocation(null)
+        } else {
+          this.toggleCanvasOpen();
+          // this.toggleCanvasClose()
+          // this.loadSelectedLocation(null)
+        }
+
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   async verifyOTP() {
     const finalOTP = this.OTPprovided;
@@ -302,8 +372,12 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   openLoginCanvas(){
-    let el = this.loginCanvasButton.nativeElement;
-    el.click();
+    if(this.userProfile){
+      this.toggleCanvasOpen()
+    }
+    else{
+      let el = this.loginCanvasButton.nativeElement;
+      el.click();
+    }
   }
-
 }

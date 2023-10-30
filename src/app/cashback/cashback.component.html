@@ -4,7 +4,7 @@
             <div class="inline-table">
                 <!-- <ion-icon class="backIcon" name="arrow-back-outline"></ion-icon> -->
             </div>
-            <div class="inline-table headerText">Cashback & FAQs</div>
+            <div class="inline-table headerText"><i class="bi bi-arrow-left backIcon" (click)="goBack()"></i>Cashback & FAQs</div>
         </span>
         <div class="tabButton">
             <button class="unSelectedButton" [ngClass]="{selectedButton: selectedTab === 'cashback'}" type="button"

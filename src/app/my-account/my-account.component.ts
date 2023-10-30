@@ -28,12 +28,16 @@ export class MyAccountComponent implements OnInit {
   ngOnInit(): void {
     console.log('my account on init loaded')
     this.userProfile = this.localStorageService.getCacheData('USER_PROFILE');
-    this.router.navigate(['/my-account/orders'])
+    // this.router.navigate(['/my-account/orders'])
   }
 
   logoutPopup() {
     this.confirmationModalService.modal(`Leaving so soon?`,
       () => this.logOut(), this);
+  }
+
+  goBack(){
+    this.router.navigate(['/home'])
   }
 
   async logOut() {
