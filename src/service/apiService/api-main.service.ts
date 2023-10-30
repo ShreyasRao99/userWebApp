@@ -357,4 +357,8 @@ export class ApiMainService {
     return this.apiHttpService.REQUEST({url: urlObj.url + `/${code}`, method: urlObj.method},null,null,true);
   }
 
+  saveGeneralAppFeeback(data: any){
+    return this.apiHttpService.REQUEST(this.apiConfigService.apiEndPointObj.saveGeneralAppFeeback, data);
+  }
+
 }

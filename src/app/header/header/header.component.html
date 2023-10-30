@@ -75,9 +75,9 @@
         </div>
         <div class="profilePic" (click)="goToAccount()">
           <div>
-            <img *ngIf="userProfile && userProfile.imageUrl" class="profileImage" 
+            <img *ngIf="userProfile && userProfile.imageUrl" class="mobileProfileImg" 
             [src]="imageUrl + userProfile.imageUrl">
-            <span class="img-span"><i class="bi bi-person" *ngIf="!userProfile || !userProfile.imageUrl"></i></span>
+            <span class="img-span" *ngIf="!userProfile || !userProfile.imageUrl"><i class="bi bi-person"></i></span>
           </div>
         </div>
         <!-- <div class="changeStyle bold header5" (click)="showLocationOnMap(false)">CHANGE</div> -->

@@ -1,7 +1,7 @@
 <div class="container-fluid px-0">
-    <div class="headerBG">Manage Addresses</div>
+    <div class="headerBG"><i class="bi bi-arrow-left backIcon" (click)="goBack()"></i>Manage Addresses</div>
     <div class="row px-3">
-        <div class="col-6" *ngFor="let address of userProfile.addressList; let i = index">
+        <div class="col-12 col-md-6 col-lg-6" *ngFor="let address of userProfile.addressList; let i = index">
             <div class="mt-4 d-flex flex-row savedAddresses">
                 <span><i class="bi bi-house"></i></span>
                 <div class="address-div">

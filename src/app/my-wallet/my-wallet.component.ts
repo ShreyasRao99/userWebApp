@@ -41,8 +41,8 @@ export class MyWalletComponent implements OnInit {
     }
   }
 
-  goback(){
-    // this.navCtrl.pop();
+  goBack(){
+    this.router.navigate(['/account'])
   }
   async getwithdrawalHistory(){
     try{

@@ -1,8 +1,22 @@
 <div class="row orders-div">
-    <div class="col-4 center headerBG" [ngClass]="{activeTab: tabSelected === list.label}" *ngFor="let list of linkList" (click)="navigateToOrders(list)">
+    <div class="col-4 center headerBG desktopView pointer" [ngClass]="{activeTab: tabSelected === list.label}" *ngFor="let list of linkList" (click)="navigateToOrders(list)">
         {{list.label}}
     </div>
-    <div class="outlet-div">
+    <div class="mobileView headerBG2"><i class="bi bi-arrow-left backIcon" routerLink="/account"></i>My Orders</div>
+    <div class="mobileView headerBG2" *ngIf="hideTabs"><i class="bi bi-arrow-left backIcon" (click)="goToOrders()"></i>{{tabSelected}}</div>
+    <div class="pageContent mobileView" *ngIf="!hideTabs">
+        <div class="myOrdersLookup">
+            <div class="myOrderslistStyle" *ngFor="let link of linkList" (click)="goToPage(link)">
+                <div class="bgsidepadding5">
+                    <div class="header4" [ngClass]="link.iconClass">{{link.label}}</div>
+                </div>
+            </div>
+        </div> 
+    </div>
+    <div class="outlet-div desktopView">
+        <router-outlet></router-outlet>
+    </div>
+    <div class="outlet-div mobileView mobile-outlet">
         <router-outlet></router-outlet>
     </div>
 </div>

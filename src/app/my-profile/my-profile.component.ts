@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { regionList } from 'src/config/favcuisinelist.config';
 import { environment } from 'src/environments/environment';
 import { ApiMainService } from 'src/service/apiService/api-main.service';
@@ -23,7 +24,7 @@ export class MyProfileComponent implements OnInit {
   uploadedImageFile: any;
   editModeOn = false;
 
-  constructor(private localStorageService: LocalStorageService, private apiMainService: ApiMainService) {
+  constructor(private localStorageService: LocalStorageService, private router:Router, private apiMainService: ApiMainService) {
     this.userProfileForm = new FormGroup({
       userName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(30),
       Validators.pattern(/^(\s+\S+\s*)*(?!\s).*$/)]),
@@ -102,6 +103,10 @@ export class MyProfileComponent implements OnInit {
     this.loadUserInfo();
     this.editModeOn = false;
     this.userProfileForm.reset();
+  }
+
+  goBack(){
+    this.router.navigate(['/account'])
   }
 
 }

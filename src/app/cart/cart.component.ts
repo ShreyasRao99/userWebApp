@@ -342,9 +342,11 @@ export class CartComponent implements OnInit, OnDestroy {
 
   async setCurrentLocation() {
     const currentStorageLocation = this.localStorageService.getCacheData('CURRENT_LOCATION');
+    console.log()
     console.log(currentStorageLocation)
     if (currentStorageLocation) {
       const formatedAddess = this.userProfileService.getSavedAddress(currentStorageLocation);
+      console.log(formatedAddess)
       this.customerLocation = { ...formatedAddess };
       let address = '';
       if (formatedAddess.address && formatedAddess.landmark) {
@@ -352,6 +354,7 @@ export class CartComponent implements OnInit, OnDestroy {
         address = formatedAddess.address
       } else {
         this.saveCurrentLocation = false;
+        address = formatedAddess.address
       }
       const landmark = formatedAddess.landmark ? `, Landmark: ${formatedAddess.landmark}, ` : '';
       this.addressSelected = formatedAddess.location ? `${address}${formatedAddess.location}${landmark}` : `${address}${landmark}`;

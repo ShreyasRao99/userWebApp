@@ -113,12 +113,12 @@
   <app-mobile-welcome (goToLogin)="openLoginCanvas()"></app-mobile-welcome>
 </div>
 
-<!--- OFFCANVAS --->
+<!--- OFFCANVAS LOGIN --->
 <div class="offcanvas offcanvas-end login" tabindex="-1" id="login" aria-labelledby="offcanvasExampleLabel">
   <div class="offcanvas-body">
     <button type="button" #loginCanvas class="btn-close text-reset" data-bs-dismiss="offcanvas"
       aria-label="Close"></button>
-      <div class="skip mt-3" (click)="loadSelectedLocation(null)">Skip</div>
+      <div class="skip mt-3 mobile-view" data-bs-toggle="offcanvas" data-bs-target="#location" #locationCanvasButton>Skip</div>
     <div class="row form-section">
       <div class="col-12">
         <div class="header2">{{formToShow}}</div>
@@ -170,7 +170,9 @@
           </div>
           <div class="row flex-row">
             <div class="col-3">
-              <button class="btn btn-primary yesbtn mt-2" (click)="verifyOTP()"
+              <button class="btn btn-primary yesbtn mt-2 desktop-view" (click)="verifyOTP()"
+                [disabled]="!enableVerfiy">Verify</button>
+                <button class="btn btn-primary yesbtn mt-2 mobile-view" (click)="verifyMobileOTP()"
                 [disabled]="!enableVerfiy">Verify</button>
             </div>
             <div class="col-3">
@@ -188,3 +190,61 @@
       </div>
     </div>
   </div>
+  <!---SET LOCATION OFFCANVAS--->
+  <div class="delivery-location">
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="location" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-div">
+            <div class="offcanvas-body">
+                <div class="container">
+                    <button type="button" class="btn-close text-reset" #locationCanvas data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div>
+                                <form class="search-form">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control shadow-sm" [id]="mapId2"
+                                            placeholder="Search Your Location" aria-label="Recipient's username"
+                                            aria-describedby="basic-addon2">
+                                    </div>
+                                    <div class="getLocation" (click)="loadSelectedLocation(null)">
+                                        <div class="d-flex flex-row">
+                                            <i class="bi bi-crosshair"></i>
+                                            <div class="flex-content">
+                                                <div>Get current location</div>
+                                                <div class="location-canvas-info">Using GPS</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="savedAddresses" *ngIf="userProfile?.addressList?.length > 0">
+                                        <h6>SAVED ADDRESSES</h6>
+                                        <div class="mt-3 d-flex flex-row"
+                                            *ngFor="let address of userProfile.addressList">
+                                            <i class="bi bi-house"></i>
+                                            <div class="flex-content" (click)="setAddress(address)">
+                                                <div><b>{{address.tagLocation}}</b></div>
+                                                <div class="location-canvas-info">{{address.location}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="recentSearches" *ngIf="recentSearch">
+                                        <h6>RECENT SEARCHES</h6>
+                                        <div class="mt-3 d-flex flex-row"
+                                            *ngFor="let recent of recentSearch | slice:0:1">
+                                            <i class="bi bi-clock-history"></i>
+                                            <div class="flex-content">
+                                                <div><b>{{recent.name}}</b></div>
+                                                <div class="location-canvas-info">{{recent.address}}</div>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                    <!-- </div> -->
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

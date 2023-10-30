@@ -1,0 +1,328 @@
+@import "/src/styles.scss";
+
+.listStyle{
+    padding:10px 0;
+}
+.pageheader{
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 120%;
+    letter-spacing: 0.03em;
+    color: #262146;
+    padding-left: 15px;
+}
+
+.profilepadding{
+    padding: 10% 5% 5% 0% ;
+}
+.profileImage{
+    margin-right: 10px;
+    font-size: 50px;
+    color: rgba(97, 82, 82, 0.5882352941);
+    width: 100px;
+    height: 100px;
+    border: 2px solid #D6D8DA;
+    border-radius: 20px;
+}
+.profileDemoImage{
+    margin-right: 10px;
+    font-size: 50px;
+    color: rgba(97, 82, 82, 0.5882352941);
+    width: 100px;
+    height: 100px;
+}
+.username{
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 120%;
+    text-align: center;
+    letter-spacing: 0.03em;
+    color: #000000;
+}
+.userphone{
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 30px;
+    letter-spacing: 0.03em;
+    color: #6C6982;
+}
+.useremail{
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 30px;
+    letter-spacing: 0.03em;
+    color: #6C6982;
+}
+
+.backDiv{
+    padding: 8px 28px 8px 18px;
+    .backIconarrow{
+        padding: 5px 0;
+        width: 9px;
+        height: 23px;
+    }
+}
+
+.img-span{
+    text-align: center;
+    display: inline-block;
+    border: 1px solid grey;
+    height: 64px;
+    width: 64px;
+    border-radius: 50%;
+    background-color:rgba(97, 82, 82, 0.5882352941);
+    i{
+        font-size:40px;
+        color:white;
+        line-height:64px;
+    }
+}
+
+.list-wrapper{
+    padding:4%;
+}
+
+.middle{
+    vertical-align: top;
+    padding-top: 13px;
+}
+// ion-label {
+//     .header4{
+//         color: $primary-color1
+//     }
+// }
+.logoutBtn{
+    background: white;
+    padding: 10px 14px 10px 34px;
+    border-radius: 8px;
+    color: $primary-color2;
+    font-weight: bolder;
+    letter-spacing: 1px;
+    background-image: url('~src/assets/icon/logout_icon.svg'); 
+    background-repeat: no-repeat !important;
+    background-size: 27px;
+    background-position: 0px 4px;
+}
+
+.shareDiv{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 20px;
+    .innerDiv{
+        background: #E2394D;
+        color: white;
+        text-align: center;
+        padding: 10px 0px;
+        border-radius: 10px;
+        word-spacing: 1px;
+        width: 207px;
+        height: 45px;
+        div{
+            .sharetxt{
+                font-weight: 700;
+                font-size: 12px;
+                line-height: 16px;
+                color: #FFFFFF;
+            }
+            .sublebel{
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 12px;
+                color: #FFFFFF;
+            }
+        }
+        ion-icon{
+            font-size: 25px; 
+            position: relative;
+            left: 14px;
+        }
+    }
+}
+
+.links{
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: 0.03em;
+    color: #0D2123;
+}
+
+.listIconBG{
+    background-repeat: no-repeat !important;
+    padding: 2px 0px 2px 45px; 
+}
+.myAccount{
+    background: url('~src/assets/account/account.png');
+    background-size: 20px;
+    background-position: 10px 6px;
+}
+.myAddress{
+    background: url('~src/assets/account/manage_address.png');
+    background-size: 20px;
+    background-position: 9px 4px;
+}
+.myWallet{
+    background: url('~src/assets/account/wallet.png');
+    background-size: 20px;
+    background-position: 10px 6px;
+}
+.cashback{
+    background: url('~src/assets/account/gifts_wallet.svg');
+    background-size: 20px;
+    background-position: 10px 6px;
+}
+.paymentRefund{
+    background: url('~src/assets/account/payments_refund.svg');
+    background-size: 20px;
+    background-position: 10px 6px;
+}
+.help{
+    background: url('~src/assets/account/help.png');
+    background-size: 20px;
+    background-position: 10px 6px;
+}
+.pastOrder{
+    background: url('~src/assets/account/my_order.png');
+    background-size: 20px;
+    background-position: 10px 6px;
+}
+.myFeedback{
+    background: url('~src/assets/account/feedback.svg');
+    background-size: 20px;
+    background-position: 10px 6px;
+}
+.signout{
+    background: url('~src/assets/account/signout.png');
+    background-size: 20px;
+    background-position: 10px 6px;
+}
+.login{
+    background: url('~src/assets/account/signout.png');
+    background-size: 20px;
+    background-position: 10px 6px;
+}
+.version{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 28px;
+    letter-spacing: 0.03em;
+    color: #0D2123;
+    text-align: center;
+}
+
+.termNcondition {
+    font-size: 11px;
+    width: 100%;
+    letter-spacing: 0.1em;
+    font-style: italic;
+    padding-top: 5px;
+
+    span {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
+
+.offcanvas {
+    width: 100% !important;
+
+    .form-section {
+        padding-top: 50%;
+    }
+
+    .account-exists {
+        color: $primary-color5;
+        margin-top: 5px;
+    }
+
+    .login-offcanvas {
+        background-image: url('~/src/assets/images/login-drawer-image-2.svg');
+        background-repeat: no-repeat;
+        background-size: 90%;
+        background-position: 100% 0;
+    }
+
+    .img-fluid {
+        position: absolute;
+        height: 100%;
+        width: 50%;
+        right: 0%;
+        top: 1%;
+    }
+
+    .header2 {
+        font-family: 'Poppins-bold';
+        color: $primary-color4
+    }
+
+    .header3,
+    .header4,
+    .header5 {
+        font-family: 'Poppins-semiBold';
+        color: $primary-color5
+    }
+
+    .sub-header {
+        font-family: 'Poppins-semiBold';
+
+        .create-account {
+            color: $primary-color1;
+        }
+
+        :after {
+            content: '';
+            margin-top: 1%;
+            width: 7%;
+            display: block;
+            // margin: 1% auto 2%;
+            height: 1px;
+            background-color: $primary-color1;
+        }
+    }
+
+    .flex-row {
+        .btn-primary {
+            width: 100%
+        }
+    }
+
+
+    .form-group {
+        .form-control {
+            height: 50px;
+            border-radius: 25px;
+            width: 50%;
+            border-color: grey;
+        }
+    }
+
+    .signup-form {
+        .form-control {
+            border-radius: 10px;
+        }
+    }
+
+    .btn-primary {
+        width: 25%;
+        border-radius: 20px;
+        font-weight: 500;
+    }
+
+    &.sign-up {
+        .form-group {
+            .form-control {
+                height: 60px;
+                border-radius: 0;
+            }
+        }
+
+        .btn-primary {
+            background-color: #ff8c00;
+            border-color: #ff8c00;
+            border-radius: 0;
+            font-weight: 500;
+        }
+    }
+}

@@ -1,0 +1,57 @@
+<div class="delivery-location">
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="location" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-div">
+            <div class="offcanvas-body">
+                <div class="container">
+                    <button type="button" class="btn-close text-reset" #mapCanvas data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div>
+                                <form class="search-form">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control shadow-sm" [id]="mapId"
+                                            placeholder="Search Your Location" aria-label="Recipient's username"
+                                            aria-describedby="basic-addon2">
+                                    </div>
+                                    <div class="getLocation" (click)="getCurrentLocation(true)">
+                                        <div class="d-flex flex-row">
+                                            <i class="bi bi-crosshair"></i>
+                                            <div class="flex-content">
+                                                <div>Get current location</div>
+                                                <div class="location-canvas-info">Using GPS</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="savedAddresses" *ngIf="userProfile?.addressList?.length > 0">
+                                        <h6>SAVED ADDRESSES</h6>
+                                        <div class="mt-3 d-flex flex-row"
+                                            *ngFor="let address of userProfile.addressList">
+                                            <i class="bi bi-house"></i>
+                                            <div class="flex-content" (click)="setAddress(address)">
+                                                <div><b>{{address.tagLocation}}</b></div>
+                                                <div class="location-canvas-info">{{address.location}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="recentSearches" *ngIf="recentSearch">
+                                        <h6>RECENT SEARCHES</h6>
+                                        <div class="mt-3 d-flex flex-row"
+                                            *ngFor="let recent of recentSearch | slice:0:1">
+                                            <i class="bi bi-clock-history"></i>
+                                            <div class="flex-content">
+                                                <div><b>{{recent.name}}</b></div>
+                                                <div class="location-canvas-info">{{recent.address}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- </div> -->
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
