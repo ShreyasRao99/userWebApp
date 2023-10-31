@@ -1,0 +1,28 @@
+<div *ngIf="openOrderList.length > 0" class="trackOrder" [ngClass]="{less: more===false}">
+    <div class="moreLessStyle">
+        <div *ngIf="more===true" class="header5 center" (click)="more=false">
+            <i class="bi bi-chevron-up"></i>
+            <!-- <ion-icon class="ionIcons" name="chevron-up-outline" size="small"></ion-icon> -->
+        </div>
+        <div *ngIf="more===false" class="header5 center" (click)="more=true">
+            <i class="bi bi-chevron-down"></i>
+            <!-- <ion-icon class="ionIcons" name="chevron-down-outline" size="small"></ion-icon> -->
+        </div>
+    </div>
+    <div class="bgOne">
+        <div class="orderHeader">{{openOrderList.length}} Open <span *ngIf="openOrderList.length === 1">Order</span><span *ngIf="openOrderList.length > 1">Orders</span></div>
+        <div class="bgTwo">
+            <div *ngFor="let order of openOrderList" class="bgTopDownpadding2">
+                <div class="header5 orderStatus">Order Status: {{orderStatusMapper[order.orderstatus]}}</div>
+                <div class="header5 orderNo">
+                    <span> Order No: {{order.orderNo}}</span>&nbsp;
+                </div>
+                <div class="towButtons">
+                    <div class="viewDetails" (click)="goToOrderPage(order)">View Detail</div>
+                    <div class="trackButton" (click)="goToOrderPage(order)"><img class="trackIcon" src="assets/icon/trackOrderIcon.svg"> Track Order
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

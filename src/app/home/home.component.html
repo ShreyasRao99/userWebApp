@@ -47,4 +47,5 @@
     </ng-container>
     <app-footer class="desktopView"></app-footer>
 </div>
-    <app-mobile-tabs class="mobile-tabs mobileView"></app-mobile-tabs>
+<app-track-open-order class="trackOrder" *ngIf="serviceAvailable"></app-track-open-order>
+<app-mobile-tabs class="mobile-tabs mobileView"></app-mobile-tabs>

@@ -605,11 +605,15 @@ div[scrollx=true] {
 
 .mobileView{
     display:none;
+    z-index:3;
 }
 
 @media only screen and (max-width:600px){
+    .scrollBtns{
+        display:none;
+    }
     .positionBottom{
-        bottom:6.2%;
+        bottom:8.2%;
     }
     .desktopView{
         display:none;

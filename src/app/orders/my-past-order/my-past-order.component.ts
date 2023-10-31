@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { LocalStorageService } from 'src/service/local-storage.service';
 import { orderStatusMapper } from 'src/config/order-status.config';
@@ -12,6 +12,19 @@ import { ApiMainService } from 'src/service/apiService/api-main.service';
 export class MyPastOrderComponent implements OnInit {
   @ViewChild('pastOrdersListEndDiv') pastOrdersListEndDiv!: ElementRef;
   @ViewChild('orderDetails') orderDetails!: ElementRef;
+  @HostListener("window:scroll", [])
+  onScroll(): void {
+    if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight * .90)) {
+      if (!this.scrolled) {
+        this.scrolled = true;
+        if(!this.paginationOver){
+          this.showloader = true;
+          this.pageNumber++;
+          this.getPastOrder();
+        } 
+      };
+    }
+  }
   imageUrl = environment.imageUrl;
   pastOrderList: any = [];
   userProfile: any = {};
@@ -21,6 +34,7 @@ export class MyPastOrderComponent implements OnInit {
   paginationOver = false;
   order: any;
   showOrders: boolean  = false;
+  scrolled = false;
 
   constructor(private localStorageService: LocalStorageService, private apiMainService:ApiMainService) { }
 
@@ -37,13 +51,16 @@ export class MyPastOrderComponent implements OnInit {
       if (pastOrderList && pastOrderList.length > 0) {
         this.pastOrderList = [...this.pastOrderList, ...pastOrderList];
         this.showloader = false;
+        this.scrolled = false;
       } else {
         this.paginationOver = true;
         this.showloader = false;
+        this.scrolled = false;
       }
     } catch (error) {
       this.paginationOver = true;
       this.showloader = false;
+      this.scrolled = false;
     }
   }
 
@@ -55,24 +72,14 @@ export class MyPastOrderComponent implements OnInit {
       return listOrder;
     });
   }
-
-  logScrollEnd($event:any) {
-    const element = $event.target;
-    if (element.clientHeight + 10 >= this.pastOrdersListEndDiv.nativeElement.getBoundingClientRect().top) {
-      if (!this.paginationOver) {
-        this.showloader = true;
-        this.pageNumber++;
-        this.getPastOrder();
-      }
-    }
-  }
-
+  
   toggleCanvas(){
     let el = this.orderDetails.nativeElement;
     el.click();
   }
 
   goToOrderPage(val:any){
+    console.log(val)
     this.order = val
   }
 

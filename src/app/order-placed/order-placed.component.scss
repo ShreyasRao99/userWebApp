@@ -10,9 +10,9 @@
 
 .backarroworders {
     width: 30px;
-    // position: relative;
-    top: 5px;
-    left: 5px;
+    position: relative;
+    top: 20%;
+    left: 30%;
 }
 
 .orderFailed{
@@ -49,4 +49,18 @@
     color: white;
     letter-spacing: 1px;
     box-shadow: 3px 5px 9px 0px #716565;
+}
+
+.mobileView{
+    display:block
+}
+
+@media only screen and (max-width:600px){
+    .mobileView{
+        display:none;
+    }
+    .backarroworders{
+        top: 10%;
+        left: 3%;
+    }
 }

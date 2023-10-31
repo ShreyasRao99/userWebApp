@@ -1,7 +1,7 @@
+<app-header class="mobileView"></app-header>
 <!-- <img class="backarrow pointer" src="assets/regional/arrow-redpink.svg" (click)="goBack()"> -->
-<app-header></app-header>
 <div class="setToCenter" *ngIf="paymentSucess">
-  <!-- <img class="backarroworders pointer" src="assets/regional/arrow-redpink.svg" (click)="goBack()"> -->
+  <img class="backarroworders pointer" src="assets/regional/arrow-redpink.svg" (click)="goBack()">
   <div class="orderPlaced"></div>
   <div class="header2 center">Order Placed!</div>
   <div class="header5 bgpadding2 grey center">
@@ -9,7 +9,7 @@
   </div>
 </div>
 <div class="setToCenter" *ngIf="!paymentSucess">
-  <!-- <img class="backarrow pointer" src="assets/regional/arrow-redpink.svg" (click)="goBack()"> -->
+  <img class="backarroworders pointer" src="assets/regional/arrow-redpink.svg" (click)="goBack()">
   <div class="orderFailed"></div>
   <div class="header2 center primary1">Order Payment Transaction Failed!</div>
   <div class="header5 bgpadding1 center grey">We are sorry for your inconvenience. If your money is deducted, you will

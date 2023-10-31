@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { cashbackfaqList } from 'src/config/faqlist.config';
 import { ApiMainService } from 'src/service/apiService/api-main.service';
 import { LocalStorageService } from 'src/service/local-storage.service';
@@ -22,15 +22,19 @@ export class CashbackComponent implements OnInit {
   pageNumber = 1;
   selectedTab = 'cashback';
   faqList:any = cashbackfaqList;
+  directRoute: any = false;
 
-  constructor(private localStorageService:LocalStorageService, private apiMainService:ApiMainService, private router:Router){}
+  constructor(private localStorageService:LocalStorageService, private activatedRoute:ActivatedRoute, private apiMainService:ApiMainService, private router:Router){}
 
   ngOnInit(): void {
     this.userProfile = this.localStorageService.getCacheData('USER_PROFILE');
       if(this.userProfile && this.userProfile._id){
         this.getMealaweWalletBalance();
         this.getwithdrawalHistory();
-      }  
+      }
+      this.activatedRoute.queryParamMap.subscribe((params:any)=>{
+        this.directRoute = params.params.directRoute
+      })
   }
 
   async getMealaweWalletBalance(){
@@ -89,7 +93,7 @@ export class CashbackComponent implements OnInit {
   }
 
   goBack(){
-    this.router.navigate(['/account'])
+    this.directRoute ? this.router.navigate(['/home']) : this.router.navigate(['/account'])
   }
 
 }

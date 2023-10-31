@@ -106,7 +106,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }; 
 
   goToCashBackTab(){
-    this.router.navigate(['/my-account/cashback'])
+    this.router.navigate(['/my-account/cashback'], {queryParams:{directRoute:true}})
   }
 
   setAddress(address: any) {

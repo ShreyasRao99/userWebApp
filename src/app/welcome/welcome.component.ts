@@ -69,6 +69,10 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.createLoginForm();
   }
 
+  loginCheck(){
+    
+  }
+
   createLoginForm() {
     this.LoginForm = this.fb.group({
       phoneNo: ['', [Validators.required, Validators.pattern("^[0-9]{10}$")]],
@@ -148,8 +152,9 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
   setAddress(address: any) {
     console.log(address)
     // this.currentAddress = address
-    this.sendDataToComponent.publish('ADDRESS_FROM_DELIVERY', address)
+    this.localStorageService.setCacheData('CURRENT_LOCATION',address)
     this.toggleCanvasClose()
+    this.router.navigate(['home'])
   }
 
   toggleCanvasClose() {
@@ -372,6 +377,7 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   openLoginCanvas(){
+    this.userProfile = this.localStorageService.getCacheData('USER_PROFILE')
     if(this.userProfile){
       this.toggleCanvasOpen()
     }

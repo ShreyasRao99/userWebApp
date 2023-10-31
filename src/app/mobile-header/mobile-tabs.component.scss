@@ -1,17 +1,37 @@
 @import '/src/styles.scss';
 
-.tabParent{
-    display:flex;
-    flex-direction:row;
+.tabParent {
+    display: flex;
+    flex-direction: row;
     justify-content: space-between;
-    background-color:white;
+    background-color: white;
     // height:50px;
-    padding-top:1%;
+    padding-top: 1%;
 }
 
-.tabChild{
-    text-align:center;
-    width:25%;
+.tabMainChild {
+    padding-top:4.3%;
+    border-radius: 100%;
+    position: relative;
+    top: -18px;
+    background: white;
+    height:70px;
+    text-align: center;
+    width: 18%;
+    box-shadow: 0 5px 12px -3px gray;
+    background-color:$secondary-color3
+}
+
+.tabHealthyChild{
+    padding-top:2%;
+    text-align: center;
+    width: 22%;
+}
+
+.tabChild {
+    padding-top:2%;
+    text-align: center;
+    width: 20%;
 }
 
 
@@ -29,7 +49,7 @@
 
 .navbarIcon2 {
     background: url('~src/assets/navbar/Eathomely_Icon.svg');
-    background-size:30px !important;
+    background-size: 30px !important;
 }
 
 .navbarIcon3 {
@@ -50,34 +70,50 @@
     background: url('~src/assets/navbar/Cart_Icon.svg');
 }
 
-.activenavbarIcon1{
+.activenavbarIcon1 {
     background: url('~src/assets/navbar/Food_Icon_selected.svg');
 }
 
 
-.activenavbarIcon2{
+.activenavbarIcon2 {
     // background: url('~src/assets/navbar/Cart_Icon_selected.svg');
     background: url('~src/assets/navbar/Eathomely_Icon_selected.svg');
-    background-size:30px !important;
+    background-size: 30px !important;
 }
 
 .activenavbarIcon3 {
-    background: url('~src/assets/navbar/MealPlan_selected.svg');
-    height: 31px;
-    width: 100%;
-    background-size: 100px !important;
-    background-repeat: no-repeat !important;
-    background-position: center !important;
+    background-color:$primary-color1
 }
 
-.activenavbarIcon4{
+.activenavbarIcon4 {
     background: url('~src/assets/navbar/SearchIconSelected.svg');
 }
 
-.activenavbarIcon5{
+.activenavbarIcon5 {
     background: url('~src/assets/navbar/Cart_Icon_selected.svg');
 }
 
-.activeIconDiv{
-    color:$primary-color1
+.activeIconDiv {
+    color: $primary-color1
+}
+
+.tab-selected {
+    .cartCount {
+        display: none;
+    }
+}
+
+.cartCount {
+    background: $secondary-color3;
+    font-size: 10px;
+    position: relative;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    line-height: 15px;
+    color: white;
+    padding-top: 3px;
+    text-align: center;
+    left: 41px;
+    top: 2px;
 }
