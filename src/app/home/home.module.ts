@@ -14,10 +14,12 @@ import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderModule } from '../header/header.module';
 import { FooterModule } from '../footer/footer.module';
 import { MobileTabsModule } from '../mobile-header/mobile-tabs.module';
+import { TrackOpenOrderComponent } from '../track-open-order/track-open-order.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
+    TrackOpenOrderComponent,
   ],
   imports: [
     CommonModule,

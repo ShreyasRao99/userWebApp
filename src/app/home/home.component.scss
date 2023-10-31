@@ -138,8 +138,12 @@ div[scrollx=true] {
     margin-bottom:10%;
 }
 
-@media only screen and (max-width:600px) {
+.mobile-tabs{
+    z-index:3;
+}
 
+
+@media only screen and (max-width:600px) {
     .desktopView{
         display:none;
     }

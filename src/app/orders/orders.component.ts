@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-orders',
@@ -10,7 +10,7 @@ export class OrdersComponent implements OnInit {
   tabSelected: any = 'Past Orders';
   hideTabs: boolean = false;
   
-  constructor(private router:Router){}
+  constructor(private router:Router, private activatedRoute:ActivatedRoute){}
 
   linkList = [
     {
@@ -30,6 +30,15 @@ export class OrdersComponent implements OnInit {
     }]
 
   ngOnInit(): void {
+    this.activatedRoute.queryParamMap.subscribe((param:any)=>{
+      console.log(param.params)
+      let route = param.params.orderType == 'allDay' ? 'pastOrder' : 'subscriptionOrder';
+      if(route){
+        this.hideTabs = true
+        this.tabSelected = param.params.orderType == 'allDay' ? 'Past Orders' : 'Meal Subscription Orders'
+        this.router.navigate([`/my-account/orders/${route}`])
+      }    
+    })
     // this.router.navigate(['/my-account/orders/pastOrder'])
   }
 
@@ -41,6 +50,7 @@ export class OrdersComponent implements OnInit {
   }
 
   goToPage(type:any){
+    this.tabSelected = type.label;
     this.hideTabs = true;
     this.router.navigate([`/my-account/orders/${type.routeUrl}`])
   }

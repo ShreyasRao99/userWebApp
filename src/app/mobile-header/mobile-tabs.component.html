@@ -1,23 +1,26 @@
 <div class="tabParent">
-    <div class="tabChild" routerLink="/home">
+    <div class="tabChild" routerLink="/home" (click)="tabSelect('Order')">
         <div class="navbarIcon1 navbarIcon" [ngClass]="{'activenavbarIcon1':currentRoute == '/home'}"></div>
         <div [ngClass]="{'activeIconDiv':currentRoute == '/home'}">Order</div>
     </div>
-    <div class="tabChild" routerLink="/search">
+    <div class="tabChild" routerLink="/search" (click)="tabSelect('Search')">
         <div class="navbarIcon4 navbarIcon" [ngClass]="{'activenavbarIcon4':currentRoute == '/search'}"></div>
         <div [ngClass]="{'activeIconDiv':currentRoute == '/search'}">Search</div>
     </div>
     
-    <div class="tabChild" routerLink="/subscription">
-        <div class="navbarIcon3 navbarIcon" [ngClass]="{'activenavbarIcon3':currentRoute == '/subscription'}"></div>
-        <div [ngClass]="{'activeIconDiv':currentRoute == '/subscription'}">MealPlan</div>
+    <div class="tabMainChild" [ngClass]="{'activenavbarIcon3':currentRoute == '/subscription'}" routerLink="/subscription" (click)="tabSelect('Subscription')">
+        <div class="navbarIcon3 navbarIcon"></div>
+        <!-- <div class="navbarIcon3 navbarIcon"></div> -->
+        <!-- <div [ngClass]="{'activeIconDiv':currentRoute == '/subscription'}">MealPlan</div> -->
     </div>
-    <div class="tabChild" routerLink="/eatHealthy">
+    <div class="tabHealthyChild" routerLink="/eatHealthy" (click)="tabSelect('EatHealthy')">
         <div class="navbarIcon2 navbarIcon" [ngClass]="{'activenavbarIcon2':currentRoute == '/eatHealthy'}"></div>
         <div [ngClass]="{'activeIconDiv':currentRoute == '/eatHealthy'}">EatHealthy</div>
     </div>
-    <div class="tabChild" routerLink="/cart">
-        <div class="navbarIcon5 navbarIcon" [ngClass]="{'activenavbarIcon5':currentRoute == '/cart'}"></div>
+    <div class="tabChild" routerLink="/cart" (click)="tabSelect('Cart')">
+        <div class="navbarIcon5 navbarIcon" [ngClass]="{'activenavbarIcon5':currentRoute == '/cart'}">
+            <div class="cartCount" *ngIf="itemCount>0 && selectedTab !== 'Cart' ">{{itemCount}}</div>
+        </div>
         <div [ngClass]="{'activeIconDiv':currentRoute == '/cart'}">Cart</div>
     </div>
 </div>

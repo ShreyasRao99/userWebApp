@@ -361,4 +361,11 @@ export class ApiMainService {
     return this.apiHttpService.REQUEST(this.apiConfigService.apiEndPointObj.saveGeneralAppFeeback, data);
   }
 
+  getCustomerCurrentOpenOrders(id: any){
+    const urlObj = this.apiConfigService.apiEndPointObj.getCustomerCurrentOpenOrders;
+    return this.runTimeCacheInterceptor('OPEN_ORDERS',
+    // return this.apiHttpService.REQUEST(
+    {url: urlObj.url + `/${id}/${this.getTodayStartDate()}`, method: urlObj.method},null,null,true,60*1000*2);
+  }
+
 }

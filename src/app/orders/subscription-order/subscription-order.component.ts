@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { orderStatusMapper } from 'src/config/order-status.config';
 import { environment } from 'src/environments/environment';
 import { ApiMainService } from 'src/service/apiService/api-main.service';
@@ -11,6 +11,19 @@ import { LocalStorageService } from 'src/service/local-storage.service';
 })
 export class SubscriptionOrderComponent implements OnInit {
   @ViewChild('subscriptionOrders') subscriptionOrders!:ElementRef<any>;
+  @HostListener("window:scroll", [])
+  onScroll(): void {
+    if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight * .90)) {
+      if (!this.scrolled) {
+        this.scrolled = true;
+        if(!this.paginationOver){
+          this.showloader = true;
+          this.pageNumber++;
+          this.getPastOrder();
+        } 
+      };
+    }
+  }
   imageUrl = environment.imageUrl;
   pastOrderList:any = [];
   userProfile:any = {};
@@ -19,6 +32,7 @@ export class SubscriptionOrderComponent implements OnInit {
   pageNumber = 1;
   paginationOver = false;
   order: any;
+  scrolled = false;
 
   constructor(private apiMainService:ApiMainService, private localStorageService:LocalStorageService){}
 
@@ -44,13 +58,16 @@ export class SubscriptionOrderComponent implements OnInit {
       if(pastOrderList && pastOrderList.length > 0){
         this.pastOrderList = [...this.pastOrderList,...pastOrderList];
         this.showloader = false;
+        this.scrolled = false;
       }else{
         this.paginationOver = true;
         this.showloader = false;
+        this.scrolled = false;
       }
     }).catch(error =>{
       this.paginationOver = true;
       this.showloader = false;
+      this.scrolled = false;
     });    
   }
 
@@ -84,17 +101,6 @@ export class SubscriptionOrderComponent implements OnInit {
       }
       return listOrder;
     });
-  }
-
-  logScrollEnd($event:any){
-    const element = $event.target;
-    // if (element.clientHeight+10 >= this.subscriptionOrdersListEndDiv.nativeElement.getBoundingClientRect().top){
-    //     if(!this.paginationOver){
-    //       this.showloader = true;
-    //       this.pageNumber++;
-    //       this.getPastOrder();
-    //     }        
-    // }
   }
 
   toggleCanvas(){

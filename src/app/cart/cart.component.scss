@@ -175,7 +175,7 @@
     height: 8%;
     position: fixed;
     /* top: 0; */
-    bottom: 7%;
+    bottom: 8%;
     right: 1%;
     display: inline-flex;
     flex-direction: row;
@@ -930,7 +930,7 @@
         background: url(~/src/assets/cart/coupan_icon.svg);
         background-size: 18px !important;
         background-repeat: no-repeat !important;
-        background-position: 0px 10px;
+        background-position: 0px 8px;
         padding-left: 25px;
         padding-top: 7px;
         margin-left: 0;
@@ -1239,5 +1239,20 @@ mat-form-field {
     }
     .cart-wrapper{
         margin-bottom:150px;
+    }
+    .voucherStyle{
+        .voucherInput{
+            width:80%
+        }
+    }
+    .couponcard{
+        .leftSide, .rightSide{
+            width:100%;
+        }
+    }
+    .voucherStyle{
+        .voucherbtn{
+            padding-top:8px;
+        }
     }
 }
