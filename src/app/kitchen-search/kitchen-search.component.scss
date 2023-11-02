@@ -98,3 +98,12 @@
         margin-top:3%;
     }
 }
+
+@media only screen and (min-width:600px) and (max-width:820px){
+    .mobile-view{
+        display:block;
+    }
+    .backarrow{
+        left:70px;
+    }
+}
