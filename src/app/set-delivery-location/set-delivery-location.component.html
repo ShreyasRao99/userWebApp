@@ -14,8 +14,8 @@
                         </div>
                     </div>
                     <div class="buttons" *ngIf="!showSkipButton">
-                        <button class="btn btn-primary" [disabled]="!serviceAvailable" (click)="toggleAdditionalDetails()">ADD MORE DETAILS</button>
-                        <button class="btn btn-secondary" [disabled]="!serviceAvailable" (click)="sendCurrentLocation('skip')">SKIP & ADD LATER</button>
+                        <button class="btn btn-primary" *ngIf="userProfile" [disabled]="!serviceAvailable" (click)="toggleAdditionalDetails()">ADD MORE DETAILS</button>
+                        <button class="btn btn-secondary" [disabled]="!serviceAvailable" (click)="sendCurrentLocation('skip')">{{userProfile?'SKIP & ADD LATER':'CONTINUE'}}</button>
                         <div class="mt-2" *ngIf="!serviceAvailable">Service not available at this location</div>
                     </div>
                     <form class="moreDetails" *ngIf="showSkipButton">
