@@ -357,7 +357,7 @@ export class CartComponent implements OnInit, OnDestroy {
         address = formatedAddess.address
       }
       const landmark = formatedAddess.landmark ? `, Landmark: ${formatedAddess.landmark}, ` : '';
-      this.addressSelected = formatedAddess.location ? `${address}${formatedAddess.location}${landmark}` : `${address}${landmark}`;
+      this.addressSelected = formatedAddess.location ? `${address ? address : ''}${formatedAddess.location}${landmark}` : `${address}${landmark}`;
       this.tagLocation = formatedAddess.tagLocation;
       console.log(this.customerLocation)
       if (this.cartObj && this.cartObj.kitchen && this.cartObj.kitchen.geolocation) {

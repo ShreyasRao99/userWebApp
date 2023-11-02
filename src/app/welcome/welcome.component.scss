@@ -252,7 +252,7 @@
 
 .login {
     // width: 40% !important;
-
+    
     .form-section {
         padding-top: 50%;
     }
@@ -375,79 +375,38 @@
         }
     }
 
-    .right-div-wrapper {
-        text-align: center !important;
-    }
-
-    .text-col,
-    .img-col {
-        padding: 0 !important;
-        text-align: center;
-    }
-
-    .mid-section {
-        .header1 {
-            margin-top: 2%;
+    .btn { 
+        &.mobile-view{
+            padding:5%;
         }
     }
 
-    .footer-qr-div {
-        padding-bottom: 5%;
+    .second{
+        padding-top:13px;
     }
 
-    .div-1 {
-        // width: 50%;
-        padding-left: 17% !important;
-    }
-
-    .div-2 {
-        // width: 50%;
-        padding-left: 17% !important;
-        margin-left: 0;
-    }
-
-    .search-section {
-        padding: 0 !important;
-    }
-
-    .form-control {
-        width: 55% !important;
-    }
-
-    .div-two {
-        width: 30% !important;
-    }
-
-    .div-three {
-        width: 15% !important;
-    }
-
-    .first-line,
-    .second-line,
-    .operational-cities {
-        text-align: center;
-    }
-
-    .city-container {
-        justify-content: space-between;
-    }
-
-    .topBtns {
-        display: none;
-
-        &.mobile {
-            display: block;
-            text-align: center;
+    .search-form{
+        .savedAddresses{
+            margin-left:0;
         }
     }
 
-    .flex-div {
-        width: 100% !important;
+    .input-font{
+        font-size:15px;
     }
 }
 
 
-@media only screen and (max-width: 820px) {
+@media only screen and (min-width:600px) and (max-width: 820px) {
+
+    .desktop-view{
+        display:none;
+    }
+
+    .mobile-view{
+        display:block;
+        padding:0;
+    }
     .offcanvas {
         width: 100% !important;
 
@@ -456,35 +415,19 @@
         }
     }
 
-    .text-col,
-    .img-col {
-        padding: 0 !important;
-        text-align: center;
+    .getLocation{
+        padding:3%;
     }
 
-    .search-section {
-        padding: 0 !important;
-    }
-
-    .topBtns {
-        display: none;
-
-        &.mobile {
-            display: block;
-            // text-align:center;
+    .btn { 
+        &.mobile-view{
+            padding:3%;
         }
     }
 
-    .flex-div {
-        margin-top: 3%;
-        width: 80%;
-    }
-
-    .operational-cities {
-        margin-top: 3%;
-    }
-
-    .form-control::placeholder {
-        font-size: 15px;
+    .search-form{
+        .savedAddresses{
+            margin-left:0;
+        }
     }
 }

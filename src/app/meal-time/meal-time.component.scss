@@ -33,6 +33,12 @@ div[scrollx=true] {
     width: 100%;
 }
 
+@media only screen and (max-width:600px){
+  .sectionHeader{
+    font-size:14px;
+  }
+}
+
 // .specialStyle{
 //     width: 206px;
 //     margin: 7px 9px 4px 8px;

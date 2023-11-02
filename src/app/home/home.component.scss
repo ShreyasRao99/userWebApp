@@ -144,6 +144,10 @@ div[scrollx=true] {
 
 
 @media only screen and (max-width:600px) {
+    .scrollBtns{
+        display:none;
+    }
+
     .desktopView{
         display:none;
     }
@@ -153,17 +157,30 @@ div[scrollx=true] {
     }
 
     .itemStyle {
-        margin: 0 25px 0 0 !important;
+        margin: 0 7% 0 0 !important;
     }
 
     .meal-time,
     .searchBar {
         display: block;
     }
+    .sectionHeader{
+        font-size:14px;
+    }
 }
 
-@media only screen and (max-width:820px) {
+@media only screen and (min-width:600px) and (max-width:820px) {
+    .searchIcon{
+        padding-left:5%;
+    }
     .scrollBtns {
         display: none;
+    }
+    .desktopView{
+        display:none;
+    }
+
+    .mobileView{
+        display:block;
     }
 }

@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "startHostIP": "ng serve --host 0.0.0.0",
+    "startHostIP": "ng serve --host 0.0.0.0 --configuration staging",
     "start": "ng serve --configuration development",
     "startstaging": "ng serve --configuration staging",
     "startprod": "ng serve --configuration production",

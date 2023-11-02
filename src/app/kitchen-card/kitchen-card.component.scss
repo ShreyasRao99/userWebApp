@@ -26,7 +26,7 @@ h6 {
 }
 
 .speacial {
-    font-size: 13px;
+    font-size: 11px;
 }
 
 .ratingStar {
@@ -46,7 +46,7 @@ h6 {
     background-position: 1px 4px;
     padding-left: 12px;
     padding-right: 5px;
-    font-size: 12px;
+    font-size: 10px;
 }
 
 .card-container {
@@ -190,33 +190,23 @@ h6 {
 }
 
 @media only screen and (max-width: 600px) {
-    .card{
+    .card {
+
         // padding-right:2%;
-        .card-body{
+        .card-body {
             border-radius: 0px 0px 10px 10px;
             box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.2);
         }
+
         width:140px;
-        img{
-            height:140px;
-            width:140px;
+
+        img {
+            height: 140px;
+            width: 140px;
         }
     }
-    .kitchenName{
-        font-size:14px;
+
+    .kitchenName {
+        font-size: 13px;
     }
-    // .card{
-    //     display:flex;
-    //     flex-direction:row;
-    //     img{
-    //         height:110px !important;
-    //         width:125px !important;
-    //     }
-    // }
-    // .card-img-top{
-    //     width:50%;
-    // }
-    // .card-body{
-    //     width:50%
-    // }
-  }
+}

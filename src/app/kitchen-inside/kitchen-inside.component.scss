@@ -32,7 +32,7 @@
 
 .togglediv {
     font-size: 12px;
-    padding: 10px 5%;
+    padding: 10px 5% 0 5%;
 
     .itemFilterdiv {
         display: inline-block;
@@ -754,10 +754,15 @@ button.accordion-button:focus {
 .mobileView{
     display:none;
 }
-
+.mobileBlock{
+    display:none;
+}
 @media only screen and (max-width: 600px) {
     .mobileView{
         display:flex;
+    }
+    .mobileBlock{
+        display:block;
     }
     .desktopView{
         display:none;
@@ -768,6 +773,7 @@ button.accordion-button:focus {
     }
     .floatingMenu{
         left: 32%;
+        bottom:60px;
     }
     .kitchen-wrapper{
         margin-top:30% !important;
@@ -775,13 +781,20 @@ button.accordion-button:focus {
     .distancediv {
         width: 40%;
     }
-    
     .timingdiv {
         width: 60%;
     }
+    .filterandcapsule{
+        padding:0 1%;
+        margin-top:3%;
+    }
 }
 
-@media only screen and (max-width: 820px) {
+@media only screen and (min-width: 600px) and (max-width:820px) {
+    .floatingMenu{
+        bottom:60px;
+        left:40%;
+    }
     .positionBottom {
         left: 0;
         width: 100%;

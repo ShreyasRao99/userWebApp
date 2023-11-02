@@ -25,15 +25,15 @@
                         <div class="form-group">
                             <input type="text"  [(ngModel)]="landmark" name="landmark" class="form-control shadow-none" placeholder="Landmark">
                         </div>
-                        <div class="btn-group" role="group">
-                            <input type="radio" (click)="selectTag('home')" class="btn-check" name="homebtn" id="homebtn" autocomplete="off">
-                            <label class="btn btn-outline-danger" for="homebtn">Home</label>
-
-                            <input type="radio" (click)="selectTag('work')" class="btn-check"  name="workbtn" id="workbtn" autocomplete="off">
-                            <label class="btn btn-outline-danger" for="workbtn">Work</label>
-
-                            <input type="radio" (click)="selectTag('other')" class="btn-check"  name="otherbtn" id="otherbtn" autocomplete="off">
-                            <label class="btn btn-outline-danger" for="otherbtn">Other</label>
+                        <div class="btn-group-div">
+                            <button type="radio" (click)="selectTag('home')" [ngClass]="{'active-btn':tagLocation === 'home'}" class="btn btn-outline-danger">Home</button>
+                            <!-- <label class="btn btn-outline-danger" for="homebtn">Home</label> -->
+                            <button type="radio" (click)="selectTag('work')" [ngClass]="{'active-btn':tagLocation === 'work'}" class="btn btn-outline-danger">Work</button>
+                            <!-- <input type="radio" (click)="selectTag('work')" class=""  name="workbtn" id="workbtn" autocomplete="off"> -->
+                            <!-- <label class="btn btn-outline-danger" for="workbtn">Work</label> -->
+                            <button type="radio" (click)="selectTag('other')" [ngClass]="{'active-btn':tagLocation === 'other'}" class="btn btn-outline-danger">Other</button>
+                            <!-- <input type="radio" (click)="selectTag('other')" class=""  name="otherbtn" id="otherbtn" autocomplete="off"> -->
+                            <!-- <label class="btn btn-outline-danger" for="otherbtn">Other</label> -->
                         </div>
                         <button type="button" class="btn btn-primary mt-3 p-3" [disabled]="!(tagLocation && address && landmark)" (click)="sendCurrentLocation(false)">SAVE
                             ADDRESS AND PROCEED</button>

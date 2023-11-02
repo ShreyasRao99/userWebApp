@@ -7,8 +7,8 @@
         <span role="button" #canvasAddress data-bs-toggle="offcanvas" data-bs-target="#location" class="location"
             (click)="callFindMyAddress()">{{currentAddress?.location ? currentAddress?.location :
             currentAddress?.address}}</span>
-        <i class="mt-1 location-chevron pointer bi bi-chevron-down" data-bs-toggle="offcanvas" data-bs-target="#location"
-            (click)="callFindMyAddress()"></i>
+        <i class="mt-1 location-chevron pointer bi bi-chevron-down" data-bs-toggle="offcanvas"
+            data-bs-target="#location" (click)="callFindMyAddress()"></i>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -49,9 +49,9 @@
     </nav>
     <div class="mobileLocationWrapper">
         <span role="button" #canvasAddress data-bs-toggle="offcanvas" data-bs-target="#location" class="mobileLocation"
-        (click)="callFindMyAddress()">{{currentAddress?.location ? currentAddress?.location :
-        currentAddress?.address}}</span>
-    <!-- <i class="mt-1 pointer bi bi-chevron-down" data-bs-toggle="offcanvas" data-bs-target="#location"
+            (click)="callFindMyAddress()">{{currentAddress?.location ? currentAddress?.location :
+            currentAddress?.address}}</span>
+        <!-- <i class="mt-1 pointer bi bi-chevron-down" data-bs-toggle="offcanvas" data-bs-target="#location"
         (click)="callFindMyAddress()"></i> -->
     </div>
 </div>
@@ -59,29 +59,29 @@
 <div class="mobile-header">
     <div class="homeHeader">
         <div class="addressStyle">
-          <div class="deliverText">Deliver to </div>
-          <div class="header5 currentLocation">
-            <span class="taglocation" #canvasAddress data-bs-toggle="offcanvas" data-bs-target="#location">
-                <i class="bi bi-house" *ngIf="tagLocation === 'home' "></i>
-                <i class="bi bi-briefcase" *ngIf="tagLocation === 'work' "></i>
-                <i class="bi bi-tag" *ngIf="tagLocation === 'other' "></i>
-                {{currentAddress?.location ? currentAddress?.location :
+            <div class="deliverText">Deliver to </div>
+            <div class="header5 currentLocation">
+                <span class="taglocation" #canvasAddress data-bs-toggle="offcanvas" data-bs-target="#location">
+                    <i class="bi bi-house" *ngIf="tagLocation === 'home' "></i>
+                    <i class="bi bi-briefcase" *ngIf="tagLocation === 'work' "></i>
+                    <i class="bi bi-tag" *ngIf="tagLocation === 'other' "></i>
+                    {{currentAddress?.location ? currentAddress?.location :
                     currentAddress?.address}}
-            </span>
-          </div>
+                </span>
+            </div>
         </div>
         <div class="cashback" (click)="goToCashBackTab()">
-          <div class="mcoin">{{cashbackBalance}}</div>
+            <div class="mcoin">{{cashbackBalance}}</div>
         </div>
         <div class="profilePic" (click)="goToAccount()">
-          <div>
-            <img *ngIf="userProfile && userProfile.imageUrl" class="mobileProfileImg" 
-            [src]="imageUrl + userProfile.imageUrl">
-            <span class="img-span" *ngIf="!userProfile || !userProfile.imageUrl"><i class="bi bi-person"></i></span>
-          </div>
+            <div>
+                <img *ngIf="userProfile && userProfile.imageUrl" class="mobileProfileImg"
+                    [src]="imageUrl + userProfile.imageUrl">
+                <span class="img-span" *ngIf="!userProfile || !userProfile.imageUrl"><i class="bi bi-person"></i></span>
+            </div>
         </div>
         <!-- <div class="changeStyle bold header5" (click)="showLocationOnMap(false)">CHANGE</div> -->
-      </div>
+    </div>
 </div>
 
 <div class="delivery-location">
@@ -113,7 +113,9 @@
                                         <h6>SAVED ADDRESSES</h6>
                                         <div class="mt-3 d-flex flex-row"
                                             *ngFor="let address of userProfile.addressList">
-                                            <i class="bi bi-house"></i>
+                                            <i class="bi bi-house" *ngIf="address.tagLocation === 'home' "></i>
+                                            <i class="bi bi-briefcase" *ngIf="address.tagLocation === 'work' "></i>
+                                            <i class="bi bi-tag" *ngIf="address.tagLocation === 'other' "></i>
                                             <div class="flex-content" (click)="setAddress(address)">
                                                 <div><b>{{address.tagLocation}}</b></div>
                                                 <div class="location-canvas-info">{{address.location}}</div>
@@ -164,7 +166,8 @@
                         account' : 'create an account'}}</span></div>
                 <form class="mt-3" [formGroup]="LoginForm" *ngIf="!showOTPscreen && formToShow == 'Login'">
                     <div class="form-group">
-                        <input type="text" class="form-control shadow-none" formControlName="phoneNo"
+                        <input type="text" class="form-control shadow-none"
+                            [ngClass]="{'input-font':formToShow == 'Login'}" formControlName="phoneNo"
                             id="formGroupExampleInput" placeholder="Your Mobile Number">
                         <div *ngIf="LoginForm.controls.phoneNo.invalid && LoginForm.controls.phoneNo.dirty">
                             Please enter a valid phone number

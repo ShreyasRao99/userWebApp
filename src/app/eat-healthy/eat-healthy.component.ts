@@ -6,19 +6,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./eat-healthy.component.scss']
 })
 export class EatHealthyComponent implements OnInit {
+  sliderCount: any = 0;
 
   ngOnInit(): void {
     const swiperEl: any = document.querySelector('swiper-container');
     const swiperParams = {
       slidesPerView: 3,
       spaceBetween: 10,
-      direction:'vertical',
+      // autoHeight:true,
+      // direction:'vertical',
       breakpoints: {
         480:{
           slidesPerView: 1
         },
         640: {
-          slidesPerView: 2,
+          slidesPerView: 1,
         },
         1024: {
           slidesPerView: 3,
@@ -31,6 +33,11 @@ export class EatHealthyComponent implements OnInit {
       },
     };
     Object.assign(swiperEl, swiperParams);
+  }
+
+  slideChange(event:any){
+    this.sliderCount = event.detail[0].activeIndex;
+    // console.log(this.sliderCount)
   }
 
 }

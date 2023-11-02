@@ -57,9 +57,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="">
-                    <!-- <app-coupon-display [kitchenCoupon]="subscriptionOfferText" [orderType]="orderType"
-                        [offerText]="offerText"></app-coupon-display> -->
+                <div class="desktopView">
                     <div class="col-12 mt-4">
                         <div class="orderCapsule twoCapsule pointer" (click)="selectOrderType('allDay')"
                             *ngIf="!noAlldayMenu" [ngClass]="{'selectedOrder': orderType === 'allDay'}">All Day</div>
@@ -81,14 +79,34 @@
                                 Jain<span class="crossIcon" [ngClass]="{selectedIcon: itemTypeFilter.Jain}">x</span>
                             </div>
                         </span>
-                    </div>
-                </div>
-                <div class="col-12" *ngIf="kitchen.kitchenOpened">
-                    <div class="bgsidepadding5">
-                        <div class="orderCapsule filterpopupdiv pointer" (click)="showFilters()">
+                        <div class="orderCapsule filterpopupdiv" (click)="showFilters()">
                             <span *ngIf="filterApplied" class="filterPresent">
                                 <i class="bi bi-check"></i>
-                            </span>
+                            </span> 
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="col-12" *ngIf="kitchen.kitchenOpened">
+                    <div class="mobileBlock">
+                        <div class="filterandcapsule">   
+                            <div class="orderCapsule filterpopupdiv" (click)="showFilters()">
+                                <span *ngIf="filterApplied" class="filterPresent">
+                                    <i class="bi bi-check"></i>
+                                </span> 
+                            </div>                    
+                            <div class="orderCapsule twoCapsule" (click)="selectOrderType('allDay')" *ngIf="!noAlldayMenu"
+                            [ngClass]="{'selectedOrder': orderType === 'allDay'}">All Day</div>
+                            <div class="orderCapsule" (click)="selectOrderType('advance')"
+                            [ngClass]="{'selectedOrder twoCapsule': orderType === 'advance'}">Advance Order</div>
+                        </div>
+                        <div class="togglediv">
+                            <div class="itemFilterdiv" (click)="changeItemFilter('Veg')" [ngClass]="{selected: itemTypeFilter.Veg}">
+                                <div class="vegIcon filterIcon"></div>Veg<span class="crossIcon" [ngClass]="{selectedIcon: itemTypeFilter.Veg}">x</span></div>
+                            <div class="itemFilterdiv" (click)="changeItemFilter('NonVeg')" [ngClass]="{selected: itemTypeFilter.NonVeg}">
+                                <div class="nonvegIcon filterIcon"></div>Non-Veg<span class="crossIcon" [ngClass]="{selectedIcon: itemTypeFilter.NonVeg}">x</span></div>
+                            <div class="itemFilterdiv" (click)="changeItemFilter('Jain')" [ngClass]="{selected: itemTypeFilter.Jain}">
+                                Jain<span class="crossIcon" [ngClass]="{selectedIcon: itemTypeFilter.Jain}">x</span></div>
                         </div>
                     </div>
                     <div class="bgsidepadding5" *ngIf="orderType === 'subscription'">

@@ -14,7 +14,7 @@
                         </div>
                     </div>
                 </div>
-                <div *ngFor="let group of filteredSubCategoryGroupList" [id]="group.groupName" class="accordiondiv">
+                <div *ngFor="let group of filteredSubCategoryGroupList; let last = last" [ngClass]="{'accordion-margin':last}" [id]="group.groupName" class="accordiondiv">
                     <div class="custaccordionGrp">
                         <div class="custaccodianHeader pointer" (click)="group.closediv = !group.closediv">
                             <i class="bi bi-chevron-down right header2" *ngIf="group.closediv"></i>
@@ -100,7 +100,7 @@
                     <div class="noMealPlan header3 bold grey center">No Meal Plan found in your selected location</div>
                 </div>
                 <div class="positionBottom">
-                    <div class="container footerdesign pointer" (click)="goToMainCart()"
+                    <div class="footerdesign pointer" (click)="goToMainCart()"
                         *ngIf="cartObj && cartObj.itemList && cartObj.itemList.length > 0">
                             <div class="row">
                                 <div class="col-6 col-lg-9 col-md-9">

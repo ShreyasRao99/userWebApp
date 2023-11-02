@@ -1,19 +1,19 @@
 @import "/src/styles.scss";
 
-.feedbackPageBG{
+.feedbackPageBG {
     height: 100%;
     width: 100%;
     background: white;
 }
 
-.feedbackText{
+.feedbackText {
     border-radius: 18px;
     border: 2px solid $primary-color1;
     padding: 10px;
     --margin: 10px;
 }
 
-.submit{
+.submit {
     padding: 15px 40px;
     background: $primary-color1;
     color: white;
@@ -21,11 +21,29 @@
     border-radius: 15px;
 }
 
-.types{
+.types {
     padding-left: 10px;
     font-size: 3.5vw;
 }
 
-.form-control:focus{
+.form-control:focus {
     box-shadow: none;
+}
+
+.backIcon {
+    display: none;
+}
+
+@media only screen and (max-width:600px) {
+    .backIcon {
+        font-size: 20px;
+        padding: 0px 15px 0px 10px;
+        display: inline-block;
+    }
+}
+@media only screen and (min-width:600px) and (max-width:820px){
+    .backIcon{
+        display:inline-block;
+        font-size:20px;
+    }
 }

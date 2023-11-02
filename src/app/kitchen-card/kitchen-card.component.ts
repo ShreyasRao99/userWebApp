@@ -22,6 +22,7 @@ export class KitchenCardComponent implements OnInit {
   @Input() gotoAdvance: boolean = false;
   @Input() orderType!: string;
   @Input() showSpecial: boolean = false;
+  @Input() customStyle:boolean = false;
   specialityList: any[] = [];
   
 constructor(private router:Router, private runtimeStorageService:RuntimeStorageService){}

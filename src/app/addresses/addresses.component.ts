@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
 import { ApiMainService } from 'src/service/apiService/api-main.service';
 import { LocalStorageService } from 'src/service/local-storage.service';
 import { ToasterService } from '../toaster/toaster.service';
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./addresses.component.scss']
 })
 export class AddressesComponent implements OnInit {
+  @ViewChild('canvasAddress')canvasAddress!:ElementRef
   userProfile: any;
   showSkipButton: boolean = true
   patchValue: any;
@@ -44,5 +45,10 @@ export class AddressesComponent implements OnInit {
 
   goBack(){
     this.router.navigate(['/account'])
+  }
+
+  toggleCanvas(){
+    let el  = this.canvasAddress?.nativeElement;
+    el?.click();
   }
 }

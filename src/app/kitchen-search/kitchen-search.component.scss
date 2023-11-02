@@ -49,7 +49,7 @@
     }
     .second{
         width: 40%;
-        margin-top:3%;
+        // margin-top:3%;
         text-align: center;
     }
 }
@@ -83,4 +83,18 @@
     border: 1px solid #808080;
     font-size: 12px;
     padding: 8px 12px;
+}
+
+.mobile-view{
+    display:none;
+}
+
+
+@media only screen and (max-width:600px){
+    .mobile-view{
+        display:block;
+    }
+    .second{
+        margin-top:3%;
+    }
 }

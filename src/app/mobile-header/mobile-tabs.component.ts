@@ -30,6 +30,7 @@ export class MobileTabsComponent implements OnInit {
 
   tabSelect(tab:any){
     this.selectedTab = tab;
+    console.log(this.itemCount, this.selectedTab)
   }
 
 }

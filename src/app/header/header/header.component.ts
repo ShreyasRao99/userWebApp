@@ -166,8 +166,15 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       this.currentAddress = address
       this.localStorageService.insertNewDataInArray('RECENT_LOCATION_SEARCH', address, 5);
       this.utilityService.configureCurrentLocation(address);
+      // this.getCurrentLocation(false)
+      if(!this.userProfile){
+        this.sendDataToComponent.publish('ADDRESS_FROM_DELIVERY', this.currentAddress)
+        this.toggleCanvas()
+      }
+      else{
+        this.getCurrentLocation(false)
+      }
       // this.showMap = true
-      this.getCurrentLocation(false)
       console.log(this.showMap)
       // this.getCurrentLocation(false)
     });

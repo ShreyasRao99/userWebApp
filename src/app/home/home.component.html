@@ -12,7 +12,7 @@
                 <div class="scrollable-kitchen">
                     <div class="near-kitchen-list">
                         <div class="d-flex flex-row mt-4">
-                            <div class="sectionHeader col-8">Restaurants with online food delivery in Pune</div>
+                            <div class="sectionHeader col-8">Family Kitchens Near You</div>
                             <div class="col-4 alignRight scrollBtns">
                                 <button (click)="scrollRight()" class="me-2"><i class="bi bi-arrow-left"></i></button>
                                 <button (click)="scrollLeft()"><i class="bi bi-arrow-right"></i></button>
@@ -35,7 +35,7 @@
                 </div>
                 <div class="kitchen-section mt-4" *ngIf="kitchenList.length>0">
                     <div class="kitchen-list bgpadding3">
-                        <div class="left sectionHeader">Restaurants Nearby</div>
+                        <div class="left sectionHeader">Explore Family Kitchens</div>
                         <app-kitchen-near [kitchenList]="kitchenList"></app-kitchen-near>
                     </div>
                 </div>
