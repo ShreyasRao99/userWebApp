@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiMainService } from 'src/service/apiService/api-main.service';
 import { LocalStorageService } from 'src/service/local-storage.service';
@@ -9,9 +9,21 @@ import { LocalStorageService } from 'src/service/local-storage.service';
   styleUrls: ['./my-wallet.component.scss']
 })
 export class MyWalletComponent implements OnInit {
-
+  @HostListener("window:scroll", [])
+  onScroll(): void {
+    if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight * .90)) {
+      if (!this.scrolled) {
+        this.scrolled = true;
+        if(!this.paginationOver){
+          this.showloader = true;
+          this.pageNumber++;
+          this.getwithdrawalHistory();
+        } 
+      };
+    }
+  }
   constructor(private router:Router, private localStorageService:LocalStorageService, private apiMainService:ApiMainService){}
-
+  scrolled = false
   wallet_balance = 0;
   userProfile:any = {};
   transactionHistoryList:any = [];
@@ -50,25 +62,16 @@ export class MyWalletComponent implements OnInit {
       if(transactionHistoryList && transactionHistoryList.length > 0){
         this.transactionHistoryList = [...this.transactionHistoryList, ...transactionHistoryList];
         this.showloader = false;
+        this.scrolled = false
       }else{
         this.paginationOver = true;
         this.showloader = false;
+        this.scrolled = false
       }
     }catch(error){
       this.paginationOver = true;
       this.showloader = false;
+      this.scrolled = false
     }
-  }  
-
-  logScrollEnd($event:any){
-    // const element = $event.target;
-    // if (element.clientHeight+10 >= this.historyListEndDiv.nativeElement.getBoundingClientRect().top){
-    //     if(!this.paginationOver){
-    //       this.showloader = true;
-    //       this.pageNumber++;
-    //       this.getwithdrawalHistory();
-    //     }        
-    // }
   }
-
 }

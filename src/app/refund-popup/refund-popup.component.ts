@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-refund-popup',
@@ -8,6 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class RefundPopupComponent implements OnInit {
   @Input() props: any;
   @Output() refundStatus: EventEmitter<any> = new EventEmitter<any>()
+  @ViewChild('comments')comments!:ElementRef
   order: any = {};
   refundAmt = 0;
   comment = '';

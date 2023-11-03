@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment.development';
 import { ApiMainService } from 'src/service/apiService/api-main.service';
@@ -16,7 +16,7 @@ import { ChangeDetectionStrategy } from '@angular/compiler';
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss']
 })
-export class AccountComponent implements OnInit {
+export class AccountComponent implements OnInit, OnDestroy {
   @ViewChild('loginCanvas') loginCanvas!: ElementRef<HTMLElement>;
   imageUrl = environment.imageUrl;
   appVersion = environment.appVersion;
@@ -226,7 +226,7 @@ export class AccountComponent implements OnInit {
   }
 
   logoutPopup() {
-    this.confirmationModalService.modal(`Leaving so soon?`,
+    this.confirmationModalService.modal({data:`Leaving so soon?`, type:3},
       () => this.logOut(), this);
   }
 
@@ -285,6 +285,11 @@ export class AccountComponent implements OnInit {
 
   goback(){
     this.router.navigate(['/home'])
+  }
+
+  ngOnDestroy(){
+    clearInterval(this.intervalCounter)
+    this.sendDataToComponent.unsubscribe('UPDATE_USER_PROFILE');
   }
 
 }

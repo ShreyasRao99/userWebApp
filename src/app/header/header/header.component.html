@@ -39,12 +39,19 @@
                     <a class="nav-link" (click)="logOut()">Log Out</a>
                 </li> -->
             </ul>
-            <ul class="profile-list ms-auto">
+            <ul class="profilePic profile-list pointer" (click)="goToMyAccount()">
+                <li>
+                    <img *ngIf="userProfile && userProfile.imageUrl" class="mobileProfileImg"
+                        [src]="imageUrl + userProfile.imageUrl">
+                    <span class="img-span" *ngIf="!userProfile || !userProfile.imageUrl"><i class="bi bi-person"></i></span>
+                </li>
+            </ul>
+            <!-- <ul class="profile-list ms-auto">
                 <li *ngIf="userProfile" (click)="goToMyAccount()">
                     <img class="profileImg img-fluid mr-2"
                         [src]="userProfile.imageUrl?imageUrl+userProfile.imageUrl:'assets/images/dummyUpload.png'">
                 </li>
-            </ul>
+            </ul> -->
         </div>
     </nav>
     <div class="mobileLocationWrapper">
@@ -118,7 +125,7 @@
                                             <i class="bi bi-tag" *ngIf="address.tagLocation === 'other' "></i>
                                             <div class="flex-content" (click)="setAddress(address)">
                                                 <div><b>{{address.tagLocation}}</b></div>
-                                                <div class="location-canvas-info">{{address.location}}</div>
+                                                <div class="location-canvas-info">{{address.address}}, {{address.location}}, landmark: {{address.landmark}}</div>
                                             </div>
                                         </div>
                                     </div>

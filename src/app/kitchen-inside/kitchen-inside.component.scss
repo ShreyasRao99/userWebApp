@@ -799,4 +799,13 @@ button.accordion-button:focus {
         left: 0;
         width: 100%;
     }
+    .mobileView{
+        display:flex;
+    }
+    .mobileBlock{
+        display:block;
+    }
+    .desktopView{
+        display:none;
+    }
 }

@@ -55,7 +55,7 @@ export class MainSliderComponent implements OnInit {
       this.runtimeStorageService.setCacheData('SUBSCRIPTION_LOOKED', { packageCategory: banner.packageCategory, packageSubCategory: banner.packageSubCategory });
       this.router.navigate(['/subscription']);
     } else if (banner.type === 'bulkOrder') {
-      // this.navCtrl.navigateForward(['/bulkOrder']);
+      this.router.navigate(['/bulk-order']);
     }
   }
 }

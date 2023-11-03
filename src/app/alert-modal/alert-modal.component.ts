@@ -27,7 +27,7 @@ export class AlertModalComponent implements OnInit {
     this.showDialog = false;
   }
   confirm() {
-    this.modalObj.callback.apply(this.modalObj.context);
+    this.modalObj.callback?.apply(this.modalObj.context);
     this.cancel();
   }
 

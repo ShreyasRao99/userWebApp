@@ -28,7 +28,7 @@
                     <div class="col-6 mt-4" *ngFor="let address of userProfile.addressList; let i = index">
                       <div class="taglocationdiv mt-2">
                         <div class="taglocation2">{{address.tagLocation}}</div>
-                        <div class="completeAdd">{{address.location}}</div>
+                        <div class="completeAdd">{{address.address}}, {{address.location}}, landmark: {{address.landmark}}</div>
                         <button class="btn btn-danger mt-3" (click)="toggleAddressSelected(address,i)">DELIVER
                           HERE</button>
                         <div *ngIf="serviceNotAvailable  && selectedAddressIndex == i">No service at this location</div>

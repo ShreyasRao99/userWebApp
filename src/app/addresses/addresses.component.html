@@ -8,7 +8,7 @@
           <i class="bi bi-tag" *ngIf="address.tagLocation === 'other' "></i></span>
         <div class="address-div">
           <div><b>{{address.tagLocation}}</b></div>
-          <div>{{address.location}}</div>
+          <div>{{address.address}}, {{address.location}}, landmark: {{address.landmark}}</div>
           <span class="editSpan" (click)="editAddress(address)" data-bs-toggle="offcanvas"
             data-bs-target="#editAddress">EDIT</span>
           <span class="deleteSpan" (click)="deleteAddress(i)">DELETE</span>
@@ -31,7 +31,7 @@
           <button type="button" style="display:none;" class="btn-close text-reset" #mapCanvas
             data-bs-dismiss="offcanvas"></button>
           <app-set-delivery-location *ngIf="showMap" [showSkipButton]="showSkipButton" [patchValue]="patchValue"
-            (toggleMap)="toggleCanvas()"></app-set-delivery-location>
+            (toggleMap)="toggleCanvas()" (closeOffCanvas)="toggleCanvas()"></app-set-delivery-location>
         </div>
       </div>
     </div>

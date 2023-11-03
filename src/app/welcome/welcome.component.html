@@ -223,7 +223,7 @@
                         <i class="bi bi-tag" *ngIf="address.tagLocation === 'other' "></i>
                         <div class="flex-content" (click)="setAddress(address)">
                           <div><b>{{address.tagLocation}}</b></div>
-                          <div class="location-canvas-info">{{address.location}}</div>
+                          <div class="location-canvas-info">{{address.address}}, {{address.location}}, landmark: {{address.landmark}}</div>
                         </div>
                       </div>
                     </div>

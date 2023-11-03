@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { regionalCuisinelist } from './../../config/regional.config';
 import { SendDataToComponent } from 'src/service/sendDataToComponent';
@@ -12,7 +12,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './kitchen-search.component.html',
   styleUrls: ['./kitchen-search.component.scss']
 })
-export class KitchenSearchComponent implements OnInit {
+export class KitchenSearchComponent implements OnInit, OnDestroy {
   @ViewChild('filterModal') filterModal: any;
   @HostListener("window:scroll", [])
   onScroll(): void {
@@ -144,5 +144,9 @@ export class KitchenSearchComponent implements OnInit {
 
   goBack(){
     this.router.navigate(['/home'])
+  }
+
+  ngOnDestroy(){
+    this.sendDataToComponent.unsubscribe('RELOAD_KITCHEN_SEARCH');
   }
 }

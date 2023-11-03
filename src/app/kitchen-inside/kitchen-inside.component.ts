@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiMainService } from 'src/service/apiService/api-main.service';
 import { CartManagementService } from 'src/service/cart-management.service';
@@ -15,7 +15,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './kitchen-inside.component.html',
   styleUrls: ['./kitchen-inside.component.scss']
 })
-export class KitchenInsideComponent implements OnInit {
+export class KitchenInsideComponent implements OnInit, OnDestroy {
   @ViewChild("menuModal") menuModal: any;
   @ViewChild("addonsModal") addonsModal: any;
   @ViewChild("filterModal") filterModal: any;
@@ -583,5 +583,11 @@ export class KitchenInsideComponent implements OnInit {
 
   goback() {
     this.router.navigate(['/home'])
+  }
+
+  ngOnDestroy(){
+    // this.saveKitchenfav();
+    this.sendDataToComponent.unsubscribe('RELOAD_KITCHEN_SEARCH');
+    this.sendDataToComponent.unsubscribe('UPDATE_KITCHEN_SUB');  
   }
 }

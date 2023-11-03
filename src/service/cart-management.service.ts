@@ -125,7 +125,7 @@ export class CartManagementService {
             this.updateCart();
             return item;
         } else {
-            this.confirmationModalService.modal(`Order from different kitchen or order type is already present in the cart. Do you want to override it?`,
+            this.confirmationModalService.modal({data:`Order from different kitchen or order type is already present in the cart. Do you want to override it?`, type:1},
                 () => {
                     this.resetCart();
                     this.updateCart();

@@ -32,7 +32,7 @@ export class MyAccountComponent implements OnInit {
   }
 
   logoutPopup() {
-    this.confirmationModalService.modal(`Leaving so soon?`,
+    this.confirmationModalService.modal({data:`Leaving so soon?`, type:1},
       () => this.logOut(), this);
   }
 

@@ -11,7 +11,7 @@
     text-align: center;
     background: white;
     width: 350px;
-    margin: 10% auto;
+    margin: 15% auto;
     border-radius: 12px;
 }
 .dialogHeader{
@@ -22,8 +22,10 @@
     -ms-flex-pack: justify;
     justify-content: space-between;
     padding: 1rem;
-    border-bottom: 1px solid #e9ecef;
-    font-weight: bold;
+    color:#e62841;
+    font-size:18px;
+    // border-bottom: 1px solid #e9ecef;
+    // font-weight: bold;
 }
 
 .dialogbody{
@@ -31,11 +33,12 @@
     -webkit-box-flex: 1;
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
-    padding: 1rem;
+    padding: 1rem 1rem 0 1rem;
 }
 p {
     margin-top: 0;
-    margin-bottom: 1rem;
+    color:#a4a4a4;
+    // margin-bottom: 1rem;
 }
 
 .dialogfooter {
@@ -46,9 +49,40 @@ p {
     -ms-flex-pack: end;
     justify-content: flex-end;
     padding: 1rem;
-    border-top: 1px solid #e9ecef;
+    // border-top: 1px solid #e9ecef;
     .btn{
         margin: 0px 8%;
         width: 90px;
+    }
+}
+
+.btn-danger,.btn-primary{
+    background-color:white;
+    border:none;
+}
+
+.btn-danger{
+    color:#e62841;
+}
+
+.btn-primary{
+    color:#158292;
+}
+
+.btn-primary:active{
+    background-color:#158292;
+    color:white;
+    border:none;
+}
+
+.btn-danger:active{
+    background-color:#e62841;
+    color:white;
+    border:none;
+}
+
+@media only screen and (max-width:600px){
+    .dialog-content{
+        margin: 50% auto;
     }
 }
