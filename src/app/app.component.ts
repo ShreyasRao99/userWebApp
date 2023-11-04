@@ -12,9 +12,11 @@ import { register } from 'swiper/element/bundle';
 })
 export class AppComponent implements OnInit {
   currentRoute: string;
+  routeChangeCount: number = 0;
 
   constructor(private googleMapService: GoogleMapService, private router:Router, private localStorageService:LocalStorageService){
     this.currentRoute = "";
+
     this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationStart) {
         // Show loading indicator
@@ -23,9 +25,17 @@ export class AppComponent implements OnInit {
 
     if (event instanceof NavigationEnd) {
         // Hide loading indicator
+        //make rune time
         this.currentRoute = event.url;
-        this.localStorageService.setCacheData('CURRENT_ROUTE',event.url)        
+        this.localStorageService.setCacheData('CURRENT_ROUTE',event.url)     
+        if(event.url !== '/' && this.routeChangeCount === 0){
+          this.router.navigate(['/'])
+        }
+        else{
+          this.routeChangeCount++
+        }
           console.log(event);
+          console.log(this.routeChangeCount)
     }
 
     if (event instanceof NavigationError) {
@@ -54,6 +64,6 @@ export class AppComponent implements OnInit {
   }
 
   routeConditions() {
-    // this.router.navigate(['/welcome'])
+    // this.router.navigate(['/'])
   }
 }

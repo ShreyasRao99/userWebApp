@@ -11,7 +11,7 @@ const routes: Routes = [
     path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
   },
   {
-    path: 'welcome', loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomeModule)
+    path: '', loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomeModule)
   },
   {
     path: 'my-account', loadChildren: () => import('./my-account/my-account.module').then(m => m.MyAccountModule)
@@ -57,7 +57,7 @@ const routes: Routes = [
     loadChildren: () => import('./category-search/category-search.module').then(m => m.CategorySearchModule)
   },
   {
-    path:'**', component:WelcomeComponent
+    path:'**', redirectTo:''
   }
 ];
 
