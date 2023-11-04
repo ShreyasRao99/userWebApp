@@ -950,6 +950,21 @@ input[type="text"]:focus,input[type="email"]:focus,input[type="date"]:focus {
         overflow: scroll;
     }
 }
+.refundModel {
+    .modal-dialog {
+        position: relative;
+        top: 30%;
+        transform: translateY(-50%);
+    }
+
+    .modal-content {
+        padding: 5%;
+    }
+
+    .modal-open {
+        overflow: scroll;
+    }
+}
 
 // .addonsModel {
 //     .modal-dialog {

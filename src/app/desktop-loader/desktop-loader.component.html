@@ -1,0 +1,21 @@
+<div class="first-section-wrapper">
+    <div class="skeleton-wrapper" *ngFor="let item of [0,1,2,3]">
+        <div class="gravatar">
+            <ngx-skeleton-loader [theme]="{
+              width: '220px',
+              'border-radius': '20px',
+              height: '155px',
+            }"></ngx-skeleton-loader>
+        </div>
+        <div class="gravatar-title">
+            <div *ngFor="let item of [0,1,2,3]" >
+                <ngx-skeleton-loader [theme]="{
+                width: '220px',
+                'border-radius': '0',
+                height: '10px'
+              }"></ngx-skeleton-loader>
+            </div>
+        </div>
+    </div>
+    
+</div>

@@ -59,7 +59,7 @@ export class ApiHttpService {
       if(FCM_TOKEN){
         this.localStorageService.setCacheData('FCM_TOKEN',FCM_TOKEN);
       }      
-      this.router.navigate(['/welcome']);
+      this.router.navigate(['/']);
     }catch(error){
       console.log('Error while logging out', error)
     }

@@ -16,7 +16,7 @@
     <div class="outlet-div desktopView">
         <router-outlet></router-outlet>
     </div>
-    <div class="outlet-div mobileView mobile-outlet">
+    <div class="outlet-div mobileView mobile-outlet" *ngIf="hideTabs">
         <router-outlet></router-outlet>
     </div>
 </div>

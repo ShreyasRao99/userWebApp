@@ -250,6 +250,9 @@ MIT
 ngx-multiple-dates
 MIT
 
+ngx-skeleton-loader
+MIT
+
 paytm-blink-checkout-angular
 ISC
 

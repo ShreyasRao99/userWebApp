@@ -37,6 +37,10 @@
                     <div class="kitchen-list bgpadding3">
                         <div class="left sectionHeader">Explore Family Kitchens</div>
                         <app-kitchen-near [kitchenList]="kitchenList"></app-kitchen-near>
+                        <div *ngIf="showloader" #skeletonDiv>
+                            <app-mobile-loader class="mobileView"></app-mobile-loader>
+                            <app-desktop-loader class="desktopView"></app-desktop-loader>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
@@ -15,11 +15,16 @@ import { HeaderModule } from '../header/header.module';
 import { FooterModule } from '../footer/footer.module';
 import { MobileTabsModule } from '../mobile-header/mobile-tabs.module';
 import { TrackOpenOrderComponent } from '../track-open-order/track-open-order.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { MobileLoaderComponent } from '../mobile-loader/mobile-loader.component';
+import { DesktopLoaderComponent } from '../desktop-loader/desktop-loader.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     TrackOpenOrderComponent,
+    MobileLoaderComponent,
+    DesktopLoaderComponent
   ],
   imports: [
     CommonModule,
@@ -35,7 +40,9 @@ import { TrackOpenOrderComponent } from '../track-open-order/track-open-order.co
     NgbPopoverModule,
     HeaderModule,
     FooterModule,
-    MobileTabsModule
-  ]
+    MobileTabsModule,
+    NgxSkeletonLoaderModule
+  ],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomeModule { }

@@ -1,0 +1,15 @@
+.first-section-wrapper{
+    display:flex;
+    flex-direction: row;
+    .gravatar{
+        padding-right:3%;
+    }
+    .gravatar-title{
+        margin-top:15px;
+        padding-left:1%;
+    }
+}
+
+.skeleton-wrapper{
+    width:25%;
+}
