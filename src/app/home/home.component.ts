@@ -15,9 +15,13 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   @ViewChild('scrollableContent', { read: ElementRef }) public scrollableContent!: ElementRef<any>;
+  @ViewChild('skeletonDiv') skeletonDiv!: ElementRef<any>;
   @HostListener("window:scroll", [])
   onScroll(): void {
-    if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight * .90)) {
+    const element = this.skeletonDiv.nativeElement.getBoundingClientRect()
+    const topShown = element.top >= 0;
+    const bottomShown = element.bottom <= window.innerHeight;
+    if (topShown && bottomShown) {
       if (!this.scrolled) {
         this.scrolled = true;
         if (!this.paginationOver && this.serviceAvailable) {
@@ -42,7 +46,7 @@ export class HomeComponent implements OnInit {
   showloader: boolean = true;
   scrolled = false;
 
-  constructor(private apiMainService: ApiMainService, private router:Router, private utilityService: UtilityService, private sendDataToComponent: SendDataToComponent, private localStorageService: LocalStorageService, private googleMapService: GoogleMapService) {
+  constructor(private apiMainService: ApiMainService, private router: Router, private utilityService: UtilityService, private sendDataToComponent: SendDataToComponent, private localStorageService: LocalStorageService, private googleMapService: GoogleMapService) {
   }
 
   ngOnInit(): void {
@@ -118,6 +122,7 @@ export class HomeComponent implements OnInit {
         this.showloader = true;
         this.scrolled = false;
       } else {
+        // console.log(this.kitchenList)
         this.paginationOver = true;
         this.showloader = false;
         this.scrolled = false;
@@ -127,7 +132,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  goToSearch(){
+  goToSearch() {
     this.router.navigate(['/search'])
   }
 
