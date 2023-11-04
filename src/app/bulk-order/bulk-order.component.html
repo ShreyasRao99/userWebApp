@@ -85,7 +85,7 @@
                         <div class="col-lg-6 col-sm-12">
                             <div class="form-group mt-1">
                                 <label for="customerName" class="form-label">Full Name</label>
-                                <input formControlName="customerName" id="customerName" type="text" class="form-control"
+                                <input formControlName="customerName" id="customerName" type="text" class="form-control shadow-none"
                                     placeholder="Full Name">
                             </div>
                             <div class="errorMsg"
@@ -97,7 +97,7 @@
                             <div class="form-group mt-1">
                                 <label for="customerEmail" class="form-label">Email address</label>
                                 <input formControlName="customerEmail" id="customerEmail" type="email"
-                                    class="form-control" placeholder="Email">
+                                    class="form-control shadow-none" placeholder="Email">
                             </div>
                             <div class="errorMsg"
                                 *ngIf="!registerForm.controls.customerEmail.valid && registerForm.controls.customerEmail.dirty">
@@ -108,7 +108,7 @@
                             <div class="form-group mt-1">
                                 <label for="phoneNumber" class="form-label">Phone Number</label>
                                 <input formControlName="customerPhoneNo" id="phoneNumber" type="text"
-                                    class="form-control" placeholder="Email">
+                                    class="form-control shadow-none" placeholder="Email">
                             </div>
                             <div class="errorMsg"
                                 *ngIf="!registerForm.controls.customerPhoneNo.valid && registerForm.controls.customerPhoneNo.dirty">
@@ -128,8 +128,8 @@
                         </div>
                         <div class="col-lg-6 col-sm-12" *ngIf="registerForm.controls.groupType.value === 'Company'">
                             <div class="form-group mt-1">
-                                <label for="companyName" class="form-label">Email address</label>
-                                <input formControlName="companyName" id="companyName" type="text" class="form-control"
+                                <label for="companyName" class="form-label">Company Name</label>
+                                <input formControlName="companyName" id="companyName" type="text" class="form-control shadow-none"
                                     placeholder="Company Name">
                             </div>
                             <div class="errorMsg"
@@ -139,7 +139,7 @@
                         </div>
                         <div class="col-lg-6 col-sm-12">
                             <label for="numberOfPeople" class="mt-1 form-label">Number Of People</label>
-                            <input formControlName="numberOfPeople" id="numberOfPeople" type="text" class="form-control"
+                            <input formControlName="numberOfPeople" id="numberOfPeople" type="text" class="form-control shadow-none"
                                 placeholder="Number Of People">
                             <div class="errorMsg"
                                 *ngIf="!registerForm.controls.numberOfPeople.valid && registerForm.controls.numberOfPeople.dirty">
@@ -163,7 +163,7 @@
                         </div>
                         <div class="col-lg-6 col-sm-12">
                             <label for="address" class="mt-1 form-label">Address</label>
-                            <input formControlName="address" id="address" type="text" class="form-control"
+                            <input formControlName="address" id="address" type="text" class="form-control shadow-none"
                                 placeholder="Address">
                             <div class="errorMsg"
                                 *ngIf="!registerForm.controls.address.valid && registerForm.controls.address.dirty">
@@ -186,7 +186,7 @@
                         </div>
                         <div class="col-lg-6 col-sm-12">
                             <label for="startDate" class="mt-1 form-label">Select Date</label>
-                            <input id="startDate" (change)="bulkOrderDateChanged($event.target)" class="form-control"
+                            <input id="startDate" (change)="bulkOrderDateChanged($event.target)" class="form-control shadow-none"
                                 [min]="allowedMinDate" type="date" />
                         </div>
                         <div class="col-lg-6 col-sm-12">

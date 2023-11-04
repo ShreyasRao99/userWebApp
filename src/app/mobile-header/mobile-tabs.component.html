@@ -19,7 +19,7 @@
     </div>
     <div class="tabChild" routerLink="/cart" (click)="tabSelect('Cart')">
         <div class="navbarIcon5 navbarIcon" [ngClass]="{'activenavbarIcon5':currentRoute == '/cart'}">
-            <div class="cartCount" *ngIf="itemCount>0 && selectedTab !== 'Cart' ">{{itemCount}}</div>
+            <div class="cartCount" *ngIf="itemCount>0 && currentRoute !== '/cart' ">{{itemCount}}</div>
         </div>
         <div [ngClass]="{'activeIconDiv':currentRoute == '/cart'}">Cart</div>
     </div>

@@ -1,7 +1,7 @@
 <div>
-    <div>
+    <div class="header-wrapper">
         <i class="bi bi-x" (click)="close()"></i>
-        <div class="header3 center">Refund Details</div>
+        <div class="header2 center">Refund Details</div>
     </div>
     <div class="modalCntrlmodalscrollbody modalCntrlparentHeight">
         <div class="bgTopDownpadding2">
@@ -27,10 +27,10 @@
                     <div class="col-6">TO REFUND</div>
                     <div class="col-6 alignRight grey">&#8377; {{refundAmt}}</div>
                 </div>
-                <!-- <div class="form-group">
+                <div class="form-group">
                     <label for="exampleFormControlTextarea1">Example textarea</label>
                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                </div> -->
+                </div>
             </div>
         </div>
         <div class="refundbtn" (click)="refund()">Refund &#8377; {{refundAmt}}</div>

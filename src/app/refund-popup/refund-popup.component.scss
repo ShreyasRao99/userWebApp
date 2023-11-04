@@ -9,9 +9,21 @@
 }
 .refundbtn{
     background: $primary-color1;
+    width: 65%;
+    margin: 0 auto;
+    border-radius: 20px;
+    // background: #e53043;
     text-align: center;
-    padding: 1%;
+    padding: 2%;
     color: white;
     font-size: 18px;
     letter-spacing: 1px;
+}
+
+.header-wrapper{
+    // font-size:18px;
+    margin-bottom:10px;
+    i{
+        font-size:25px;
+    }
 }

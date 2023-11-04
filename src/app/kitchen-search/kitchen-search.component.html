@@ -1,8 +1,8 @@
 <app-header></app-header>
 <div class="container-fluid mt-3">
-    <div class="col-10 col-lg-8 offset-lg-2 offset-md-2 offset-1">
+    <div class="col-10 col-lg-8 col-md-10 offset-lg-2 offset-md-1 offset-1">
         <!-- <img class="arrowback pointer mt-2" src="assets/regional/arrow-redpink.svg" (click)="goBack()"> -->
-        <div class="headerMargin">
+        <div class="headerMargin mobile-view">
             <img class="img-fluid" [src]="regionalItem.url">
             <div class="regionalLabel" [ngClass]="{'specialHeader': category==='special'}" (click)="goBack()">
                 <img [src]="regionalItem.backTick" class="backarrow">

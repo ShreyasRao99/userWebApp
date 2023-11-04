@@ -181,7 +181,7 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
   }
 
   async cancelOrder() {
-    this.confirmationModalService.modal(`Are you sure you want to Cancel this order?`,
+    this.confirmationModalService.modal({data:`Are you sure you want to Cancel this order?`, type:3},
       () => this.refund(), this)
     // const alert = await this.alertController.create({
     //   cssClass: 'my-alert-class',
@@ -245,7 +245,7 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
           order: this.order,
           refundAmt: eligilityObj.refund_amount
         }
-        this.modalReference = this.modalService.open(this.refundModal, { ariaLabelledBy: 'modal-basic-title', size: 'lg', windowClass: 'addonsModel' });
+        this.modalReference = this.modalService.open(this.refundModal, { ariaLabelledBy: 'modal-basic-title', size: 'md', windowClass: 'menuModel' });
         // const modal = await this.modalController.create({
         //   component: RefundPopUpComponent,
         //   cssClass: 'xshort-modal-design',

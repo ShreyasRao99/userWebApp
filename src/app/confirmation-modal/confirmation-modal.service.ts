@@ -8,7 +8,7 @@ export class ConfirmationModalService {
 
   confimationModalSubject = new BehaviorSubject({});
   constructor() { }
-  modal(msg: string, callback: Function, context: object){
+  modal(msg: any, callback: Function, context: object){
     const modalObj = {msg, callback, context}
     this.confimationModalSubject.next(modalObj);
   }

@@ -128,7 +128,7 @@
             account' : 'create an account'}}</span></div>
         <form class="mt-3" [formGroup]="LoginForm" *ngIf="!showOTPscreen && formToShow == 'Login'">
           <div class="form-group">
-            <input type="text" class="form-control shadow-none" formControlName="phoneNo" id="phoneNo"
+            <input type="text" class="form-control shadow-none" [ngClass]="{'input-font':formToShow == 'Login'}" formControlName="phoneNo" id="phoneNo"
               placeholder="Your Mobile Number">
             <div *ngIf="LoginForm.controls.phoneNo.invalid && LoginForm.controls.phoneNo.dirty">
               Please enter a valid phone number
@@ -180,7 +180,6 @@
               <div class="second">
                 <div *ngIf="showResendOTP" (click)="resendOTP()" class="resendLink">Resend OTP</div>
                 <div *ngIf="!showResendOTP" class="otpTime">
-                  <!-- <ion-icon name="alarm-outline"></ion-icon> -->
                   <i class="bi bi-alarm"></i>
                   00:{{second < 10 ? '0' +second : second }}</div>
                 </div>
@@ -224,22 +223,10 @@
                         <i class="bi bi-tag" *ngIf="address.tagLocation === 'other' "></i>
                         <div class="flex-content" (click)="setAddress(address)">
                           <div><b>{{address.tagLocation}}</b></div>
-                          <div class="location-canvas-info">{{address.location}}</div>
+                          <div class="location-canvas-info">{{address.address}}, {{address.location}}, landmark: {{address.landmark}}</div>
                         </div>
                       </div>
                     </div>
-                    <!-- <div class="recentSearches" *ngIf="recentSearch">
-                                        <h6>RECENT SEARCHES</h6>
-                                        <div class="mt-3 d-flex flex-row"
-                                            *ngFor="let recent of recentSearch | slice:0:1">
-                                            <i class="bi bi-clock-history"></i>
-                                            <div class="flex-content">
-                                                <div><b>{{recent.name}}</b></div>
-                                                <div class="location-canvas-info">{{recent.address}}</div>
-                                            </div>
-                                        </div>
-                                    </div> -->
-                    <!-- </div> -->
                   </form>
                 </div>
               </div>

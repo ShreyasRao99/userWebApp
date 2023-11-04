@@ -21,7 +21,7 @@ export class SetDeliveryLocationComponent implements OnInit, OnChanges {
   serviceAvailable: boolean = true;
   userProfile: any;
 
-  constructor(private localStorageService: LocalStorageService, private utilityService: UtilityService, private apiMainService: ApiMainService, private sendDataToComponent: SendDataToComponent, private chgDetRef: ChangeDetectorRef, private googleMapService: GoogleMapService, private geoLocationService: GeolocationService) {
+  constructor(private localStorageService: LocalStorageService, private cdRef:ChangeDetectorRef, private utilityService: UtilityService, private apiMainService: ApiMainService, private sendDataToComponent: SendDataToComponent, private chgDetRef: ChangeDetectorRef, private googleMapService: GoogleMapService, private geoLocationService: GeolocationService) {
     this.mapid += Math.round(Math.random() * 1000);
   }
 
@@ -36,10 +36,11 @@ export class SetDeliveryLocationComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     console.log(changes)
-    this.patchValue = changes['patchValue']?.currentValue
-    this.address = changes['patchValue']?.currentValue.address
-    this.landmark = changes['patchValue']?.currentValue.landmark;
-    if (changes['patchValue']?.currentValue) {
+    const currentVal = changes['patchValue']?.currentValue
+    this.address = currentVal?.address
+    this.landmark = currentVal?.landmark;
+    this.tagLocation = currentVal?.tagLocation;
+    if (currentVal) {
       this.loadCurrentSavedLocation()
     }
     console.log(this.getCurrentLocation)
@@ -190,10 +191,12 @@ export class SetDeliveryLocationComponent implements OnInit, OnChanges {
 
   toggleAdditionalDetails() {
     this.showSkipButton = !this.showSkipButton
+    this.cdRef.detectChanges()
   }
 
   selectTag(tag: any) {
     this.tagLocation = tag;
+    this.cdRef.detectChanges()
   }
 
   addAddress() {

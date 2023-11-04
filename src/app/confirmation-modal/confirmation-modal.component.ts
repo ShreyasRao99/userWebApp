@@ -11,12 +11,15 @@ export class ConfirmationModalComponent implements OnInit {
   showDialog = false;
 
   modalObj: any = {};
+  type: any = 1;
   constructor(private confimationModalService: ConfirmationModalService) {
   }
   ngOnInit() {
     this.confimationModalService.confimationModalSubject.subscribe((modalObj: any) => {
-      if (modalObj.msg) {
+      console.log(modalObj)
+      if (modalObj.msg?.data) {
         this.modalObj = modalObj;
+        this.type = modalObj.msg.type
         this.showDialog = true;
       }
     });

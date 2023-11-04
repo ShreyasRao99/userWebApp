@@ -13,6 +13,7 @@ import { RuntimeStorageService } from 'src/service/runtime-storage.service';
   styleUrls: ['./main-slider.component.scss']
 })
 export class MainSliderComponent implements OnInit {
+  sliderCount = 0;
 
   constructor(private router: Router, private runtimeStorageService: RuntimeStorageService) { }
 
@@ -44,12 +45,17 @@ export class MainSliderComponent implements OnInit {
     Object.assign(swiperEl, swiperParams);
   }
 
+  slideChange(event:any){
+    this.sliderCount = event.detail[0].activeIndex;
+    // console.log(this.sliderCount)
+  }
+
   gotoSubscription(banner: any) {
     if (banner.type === 'subscription') {
       this.runtimeStorageService.setCacheData('SUBSCRIPTION_LOOKED', { packageCategory: banner.packageCategory, packageSubCategory: banner.packageSubCategory });
       this.router.navigate(['/subscription']);
     } else if (banner.type === 'bulkOrder') {
-      // this.navCtrl.navigateForward(['/bulkOrder']);
+      this.router.navigate(['/bulk-order']);
     }
   }
 }

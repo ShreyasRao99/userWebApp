@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild, Output, EventEmitter, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, Output, EventEmitter, AfterViewInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
@@ -17,7 +17,7 @@ import { WebPageService } from 'src/service/webpage.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit, AfterViewInit {
+export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('canvasAddress') canvasAddress!: ElementRef<HTMLElement>
   @ViewChild('loginCanvas') loginCanvas!: ElementRef<HTMLElement>;
   @Output() isLoggedIn: EventEmitter<any> = new EventEmitter<any>();
@@ -166,8 +166,15 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       this.currentAddress = address
       this.localStorageService.insertNewDataInArray('RECENT_LOCATION_SEARCH', address, 5);
       this.utilityService.configureCurrentLocation(address);
-      // this.showMap = true
       this.getCurrentLocation(false)
+      // if(!this.userProfile){
+      //   this.sendDataToComponent.publish('ADDRESS_FROM_DELIVERY', this.currentAddress)
+      //   this.toggleCanvas()
+      // }
+      // else{
+      //   this.getCurrentLocation(false)
+      // }
+      // this.showMap = true
       console.log(this.showMap)
       // this.getCurrentLocation(false)
     });
@@ -381,6 +388,10 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   goToAccount() {
     this.router.navigate(['/account'])
+  }
+
+  ngOnDestroy(){
+    clearInterval(this.intervalCounter);
   }
 
 }

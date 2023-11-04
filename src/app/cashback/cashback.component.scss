@@ -122,7 +122,7 @@
 .tabButton {
   display: flex;
   align-items: center;
-  padding-top:5%;
+  padding-top:50px;
 }
 
 .selectedButton {
@@ -258,5 +258,11 @@ ion-item {
   .backIcon{
       font-size:20px;
       display:inline-block;
+  }
+}
+@media only screen and (min-width:600px) and (max-width:820px){
+  .backIcon{
+      display:inline-block;
+      font-size:20px;
   }
 }

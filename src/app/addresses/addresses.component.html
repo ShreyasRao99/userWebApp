@@ -1,37 +1,39 @@
 <div class="container-fluid px-0">
-    <div class="headerBG"><i class="bi bi-arrow-left backIcon" (click)="goBack()"></i>Manage Addresses</div>
-    <div class="row px-3">
-        <div class="col-12 col-md-6 col-lg-6" *ngFor="let address of userProfile.addressList; let i = index">
-            <div class="mt-4 d-flex flex-row savedAddresses">
-                <span><i class="bi bi-house"></i></span>
-                <div class="address-div">
-                    <div><b>{{address.tagLocation}}</b></div>
-                    <div>{{address.location}}</div>
-                    <span class="editSpan" (click)="editAddress(address)" data-bs-toggle="offcanvas"
-                    data-bs-target="#editAddress">EDIT</span>
-                    <span class="deleteSpan" (click)="deleteAddress(i)">DELETE</span>
-                    <!-- <button class="btn btn-primary">Edit</button> -->
-                    <!-- <button class="btn btn-danger" (click)="deleteAddress(i)">Delete</button> -->
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="delivery-location">
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="editAddress" aria-labelledby="offcanvasExampleLabel">
-      <button type="button" style="display:none;" #canvasAddress class="btn-close text-reset mt-3"
-        data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      <div class="offcanvas-div">
-        <div class="offcanvas-body">
-          <!-- <div class="container" *ngIf="!showMap"> -->
-          <!-- <div class="select-address" *ngIf="showMap"> -->
-          <div class="select-address">
-            <button type="button" style="display:none;" class="btn-close text-reset" #mapCanvas
-              data-bs-dismiss="offcanvas"></button>
-            <app-set-delivery-location *ngIf="showMap"
-              [showSkipButton]="showSkipButton" [patchValue]="patchValue"></app-set-delivery-location>
-          </div>
+  <div class="headerBG"><i class="bi bi-arrow-left backIcon" (click)="goBack()"></i>Manage Addresses</div>
+  <div class="row px-3">
+    <div class="col-12 col-md-6 col-lg-6" *ngFor="let address of userProfile.addressList; let i = index">
+      <div class="mt-4 d-flex flex-row savedAddresses">
+        <span><i class="bi bi-house" *ngIf="address.tagLocation === 'home' "></i>
+          <i class="bi bi-briefcase" *ngIf="address.tagLocation === 'work' "></i>
+          <i class="bi bi-tag" *ngIf="address.tagLocation === 'other' "></i></span>
+        <div class="address-div">
+          <div><b>{{address.tagLocation}}</b></div>
+          <div>{{address.address}}, {{address.location}}, landmark: {{address.landmark}}</div>
+          <span class="editSpan" (click)="editAddress(address)" data-bs-toggle="offcanvas"
+            data-bs-target="#editAddress">EDIT</span>
+          <span class="deleteSpan" (click)="deleteAddress(i)">DELETE</span>
+          <!-- <button class="btn btn-primary">Edit</button> -->
+          <!-- <button class="btn btn-danger" (click)="deleteAddress(i)">Delete</button> -->
         </div>
       </div>
     </div>
   </div>
+</div>
+<div class="delivery-location">
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="editAddress" aria-labelledby="offcanvasExampleLabel">
+    <button type="button" style="display:none;" #canvasAddress class="btn-close text-reset mt-3"
+      data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <div class="offcanvas-div">
+      <div class="offcanvas-body">
+        <!-- <div class="container" *ngIf="!showMap"> -->
+        <!-- <div class="select-address" *ngIf="showMap"> -->
+        <div class="select-address">
+          <button type="button" style="display:none;" class="btn-close text-reset" #mapCanvas
+            data-bs-dismiss="offcanvas"></button>
+          <app-set-delivery-location *ngIf="showMap" [showSkipButton]="showSkipButton" [patchValue]="patchValue"
+            (toggleMap)="toggleCanvas()" (closeOffCanvas)="toggleCanvas()"></app-set-delivery-location>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

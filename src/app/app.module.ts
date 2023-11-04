@@ -19,6 +19,7 @@ import { HeaderModule } from './header/header.module';
 import { KitchenFiltersModule } from './kitchen-filters/kitchen-filters.module';
 import { AccountComponent } from './account/account.component';
 import { NgOtpInputModule } from 'ng-otp-input';
+import { MobileTabsModule } from './mobile-header/mobile-tabs.module';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { NgOtpInputModule } from 'ng-otp-input';
     KitchenCardModule,
     HeaderModule,
     KitchenFiltersModule,
-    NgOtpInputModule
+    NgOtpInputModule,
+    MobileTabsModule
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
   providers: [],

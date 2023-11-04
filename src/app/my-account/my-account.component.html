@@ -1,7 +1,7 @@
 <app-header class="mobileView"></app-header>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-8 col-12 col-md-10 offset-0 offset-md-1 offset-lg-2">
+        <div class="col-lg-8 col-12 col-md-12 offset-0 offset-md-0 offset-lg-2">
             <div class="options-container">
                 <div class="row">
                     <div class="col-2 col-md-2 col-lg-2 px-0 left-section">
@@ -10,17 +10,17 @@
                             {{item.label}}</div>
                         <div class="left-section-div pointer" (click)="logoutPopup()">Log Out</div>
                     </div>
-                    <div class="mobile-selection">
+                    <!-- <div class="mobile-selection">
                         <div class="left-div desktopView">
                             <img class="arrowback pointer mt-2" src="assets/regional/arrow-redpink.svg" (click)="goBack()">
-                        </div>
+                        </div> 
                         <div class="mb-2 right-div alignRight desktopView">
                             <button type="button" class="btn btn-outline-danger" [ngbPopover]="popContent">
                                 Menu
                             </button>
                         </div>
-                    </div>
-                    <div class="col-12 col-md-10 col-lg-10 px-0 right-div">
+                    </div> -->
+                    <div class="col-12 col-md-12 col-lg-10 px-0 right-div">
                         <router-outlet></router-outlet>
                     </div>
                 </div>
@@ -28,10 +28,10 @@
         </div>
     </div>
 </div>
-<ng-template #popContent>
+<!-- <ng-template #popContent>
     <div *ngFor="let item of linkList" [ngClass]="{popoverSelection:selectedDiv === item.label}"
         (click)="selectedSection(item)" class="pointer left-section-div"
         [routerLink]="item.link">
         {{item.label}}</div>
     <div class="pointer" (click)="logoutPopup()">Log Out</div>
-</ng-template>
+</ng-template> -->

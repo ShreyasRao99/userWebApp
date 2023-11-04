@@ -436,5 +436,5 @@
     </div>
 </div>
 <ng-template #refundModal let-modal>
-    <app-refund-popup [props]="refundProps" (refundStatus)="startReFundProcess($event)"></app-refund-popup>
+    <app-refund-popup ngbAutofocus [props]="refundProps" (refundStatus)="startReFundProcess($event)"></app-refund-popup>
 </ng-template>

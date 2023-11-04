@@ -6,7 +6,6 @@ import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '
   styleUrls: ['./mobile-welcome.component.scss']
 })
 export class MobileWelcomeComponent implements OnInit {
-  @ViewChild('swiper') swiperRef!: ElementRef;
   @Output() goToLogin:EventEmitter<any> = new EventEmitter<any>()
   sliderCount = 0;
   swiperEl: any;

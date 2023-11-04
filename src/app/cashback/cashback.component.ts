@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
+import { Component, OnInit, HostListener } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { cashbackfaqList } from 'src/config/faqlist.config';
 import { ApiMainService } from 'src/service/apiService/api-main.service';
 import { LocalStorageService } from 'src/service/local-storage.service';
@@ -11,7 +11,20 @@ import { LocalStorageService } from 'src/service/local-storage.service';
   styleUrls: ['./cashback.component.scss']
 })
 export class CashbackComponent implements OnInit {
-
+  @HostListener("window:scroll", [])
+  onScroll(): void {
+    if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight * .90)) {
+      if (!this.scrolled) {
+        this.scrolled = true;
+        if(!this.paginationOver){
+          this.showloader = true;
+          this.pageNumber++;
+          this.getwithdrawalHistory();
+        } 
+      };
+    }
+  }
+  scrolled:any = false;
   wallet_balance = 0;
   userProfile:any = {};
   transactionHistoryList:any = [];
@@ -61,26 +74,18 @@ export class CashbackComponent implements OnInit {
       if(transactionHistoryList && transactionHistoryList.length > 0){
         this.transactionHistoryList = [...this.transactionHistoryList, ...transactionHistoryList];
         this.showloader = false;
+        this.scrolled = false
       }else{
         this.paginationOver = true;
         this.showloader = false;
+        this.scrolled = false
       }
     }catch(error){
       this.paginationOver = true;
       this.showloader = false;
+      this.scrolled = false
       console.log('error while fetching wallet history')
     }
-  }  
-
-  logScrollEnd($event:any){
-    // const element = $event.target;
-    // if (this.selectedTab === 'cashback' && element.clientHeight+10 >= this.melaweHistoryListEndDiv.nativeElement.getBoundingClientRect().top){
-    //     if(!this.paginationOver){
-    //       this.showloader = true;
-    //       this.pageNumber++;
-    //       this.getwithdrawalHistory();
-    //     }        
-    // }
   }
     
   tabChange(tab: string){

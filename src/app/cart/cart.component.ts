@@ -203,6 +203,11 @@ export class CartComponent implements OnInit, OnDestroy {
     this.autoCoupon.expiryDate = after1Day;
   }
   ngOnDestroy(): void {
+    clearTimeout(this.slotCounter);
+    clearTimeout(this.advSlotCounter);
+    this.sendDataToComponent.unsubscribe('UPDATE_CART');
+    this.sendDataToComponent.unsubscribe('LOCATION_ADDED_UPDATE_CART_PAGE');
+    this.sendDataToComponent.unsubscribe('RELOAD_CART_PAGE');
     this.sendDataToComponent.unsubscribe('ADDRESS_FROM_DELIVERY');
   }
 
@@ -357,7 +362,7 @@ export class CartComponent implements OnInit, OnDestroy {
         address = formatedAddess.address
       }
       const landmark = formatedAddess.landmark ? `, Landmark: ${formatedAddess.landmark}, ` : '';
-      this.addressSelected = formatedAddess.location ? `${address}${formatedAddess.location}${landmark}` : `${address}${landmark}`;
+      this.addressSelected = formatedAddess.location ? `${address ? address : ''}${formatedAddess.location}${landmark}` : `${address}${landmark}`;
       this.tagLocation = formatedAddess.tagLocation;
       console.log(this.customerLocation)
       if (this.cartObj && this.cartObj.kitchen && this.cartObj.kitchen.geolocation) {
@@ -650,7 +655,7 @@ export class CartComponent implements OnInit, OnDestroy {
   async mealaweWalletApplied() {
     if (this.voucherCode || this.couponCode) {
       try {
-        this.confirmationModalService.modal(`Your previously applied coupon will be removed, do you want to continue?`,
+        this.confirmationModalService.modal({data:`Your previously applied coupon will be removed, do you want to continue?`, type:1},
           () => this.walletAppliedConfirm(), this);
         // const alert = await this.alertController.create({
         //   cssClass: 'my-alert-class',
@@ -822,7 +827,7 @@ export class CartComponent implements OnInit, OnDestroy {
     }
     else {
       try {
-        this.confirmationModalService.modal(`You have not set up your profile yet, Kindly set your profile?`,
+        this.confirmationModalService.modal({data:`You have not set up your profile yet, Kindly set your profile.`, type:1},
           () => {
             let el = this.completeProfile.nativeElement;
             el.click()
@@ -1509,7 +1514,7 @@ export class CartComponent implements OnInit, OnDestroy {
           this.removeCoupon();
         }
       } else {
-        if (this.couponCode && this.router.url === '/tabs/tabCart') {
+        if (this.couponCode && this.router.url === '/cart') {
           this.toasterService.warning(109);
         }
         this.removeCoupon();
@@ -1857,7 +1862,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   showAlert() {
-    this.confirmationModalService.modal(`You are ordering from a kitchen which is more than 5kms away. Extra delivery time and charges are applicable.`,
+    this.confirmationModalService.modal({data:`You are ordering from a kitchen which is more than 5kms away. Extra delivery time and charges are applicable.`, type:2},
       () => '', this);
   }
 
@@ -2039,10 +2044,10 @@ export class CartComponent implements OnInit, OnDestroy {
   async showConfirmationAlert(offer: any) {
     try {
       if (this.couponProps.couponApplied) {
-        this.confirmationModalService.modal(`Your previously applied coupon will be removed, do you want to continue?`,
+        this.confirmationModalService.modal({data:`Your previously applied coupon will be removed, do you want to continue?`, type:1},
           () => this.selectCoupon(offer), this);
       } else if (this.couponProps.mealaweWalletApplied) {
-        this.confirmationModalService.modal(`Your cashback applied points will be removed, do you want to continue?`,
+        this.confirmationModalService.modal({data:`Your cashback applied points will be removed, do you want to continue?`, type:1},
           () => this.selectCoupon(offer), this);
       }
 
@@ -2098,7 +2103,7 @@ export class CartComponent implements OnInit, OnDestroy {
     } else {
       this.validateAndApplyCoupon(offer, true);
     }
-    this.getDeliveryChargeQuote()
+    // this.getDeliveryChargeQuote()
     let el = this.voucherCanvas.nativeElement;
     el.click();
   }

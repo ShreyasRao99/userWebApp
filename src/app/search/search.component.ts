@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiMainService } from 'src/service/apiService/api-main.service';
@@ -12,8 +12,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, AfterViewInit {
   @ViewChild('filterModal')filterModal:any;
+  @ViewChild('searchBar')searchBar!:ElementRef;
   recentSearches = [];
   searchText!: any;
   dishSearchResult:any[] = [];
@@ -38,6 +39,10 @@ export class SearchComponent implements OnInit {
   filterProps:any = { };
 
   constructor(private localStorageService:LocalStorageService, private modalService: NgbModal, private fb:FormBuilder, private router:Router, private runtimeStorageService:RuntimeStorageService, private userSearchService:UserSearchService, private apiMainService:ApiMainService){}
+  
+  ngAfterViewInit(): void {
+    this.searchBar.nativeElement.focus();
+  }
 
   ngOnInit(): void {
     this.resetSearch();

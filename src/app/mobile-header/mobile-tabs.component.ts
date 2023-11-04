@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { CartManagementService } from 'src/service/cart-management.service';
 import { LocalStorageService } from 'src/service/local-storage.service';
 import { SendDataToComponent } from 'src/service/sendDataToComponent';
@@ -8,15 +8,19 @@ import { SendDataToComponent } from 'src/service/sendDataToComponent';
   templateUrl: './mobile-tabs.component.html',
   styleUrls: ['./mobile-tabs.component.scss']
 })
-export class MobileTabsComponent implements OnInit {
+export class MobileTabsComponent implements OnInit, OnDestroy {
   currentRoute: any;
   itemCount=0;
   selectedTab: any;
 
-  constructor(private localStorageService:LocalStorageService, private cartManagementService:CartManagementService, private sendDataToComponent:SendDataToComponent){}
+  constructor(private localStorageService:LocalStorageService, private cdRef:ChangeDetectorRef, private cartManagementService:CartManagementService, private sendDataToComponent:SendDataToComponent){}
+  ngOnDestroy(): void {
+    this.sendDataToComponent.unsubscribe('UPDATE_CART_TABS')
+  }
 
   ngOnInit(): void {
     this.currentRoute = this.localStorageService.getCacheData('CURRENT_ROUTE');
+    this.itemCount = this.localStorageService.getCacheData('CART_ITEM_COUNT')
     this.subscribeEvents()
   }
 
@@ -24,12 +28,16 @@ export class MobileTabsComponent implements OnInit {
     this.sendDataToComponent.subscribe('UPDATE_CART_TABS', (cartObj) => {
       if(cartObj){
         this.itemCount = this.cartManagementService.getItemCount();
+        this.localStorageService.setCacheData('CART_ITEM_COUNT', this.itemCount)
+        console.log(this.itemCount)
       }       
     });
   }
 
   tabSelect(tab:any){
     this.selectedTab = tab;
+    // this.cdRef.detectChanges()
+    console.log(this.itemCount, this.selectedTab)
   }
 
 }

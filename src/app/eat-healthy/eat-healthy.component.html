@@ -1,6 +1,6 @@
-<div class="slider-container pointer">
-    <!-- <div class="sectionHeader col-6 mt-4">What we offer</div> -->
-    <swiper-container autoplay="true" pagination="true" speed="700" css-mode="true">
+<div class="swiper-container pointer">
+    <swiper-container (slidechange)="slideChange($event)" direction="vertical" autoplay="true" pagination="false"
+        speed="500" css-mode="true">
         <swiper-slide>
             <img class="card-img-top" src="assets/eatHealthy/EatHomelyPage_1.png" alt="Card image cap">
         </swiper-slide>
@@ -15,5 +15,9 @@
         </swiper-slide>
     </swiper-container>
 </div>
+<!-- <div class="circlePosition">
+    <div class="circleStyle" [ngClass]="{circleSelected: sliderCount  === 0 }"></div>
+    <div class="circleStyle" [ngClass]="{circleSelected: sliderCount  === 1 }"></div>
+    <div class="circleStyle" [ngClass]="{circleSelected: sliderCount  === 2 }"></div>
+</div> -->
 <app-mobile-tabs class="mobile-tabs mobileView"></app-mobile-tabs>
-
