@@ -9,7 +9,6 @@ import { SendDataToComponent } from 'src/service/sendDataToComponent';
 import { ConfirmationModalService } from '../confirmation-modal/confirmation-modal.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { WebPageService } from 'src/service/webpage.service';
-import { ChangeDetectionStrategy } from '@angular/compiler';
 
 @Component({
   selector: 'app-account',

@@ -39,6 +39,7 @@ export class MyPastOrderComponent implements OnInit {
   constructor(private localStorageService: LocalStorageService, private apiMainService:ApiMainService) { }
 
   ngOnInit(): void {
+    console.log(this.orderDetails)
     this.userProfile = this.localStorageService.getCacheData('USER_PROFILE');
     if (this.userProfile && this.userProfile._id) {
       this.getPastOrder();

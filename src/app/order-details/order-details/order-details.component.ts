@@ -245,7 +245,7 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
           order: this.order,
           refundAmt: eligilityObj.refund_amount
         }
-        this.modalReference = this.modalService.open(this.refundModal, { ariaLabelledBy: 'modal-basic-title', size: 'md', windowClass: 'menuModel' });
+        this.modalReference = this.modalService.open(this.refundModal, { ariaLabelledBy: 'modal-basic-title', size: 'md', windowClass: 'refundModel' });
         // const modal = await this.modalController.create({
         //   component: RefundPopUpComponent,
         //   cssClass: 'xshort-modal-design',
