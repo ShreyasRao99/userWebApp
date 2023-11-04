@@ -42,6 +42,7 @@ import { DesktopLoaderComponent } from '../desktop-loader/desktop-loader.compone
     FooterModule,
     MobileTabsModule,
     NgxSkeletonLoaderModule
-  ]
+  ],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomeModule { }
