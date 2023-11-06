@@ -1,22 +1,30 @@
 <div class="container-fluid px-0">
   <div class="headerBG"><i class="bi bi-arrow-left backIcon" (click)="goBack()"></i>Manage Addresses</div>
   <div class="row px-3">
-    <div class="col-12 col-md-6 col-lg-6" *ngFor="let address of userProfile.addressList; let i = index">
-      <div class="mt-4 d-flex flex-row savedAddresses">
-        <span><i class="bi bi-house" *ngIf="address.tagLocation === 'home' "></i>
-          <i class="bi bi-briefcase" *ngIf="address.tagLocation === 'work' "></i>
-          <i class="bi bi-tag" *ngIf="address.tagLocation === 'other' "></i></span>
-        <div class="address-div">
-          <div><b>{{address.tagLocation}}</b></div>
-          <div>{{address.address}}, {{address.location}}, landmark: {{address.landmark}}</div>
-          <span class="editSpan" (click)="editAddress(address)" data-bs-toggle="offcanvas"
-            data-bs-target="#editAddress">EDIT</span>
-          <span class="deleteSpan" (click)="deleteAddress(i)">DELETE</span>
-          <!-- <button class="btn btn-primary">Edit</button> -->
-          <!-- <button class="btn btn-danger" (click)="deleteAddress(i)">Delete</button> -->
+    <ng-container *ngIf="userProfile">
+      <div class="col-12 col-md-6 col-lg-6" *ngFor="let address of userProfile.addressList; let i = index">
+        <div class="mt-4 d-flex flex-row savedAddresses">
+          <span><i class="bi bi-house" *ngIf="address.tagLocation === 'home' "></i>
+            <i class="bi bi-briefcase" *ngIf="address.tagLocation === 'work' "></i>
+            <i class="bi bi-tag" *ngIf="address.tagLocation === 'other' "></i></span>
+          <div class="address-div">
+            <div><b>{{address.tagLocation}}</b></div>
+            <div>{{address.address}}, {{address.location}}, landmark: {{address.landmark}}</div>
+            <span class="editSpan" (click)="editAddress(address)" data-bs-toggle="offcanvas"
+              data-bs-target="#editAddress">EDIT</span>
+            <span class="deleteSpan" (click)="deleteAddress(i)">DELETE</span>
+            <!-- <button class="btn btn-primary">Edit</button> -->
+            <!-- <button class="btn btn-danger" (click)="deleteAddress(i)">Delete</button> -->
+          </div>
         </div>
       </div>
-    </div>
+    </ng-container>
+    <ng-container *ngIf="!userProfile">
+      <div class="header3 bold center bgpadding">
+        No Addresses Found
+      </div>
+    </ng-container>
+
   </div>
 </div>
 <div class="delivery-location">

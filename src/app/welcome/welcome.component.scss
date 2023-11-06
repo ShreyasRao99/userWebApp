@@ -180,14 +180,14 @@
     }
 }
 
-.mid-section:after {
-    content: '';
-    width: 7%;
-    display: block;
-    margin: 1% auto 2%;
-    height: 3px;
-    background: linear-gradient(90deg, $primary-color1 50%, #e0e0e0 50%)
-}
+// .mid-section:after {
+//     content: '';
+//     width: 7%;
+//     display: block;
+//     margin: 1% auto 2%;
+//     height: 3px;
+//     background: linear-gradient(90deg, $primary-color1 50%, #e0e0e0 50%)
+// }
 
 // ---BOTTOM SECTION---
 
@@ -242,6 +242,32 @@
     }
 }
 
+.images{
+    display:flex;
+    flex-direction: row;
+
+    .left_img-div{
+        width:30%;
+    }
+    .right-img-div{
+        width:70%;
+    }
+    .store-links{
+        height:76px;
+        width:255px;
+        cursor:pointer;
+    }
+    .qr-code{
+        height:178px;
+        width:178px;
+    }
+}
+
+.header-sub-sub-text{
+    color:$primary-color5;
+    font-size:25px;
+    font-family: 'Poppins-bold'
+}
 
 
 // ---LOGIN/SIGN-UP OFFCANVAS---
