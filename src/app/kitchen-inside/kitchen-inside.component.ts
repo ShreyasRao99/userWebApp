@@ -585,8 +585,16 @@ export class KitchenInsideComponent implements OnInit, OnDestroy {
     this.router.navigate(['/home'])
   }
 
+  saveKitchenfav(){
+    if (this.favKitchen){
+      this.favouriteManagementService.addfavourites(this.kitchen._id);
+    }else{
+      this.favouriteManagementService.removefavourites(this.kitchen._id);
+    }
+  }
+
   ngOnDestroy(){
-    // this.saveKitchenfav();
+    this.saveKitchenfav();
     this.sendDataToComponent.unsubscribe('RELOAD_KITCHEN_SEARCH');
     this.sendDataToComponent.unsubscribe('UPDATE_KITCHEN_SUB');  
   }

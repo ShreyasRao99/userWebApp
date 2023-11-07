@@ -29,7 +29,7 @@
         li {
             cursor:pointer;
             line-height: 25px;
-            font-family: 'Poppins-semiBold';
+            // font-family: 'Poppins-semiBold';
             list-style-type: none;
 
             a {
@@ -49,14 +49,31 @@
         color: $secondary-color1;
     }
 
-    .header7 {
-        font-family: 'Poppins-semiBold'
-    }
-
     .rights {
         text-align: center;
         font-family: 'Poppins-bold';
         color: $primary-color5;
         background-color:white;
+    }
+}
+
+.images{
+    display:flex;
+    flex-direction: row;
+
+    .left_img-div{
+        width:30%;
+    }
+    .right-img-div{
+        width:70%;
+    }
+    .store-links{
+        height:50px;
+        width:175px;
+        cursor:pointer;
+    }
+    .qr-code{
+        height:125px;
+        width:125px;
     }
 }

@@ -40,7 +40,7 @@ export class CouponDisplayComponent implements OnChanges{
 
   sortNfilterDBList(){
     this.filterDBList = this.couponListDB.filter((coupon:any) => {
-        if(coupon.orderTypes.indexOf(this.orderType) > -1){
+        if(coupon.orderTypes?.indexOf(this.orderType) > -1){
           return true;
         }else{
           return false;

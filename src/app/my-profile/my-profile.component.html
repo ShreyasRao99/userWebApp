@@ -3,16 +3,10 @@
         <div class="inline-table headerText"><i class="bi bi-arrow-left backIcon" (click)="goBack()"></i>My Profile</div>
     </div>
     <div class="pageContent">
-        <div class="center">
+        <div class="center" *ngIf="userProfile">
             <div class="edit" (click)="editProfile()" *ngIf="!editModeOn">EDIT</div>
-            <!-- <div class="changePhoto" *ngIf="editModeOn">
-                <ion-label slot="end" for="fileInput" (click)="takePicture()">CHANGE PHOTO</ion-label>              
-            </div>
-            <img *ngIf="imageUrl" class="profileIcon"
-                [src]="imageUrl" >
-            <ion-icon *ngIf="!imageUrl" class="profileIcon" name="person-circle"></ion-icon> -->
         </div>
-        <div>
+        <div *ngIf="userProfile">
             <form [formGroup]="userProfileForm">
                 <div class="rowStyle">
                     <div class="header4">Name <span
@@ -85,6 +79,9 @@
                         class="btnDesgin save">Save</button>
                 </div>
             </div>
+        </div>
+        <div *ngIf="!userProfile" class="header3 bold center bgpadding">
+            Login to View Profile
         </div>
     </div>
 </div>

@@ -11,9 +11,9 @@ import { RuntimeStorageService } from 'src/service/runtime-storage.service';
 export class KitchenNearComponent implements OnInit {
   imageUrl = environment.imageUrl;
   @Input() kitchenList: any = [];
-  
 
-  constructor(private runtimeStorageService: RuntimeStorageService, private router:Router) { }
+
+  constructor(private runtimeStorageService: RuntimeStorageService, private router: Router) { }
 
   ngOnInit() {
     console.log(this.kitchenList)
@@ -53,8 +53,7 @@ export class KitchenNearComponent implements OnInit {
 
   goInsideKitchen(kitchen: any) {
     this.runtimeStorageService.setCacheData('KITCHEN_SELECTED', kitchen);
-      this.router.navigate(['/kitchenInside/allDay/' + kitchen._id])
-    
+    this.router.navigate(['/kitchenInside/allDay/' + kitchen._id])
   }
 
 }
