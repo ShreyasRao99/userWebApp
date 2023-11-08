@@ -51,5 +51,6 @@
     </ng-container>
     <app-footer class="desktopView"></app-footer>
 </div>
+<app-scroll-top *ngIf="windowScrolled" class="scroll-top-btn" (scroll)="scrollToTop($event)"></app-scroll-top>
 <app-track-open-order class="trackOrder" *ngIf="serviceAvailable"></app-track-open-order>
 <app-mobile-tabs class="mobile-tabs mobileView"></app-mobile-tabs>

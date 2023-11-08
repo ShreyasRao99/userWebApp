@@ -40,7 +40,7 @@ export class MyHelpComponent implements OnInit {
     if (this.userProfile) {
       const subject = `${this.userProfile.userName} - ${this.userProfile.phoneNo}`;
       const body = '';
-      window.open(`mailto:contact@mealawe.com?subject=${subject}&body=${body}`);
+      window.open(`mailto:help@mealawe.com?subject=${subject}&body=${body}`);
     }
   }
 

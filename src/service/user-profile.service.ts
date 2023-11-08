@@ -35,10 +35,8 @@ export class UserProfileService {
     }
 
     getSavedAddress(currentLocation:any){
-        const userProfile = this.localStorageService.getCacheData('USER_PROFILE'); 
-        console.log(userProfile)
+        const userProfile = this.localStorageService.getCacheData('USER_PROFILE');
         let finalLocation = currentLocation;
-        console.log(finalLocation)
         if(userProfile && userProfile._id){
             if( userProfile.addressList && userProfile.addressList.length > 0){                
                 if(currentLocation && currentLocation.geolocation){

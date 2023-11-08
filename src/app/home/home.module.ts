@@ -18,6 +18,7 @@ import { TrackOpenOrderComponent } from '../track-open-order/track-open-order.co
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { MobileLoaderComponent } from '../mobile-loader/mobile-loader.component';
 import { DesktopLoaderComponent } from '../desktop-loader/desktop-loader.component';
+import { ScrollTopModule } from '../scroll-top/scroll-top.module';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { DesktopLoaderComponent } from '../desktop-loader/desktop-loader.compone
     HeaderModule,
     FooterModule,
     MobileTabsModule,
-    NgxSkeletonLoaderModule
+    NgxSkeletonLoaderModule,
+    ScrollTopModule
   ]
 })
 export class HomeModule { }

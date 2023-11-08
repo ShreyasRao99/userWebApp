@@ -213,12 +213,13 @@ export class CartComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userProfile = this.localStorageService.getCacheData('USER_PROFILE');
-    console.log(this.userProfile)
+    // console.log(this.userProfile)
     const cartObj = this.cartManagementService.getCart();
     this.checkUserLoginProfile();
     this.getDBTimeSlots();
     this.validateDailyTimings();
     this.updateCart(cartObj);
+    console.log(this.cartObj)
     this.setCurrentLocation();
     this.createProfileForm();
     this.referralCodeVerify();
@@ -347,11 +348,9 @@ export class CartComponent implements OnInit, OnDestroy {
 
   async setCurrentLocation() {
     const currentStorageLocation = this.localStorageService.getCacheData('CURRENT_LOCATION');
-    console.log()
-    console.log(currentStorageLocation)
     if (currentStorageLocation) {
       const formatedAddess = this.userProfileService.getSavedAddress(currentStorageLocation);
-      console.log(formatedAddess)
+      // console.log(formatedAddess)
       this.customerLocation = { ...formatedAddess };
       let address = '';
       if (formatedAddess.address && formatedAddess.landmark) {
@@ -364,7 +363,6 @@ export class CartComponent implements OnInit, OnDestroy {
       const landmark = formatedAddess.landmark ? `, Landmark: ${formatedAddess.landmark}, ` : '';
       this.addressSelected = formatedAddess.location ? `${address ? address : ''}${formatedAddess.location}${landmark}` : `${address}${landmark}`;
       this.tagLocation = formatedAddess.tagLocation;
-      console.log(this.customerLocation)
       if (this.cartObj && this.cartObj.kitchen && this.cartObj.kitchen.geolocation) {
         // this.cartObj.kitchen = await this.googleMapService.getKitchenDistance(this.cartObj.kitchen, formatedAddess.geolocation, true);
         const kitchenList = await this.googleMapService.getKitchenGoogleDistance([this.cartObj.kitchen], formatedAddess.geolocation);
@@ -1928,7 +1926,11 @@ export class CartComponent implements OnInit, OnDestroy {
     this.orderComplitionTime = new Date(value);
   }
   subOrderDateChanged(value: any) {
-    this.subscriptionStartDate = new Date(value.getTime() - value.getTimezoneOffset() * 60000).toISOString();
+    let date = new Date(value.getTime() - value.getTimezoneOffset() * 60000).toISOString();
+    setTimeout(() => {
+      this.subscriptionStartDate = date
+    }, 500);
+    
   }
   multiSubOrderDateChanged(subscriptionDays: any) {
     if (this.selectedDates) {
@@ -2016,8 +2018,9 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   async showMessage(message: any) {
+    console.log(message)
     setTimeout(() => {
-      this.confirmationModalService.modal(`${message}`,
+      this.confirmationModalService.modal({data:message, type:2},
         () => console.log(''), this);
     }, 100);
 
@@ -2094,9 +2097,10 @@ export class CartComponent implements OnInit, OnDestroy {
       // const msg = `Kindly add &#8377;${differenceAmt} to avail this coupon`;
       const msg = `Kindly add Rs.${differenceAmt} to avail this coupon`;
       this.showMessage(msg);
-    } else {
-      this.validateAndApplyVoucher(offer, true);
-    }
+    } 
+    // else {
+    //   this.validateAndApplyVoucher(offer, true);
+    // }
     this.selectedCoupon = offer;
     if (this.selectedCoupon.type === 'voucher') {
       this.validateAndApplyVoucher(offer, true);

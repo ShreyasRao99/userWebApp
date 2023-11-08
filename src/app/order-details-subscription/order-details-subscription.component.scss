@@ -127,7 +127,7 @@
     background: url('~/src/assets/orderdetails/orderdetailBG.svg');
     background-repeat: no-repeat !important;
     background-size: 74px !important;
-    background-position: 202px 5px !important;
+    background-position: 80% 5px !important;
 }
 .totalBillAmout{
     padding: 2px 0px;
@@ -241,4 +241,10 @@
 .arrowback {
     margin-bottom:1%;
     width: 25px;
+}
+
+@media only screen and (min-width:600px) and (max-width:820px){
+    .orderBG{
+        background-position:90% 5px !important;
+    }
 }

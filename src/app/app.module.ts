@@ -20,6 +20,7 @@ import { KitchenFiltersModule } from './kitchen-filters/kitchen-filters.module';
 import { AccountComponent } from './account/account.component';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { MobileTabsModule } from './mobile-header/mobile-tabs.module';
+import { ScrollTopModule } from './scroll-top/scroll-top.module';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { MobileTabsModule } from './mobile-header/mobile-tabs.module';
     HeaderModule,
     KitchenFiltersModule,
     NgOtpInputModule,
-    MobileTabsModule
+    MobileTabsModule,
+    ScrollTopModule
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
   providers: [],

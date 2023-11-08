@@ -48,8 +48,8 @@
             </div>
         </div>
     </div>
-    
 </div>
+<app-scroll-top *ngIf="windowScrolled" class="scroll-top-btn" (scroll)="scrollToTop($event)"></app-scroll-top>
 <ng-template #filterModal let-modal>
     <app-kitchen-filters [props]="filterProps" (filters)="checkFilters($event)"></app-kitchen-filters>
 </ng-template>

@@ -28,6 +28,7 @@
         </div>
     </div>
 </div>
+<app-scroll-top *ngIf="windowScrolled" class="scroll-top-btn" (scroll)="scrollToTop($event)"></app-scroll-top>
 <!-- <ng-template #popContent>
     <div *ngFor="let item of linkList" [ngClass]="{popoverSelection:selectedDiv === item.label}"
         (click)="selectedSection(item)" class="pointer left-section-div"

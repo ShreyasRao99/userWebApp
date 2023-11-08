@@ -8,10 +8,10 @@
         <div class="px-1">
             <span *ngFor="let addon of addOns.addOnList">
                 <div class="row addons-wrapper" *ngIf="addon.addOnAvailable">
-                    <div class="col-4">
-                        <img *ngIf="addon.imageUrl" [src]="imageUrl+addon.imageUrl" class="addonImg">
+                    <div class="col-2">
+                        <img *ngIf="addon.imageUrl" [src]="imageUrl+addon.imageUrl" class="addonImg img-fluid">
                     </div>
-                    <div class="col-5">
+                    <div class="col-7">
                         <div class="header4">{{addon.addOnName}} | &#8377;
                             <!-- <span class="crossPrice" 
                             *ngIf="addon.addOnMaxPrice && addon.addOnMaxPrice > addon.addOnPrice">{{addon.addOnMaxPrice}}</span> -->

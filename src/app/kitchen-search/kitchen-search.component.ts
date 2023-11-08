@@ -28,7 +28,14 @@ export class KitchenSearchComponent implements OnInit, OnDestroy {
         this.showloader = true;
       };
     }
+    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight * 0.5){
+      this.windowScrolled = true
+    }
+    else{
+      this.windowScrolled = false
+    }
   }
+  windowScrolled = false
   filterProps: any;
   modalReference: any;
   scrolled = false;
@@ -140,6 +147,13 @@ export class KitchenSearchComponent implements OnInit, OnDestroy {
         console.log('error while reload ', error)
       }
     });
+  }
+
+  scrollToTop(event:any){
+    console.log(event)
+    if(event){
+      window.scrollTo(0, 0);
+    }
   }
 
   goBack(){

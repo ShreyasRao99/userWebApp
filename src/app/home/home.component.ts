@@ -18,9 +18,9 @@ export class HomeComponent implements OnInit {
   @ViewChild('skeletonDiv') skeletonDiv!: ElementRef<any>;
   @HostListener("window:scroll", [])
   onScroll(): void {
-    const element = this.skeletonDiv.nativeElement.getBoundingClientRect()
-    const topShown = element.top >= 0;
-    const bottomShown = element.bottom <= window.innerHeight;
+    const element = this.skeletonDiv?.nativeElement.getBoundingClientRect()
+    const topShown = element?.top >= 0;
+    const bottomShown = element?.bottom <= window.innerHeight;
     if (topShown && bottomShown) {
       if (!this.scrolled) {
         this.scrolled = true;
@@ -30,7 +30,14 @@ export class HomeComponent implements OnInit {
         }
       };
     }
+    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight * 0.5){
+      this.windowScrolled = true
+    }
+    else{
+      this.windowScrolled = false
+    }
   }
+  windowScrolled = false;
   currentGeoLocation: any;
   serviceAvailable!: boolean;
   kitchenList: any[] = [];
@@ -146,5 +153,10 @@ export class HomeComponent implements OnInit {
     this.scrollableContent.nativeElement.scrollTo({ left: (this.scrollableContent.nativeElement.scrollLeft - 500), behavior: 'smooth' });
   }
 
-
+  scrollToTop(event:any){
+    console.log(event)
+    if(event){
+      window.scrollTo(0, 0);
+    }
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiMainService } from 'src/service/apiService/api-main.service';
 import { CartManagementService } from 'src/service/cart-management.service';
@@ -11,6 +11,16 @@ import { ConfirmationModalService } from '../confirmation-modal/confirmation-mod
   styleUrls: ['./my-account.component.scss']
 })
 export class MyAccountComponent implements OnInit {
+  @HostListener("window:scroll", [])
+  onScroll(): void {
+    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight * 0.5){
+      this.windowScrolled = true
+    }
+    else{
+      this.windowScrolled = false
+    }
+  }
+  windowScrolled = false;
   userProfile: any;
   linkList: any = [
     { label: 'Orders', link: 'orders/pastOrder' },
@@ -53,5 +63,12 @@ export class MyAccountComponent implements OnInit {
 
   selectedSection(item:any){
     this.selectedDiv = item.label; 
+  }
+
+  scrollToTop(event:any){
+    console.log(event)
+    if(event){
+      window.scrollTo(0, 0);
+    }
   }
 }

@@ -170,9 +170,9 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
   goToHome(address: any) {
     // this.sendDataToComponent.publish('ADDRESS_FROM_DELIVERY', address)
     this.utilityService.configureCurrentLocation(address);
-    // setTimeout(() => {
+    setTimeout(() => {
       this.router.navigate(['/home'])
-    // }, 300);
+    }, 300);
   }
 
   findMyAddress(input: HTMLInputElement) {
