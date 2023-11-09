@@ -60,7 +60,7 @@
                     </div>
                     <div class="col-12 mt-5 payment" *ngIf="saveCurrentLocation">
                       <div class="cartGrayHead">Choose payment method</div>
-                      <button class="btn btn-danger mt-4" (click)="checkUserProfile()">PROCEED TO PAY</button>
+                      <button class="btn btn-danger mt-4 pay" (click)="checkUserProfile()">PROCEED TO PAY</button>
                     </div>
                   </ng-container>
                 </div>
@@ -368,7 +368,7 @@
                     <div class="header5 grey receipt3 receipt-parent">
                       <div class="left-div">Sub Total</div>
                       <div class="right-div dark">&#8377;
-                        <span class="lineThrough" *ngIf="mealaweItemDiscount">{{mealaweTotalAmt}}</span>
+                        <span *ngIf="mealaweItemDiscount">{{mealaweTotalAmt}}</span>
                         {{mealaweTotalAmt - mealaweItemDiscount}}
                       </div>
                     </div>

@@ -8,7 +8,8 @@
                         <div *ngFor="let item of linkList" [ngClass]="{activatedDiv:selectedDiv === item.label}"
                             (click)="selectedSection(item)" class="pointer left-section-div" [routerLink]="item.link">
                             {{item.label}}</div>
-                        <div class="left-section-div pointer" (click)="logoutPopup()">Log Out</div>
+                        <div *ngIf="userProfile" class="left-section-div pointer" (click)="logoutPopup()">Log Out</div>
+                        <div *ngIf="!userProfile" class="left-section-div pointer" data-bs-toggle="offcanvas" data-bs-target="#login">Sign In</div>
                     </div>
                     <!-- <div class="mobile-selection">
                         <div class="left-div desktopView">

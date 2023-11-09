@@ -3,8 +3,8 @@
 // const  serverUrl = 'http://192.168.43.81:5000';
 // const  serverUrl = 'http://192.168.1.119:5000';
 // const  serverUrl = 'http://192.168.1.6:5000';
-// const  serverUrl = 'http://localhost:5000';
-  const  serverUrl = 'http://mealawelbstaging-486868523.ap-southeast-1.elb.amazonaws.com:5000';
+const  serverUrl = 'http://localhost:5000';
+  // const  serverUrl = 'http://mealawelbstaging-486868523.ap-southeast-1.elb.amazonaws.com:5000';
 // const  serverUrl = 'http://mealaweLBprod-527069479.ap-southeast-1.elb.amazonaws.com:5000';
 // const  serverUrl = 'https://aws-alb-prod.mealawe.com:5000'; 
 

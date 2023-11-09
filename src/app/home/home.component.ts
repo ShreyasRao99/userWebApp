@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
         }
       };
     }
-    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight * 0.5){
+    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight * 0.3){
       this.windowScrolled = true
     }
     else{

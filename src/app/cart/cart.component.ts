@@ -1270,7 +1270,7 @@ export class CartComponent implements OnInit, OnDestroy {
     this.packageTotalAmt = mealaweTotalAmt;
     this.discount = discount;
 
-    this.taxes = parseFloat((((mealaweTotalAmt + addonTotalAmt) / 100) * this.gstPercentage).toFixed(2));
+    this.taxes = parseFloat((((mealaweTotalAmt + addonTotalAmt - discount) / 100) * this.gstPercentage).toFixed(2));
 
 
     const maxMoneyWalletPointsAllowed = parseFloat((mealaweTotalAmt + addonTotalAmt + this.taxes - this.discount - this.voucherDiscount).toFixed(2));

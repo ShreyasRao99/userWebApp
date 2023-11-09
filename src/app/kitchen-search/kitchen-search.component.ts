@@ -28,7 +28,7 @@ export class KitchenSearchComponent implements OnInit, OnDestroy {
         this.showloader = true;
       };
     }
-    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight * 0.5){
+    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight * 0.3){
       this.windowScrolled = true
     }
     else{

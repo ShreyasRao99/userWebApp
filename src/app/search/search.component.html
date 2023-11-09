@@ -59,7 +59,7 @@
             on your filter</div>
         </div>
         <div *ngIf="selectedSearch==='dish'" class="bgTopDownpadding5">
-          <div *ngFor="let dish of filteredDishSearchResult  | sort : 'distance' ">
+          <div class="pointer" *ngFor="let dish of filteredDishSearchResult  | sort : 'distance' ">
             <app-item-card [item]="dish" [kitchenName]="dish.kitchenName" [kitchenId]="dish.kitchenId"
               [orderType]="dish.orderType" [screenFrom]="'searchPage'"
               (click)="goTokitchen(dish.kitchenId, dish.orderType, dish.itemName, dish.serveDaily)"></app-item-card>
@@ -83,7 +83,7 @@
         <div class="padding-10"
           *ngIf="dishSearchResult.length === 0 && kitchenSearchResult.length === 0 && recentSearches.length > 0">
           <div class="header3 bold">Recent Searches </div>
-          <div *ngFor="let recent of recentSearches" class="recentSearch grey mt-2"
+          <div *ngFor="let recent of recentSearches" class="recentSearch pointer grey mt-2"
             (click)="searchApiCall(recent, true)">{{recent}}</div>
         </div>
         <app-regional-items *ngIf="!searchText"></app-regional-items>

@@ -21,7 +21,7 @@ export class KitchenInsideComponent implements OnInit, OnDestroy {
   @ViewChild("filterModal") filterModal: any;
   @HostListener("window:scroll", [])
   onScroll(): void {
-    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight * 0.5){
+    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight * 0.3){
       this.windowScrolled = true
     }
     else{
@@ -608,6 +608,10 @@ export class KitchenInsideComponent implements OnInit, OnDestroy {
     if(event){
       window.scrollTo(0, 0);
     }
+  }
+
+  backToHome(){
+    this.router.navigate(['/home'])
   }
 
   ngOnDestroy(){

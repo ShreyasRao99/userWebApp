@@ -139,6 +139,7 @@
     font-weight: 900;
     font-size: 12px;
     padding-bottom: 5px;
+    margin-bottom:8px;
 }
 
 .offer2 {
@@ -276,4 +277,10 @@
     background: linear-gradient(256.63deg, #FC767C 1.68%, #EB5061 113.03%);
     border-radius: 10px;
     margin: 5% auto;
+}
+
+@media only screen and (max-width:600px){
+    .offer1{
+        margin-bottom:0;
+    }
 }

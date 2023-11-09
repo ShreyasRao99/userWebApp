@@ -396,6 +396,13 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     this.router.navigate(['/account'])
   }
 
+  setRecentLocation(recent:any){
+    this.utilityService.configureCurrentLocation(recent);
+    this.currentAddress = this.localStorageService.getCacheData('CURRENT_LOCATION')
+    this.sendDataToComponent.publish('ADDRESS_FROM_DELIVERY', this.currentAddress)
+    this.toggleCanvas()
+  }
+
   ngOnDestroy(){
     clearInterval(this.intervalCounter);
   }

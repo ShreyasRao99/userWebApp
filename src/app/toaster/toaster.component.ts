@@ -29,7 +29,7 @@ export class ToasterComponent{
             }
             this.timeoutCounter = setTimeout(()=>{
                 this.showToster = false;
-            },5000);
+            },50000);
         }        
     }
 

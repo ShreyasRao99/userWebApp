@@ -19,7 +19,7 @@ export class SubscriptionComponent implements OnInit {
   @ViewChild('scrollableContent', { read: ElementRef }) public scrollableContent!: ElementRef<any>;
   @HostListener("window:scroll", [])
   onScroll(): void {
-    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight * 0.5){
+    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight * 0.3){
       this.windowScrolled = true
     }
     else{
