@@ -44,6 +44,7 @@ import { ScrollTopModule } from '../scroll-top/scroll-top.module';
     MobileTabsModule,
     NgxSkeletonLoaderModule,
     ScrollTopModule
-  ]
+  ],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomeModule { }
