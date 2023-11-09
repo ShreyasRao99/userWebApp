@@ -7,7 +7,7 @@
             <!-- <div class="inline-table headerText">Meal Subscription Orders</div> -->
         </span>
     </div>
-    <div class="pageContent" data-bs-toggle="offcanvas" data-bs-target="#orders">
+    <div class="pageContent" (click)="openEnd(content)">
         <div class="listStyle" *ngFor="let order of pastOrderList | sort : 'orderDate' : -1"
             (click)="goToOrderPage(order)">
             <div *ngIf="order.orderType === 'subscriptionParent' ">
@@ -81,22 +81,11 @@
         </div>
     </div>
 </div>
-<div class="show-orders">
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="orders" aria-labelledby="offcanvasExampleLabel">
-        <button type="button" style="display:none;" #subscriptionOrders class="btn-close text-reset mt-3"
-            data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        <div class="offcanvas-div">
-            <div class="offcanvas-body">
-                <!-- <div class="container" *ngIf="!showMap"> -->
-                <!-- <div class="select-address" *ngIf="showMap"> -->
-                <div class="select-address">
-                    <button type="button" style="display:none;" class="btn-close text-reset" #mapCanvas
-                        data-bs-dismiss="offcanvas"></button>
-                    <app-order-details-subscription (back)="toggleCanvas()" [order]="order"></app-order-details-subscription>
-                    <!-- <app-set-delivery-location *ngIf="showMap"
-                  [showSkipButton]="showSkipButton"></app-set-delivery-location> -->
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<ng-template class="offcanvas" #content let-offcanvas>
+	<div class="offcanvas-header">
+		<button type="button" class="mt-3" style="display:none;" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
+	</div>
+	<div class="offcanvas-body">
+		<app-order-details-subscription (back)="toggleCanvas()" [order]="order"></app-order-details-subscription>
+	</div>
+</ng-template>

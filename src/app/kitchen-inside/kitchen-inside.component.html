@@ -326,6 +326,7 @@
     </div>
     <!-- <app-footer></app-footer> -->
 </div>
+<app-scroll-top *ngIf="windowScrolled" class="scroll-top-btn" (scroll)="scrollToTop($event)"></app-scroll-top>
 <!-- <app-cart-footer class="positionBottom" (viewCart)="addAddons()" [insideKitchenId]="kitchen._id"></app-cart-footer> -->
 <ng-template #menuModal let-modal>
     <app-kitchen-menu-popup [groupList]="componentProps"

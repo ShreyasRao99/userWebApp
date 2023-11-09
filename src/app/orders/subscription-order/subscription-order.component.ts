@@ -1,8 +1,9 @@
-import { Component, OnInit, ElementRef, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, HostListener, TemplateRef } from '@angular/core';
 import { orderStatusMapper } from 'src/config/order-status.config';
 import { environment } from 'src/environments/environment';
 import { ApiMainService } from 'src/service/apiService/api-main.service';
 import { LocalStorageService } from 'src/service/local-storage.service';
+import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-subscription-order',
@@ -10,7 +11,6 @@ import { LocalStorageService } from 'src/service/local-storage.service';
   styleUrls: ['./subscription-order.component.scss']
 })
 export class SubscriptionOrderComponent implements OnInit {
-  @ViewChild('subscriptionOrders') subscriptionOrders!:ElementRef<any>;
   @HostListener("window:scroll", [])
   onScroll(): void {
     if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight * .90)) {
@@ -34,7 +34,7 @@ export class SubscriptionOrderComponent implements OnInit {
   order: any;
   scrolled = false;
 
-  constructor(private apiMainService:ApiMainService, private localStorageService:LocalStorageService){}
+  constructor(private apiMainService:ApiMainService, private offcanvasService: NgbOffcanvas, private localStorageService:LocalStorageService){}
 
   ngOnInit(): void {
     this.userProfile = this.localStorageService.getCacheData('USER_PROFILE');  
@@ -75,23 +75,12 @@ export class SubscriptionOrderComponent implements OnInit {
     // this.navCtrl.pop();
   }
 
+  openEnd(content: TemplateRef<any>) {
+		this.offcanvasService.open(content, { position: 'end' });
+	}
+
   async goToOrderPage(val:any){
-    this.order = val
-    // try{
-    //   const modal = await this.modalController.create({
-    //     component: OrderDetailsSubscriptionComponent,
-    //     componentProps: {order}
-    //   });
-    //   modal.onDidDismiss().then((event: any) => {
-    //     const data = event.data;
-    //     if (data && data.order){
-    //       this.updateSelectedOrder(data.order);
-    //     }
-    //   });
-    //   return await modal.present();
-    // }catch(error){
-    //   console.log('Error while fetching goToOrderPage ',error);
-    // }    
+    this.order = val   
   }
 
   updateSelectedOrder(order:any){
@@ -104,7 +93,7 @@ export class SubscriptionOrderComponent implements OnInit {
   }
 
   toggleCanvas(){
-    let el = this.subscriptionOrders.nativeElement;
-    el.click();
+    this.offcanvasService.dismiss()
   }
+  
 }

@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { CartManagementService } from 'src/service/cart-management.service';
 import { LocalStorageService } from 'src/service/local-storage.service';
+import { RuntimeStorageService } from 'src/service/runtime-storage.service';
 import { SendDataToComponent } from 'src/service/sendDataToComponent';
 
 @Component({
@@ -13,13 +14,13 @@ export class MobileTabsComponent implements OnInit, OnDestroy {
   itemCount=0;
   selectedTab: any;
 
-  constructor(private localStorageService:LocalStorageService, private cdRef:ChangeDetectorRef, private cartManagementService:CartManagementService, private sendDataToComponent:SendDataToComponent){}
+  constructor(private localStorageService:LocalStorageService, private runtimeStorage:RuntimeStorageService, private cartManagementService:CartManagementService, private sendDataToComponent:SendDataToComponent){}
   ngOnDestroy(): void {
     this.sendDataToComponent.unsubscribe('UPDATE_CART_TABS')
   }
-
+ 
   ngOnInit(): void {
-    this.currentRoute = this.localStorageService.getCacheData('CURRENT_ROUTE');
+    this.currentRoute = this.runtimeStorage.getCacheData('CURRENT_ROUTE');
     this.itemCount = this.localStorageService.getCacheData('CART_ITEM_COUNT')
     this.subscribeEvents()
   }

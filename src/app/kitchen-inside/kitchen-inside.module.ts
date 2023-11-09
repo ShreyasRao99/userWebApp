@@ -13,6 +13,7 @@ import { AddonPopupComponent } from '../addon-popup/addon-popup.component';
 import { KitchenFiltersModule } from '../kitchen-filters/kitchen-filters.module';
 import { FooterModule } from '../footer/footer.module';
 import { FormsModule } from '@angular/forms';
+import { ScrollTopModule } from '../scroll-top/scroll-top.module';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { FormsModule } from '@angular/forms';
     HeaderModule,
     FooterModule,
     KitchenFiltersModule,
-    FormsModule
+    FormsModule,
+    ScrollTopModule
   ]
 })
 export class KitchenInsideModule { }

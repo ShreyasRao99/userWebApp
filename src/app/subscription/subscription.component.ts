@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { GoogleMapService } from 'src/service/google-map.service';
 import { LocalStorageService } from 'src/service/local-storage.service';
 import { RuntimeStorageService } from 'src/service/runtime-storage.service';
@@ -17,6 +17,16 @@ import { Router } from '@angular/router';
 })
 export class SubscriptionComponent implements OnInit {
   @ViewChild('scrollableContent', { read: ElementRef }) public scrollableContent!: ElementRef<any>;
+  @HostListener("window:scroll", [])
+  onScroll(): void {
+    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight * 0.5){
+      this.windowScrolled = true
+    }
+    else{
+      this.windowScrolled = false
+    }
+  }
+  windowScrolled = false;
   imageUrl = environment.imageUrl;
   packageCategory:any;
   cartPackageCategory:any; 
@@ -290,6 +300,13 @@ export class SubscriptionComponent implements OnInit {
   scrollRight(){
     console.log(this.scrollableContent.nativeElement.scrollLeft)
     this.scrollableContent.nativeElement.scrollTo({ left: (this.scrollableContent.nativeElement.scrollLeft - 500), behavior: 'smooth' });
+  }
+
+  scrollToTop(event:any){
+    console.log(event)
+    if(event){
+      window.scrollTo(0, 0);
+    }
   }
 
 }

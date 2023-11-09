@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 import { GoogleMapService } from 'src/service/google-map.service';
 import { LocalStorageService } from 'src/service/local-storage.service';
+import { RuntimeStorageService } from 'src/service/runtime-storage.service';
 import { SendDataToComponent } from 'src/service/sendDataToComponent';
 import { register } from 'swiper/element/bundle';
 
@@ -14,7 +15,7 @@ export class AppComponent implements OnInit {
   currentRoute: string;
   routeChangeCount: number = 0;
 
-  constructor(private googleMapService: GoogleMapService, private router:Router, private localStorageService:LocalStorageService){
+  constructor(private googleMapService: GoogleMapService, private runtimeStorage:RuntimeStorageService, private router:Router, private localStorageService:LocalStorageService){
     this.currentRoute = "";
 
     this.router.events.subscribe((event: any) => {
@@ -27,15 +28,13 @@ export class AppComponent implements OnInit {
         // Hide loading indicator
         //make rune time
         this.currentRoute = event.url;
-        this.localStorageService.setCacheData('CURRENT_ROUTE',event.url)     
-        if(event.url !== '/' && this.routeChangeCount === 0){
+        this.runtimeStorage.setCacheData('CURRENT_ROUTE',event.url)     
+        if((event.url !== '/' && event.url !== '/home') && this.routeChangeCount === 0){
           this.router.navigate(['/'])
         }
         else{
           this.routeChangeCount++
         }
-          console.log(event);
-          console.log(this.routeChangeCount)
     }
 
     if (event instanceof NavigationError) {

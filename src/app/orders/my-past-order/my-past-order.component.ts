@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostListener, TemplateRef } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { LocalStorageService } from 'src/service/local-storage.service';
 import { orderStatusMapper } from 'src/config/order-status.config';
 import { ApiMainService } from 'src/service/apiService/api-main.service';
+import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-my-past-order',
@@ -11,7 +12,6 @@ import { ApiMainService } from 'src/service/apiService/api-main.service';
 })
 export class MyPastOrderComponent implements OnInit {
   @ViewChild('pastOrdersListEndDiv') pastOrdersListEndDiv!: ElementRef;
-  @ViewChild('orderDetails') orderDetails!: ElementRef;
   @HostListener("window:scroll", [])
   onScroll(): void {
     if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight * .90)) {
@@ -36,10 +36,9 @@ export class MyPastOrderComponent implements OnInit {
   showOrders: boolean  = false;
   scrolled = false;
 
-  constructor(private localStorageService: LocalStorageService, private apiMainService:ApiMainService) { }
+  constructor(private localStorageService: LocalStorageService, private apiMainService:ApiMainService, private offcanvasService: NgbOffcanvas) { }
 
   ngOnInit(): void {
-    console.log(this.orderDetails)
     this.userProfile = this.localStorageService.getCacheData('USER_PROFILE');
     if (this.userProfile && this.userProfile._id) {
       this.getPastOrder();
@@ -73,10 +72,13 @@ export class MyPastOrderComponent implements OnInit {
       return listOrder;
     });
   }
+
+  openEnd(content: TemplateRef<any>) {
+		this.offcanvasService.open(content, { position: 'end' });
+	}
   
   toggleCanvas(){
-    let el = this.orderDetails.nativeElement;
-    el.click();
+    this.offcanvasService.dismiss()
   }
 
   goToOrderPage(val:any){

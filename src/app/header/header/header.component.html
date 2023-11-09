@@ -33,7 +33,7 @@
                 </li>
                 <li class="nav-item cart">
                     <a class="nav-link" routerLinkActive="active-link" routerLink="/cart">Cart</a>
-                    <div class="cartCount" *ngIf="itemCount>0">{{itemCount}}</div>
+                    <div class="cartCount" *ngIf="itemCount>0 && currentRoute !== '/cart'">{{itemCount}}</div>
                 </li>
                 <!-- <li class="nav-item" *ngIf="userProfile">
                     <a class="nav-link" (click)="logOut()">Log Out</a>

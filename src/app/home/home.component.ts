@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostListener, ChangeDetectorRef } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ApiMainService } from 'src/service/apiService/api-main.service';
 import { GoogleMapService } from 'src/service/google-map.service';
@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
   showloader: boolean = true;
   scrolled = false;
 
-  constructor(private apiMainService: ApiMainService, private router: Router, private utilityService: UtilityService, private sendDataToComponent: SendDataToComponent, private localStorageService: LocalStorageService, private googleMapService: GoogleMapService) {
+  constructor(private apiMainService: ApiMainService, private cdRef:ChangeDetectorRef, private router: Router, private utilityService: UtilityService, private sendDataToComponent: SendDataToComponent, private localStorageService: LocalStorageService, private googleMapService: GoogleMapService) {
   }
 
   ngOnInit(): void {
@@ -64,8 +64,8 @@ export class HomeComponent implements OnInit {
 
   susbcribeEvents() {
     this.sendDataToComponent.subscribe('ADDRESS_FROM_DELIVERY', (address) => {
-      console.log(address)
-      if (address) {
+      console.log(address.geolocation)
+      if (address.geolocation) {
         this.showMap = false;
         // this.toggleCanvas()
         this.utilityService.configureCurrentLocation(address)
@@ -86,6 +86,7 @@ export class HomeComponent implements OnInit {
         this.paginationOver = false;
         this.pageNumber = 1;
         this.getKitchenList(clusterList, true);
+        this.cdRef.detectChanges()
         // this.loadKitchenDeepLink();       
       } else {
         this.serviceAvailable = false;

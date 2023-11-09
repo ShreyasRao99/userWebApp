@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 // import { AlertController } from '@ionic/angular';
 import { ToasterService } from 'src/app/toaster/toaster.service';
 import { ConfirmationModalService } from 'src/app/confirmation-modal/confirmation-modal.service';
+import { RuntimeStorageService } from './runtime-storage.service';
 
 
 @Injectable({
@@ -14,6 +15,7 @@ export class CartManagementService {
     constructor(private localStorageService: LocalStorageService,
         private sendDataToComponent: SendDataToComponent,
         private confirmationModalService: ConfirmationModalService,
+        private runtimeService:RuntimeStorageService,
         // private alertController: AlertController,
         private toasterService: ToasterService) {
         const cart = this.localStorageService.getCacheData('USER_CART');
@@ -49,6 +51,7 @@ export class CartManagementService {
             specialMenuPresent: false,
             deliveryDate: new Date()
         };
+        this.runtimeService.resetCacheData('CART_ITEM_COUNT')
         this.localStorageService.setCacheData('USER_CART', this.cartObj);
     }
 

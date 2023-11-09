@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiMainService } from 'src/service/apiService/api-main.service';
 import { CartManagementService } from 'src/service/cart-management.service';
@@ -19,6 +19,16 @@ export class KitchenInsideComponent implements OnInit, OnDestroy {
   @ViewChild("menuModal") menuModal: any;
   @ViewChild("addonsModal") addonsModal: any;
   @ViewChild("filterModal") filterModal: any;
+  @HostListener("window:scroll", [])
+  onScroll(): void {
+    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight * 0.5){
+      this.windowScrolled = true
+    }
+    else{
+      this.windowScrolled = false
+    }
+  }
+  windowScrolled = false;
   kitchen: any = {};
   favKitchen = false;
   noTodaysMenu = false;
@@ -590,6 +600,13 @@ export class KitchenInsideComponent implements OnInit, OnDestroy {
       this.favouriteManagementService.addfavourites(this.kitchen._id);
     }else{
       this.favouriteManagementService.removefavourites(this.kitchen._id);
+    }
+  }
+
+  scrollToTop(event:any){
+    console.log(event)
+    if(event){
+      window.scrollTo(0, 0);
     }
   }
 

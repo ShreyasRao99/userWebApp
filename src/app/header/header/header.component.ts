@@ -7,6 +7,7 @@ import { CartManagementService } from 'src/service/cart-management.service';
 import { FavouriteManagementService } from 'src/service/favourite-management.service';
 import { GoogleMapService } from 'src/service/google-map.service';
 import { LocalStorageService } from 'src/service/local-storage.service';
+import { RuntimeStorageService } from 'src/service/runtime-storage.service';
 import { SendDataToComponent } from 'src/service/sendDataToComponent';
 import { UserProfileService } from 'src/service/user-profile.service';
 import { UtilityService } from 'src/service/utility.service';
@@ -53,8 +54,9 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   accountExistsMsg: any = '';
   tagLocation: any = '';
   cashbackBalance: any = 0;
+  currentRoute:any;
 
-  constructor(private localStorageService: LocalStorageService, private userProfileService: UserProfileService, private cdRef: ChangeDetectorRef, private webPageService: WebPageService, private favouriteManagementService: FavouriteManagementService, private fb: FormBuilder, private cartManagementService: CartManagementService, private sendDataToComponent: SendDataToComponent, private router: Router, private apiMainService: ApiMainService, private googleMapService: GoogleMapService, private utilityService: UtilityService) {
+  constructor(private localStorageService: LocalStorageService, private runtimeStorage:RuntimeStorageService, private userProfileService: UserProfileService, private cdRef: ChangeDetectorRef, private webPageService: WebPageService, private favouriteManagementService: FavouriteManagementService, private fb: FormBuilder, private cartManagementService: CartManagementService, private sendDataToComponent: SendDataToComponent, private router: Router, private apiMainService: ApiMainService, private googleMapService: GoogleMapService, private utilityService: UtilityService) {
     this.mapId += Math.ceil(Math.random() * 1000)
   }
   ngAfterViewInit(): void {
@@ -69,6 +71,8 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
       userName: [''],
       email: ['']
     })
+    this.itemCount = this.localStorageService.getCacheData('CART_ITEM_COUNT');
+    this.currentRoute = this.runtimeStorage.getCacheData('CURRENT_ROUTE');
     this.getMealaweWalletBalance(); 
     this.subscribeEvents();
   }
@@ -78,6 +82,8 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     this.sendDataToComponent.subscribe('UPDATE_CART_TABS', (cartObj) => {
       if (cartObj) {
         this.itemCount = this.cartManagementService.getItemCount();
+        this.localStorageService.setCacheData('CART_ITEM_COUNT', this.itemCount)
+        console.log(this.itemCount)
       }
     });
 

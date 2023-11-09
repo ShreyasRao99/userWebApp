@@ -7,7 +7,7 @@ import { HeaderModule } from '../header/header.module';
 import { FormsModule } from '@angular/forms';
 import { FooterModule } from '../footer/footer.module';
 import { MobileTabsModule } from '../mobile-header/mobile-tabs.module';
-
+import { ScrollTopModule } from '../scroll-top/scroll-top.module';
 
 
 @NgModule({
@@ -21,7 +21,8 @@ import { MobileTabsModule } from '../mobile-header/mobile-tabs.module';
     HeaderModule,
     FormsModule,
     FooterModule,
-    MobileTabsModule
+    MobileTabsModule,
+    ScrollTopModule
   ]
 })
 export class SubscriptionModule { }

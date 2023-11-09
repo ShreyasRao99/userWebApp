@@ -1926,11 +1926,13 @@ export class CartComponent implements OnInit, OnDestroy {
     this.orderComplitionTime = new Date(value);
   }
   subOrderDateChanged(value: any) {
+    console.log(value)
     let date = new Date(value.getTime() - value.getTimezoneOffset() * 60000).toISOString();
+    console.log(date)
     setTimeout(() => {
       this.subscriptionStartDate = date
     }, 500);
-    
+    console.log(this.subscriptionStartDate)
   }
   multiSubOrderDateChanged(subscriptionDays: any) {
     if (this.selectedDates) {
